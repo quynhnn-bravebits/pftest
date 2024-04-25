@@ -1,0 +1,10 @@
+{
+   "name": "Jenkins",
+   "type": "jenkins",
+   "url": "https://pftesting.com",
+   "buildOrder": 1,
+   "buildName": "Allure Report Customize",
+   "buildUrl": "https://pftesting.com",
+   "reportUrl": "https://pftesting.com",
+   "reportName": "Allure Report Customize"
+}
