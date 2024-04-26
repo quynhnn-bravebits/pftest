@@ -16,6 +16,7 @@ public class FrameworkConstants {
     }
 
     public static final String PROJECT_PATH = Helpers.getCurrentDir();
+    public static final String APP_IFRAME = PropertiesHelpers.getValue("APP_IFRAME");
 
     public static final int WAIT_DEFAULT = Integer.parseInt(PropertiesHelpers.getValue("WAIT_DEFAULT"));
     public static final int WAIT_IMPLICIT = Integer.parseInt(PropertiesHelpers.getValue("WAIT_IMPLICIT"));
@@ -41,6 +42,9 @@ public class FrameworkConstants {
     public static final String EXPORT_CAPTURE_PATH = PropertiesHelpers.getValue("EXPORT_CAPTURE_PATH");
     public static final String VIDEO_RECORD = PropertiesHelpers.getValue("VIDEO_RECORD");
 
+    public static final String USER_DATA_DIR = PropertiesHelpers.getValue("USER_DATA_DIR");
+    public static final String PROFILE_DIRECTORY = PropertiesHelpers.getValue("PROFILE_DIRECTORY");
+    public static final String BROWSER_BINARY = PropertiesHelpers.getValue("BROWSER_BINARY");
 
     public static final String EXTENT_REPORT_FOLDER_PATH = PROJECT_PATH + EXTENT_REPORT_FOLDER;
     public static final String EXTENT_REPORT_FILE_NAME = EXTENT_REPORT_NAME + ".html";

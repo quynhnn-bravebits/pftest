@@ -6,6 +6,7 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.safari.SafariDriver;
 import org.openqa.selenium.safari.SafariOptions;
+import org.pftest.constants.FrameworkConstants;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -13,16 +14,11 @@ import java.util.Map;
 public enum BrowserFactory {
     CHROME {
         public WebDriver createDriver() {
-            return new ChromeDriver();
+            return new ChromeDriver(getOptions());
         }
 
         public ChromeOptions getOptions() {
-            ChromeOptions options = new ChromeOptions();
-            options.addArguments("--disable-extensions");
-            options.addArguments("--disable-infobars");
-            options.addArguments("--disable-notifications");
-            options.addArguments("--remote-allow-origins=*");
-            options.setAcceptInsecureCerts(true);
+            ChromeOptions options = getChromeOptions();
 
             Map<String, Object> prefs = new HashMap<String, Object>();
             prefs.put("profile.default_content_setting_values.notifications", 2);
@@ -31,6 +27,21 @@ public enum BrowserFactory {
             prefs.put("autofill.profile_enabled", false);
             options.setExperimentalOption("prefs", prefs);
 
+            return options;
+        }
+
+        private static ChromeOptions getChromeOptions() {
+            ChromeOptions options = new ChromeOptions();
+
+//            options.setBinary(FrameworkConstants.BROWSER_BINARY);
+            options.addArguments("--user-data-dir=" + FrameworkConstants.USER_DATA_DIR);
+//            options.addArguments("--profile-directory=" + FrameworkConstants.PROFILE_DIRECTORY);
+            options.addArguments("--disable-extensions");
+            options.addArguments("--disable-infobars");
+            options.addArguments("--disable-notifications");
+            options.addArguments("--remote-allow-origins=*");
+
+            options.setAcceptInsecureCerts(true);
             return options;
         }
     },

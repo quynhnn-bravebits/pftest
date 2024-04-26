@@ -1,8 +1,3 @@
-/*
- * Copyright (c) 2022 Anh Tester
- * Automation Framework Selenium
- */
-
 package org.pftest.keywords;
 
 import org.pftest.constants.FrameworkConstants;
@@ -3207,6 +3202,7 @@ public class WebUI {
             //Wait for Javascript to load
             try {
                 wait.until(jsLoad);
+                wait.until(ExpectedConditions.frameToBeAvailableAndSwitchToIt(FrameworkConstants.APP_IFRAME));
             } catch (Throwable error) {
                 error.printStackTrace();
                 Assert.fail("Timeout waiting for page load. (" + FrameworkConstants.WAIT_PAGE_LOADED + "s)");
@@ -3233,6 +3229,7 @@ public class WebUI {
             //Wait for Javascript to load
             try {
                 wait.until(jsLoad);
+                wait.until(ExpectedConditions.frameToBeAvailableAndSwitchToIt("app-iframe"));
             } catch (Throwable error) {
                 error.printStackTrace();
                 Assert.fail("Timeout waiting for page load. (" + FrameworkConstants.WAIT_PAGE_LOADED + "s)");

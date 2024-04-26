@@ -1,6 +1,7 @@
 package org.pftest.projects.pages.pages;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.Keys;
 import org.pftest.projects.CommonPage;
 
 import java.util.UUID;
@@ -14,10 +15,13 @@ public class EditorPage extends CommonPage {
     private By editorDnd = By.id("editor-dnd-wrapper");
     private By pageTitle = By.id("editor-header-bar--page-title");
 
-//    public void openHomePage() {
-//        String URL = "https://admin.shopify.com/store/quynhquynhiee/apps/rc-pagefly-1/editor?type=home&id=" + UUID.randomUUID();
-//        openWebsite(URL);
-//    }
+    public void openHomePage() {
+        String URL = "https://admin.shopify.com/store/quynhquynhiee/apps/pageflybackend-9/editor?type=home&id=" + UUID.randomUUID();
+        openWebsite(URL);
+        clickElement(pageTitle);
+        clearAndFillText(pageTitle, "Home Page");
+        sendKeys(Keys.ENTER);
+    }
 
 
     public void changePageTitle (String title) {

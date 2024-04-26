@@ -1,17 +1,16 @@
 package org.pftest.projects;
 
 import org.openqa.selenium.By;
-import org.pftest.projects.pages.pages.AdminShopifyPage;
 import org.pftest.projects.pages.pages.EditorPage;
 
 public class CommonPage {
     private By portalContainer = By.id("PolarisPortalsContainer");
 
-    private AdminShopifyPage editorPage;
+    private EditorPage editorPage;
 
-    public AdminShopifyPage getEditorPage() {
+    public EditorPage getEditorPage() {
         if (editorPage == null) {
-            editorPage = new AdminShopifyPage();
+            editorPage = new EditorPage();
         }
         return editorPage;
     }
