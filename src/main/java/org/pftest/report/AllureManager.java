@@ -32,7 +32,6 @@ public class AllureManager {
                         build());
 
         System.out.println("Allure Reports is installed.");
-
     }
 
     @Attachment(value = "Failed test Screenshot", type = "image/png")

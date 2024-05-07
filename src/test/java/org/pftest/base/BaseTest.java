@@ -1,14 +1,22 @@
 package org.pftest.base;
 
+import io.qameta.allure.Attachment;
+import org.openqa.selenium.OutputType;
+import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ThreadGuard;
 import org.pftest.driver.DriverManager;
 import org.pftest.driver.TargetFactory;
 import org.pftest.projects.CommonPage;
+import org.testng.ITestResult;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Optional;
 import org.testng.annotations.Parameters;
+
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 
 public class BaseTest extends CommonPage {
     @Parameters("BROWSER")
@@ -17,6 +25,13 @@ public class BaseTest extends CommonPage {
         WebDriver driver = ThreadGuard.protect(new TargetFactory().createInstance(browser));
         DriverManager.setDriver(driver);
         driver.manage().window().maximize();
+    }
+
+    @AfterMethod
+    public void attachScreenshotOnFailure(ITestResult result) {
+        if (ITestResult.FAILURE == result.getStatus()) {
+            attachScreenshotPNG();
+        }
     }
 
     @AfterMethod(alwaysRun = true)
@@ -29,5 +44,17 @@ public class BaseTest extends CommonPage {
         driver.manage().window().maximize();
         DriverManager.setDriver(driver);
         return DriverManager.getDriver();
+    }
+
+    @Attachment(value = "screenshot", type = "image/png", fileExtension = ".png")
+    public byte[] attachScreenshotPNG() {
+        try {
+            WebDriver driver = DriverManager.getDriver();
+            byte[] screenshotBytes = ((TakesScreenshot) driver).getScreenshotAs(OutputType.BYTES);
+            return screenshotBytes;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new byte[0];
+        }
     }
 }

@@ -1,5 +1,6 @@
 package org.pftest.keywords;
 
+import org.openqa.selenium.Rectangle;
 import org.pftest.constants.FrameworkConstants;
 import org.pftest.driver.DriverManager;
 import org.pftest.enums.FailureHandling;
@@ -50,6 +51,9 @@ import java.time.Duration;
 import java.util.List;
 import java.util.*;
 
+import static org.pftest.constants.FrameworkConstants.APP_IFRAME;
+import static org.pftest.constants.FrameworkConstants.DRAG_DROP_IFRAME;
+
 /**
  * Keyword WebUI is a generic class that is a preprocessed library with many custom functions from Selenium and Java.
  * Returns is a Class containing Static functions. Callback is used by taking the class name and dotting the function name (WebUI.method)
@@ -79,15 +83,12 @@ public class WebUI {
     }
 
     /**
-     * Take entire-page screenshot and add to Extent report and Allure report
+     * Take entire-page screenshot and add to Allure report
      *
      * @param screenName Screenshot name
      */
     public static void addScreenshotToReport(String screenName) {
         if (FrameworkConstants.SCREENSHOT_ALL_STEPS.equals("true")) {
-//            if (ExtentTestManager.getExtentTest() != null) {
-//                ExtentReportManager.addScreenShot(Helpers.makeSlug(screenName));
-//            }
             //CaptureHelpers.captureScreenshot(DriverManager.getDriver(), Helpers.makeSlug(screenshotName));
             AllureManager.takeScreenshotStep();
         }
@@ -706,9 +707,6 @@ public class WebUI {
         }
 
         LogUtils.info("Upload File with Local Form: " + filePath);
-//        if (ExtentTestManager.getExtentTest() != null) {
-//            ExtentReportManager.info("Upload File with Local Form: " + filePath);
-//        }
         AllureManager.saveTextLog("Upload File with Local Form: " + filePath);
 
     }
@@ -726,9 +724,6 @@ public class WebUI {
         waitForElementVisible(by).sendKeys(filePath);
 
         LogUtils.info("Upload File with SendKeys");
-//        if (ExtentTestManager.getExtentTest() != null) {
-//            ExtentReportManager.info("Upload File with SendKeys");
-//        }
         AllureManager.saveTextLog("Upload File with SendKeys");
 
     }
@@ -742,9 +737,6 @@ public class WebUI {
     public static String getCurrentUrl() {
         smartWait();
         LogUtils.info("Get Current URL: " + DriverManager.getDriver().getCurrentUrl());
-//        if (ExtentTestManager.getExtentTest() != null) {
-//            ExtentReportManager.info("Get Current URL: " + DriverManager.getDriver().getCurrentUrl());
-//        }
         AllureManager.saveTextLog("Get Current URL: " + DriverManager.getDriver().getCurrentUrl());
         return DriverManager.getDriver().getCurrentUrl();
     }
@@ -759,9 +751,6 @@ public class WebUI {
         smartWait();
         String title = DriverManager.getDriver().getTitle();
         LogUtils.info("Get Page Title: " + DriverManager.getDriver().getTitle());
-//        if (ExtentTestManager.getExtentTest() != null) {
-//            ExtentReportManager.info("Get Page Title: " + DriverManager.getDriver().getTitle());
-//        }
         AllureManager.saveTextLog("Get Page Title: " + DriverManager.getDriver().getTitle());
         return title;
     }
@@ -773,7 +762,7 @@ public class WebUI {
      * @return the current URL as String
      */
     @Step("Verify Page Title equals {0}")
-    public static boolean VerifyPageTitle(String pageTitle) {
+    public static boolean verifyPageTitle(String pageTitle) {
         smartWait();
         return getPageTitle().equals(pageTitle);
     }
@@ -1064,6 +1053,31 @@ public class WebUI {
         LogUtils.info("Switch to Frame by ID or Name. " + IdOrName);
     }
 
+     /**
+     * Switch to PageFly app iframe by Name of iframe tag
+     *
+     */
+    @Step("Switch to Frame by Name: app-iframe")
+    public static void switchToPageFlyFrame() {
+        smartWait();
+
+        WebDriverWait wait = new WebDriverWait(DriverManager.getDriver(), Duration.ofSeconds(FrameworkConstants.WAIT_EXPLICIT), Duration.ofMillis(500));
+        wait.until(ExpectedConditions.frameToBeAvailableAndSwitchToIt(APP_IFRAME));
+        getJsExecutor().executeScript("window.localStorage.setItem('rc-checker-key', 'welcome2PF');");
+
+        LogUtils.info("Switch to Frame by Name. " + APP_IFRAME);
+    }
+
+    @Step("Switch to Frame by Name: pf-sandbox")
+    public static void switchToDragAndDropFrame() {
+        smartWait();
+
+        WebDriverWait wait = new WebDriverWait(DriverManager.getDriver(), Duration.ofSeconds(FrameworkConstants.WAIT_EXPLICIT), Duration.ofMillis(500));
+        wait.until(ExpectedConditions.frameToBeAvailableAndSwitchToIt(DRAG_DROP_IFRAME));
+        LogUtils.info("Switch to Frame by Name. " + DRAG_DROP_IFRAME);
+    }
+
+
     /**
      * Switch to iframe by Element is this iframe tag
      *
@@ -1352,15 +1366,9 @@ public class WebUI {
         boolean result = value1.equals(value2);
         if (result == true) {
             LogUtils.info("Verify Equals: " + value1 + " = " + value2);
-//            if (ExtentTestManager.getExtentTest() != null) {
-//                ExtentReportManager.pass("Verify Equals: " + value1 + " = " + value2);
-//            }
             AllureManager.saveTextLog("Verify Equals: " + value1 + " = " + value2);
         } else {
             LogUtils.info("Verify Equals: " + value1 + " != " + value2);
-//            if (ExtentTestManager.getExtentTest() != null) {
-//                ExtentReportManager.fail("Verify Equals: " + value1 + " != " + value2);
-//            }
             AllureManager.saveTextLog("Verify Equals: " + value1 + " != " + value2);
             Assert.assertEquals(value1, value2, value1 + " != " + value2);
         }
@@ -1380,15 +1388,9 @@ public class WebUI {
         boolean result = value1.equals(value2);
         if (result == true) {
             LogUtils.info("Verify Equals: " + value1 + " = " + value2);
-//            if (ExtentTestManager.getExtentTest() != null) {
-//                ExtentReportManager.pass("Verify Equals: " + value1 + " = " + value2);
-//            }
             AllureManager.saveTextLog("Verify Equals: " + value1 + " = " + value2);
         } else {
             LogUtils.info("Verify Equals: " + value1 + " != " + value2);
-//            if (ExtentTestManager.getExtentTest() != null) {
-//                ExtentReportManager.fail("Verify Equals: " + value1 + " != " + value2);
-//            }
             AllureManager.saveTextLog("Verify Equals: " + value1 + " != " + value2);
             Assert.assertEquals(value1, value2, message);
         }
@@ -1407,15 +1409,9 @@ public class WebUI {
         boolean result = value1.contains(value2);
         if (result == true) {
             LogUtils.info("Verify Equals: " + value1 + " CONTAINS " + value2);
-//            if (ExtentTestManager.getExtentTest() != null) {
-//                ExtentReportManager.pass("Verify Contains: " + value1 + " CONTAINS " + value2);
-//            }
             AllureManager.saveTextLog("Verify Contains: " + value1 + "CONTAINS" + value2);
         } else {
             LogUtils.info("Verify Contains: " + value1 + " NOT CONTAINS " + value2);
-//            if (ExtentTestManager.getExtentTest() != null) {
-//                ExtentReportManager.fail("Verify Contains: " + value1 + " NOT CONTAINS " + value2);
-//            }
             AllureManager.saveTextLog("Verify Contains: " + value1 + " NOT CONTAINS " + value2);
 
             Assert.assertEquals(value1, value2, value1 + " NOT CONTAINS " + value2);
@@ -1436,15 +1432,9 @@ public class WebUI {
         boolean result = value1.contains(value2);
         if (result == true) {
             LogUtils.info("Verify Equals: " + value1 + " CONTAINS " + value2);
-//            if (ExtentTestManager.getExtentTest() != null) {
-//                ExtentReportManager.pass("Verify Contains: " + value1 + " CONTAINS " + value2);
-//            }
             AllureManager.saveTextLog("Verify Contains: " + value1 + "CONTAINS" + value2);
         } else {
             LogUtils.info("Verify Contains: " + value1 + " NOT CONTAINS " + value2);
-//            if (ExtentTestManager.getExtentTest() != null) {
-//                ExtentReportManager.fail("Verify Contains: " + value1 + " NOT CONTAINS " + value2);
-//            }
             AllureManager.saveTextLog("Verify Contains: " + value1 + " NOT CONTAINS " + value2);
 
             Assert.assertEquals(value1, value2, message);
@@ -1461,15 +1451,9 @@ public class WebUI {
     public static boolean verifyTrue(Boolean condition) {
         if (condition == true) {
             LogUtils.info("Verify TRUE: " + condition);
-//            if (ExtentTestManager.getExtentTest() != null) {
-//                ExtentReportManager.pass("Verify TRUE: " + condition);
-//            }
             AllureManager.saveTextLog("Verify TRUE: " + condition);
         } else {
             LogUtils.info("Verify TRUE: " + condition);
-//            if (ExtentTestManager.getExtentTest() != null) {
-//                ExtentReportManager.fail("Verify TRUE: " + condition);
-//            }
             AllureManager.saveTextLog("Verify TRUE: " + condition);
 
             Assert.assertTrue(condition, "The condition is FALSE.");
@@ -1487,17 +1471,10 @@ public class WebUI {
     public static boolean verifyTrue(Boolean condition, String message) {
         if (condition == true) {
             LogUtils.info("Verify TRUE: " + condition);
-//            if (ExtentTestManager.getExtentTest() != null) {
-//                ExtentReportManager.pass("Verify TRUE: " + condition);
-//            }
             AllureManager.saveTextLog("Verify TRUE: " + condition);
         } else {
             LogUtils.info("Verify TRUE: " + condition);
-//            if (ExtentTestManager.getExtentTest() != null) {
-//                ExtentReportManager.fail("Verify TRUE: " + condition);
-//            }
             AllureManager.saveTextLog("Verify TRUE: " + condition);
-
             Assert.assertTrue(condition, message);
         }
         return condition;
@@ -1545,15 +1522,8 @@ public class WebUI {
         }
         if (flowControl.equals(FailureHandling.CONTINUE_ON_FAILURE)) {
             softAssert.assertEquals(getTextElement(by).trim(), text.trim(), "The actual text is '" + getTextElement(by).trim() + "' not equals '" + text.trim() + "'");
-//            if (result == false) {
-//                ExtentReportManager.fail("The actual text is '" + getTextElement(by).trim() + "' not equals '" + text.trim() + "'");
-//            }
         }
         if (flowControl.equals(FailureHandling.OPTIONAL)) {
-//            if (ExtentTestManager.getExtentTest() != null) {
-//                ExtentReportManager.warning("Verify text of an element [Equals] - " + result);
-//                ExtentReportManager.warning("The actual text is '" + getTextElement(by).trim() + "' not equals expected text '" + text.trim() + "'");
-//            }
             AllureManager.saveTextLog("Verify text of an element [Equals] - " + result + ". The actual text is '" + getTextElement(by).trim() + "' not equals '" + text.trim() + "'");
         }
 
@@ -1583,13 +1553,7 @@ public class WebUI {
         }
 
         Assert.assertEquals(getTextElement(by).trim(), text.trim(), "The actual text is '" + getTextElement(by).trim() + "' not equals '" + text.trim() + "'");
-
-//        if (ExtentTestManager.getExtentTest() != null) {
-//            ExtentReportManager.warning("Verify text of an element [Equals] : " + result);
-//            ExtentReportManager.warning("The actual text is '" + getTextElement(by).trim() + "' not equals '" + text.trim() + "'");
-//        }
         AllureManager.saveTextLog("Verify text of an element [Equals] : " + result + ". The actual text is '" + getTextElement(by).trim() + "' not equals '" + text.trim() + "'");
-
         addScreenshotToReport(Thread.currentThread().getStackTrace()[1].getMethodName() + "_" + DateUtils.getCurrentDateTime());
 
         return result;
@@ -1623,9 +1587,6 @@ public class WebUI {
             softAssert.assertTrue(result, "The actual text is " + getTextElement(by).trim() + " not contains " + text.trim());
         }
         if (flowControl.equals(FailureHandling.OPTIONAL)) {
-//            if (ExtentTestManager.getExtentTest() != null) {
-//                ExtentReportManager.warning("Verify text of an element [Contains] - " + result);
-//            }
             AllureManager.saveTextLog("Verify text of an element [Contains] - " + result);
         }
 
@@ -1656,14 +1617,38 @@ public class WebUI {
 
         Assert.assertTrue(result, "The actual text is " + getTextElement(by).trim() + " not contains " + text.trim());
 
-//        if (ExtentTestManager.getExtentTest() != null) {
-//            ExtentReportManager.info("Verify text of an element [Contains] : " + result);
-//        }
         AllureManager.saveTextLog("Verify text of an element [Contains] : " + result);
-
         addScreenshotToReport(Thread.currentThread().getStackTrace()[1].getMethodName() + "_" + DateUtils.getCurrentDateTime());
 
         return result;
+    }
+
+    /**
+     * Verify if the given element is disabled.
+     *
+     * @param locator Represent a web element as the By object
+     * @return true/false
+     */
+    @Step("Verify element with locator {0} is disabled")
+    public static boolean verifyButtonIsDisabled(By locator) {
+        smartWait();
+        try {
+            WebDriverWait wait = new WebDriverWait(DriverManager.getDriver(), Duration.ofSeconds(FrameworkConstants.WAIT_EXPLICIT), Duration.ofMillis(500));
+            WebElement element = wait.until(ExpectedConditions.presenceOfElementLocated(locator));
+            boolean result = !element.isEnabled();
+            if (result) {
+                LogUtils.info("Element is disabled: " + result);
+                AllureManager.saveTextLog("Element is disabled: " + result);
+            } else {
+                LogUtils.error("Element is not disabled: " + result);
+                Assert.fail("FAILED. Element is not disabled: " + locator);
+            }
+            return result;
+        } catch (Exception e) {
+            LogUtils.error(e.getMessage());
+            Assert.fail("FAILED. Could not verify element disabled status: " + locator);
+            return false;
+        }
     }
 
     /**
@@ -1680,9 +1665,6 @@ public class WebUI {
             WebDriverWait wait = new WebDriverWait(DriverManager.getDriver(), Duration.ofSeconds(FrameworkConstants.WAIT_EXPLICIT), Duration.ofMillis(500));
             wait.until(ExpectedConditions.elementToBeClickable(by));
             LogUtils.info("Verify element clickable " + by);
-//            if (ExtentTestManager.getExtentTest() != null) {
-//                ExtentReportManager.info("Verify element clickable " + by);
-//            }
             AllureManager.saveTextLog("Verify element clickable " + by);
             return true;
         } catch (Exception e) {
@@ -1707,9 +1689,6 @@ public class WebUI {
             WebDriverWait wait = new WebDriverWait(DriverManager.getDriver(), Duration.ofSeconds(timeout), Duration.ofMillis(500));
             wait.until(ExpectedConditions.elementToBeClickable(by));
             LogUtils.info("Verify element clickable " + by);
-//            if (ExtentTestManager.getExtentTest() != null) {
-//                ExtentReportManager.info("Verify element clickable " + by);
-//            }
             AllureManager.saveTextLog("Verify element clickable " + by);
             return true;
         } catch (Exception e) {
@@ -1736,9 +1715,6 @@ public class WebUI {
             WebDriverWait wait = new WebDriverWait(DriverManager.getDriver(), Duration.ofSeconds(timeout), Duration.ofMillis(500));
             wait.until(ExpectedConditions.elementToBeClickable(by));
             LogUtils.info("Verify element clickable " + by);
-//            if (ExtentTestManager.getExtentTest() != null) {
-//                ExtentReportManager.info("Verify element clickable " + by);
-//            }
             AllureManager.saveTextLog("Verify element clickable " + by);
             return true;
         } catch (Exception e) {
@@ -1762,10 +1738,8 @@ public class WebUI {
         try {
             WebDriverWait wait = new WebDriverWait(DriverManager.getDriver(), Duration.ofSeconds(FrameworkConstants.WAIT_EXPLICIT), Duration.ofMillis(500));
             wait.until(ExpectedConditions.presenceOfElementLocated(by));
+
             LogUtils.info("Verify element present " + by);
-//            if (ExtentTestManager.getExtentTest() != null) {
-//                ExtentReportManager.info("Verify element present " + by);
-//            }
             AllureManager.saveTextLog("Verify element present " + by);
             addScreenshotToReport(Thread.currentThread().getStackTrace()[1].getMethodName() + "_" + DateUtils.getCurrentDateTime());
             return true;
@@ -1790,10 +1764,8 @@ public class WebUI {
         try {
             WebDriverWait wait = new WebDriverWait(DriverManager.getDriver(), Duration.ofSeconds(timeout));
             wait.until(ExpectedConditions.presenceOfElementLocated(by));
+
             LogUtils.info("Verify element present " + by);
-//            if (ExtentTestManager.getExtentTest() != null) {
-//                ExtentReportManager.info("Verify element present " + by);
-//            }
             AllureManager.saveTextLog("Verify element present " + by);
             addScreenshotToReport(Thread.currentThread().getStackTrace()[1].getMethodName() + "_" + DateUtils.getCurrentDateTime());
             return true;
@@ -1819,9 +1791,6 @@ public class WebUI {
             WebDriverWait wait = new WebDriverWait(DriverManager.getDriver(), Duration.ofSeconds(FrameworkConstants.WAIT_EXPLICIT), Duration.ofMillis(500));
             wait.until(ExpectedConditions.presenceOfElementLocated(by));
             LogUtils.info("Verify element present " + by);
-//            if (ExtentTestManager.getExtentTest() != null) {
-//                ExtentReportManager.info("Verify element present " + by);
-//            }
             AllureManager.saveTextLog("Verify element present " + by);
             addScreenshotToReport(Thread.currentThread().getStackTrace()[1].getMethodName() + "_" + DateUtils.getCurrentDateTime());
             return true;
@@ -1854,9 +1823,6 @@ public class WebUI {
             WebDriverWait wait = new WebDriverWait(DriverManager.getDriver(), Duration.ofSeconds(timeout));
             wait.until(ExpectedConditions.presenceOfElementLocated(by));
             LogUtils.info("Verify element present " + by);
-//            if (ExtentTestManager.getExtentTest() != null) {
-//                ExtentReportManager.info("Verify element present " + by);
-//            }
             AllureManager.saveTextLog("Verify element present " + by);
             addScreenshotToReport(Thread.currentThread().getStackTrace()[1].getMethodName() + "_" + DateUtils.getCurrentDateTime());
             return true;
@@ -1893,6 +1859,29 @@ public class WebUI {
             return true;
         }
     }
+
+    /**
+     * Verify if the given web element does NOT present on the DOM.
+     *
+     * @param element Represent a web element
+     * @return true/false
+     */
+    @Step("Verify element NOT present {0}")
+    public static boolean verifyElementNotVisible(WebElement element) {
+        smartWait();
+
+        try {
+            WebDriverWait wait = new WebDriverWait(DriverManager.getDriver(), Duration.ofSeconds(FrameworkConstants.WAIT_EXPLICIT), Duration.ofMillis(500));
+            wait.until(ExpectedConditions.invisibilityOf(element));
+            return true;
+        } catch (Exception e) {
+            LogUtils.error("FAILED. The element is visible " + element);
+            Assert.fail("FAILED. The element is visible " + element);
+            return false;
+        }
+    }
+
+
 
     /**
      * Verify if the given web element does NOT present on the DOM. (in seconds)
@@ -2456,6 +2445,15 @@ public class WebUI {
         LogUtils.info("Reloaded page " + DriverManager.getDriver().getCurrentUrl());
     }
 
+    /**
+     * Navigates the browser back to the previous URL in the history.
+     */
+    @Step("Navigate back to the previous URL")
+    public static void navigateBack() {
+        DriverManager.getDriver().navigate().back();
+        LogUtils.info("Navigated back to the previous URL");
+    }
+
 
     /**
      * Fills the border color of the specified element.
@@ -2489,12 +2487,7 @@ public class WebUI {
         waitForPageLoaded();
 
         LogUtils.info("Open website with URL: " + URL);
-
-//        if (ExtentTestManager.getExtentTest() != null) {
-//            ExtentReportManager.pass("Open website with URL: " + URL);
-//        }
         AllureManager.saveTextLog("Open website with URL: " + URL);
-
         addScreenshotToReport(Thread.currentThread().getStackTrace()[1].getMethodName() + "_" + DateUtils.getCurrentDateTime());
 
     }
@@ -2510,12 +2503,7 @@ public class WebUI {
         waitForPageLoaded();
 
         LogUtils.info("Navigate to URL: " + URL);
-
-//        if (ExtentTestManager.getExtentTest() != null) {
-//            ExtentReportManager.pass("Navigate to URL: " + URL);
-//        }
         AllureManager.saveTextLog("Navigate to URL: " + URL);
-
         addScreenshotToReport(Thread.currentThread().getStackTrace()[1].getMethodName() + "_" + DateUtils.getCurrentDateTime());
 
     }
@@ -2530,12 +2518,7 @@ public class WebUI {
     public static void setText(By by, String value) {
         waitForElementVisible(by).sendKeys(value);
         LogUtils.info("Set text " + value + " on " + by.toString());
-
-//        if (ExtentTestManager.getExtentTest() != null) {
-//            ExtentReportManager.pass("Set text " + value + " on " + by.toString());
-//        }
         AllureManager.saveTextLog("Set text " + value + " on " + by.toString());
-
         addScreenshotToReport(Thread.currentThread().getStackTrace()[1].getMethodName() + "_" + DateUtils.getCurrentDateTime());
 
     }
@@ -2552,11 +2535,7 @@ public class WebUI {
         waitForElementVisible(by).sendKeys(value, keys);
         LogUtils.info("Set text " + value + " on " + by + " and press key " + keys.name());
 
-//        if (ExtentTestManager.getExtentTest() != null) {
-//            ExtentReportManager.pass("Set text " + value + " on " + by + " and press key " + keys.name());
-//        }
         AllureManager.saveTextLog("Set text " + value + " on " + by + " and press key " + keys.name());
-
         addScreenshotToReport(Thread.currentThread().getStackTrace()[1].getMethodName() + "_" + DateUtils.getCurrentDateTime());
 
     }
@@ -2572,11 +2551,7 @@ public class WebUI {
         waitForElementVisible(by).sendKeys(keys);
         LogUtils.info("Press key " + keys.name() + " on element " + by);
 
-//        if (ExtentTestManager.getExtentTest() != null) {
-//            ExtentReportManager.pass("Press key " + keys.name() + " on element " + by);
-//        }
         AllureManager.saveTextLog("Press key " + keys.name() + " on element " + by);
-
         addScreenshotToReport(Thread.currentThread().getStackTrace()[1].getMethodName() + "_" + DateUtils.getCurrentDateTime());
     }
 
@@ -2591,11 +2566,7 @@ public class WebUI {
         actions.sendKeys(keys);
         LogUtils.info("Press key " + keys.name() + " on keyboard");
 
-//        if (ExtentTestManager.getExtentTest() != null) {
-//            ExtentReportManager.pass("Press key " + keys.name() + " on keyboard");
-//        }
         AllureManager.saveTextLog("Press key " + keys.name() + " on keyboard");
-
         addScreenshotToReport(Thread.currentThread().getStackTrace()[1].getMethodName() + "_" + DateUtils.getCurrentDateTime());
     }
 
@@ -2609,9 +2580,6 @@ public class WebUI {
         waitForElementVisible(by).clear();
         LogUtils.info("Clear text in textbox " + by.toString());
 
-//        if (ExtentTestManager.getExtentTest() != null) {
-//            ExtentReportManager.pass("Clear text in textbox " + by.toString());
-//        }
         AllureManager.saveTextLog("Clear text in textbox");
         addScreenshotToReport(Thread.currentThread().getStackTrace()[1].getMethodName() + "_" + DateUtils.getCurrentDateTime());
 
@@ -2632,9 +2600,6 @@ public class WebUI {
         actions.sendKeys(Keys.DELETE).build().perform();
 
         LogUtils.info("Clear text in textbox " + by.toString());
-//        if (ExtentTestManager.getExtentTest() != null) {
-//            ExtentReportManager.pass("Clear text in textbox " + by.toString());
-//        }
         AllureManager.saveTextLog("Clear text in textbox");
         addScreenshotToReport(Thread.currentThread().getStackTrace()[1].getMethodName() + "_" + DateUtils.getCurrentDateTime());
 
@@ -2646,17 +2611,49 @@ public class WebUI {
      * @param by    an element of object type By
      * @param value the value to fill in the text box
      */
+    @Step("Clear and Fill text on element not reachable by keyboard")
+    public static void clearAndFillTextNotReachableByKeyboard(By by, String value) {
+        moveToElement(by);
+        // Both clear() and sendKeys() are not working on some elements, so we use JavascriptExecutor to clear and fill the text
+        getJsExecutor().executeScript("arguments[0].innerText='"+ value +"';", waitForElementVisible(by));
+        clickElement(by);
+        sendKeys(Keys.ENTER);
+
+        LogUtils.info("Clear and Fill " + value + " on " + by.toString());
+        AllureManager.saveTextLog("Clear and Fill " + value + " on " + by.toString());
+        addScreenshotToReport(Thread.currentThread().getStackTrace()[1].getMethodName() + "_" + DateUtils.getCurrentDateTime());
+    }
+
+
+    @Step("Clear text in text box word by word")
+    public static void clearTextWordByWord(By by) {
+        WebElement element = waitForElementVisible(by);
+        String value = element.getAttribute("value"); // get the current text in the input field
+
+        if (value == null || value.isEmpty()) {
+            return;
+        }
+        // simulate backspace key press for each character in the input field
+        for (int i = 0; i < value.length(); i++) {
+            element.sendKeys(Keys.BACK_SPACE);
+        }
+
+        LogUtils.info("Clear text in textbox " + by.toString() + " word by word");
+    }
+
+    /**
+     * Clear all text of the element then set the text on that element.
+     *
+     * @param by    an element of object type By
+     * @param value the value to fill in the text box
+     */
     @Step("Clear and Fill text on text box")
     public static void clearAndFillText(By by, String value) {
-        waitForElementVisible(by).clear();
+        clearTextWordByWord(by);
         waitForElementVisible(by).sendKeys(value);
         LogUtils.info("Clear and Fill " + value + " on " + by.toString());
 
-//        if (ExtentTestManager.getExtentTest() != null) {
-//            ExtentReportManager.pass("Clear and Fill " + value + " on " + by.toString());
-//        }
         AllureManager.saveTextLog("Clear and Fill " + value + " on " + by.toString());
-
         addScreenshotToReport(Thread.currentThread().getStackTrace()[1].getMethodName() + "_" + DateUtils.getCurrentDateTime());
 
     }
@@ -2671,11 +2668,7 @@ public class WebUI {
         waitForElementVisible(by).click();
         LogUtils.info("Clicked on the element " + by.toString());
 
-//        if (ExtentTestManager.getExtentTest() != null) {
-//            ExtentReportManager.pass("Clicked on the element " + by.toString());
-//        }
         AllureManager.saveTextLog("Clicked on the element " + by.toString());
-
         addScreenshotToReport(Thread.currentThread().getStackTrace()[1].getMethodName() + "_" + DateUtils.getCurrentDateTime());
 
     }
@@ -2690,11 +2683,7 @@ public class WebUI {
         waitForElementVisible(by, timeout).click();
         LogUtils.info("Clicked on the element " + by.toString());
 
-//        if (ExtentTestManager.getExtentTest() != null) {
-//            ExtentReportManager.pass("Clicked on the element " + by.toString());
-//        }
         AllureManager.saveTextLog("Clicked on the element " + by.toString());
-
         addScreenshotToReport(Thread.currentThread().getStackTrace()[1].getMethodName() + "_" + DateUtils.getCurrentDateTime());
 
     }
@@ -2714,9 +2703,6 @@ public class WebUI {
         js.executeScript("arguments[0].click();", getWebElement(by));
 
         LogUtils.info("Click on element with JS: " + by);
-//        if (ExtentTestManager.getExtentTest() != null) {
-//            ExtentReportManager.pass("Click on element with JS: " + by);
-//        }
         AllureManager.saveTextLog("Click on element with JS: " + by);
         addScreenshotToReport(Thread.currentThread().getStackTrace()[1].getMethodName() + "_" + DateUtils.getCurrentDateTime());
 
@@ -2736,9 +2722,6 @@ public class WebUI {
         elementWaited.click();
 
         LogUtils.info("Click on link text " + linkText);
-//        if (ExtentTestManager.getExtentTest() != null) {
-//            ExtentReportManager.pass("Click on link text " + linkText);
-//        }
         AllureManager.saveTextLog("Click on link text " + linkText);
         addScreenshotToReport(Thread.currentThread().getStackTrace()[1].getMethodName() + "_" + DateUtils.getCurrentDateTime());
     }
@@ -2753,9 +2736,6 @@ public class WebUI {
         Actions action = new Actions(DriverManager.getDriver());
         action.contextClick(waitForElementVisible(by)).build().perform();
         LogUtils.info("Right click on element " + by);
-//        if (ExtentTestManager.getExtentTest() != null) {
-//            ExtentReportManager.pass("Right click on element " + by);
-//        }
         AllureManager.saveTextLog("Right click on element " + by);
         addScreenshotToReport(Thread.currentThread().getStackTrace()[1].getMethodName() + "_" + DateUtils.getCurrentDateTime());
 
@@ -2970,8 +2950,8 @@ public class WebUI {
                 return wait.until(ExpectedConditions.visibilityOfElementLocated(by));
             }
         } catch (Throwable error) {
-            Assert.fail("Timeout waiting for the element Visible. " + by.toString());
             LogUtils.error("Timeout waiting for the element Visible. " + by.toString());
+            Assert.fail("Timeout waiting for the element Visible. " + by.toString());
         }
         return null;
     }
@@ -3202,7 +3182,6 @@ public class WebUI {
             //Wait for Javascript to load
             try {
                 wait.until(jsLoad);
-                wait.until(ExpectedConditions.frameToBeAvailableAndSwitchToIt(FrameworkConstants.APP_IFRAME));
             } catch (Throwable error) {
                 error.printStackTrace();
                 Assert.fail("Timeout waiting for page load. (" + FrameworkConstants.WAIT_PAGE_LOADED + "s)");
@@ -3229,7 +3208,6 @@ public class WebUI {
             //Wait for Javascript to load
             try {
                 wait.until(jsLoad);
-                wait.until(ExpectedConditions.frameToBeAvailableAndSwitchToIt("app-iframe"));
             } catch (Throwable error) {
                 error.printStackTrace();
                 Assert.fail("Timeout waiting for page load. (" + FrameworkConstants.WAIT_PAGE_LOADED + "s)");
@@ -3296,4 +3274,257 @@ public class WebUI {
 
     }
 
+    /**
+     * This function simulates the keyboard shortcut for saving a page.
+     * It first checks the operating system. If it's macOS, it simulates pressing Command + S.
+     * If it's Windows, it simulates pressing Ctrl + S.
+     */
+    @Step("Save page using keyboard shortcut")
+    public void savePageByShortcut() {
+        Actions action = new Actions(DriverManager.getDriver());
+        String os = System.getProperty("os.name").toLowerCase();
+
+        // If the operating system is macOS
+        if (os.contains("mac")) {
+            // Simulate pressing Command + S
+            action.keyDown(Keys.COMMAND).sendKeys("s").keyUp(Keys.COMMAND).build().perform();
+        }
+        // If the operating system is Windows
+        else if (os.contains("win")) {
+            // Simulate pressing Ctrl + S
+            action.keyDown(Keys.CONTROL).sendKeys("s").keyUp(Keys.CONTROL).build().perform();
+        }
+    }
+
+    /**
+     * This function simulates the keyboard shortcut for saving and publishing a page.
+     * It first checks the operating system. If it's macOS, it simulates pressing Command + Shift + S.
+     * If it's Windows, it simulates pressing Ctrl + Shift + S.
+     */
+    @Step("Save and publish page using keyboard shortcut")
+    public void saveAndPublishPageByShortcut() {
+        Actions action = new Actions(DriverManager.getDriver());
+        String os = System.getProperty("os.name").toLowerCase();
+
+        // If the operating system is macOS
+        if (os.contains("mac")) {
+            // Simulate pressing Command + Shift + S
+            action.keyDown(Keys.COMMAND).keyDown(Keys.SHIFT).sendKeys("s").keyUp(Keys.SHIFT).keyUp(Keys.COMMAND).build().perform();
+        }
+        // If the operating system is Windows
+        else if (os.contains("win")) {
+            // Simulate pressing Ctrl + Shift + S
+            action.keyDown(Keys.CONTROL).keyDown(Keys.SHIFT).sendKeys("s").keyUp(Keys.SHIFT).keyUp(Keys.CONTROL).build().perform();
+        }
+    }
+
+    /**
+     * This function simulates the keyboard shortcut for redo action.
+     * It first checks the operating system. If it's macOS, it simulates pressing Command + Shift + Z.
+     * If it's Windows, it simulates pressing Ctrl + Shift + Z.
+     */
+    @Step("Redo action using keyboard shortcut")
+    public void redoByShortcut() {
+        Actions action = new Actions(DriverManager.getDriver());
+        String os = System.getProperty("os.name").toLowerCase();
+
+        // If the operating system is macOS
+        if (os.contains("mac")) {
+            // Simulate pressing Command + Shift + Z
+            action.keyDown(Keys.COMMAND).keyDown(Keys.SHIFT).sendKeys("z").keyUp(Keys.SHIFT).keyUp(Keys.COMMAND).build().perform();
+        }
+        // If the operating system is Windows
+        else if (os.contains("win")) {
+            // Simulate pressing Ctrl + Shift + Z
+            action.keyDown(Keys.CONTROL).keyDown(Keys.SHIFT).sendKeys("z").keyUp(Keys.SHIFT).keyUp(Keys.CONTROL).build().perform();
+        }
+    }
+
+    /**
+     * This function simulates the keyboard shortcut for undo action.
+     * It first checks the operating system. If it's macOS, it simulates pressing Command + Z.
+     * If it's Windows, it simulates pressing Ctrl + Z.
+     */
+    @Step("Undo action using keyboard shortcut")
+    public void undoByShortcut() {
+        Actions action = new Actions(DriverManager.getDriver());
+        String os = System.getProperty("os.name").toLowerCase();
+
+        // If the operating system is macOS
+        if (os.contains("mac")) {
+            // Simulate pressing Command + Z
+            action.keyDown(Keys.COMMAND).sendKeys("z").keyUp(Keys.COMMAND).build().perform();
+        }
+        // If the operating system is Windows
+        else if (os.contains("win")) {
+            // Simulate pressing Ctrl + Z
+            action.keyDown(Keys.CONTROL).sendKeys("z").keyUp(Keys.CONTROL).build().perform();
+        }
+    }
+
+    /**
+     * This function simulates the keyboard shortcut for copying style.
+     * It first checks the operating system. If it's macOS, it simulates pressing Command + C.
+     * If it's Windows, it simulates pressing Ctrl + C.
+     */
+    @Step("Copy style using keyboard shortcut")
+    public void copyStyleByShortcut() {
+        Actions action = new Actions(DriverManager.getDriver());
+        String os = System.getProperty("os.name").toLowerCase();
+
+        // If the operating system is macOS
+        if (os.contains("mac")) {
+            // Simulate pressing Command + C
+            action.keyDown(Keys.COMMAND).sendKeys("c").keyUp(Keys.COMMAND).build().perform();
+        }
+        // If the operating system is Windows
+        else if (os.contains("win")) {
+            // Simulate pressing Ctrl + C
+            action.keyDown(Keys.CONTROL).sendKeys("c").keyUp(Keys.CONTROL).build().perform();
+        }
+    }
+
+    /**
+     * This function simulates the keyboard shortcut for pasting style.
+     * It first checks the operating system. If it's macOS, it simulates pressing Command + V.
+     * If it's Windows, it simulates pressing Ctrl + V.
+     */
+    @Step("Paste style using keyboard shortcut")
+    public void pasteStyleByShortcut() {
+        Actions action = new Actions(DriverManager.getDriver());
+        String os = System.getProperty("os.name").toLowerCase();
+
+        // If the operating system is macOS
+        if (os.contains("mac")) {
+            // Simulate pressing Command + V
+            action.keyDown(Keys.COMMAND).sendKeys("v").keyUp(Keys.COMMAND).build().perform();
+        }
+        // If the operating system is Windows
+        else if (os.contains("win")) {
+            // Simulate pressing Ctrl + V
+            action.keyDown(Keys.CONTROL).sendKeys("v").keyUp(Keys.CONTROL).build().perform();
+        }
+    }
+
+    /**
+     * This function simulates the keyboard shortcut for duplicating.
+     * It first checks the operating system. If it's macOS, it simulates pressing Command + D.
+     * If it's Windows, it simulates pressing Ctrl + D.
+     */
+    @Step("Duplicate using keyboard shortcut")
+    public void duplicateByShortcut() {
+        Actions action = new Actions(DriverManager.getDriver());
+        String os = System.getProperty("os.name").toLowerCase();
+
+        // If the operating system is macOS
+        if (os.contains("mac")) {
+            // Simulate pressing Command + D
+            action.keyDown(Keys.COMMAND).sendKeys("d").keyUp(Keys.COMMAND).build().perform();
+        }
+        // If the operating system is Windows
+        else if (os.contains("win")) {
+            // Simulate pressing Ctrl + D
+            action.keyDown(Keys.CONTROL).sendKeys("d").keyUp(Keys.CONTROL).build().perform();
+        }
+    }
+
+    /**
+     * This function simulates the keyboard shortcut for deleting.
+     * It simulates pressing the Delete key.
+     */
+    @Step("Delete using keyboard shortcut")
+    public void deleteByShortcut() {
+        Actions action = new Actions(DriverManager.getDriver());
+        // Simulate pressing Delete
+        action.sendKeys(Keys.DELETE).build().perform();
+    }
+
+    /**
+     * Wait for a Polaris button with specific text to be present.
+     *
+     * @param buttonText The text on the button.
+     */
+    @Step("Wait for Polaris Button with text {0} to be present")
+    public static WebElement waitForPolarisButtonHasTextPresent(String buttonText) {
+        smartWait();
+
+        try {
+            WebDriverWait wait = new WebDriverWait(DriverManager.getDriver(), Duration.ofSeconds(FrameworkConstants.WAIT_EXPLICIT), Duration.ofMillis(500));
+            By buttonLocator = By.xpath("//*/button/span[text()='" + buttonText + "']");
+            return wait.until(ExpectedConditions.presenceOfElementLocated(buttonLocator));
+        } catch (Throwable error) {
+            LogUtils.error("Element not exist. " + buttonText);
+            Assert.fail("Element not exist. " + buttonText);
+        }
+        return null;
+    }
+
+    /**
+     * Wait for a Polaris button with specific text to be present.
+     *
+     * @param buttonText The text on the button.
+     * @param timeOut   Timeout waiting for the element to exist.
+     */
+    @Step("Wait for Polaris Button with text {0} to be present")
+    public static WebElement waitForPolarisButtonHasTextPresent(String buttonText, long timeOut) {
+        smartWait();
+
+        try {
+            WebDriverWait wait = new WebDriverWait(DriverManager.getDriver(), Duration.ofSeconds(timeOut), Duration.ofMillis(500));
+            By buttonLocator = By.xpath("//*/button/span[text()='" + buttonText + "']");
+            return wait.until(ExpectedConditions.presenceOfElementLocated(buttonLocator));
+        } catch (Throwable error) {
+            LogUtils.error("Element not exist. " + buttonText);
+            Assert.fail("Element not exist. " + buttonText);
+        }
+        return null;
+    }
+
+    /**
+     * Verifies that the current URL contains the specified ID parameter.
+     *
+     * @param expectedId The expected ID parameter.
+     * @return true if the current URL contains the expected ID parameter, false otherwise.
+     */
+    @Step("Verify URL contains ID {0} as parameter")
+    public static boolean verifyIdInUrl(String expectedId) {
+        try {
+            URL url = new URL(DriverManager.getDriver().getCurrentUrl());
+            String query = url.getQuery();
+            if (query != null) {
+                String[] params = query.split("&");
+                for (String param : params) {
+                    String[] keyValue = param.split("=");
+                    if (keyValue.length == 2 && keyValue[0].equals("id") && keyValue[1].equals(expectedId)) {
+                        return true;
+                    }
+                }
+            }
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
+    /**
+     * Get the value of the specified parameter from the current URL.
+     *
+     * @param paramName The expected parameter name.
+     * @return expected parameter value if the current URL contains the expected parameter, null otherwise.
+     */
+    @Step("Get value of parameter {0} from URL")
+    public static String getParamFromUrl(String paramName) {
+        String currentUrl = DriverManager.getDriver().getCurrentUrl();
+        String[] urlParts = currentUrl.split("\\?");
+        if (urlParts.length > 1) {
+            String query = urlParts[1];
+            for (String param : query.split("&")) {
+                String[] pair = param.split("=");
+                if (pair.length > 1 && pair[0].equals(paramName)) {
+                    return pair[1];
+                }
+            }
+        }
+        return null;
+    }
 }
