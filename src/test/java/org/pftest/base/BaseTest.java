@@ -1,6 +1,7 @@
 package org.pftest.base;
 
 import io.qameta.allure.Attachment;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
@@ -9,14 +10,13 @@ import org.pftest.driver.DriverManager;
 import org.pftest.driver.TargetFactory;
 import org.pftest.projects.CommonPage;
 import org.testng.ITestResult;
-import org.testng.annotations.AfterMethod;
-import org.testng.annotations.BeforeMethod;
-import org.testng.annotations.Optional;
-import org.testng.annotations.Parameters;
+import org.testng.annotations.*;
 
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+
+import static org.pftest.keywords.WebUI.getJsExecutor;
 
 public class BaseTest extends CommonPage {
     @Parameters("BROWSER")
@@ -36,6 +36,9 @@ public class BaseTest extends CommonPage {
 
     @AfterMethod(alwaysRun = true)
     public void closeDriver() {
+        getJsExecutor().executeScript("window.localStorage.removeItem('no-auto-save');");
+        getJsExecutor().executeScript("window.localStorage.removeItem('warning_saved');");
+
         DriverManager.quit();
     }
 

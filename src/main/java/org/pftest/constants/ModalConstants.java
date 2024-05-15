@@ -15,6 +15,12 @@ public class ModalConstants {
         public static final String SECONDARY_BUTTON = "Cancel";
     }
 
+    static public final class BEFORE_PUBLISH_SECTION_MODAL {
+        public static final String TITLE = "Please name your section before publishing";
+        public static final String PRIMARY_BUTTON = "Publish";
+        public static final String SECONDARY_BUTTON = "Cancel";
+    }
+
     static public final class ENABLE_AUTO_SAVE_MODAL {
         public static final String TITLE = "Enable autosave?";
         public static final String PRIMARY_BUTTON = "Enable";
@@ -30,6 +36,21 @@ public class ModalConstants {
     static public final class SAVE_MODAL {
         public static final String TITLE = "Save page";
         public static final String PRIMARY_BUTTON = "Save";
+    }
+
+    static public final class PUBLISHING_HOMEPAGE_MODAL {
+        public static final String TITLE = "Publishing homepage";
+        public static final String PRIMARY_BUTTON = "Publish";
+    }
+
+    static public final class PUBLISH_SECTION_SUCCESS_MODAL {
+        public static final String TITLE = "Section published successfully";
+        public static final String PRIMARY_BUTTON = "Close";
+    }
+
+    static public final class EDITOR_UNAVAILABLE_ON_MOBILE_MODAL {
+        public static final String TITLE = "Editor is unavailable on mobile";
+        public static final String PRIMARY_BUTTON = "Close";
     }
 }
 

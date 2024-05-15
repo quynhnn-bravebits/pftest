@@ -99,7 +99,7 @@ public class WebUI {
      *
      * @param screenName Screenshot name
      */
-    public static void takeElementScreenshot(By by, String screenName) {
+    public static String takeElementScreenshot(By by, String screenName) {
         SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy HH-mm-ss");
         try {
             String path = Helpers.getCurrentDir() + FrameworkConstants.EXPORT_CAPTURE_PATH;
@@ -112,12 +112,15 @@ public class WebUI {
 
             File source = getWebElement(by).getScreenshotAs(OutputType.FILE);
             // result.getName() gets the name of the test case and assigns it to the screenshot file name
-            FileUtils.copyFile(source, new File(path + "/" + screenName + "_" + dateFormat.format(new Date()) + ".png"));
+            String imagePath = path + "/" + screenName + "_" + dateFormat.format(new Date()) + ".png";
+            FileUtils.copyFile(source, new File(imagePath));
             LogUtils.info("Screenshot taken: " + screenName);
             LogUtils.info("Screenshot taken current URL: " + getCurrentUrl());
+            return imagePath;
         } catch (Exception e) {
             System.out.println("Exception while taking screenshot: " + e.getMessage());
         }
+        return "";
     }
 
     /**
@@ -151,6 +154,33 @@ public class WebUI {
         }
     }
 
+    public static String takeFullPageScreenshotBMP(String screenName) {
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy HH-mm-ss");
+        try {
+            String path = Helpers.getCurrentDir() + FrameworkConstants.EXPORT_CAPTURE_PATH;
+            File file = new File(path);
+            if (!file.exists()) {
+                LogUtils.info("No Folder: " + path);
+                file.mkdir();
+                LogUtils.info("Folder created: " + file);
+            }
+
+            LogUtils.info("Driver for Screenshot: " + DriverManager.getDriver());
+            // Create reference of TakesScreenshot
+            TakesScreenshot ts = (TakesScreenshot) DriverManager.getDriver();
+            // Call the capture screenshot function - getScreenshotAs
+            File source = ts.getScreenshotAs(OutputType.FILE);
+            // result.getName() gets the name of the test case and assigns it to the screenshot file name
+            String imagePath = path + "/" + screenName + "_" + dateFormat.format(new Date()) + ".bmp";
+            FileUtils.copyFile(source, new File(imagePath));
+            LogUtils.info("Screenshot taken: " + screenName);
+            LogUtils.info("Screenshot taken current URL: " + getCurrentUrl());
+            return imagePath;
+        } catch (Exception e) {
+            System.out.println("Exception while taking screenshot: " + e.getMessage());
+        }
+        return "";
+    }
 
     /**
      * Get the Download Directory path
@@ -502,6 +532,26 @@ public class WebUI {
      */
     public static void minimizeWindow() {
         DriverManager.getDriver().manage().window().minimize();
+    }
+
+    /**
+     * Resize window
+     *
+     * @param width  is Width with Pixel
+     * @param height is Height with Pixel
+     */
+    public static void resizeWindow(int width, int height) {
+        DriverManager.getDriver().manage().window().setSize(new Dimension(width, height));
+    }
+
+    /**
+     * Resize window width
+     *
+     * @param width is Width with Pixel
+     */
+    public static void resizeWindow(int width) {
+        Dimension currentSize = DriverManager.getDriver().manage().window().getSize();
+        DriverManager.getDriver().manage().window().setSize(new Dimension(width, currentSize.getHeight()));
     }
 
     /**
@@ -1061,6 +1111,7 @@ public class WebUI {
     public static void switchToPageFlyFrame() {
         smartWait();
 
+        switchToDefaultContent();
         WebDriverWait wait = new WebDriverWait(DriverManager.getDriver(), Duration.ofSeconds(FrameworkConstants.WAIT_EXPLICIT), Duration.ofMillis(500));
         wait.until(ExpectedConditions.frameToBeAvailableAndSwitchToIt(APP_IFRAME));
         getJsExecutor().executeScript("window.localStorage.setItem('rc-checker-key', 'welcome2PF');");
@@ -2307,7 +2358,30 @@ public class WebUI {
         try {
             Actions action = new Actions(DriverManager.getDriver());
             action.dragAndDrop(getWebElement(fromElement), getWebElement(toElement)).perform();
-            //action.clickAndHold(getWebElement(fromElement)).moveToElement(getWebElement(toElement)).release(getWebElement(toElement)).build().perform();
+//            action.clickAndHold(getWebElement(fromElement)).moveToElement(getWebElement(toElement)).release(getWebElement(toElement)).build().perform();
+            return true;
+        } catch (Exception e) {
+            LogUtils.info(e.getMessage());
+            return false;
+        }
+    }
+
+    @Step("Drag from element {0} from app-iframe to element {1} from pf-sandbox")
+    public static boolean dragAndDropFromAppIframeToPfSandbox(By fromElement, By toElement) {
+        smartWait();
+
+        try {
+            switchToPageFlyFrame();
+            WebElement from = getWebElement(fromElement);
+            Actions actions = new Actions(DriverManager.getDriver());
+            actions.clickAndHold(from).build().perform();
+
+            switchToDragAndDropFrame();
+            WebElement to = getWebElement(toElement);
+            actions.moveToElement(to).release().build().perform();
+
+            switchToPageFlyFrame();
+
             return true;
         } catch (Exception e) {
             LogUtils.info(e.getMessage());
@@ -2982,6 +3056,28 @@ public class WebUI {
         return null;
     }
 
+    public static WebElement waitForElementTextContains (By by, String text) {
+        smartWait();
+        By newLocator = By.xpath(by.toString().substring(10) + "//*[contains(text(), '" + text + "')]");
+        waitForElementPresent(newLocator);
+
+        try {
+            WebDriverWait wait = new WebDriverWait(DriverManager.getDriver(), Duration.ofSeconds(FrameworkConstants.WAIT_EXPLICIT), Duration.ofMillis(500));
+            boolean check = isElementVisible(newLocator, 1);
+            if (check == true) {
+                return wait.until(ExpectedConditions.visibilityOfElementLocated(newLocator));
+            } else {
+                scrollToElementAtBottom(newLocator);
+                return wait.until(ExpectedConditions.visibilityOfElementLocated(newLocator));
+            }
+        } catch (Throwable error) {
+            LogUtils.error("Timeout waiting for the element Visible. " + newLocator.toString());
+            Assert.fail("Timeout waiting for the element Visible. " + newLocator.toString());
+        }
+        return null;
+
+    }
+
     /**
      * Wait for the given element to be clickable within the given time (in seconds).
      *
@@ -3280,7 +3376,7 @@ public class WebUI {
      * If it's Windows, it simulates pressing Ctrl + S.
      */
     @Step("Save page using keyboard shortcut")
-    public void savePageByShortcut() {
+    public static void savePageByShortcut() {
         Actions action = new Actions(DriverManager.getDriver());
         String os = System.getProperty("os.name").toLowerCase();
 
@@ -3302,7 +3398,7 @@ public class WebUI {
      * If it's Windows, it simulates pressing Ctrl + Shift + S.
      */
     @Step("Save and publish page using keyboard shortcut")
-    public void saveAndPublishPageByShortcut() {
+    public static void saveAndPublishPageByShortcut() {
         Actions action = new Actions(DriverManager.getDriver());
         String os = System.getProperty("os.name").toLowerCase();
 

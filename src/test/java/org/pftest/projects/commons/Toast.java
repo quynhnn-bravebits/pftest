@@ -7,44 +7,57 @@ import static org.pftest.keywords.WebUI.*;
 
 // page_url = about:blank
 public class Toast {
-    private By savingToast = By.xpath("//*[@id=\"PolarisPortalsContainer\"]//*[@class=\"Polaris-Frame-Toast\"]//*[text()=\"Saving page...\"]");
-    private By savedToast = By.xpath("//*[@id=\"PolarisPortalsContainer\"]//*[@class=\"Polaris-Frame-Toast\"]//*[text()=\"Page saved\"]");
-    private By publishingToast = By.xpath("//*[@id=\"PolarisPortalsContainer\"]//*[@class=\"Polaris-Frame-Toast\"]//*[text()=\"Publishing page...\"]");
-    private By publishedToast = By.xpath("//*[@id=\"PolarisPortalsContainer\"]//*[@class=\"Polaris-Frame-Toast\"]//*[text()=\"Page published\"]");
-    private By unpublishingToast = By.xpath("//*[@id=\"PolarisPortalsContainer\"]//*[@class=\"Polaris-Frame-Toast\"]//*[text()=\"Unpublishing page...\"]");
-    private By unpublishedToast = By.xpath("//*[@id=\"PolarisPortalsContainer\"]//*[@class=\"Polaris-Frame-Toast\"]//*[text()=\"Page unpublished\"]");
+    private By savingPageToast = By.xpath("//*[@id=\"PolarisPortalsContainer\"]//*[@class=\"Polaris-Frame-Toast\"]//*[text()=\"Saving page...\"]");
+    private By savedPageToast = By.xpath("//*[@id=\"PolarisPortalsContainer\"]//*[@class=\"Polaris-Frame-Toast\"]//*[text()=\"Page saved\"]");
+    private By publishingPageToast = By.xpath("//*[@id=\"PolarisPortalsContainer\"]//*[@class=\"Polaris-Frame-Toast\"]//*[text()=\"Publishing page...\"]");
+    private By publishedPageToast = By.xpath("//*[@id=\"PolarisPortalsContainer\"]//*[@class=\"Polaris-Frame-Toast\"]//*[text()=\"Page published\"]");
+    private By unpublishingPageToast = By.xpath("//*[@id=\"PolarisPortalsContainer\"]//*[@class=\"Polaris-Frame-Toast\"]//*[text()=\"Unpublishing page...\"]");
+    private By unpublishedPageToast = By.xpath("//*[@id=\"PolarisPortalsContainer\"]//*[@class=\"Polaris-Frame-Toast\"]//*[text()=\"Page unpublished\"]");
+
+    private By publishingSectionToast = By.xpath("//*[@id=\"PolarisPortalsContainer\"]//*[@class=\"Polaris-Frame-Toast\"]//*[text()=\"Publishing section...\"]");
+    private By publishedSectionToast = By.xpath("//*[@id=\"PolarisPortalsContainer\"]//*[@class=\"Polaris-Frame-Toast\"]//*[text()=\"Section published\"]");
 
     private By enableAutoSaveToast = By.xpath("//*[@id=\"PolarisPortalsContainer\"]//*[@class=\"Polaris-Frame-Toast\"]//*[text()=\"Auto-save enabled\"]");
     private By disableAutoSaveToast = By.xpath("//*[@id=\"PolarisPortalsContainer\"]//*[@class=\"Polaris-Frame-Toast\"]//*[text()=\"Auto-save disabled\"]");
 
     @Step("Verify show 'Publishing page...' toast")
-    public void verifyShowPublishingToast() {
-        verifyElementVisible(publishingToast);
+    public void verifyShowPublishingPageToast() {
+        verifyElementVisible(publishingPageToast);
     }
 
     @Step("Verify show 'Page published' toast")
-    public void verifyShowPublishedToast() {
-        verifyElementVisible(publishedToast);
+    public void verifyShowPublishedPageToast() {
+        verifyElementVisible(publishedPageToast, 30);
     }
 
     @Step("Verify show 'Unpublishing page...' toast")
-    public void verifyShowUnpublishingToast() {
-        verifyElementVisible(unpublishingToast);
+    public void verifyShowUnpublishingPageToast() {
+        verifyElementVisible(unpublishingPageToast);
     }
 
     @Step("Verify show 'Page unpublished' toast")
-    public void verifyShowUnpublishedToast() {
-        verifyElementVisible(unpublishedToast);
+    public void verifyShowUnpublishedPageToast() {
+        verifyElementVisible(unpublishedPageToast, 30);
     }
 
     @Step("Verify show 'Saving page...' toast")
-    public void verifyShowSavingToast() {
-        verifyElementVisible(savingToast);
+    public void verifyShowSavingPageToast() {
+        verifyElementVisible(savingPageToast);
     }
 
     @Step("Verify show 'Page saved' toast")
-    public void verifyShowSavedToast() {
-        verifyElementVisible(savedToast);
+    public void verifyShowSavedPageToast() {
+        verifyElementVisible(savedPageToast, 30);
+    }
+
+    @Step("Verify show 'Publishing section...' toast")
+    public void verifyShowPublishingSectionToast() {
+        verifyElementVisible(publishingSectionToast);
+    }
+
+    @Step("Verify show 'Section published' toast")
+    public void verifyShowPublishedSectionToast() {
+        verifyElementVisible(publishedSectionToast, 30);
     }
 
     @Step("Verify show 'Auto-save enabled' toast")

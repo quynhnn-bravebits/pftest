@@ -5,8 +5,11 @@ import com.google.common.collect.ImmutableMap;
 import com.google.common.io.Files;
 import io.qameta.allure.Allure;
 import io.qameta.allure.Attachment;
+import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.remote.Browser;
+import org.openqa.selenium.remote.RemoteWebElement;
 import org.pftest.constants.FrameworkConstants;
 import org.pftest.driver.DriverManager;
 import org.pftest.helpers.FileHelpers;
@@ -48,6 +51,16 @@ public class AllureManager {
     public static byte[] takeScreenshotStep() {
         try {
             return ((TakesScreenshot) DriverManager.getDriver()).getScreenshotAs(BYTES);
+        } catch (Exception ex) {
+            ex.getMessage();
+        }
+        return new byte[0];
+    }
+
+    @Attachment(value = "Take element Screenshot", type = "image/png")
+    public static byte[] takeScreenshotElement(WebElement element) {
+        try {
+            return ((RemoteWebElement) element).getScreenshotAs(OutputType.BYTES);
         } catch (Exception ex) {
             ex.getMessage();
         }

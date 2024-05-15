@@ -5,6 +5,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="e4a49eb7-4aa6-4344-a0e5-fffc133666e9" name="Changes" comment="create page editing tests">
+      <change afterPath="$PROJECT_DIR$/ExportData/Images/img1_14-05-2024 08-17-41.bmp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ExportData/Images/img1_14-05-2024 08-40-17.bmp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ExportData/Images/img2_14-05-2024 08-17-46.bmp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ExportData/Images/img2_14-05-2024 08-40-22.bmp" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/allure-results/00039fac-37fb-45f4-8cf9-bcdd4face94a-container.json" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/allure-results/00338342-9460-481a-b8b0-3aec7cfd0c9d-attachment" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/allure-results/00499f0f-812a-4d2d-8019-d4d39905b47a-attachment" afterDir="false" />
@@ -2433,15 +2437,12 @@
       <change afterPath="$PROJECT_DIR$/allure-results/ffb76e38-a15c-4db5-ae09-846e3fda2e46-attachment" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/allure-results/ffbcabef-1237-4672-98ed-60acf4d8c519-result.json" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/allure-results/ffe92c5f-12d2-46d2-b600-101f52303a95-attachment" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/pftest/constants/ModalConstants.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/pftest/constants/PagesConstants.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/pftest/constants/UrlConstants.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/pftest/enums/PageType.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/java/org/pftest/projects/commons/Toast.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/java/org/pftest/projects/pages/pages/PageListingScreen.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/java/org/pftest/projects/pages/pages/PageSettingScreen.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/java/org/pftest/projects/testcases/PageEditingTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/pftest/Main.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/pftest/utils/ImageUtils.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/org/pftest/projects/pages/dashboard/DashboardScreen.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/org/pftest/projects/pages/pages/PageAssignmentModal.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/org/pftest/projects/pages/pages/SectionListingScreen.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/org/pftest/projects/testcases/SectionListingTest.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/allure-results/0561f8e2-a306-4a40-ac29-0d137266f3d6-container.json" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/allure-results/07a78e44-c053-4ade-b5f4-a38f86daafe5-container.json" beforeDir="false" />
@@ -2630,17 +2631,23 @@
       <change beforePath="$PROJECT_DIR$/allure-results/fcdedaac-b9a6-484d-8697-26423762912e-attachment" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/allure-results/fd84a05f-dd2e-4734-bc33-52719d02bb64-container.json" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/allure-results/feb7b1f9-91f4-4cd7-966f-3c2b4a6f5c3a-container.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/pftest/annotations/CustomAnnotation.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/pftest/constants/FrameworkConstants.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/pftest/constants/FrameworkConstants.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/pftest/enums/Author.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/pftest/enums/Category.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/pftest/constants/ModalConstants.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/pftest/constants/ModalConstants.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/pftest/constants/PagesConstants.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/pftest/constants/PagesConstants.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/pftest/constants/UrlConstants.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/pftest/constants/UrlConstants.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/pftest/keywords/WebUI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/pftest/keywords/WebUI.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/pftest/report/AllureManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/pftest/report/AllureManager.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/java/org/pftest/base/BaseTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/org/pftest/base/BaseTest.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/java/org/pftest/projects/CommonPage.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/org/pftest/projects/CommonPage.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/org/pftest/projects/commons/Toast.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/org/pftest/projects/commons/Toast.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/java/org/pftest/projects/pages/pages/EditorPage.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/org/pftest/projects/pages/pages/EditorPage.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/org/pftest/projects/pages/pages/PageListingScreen.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/org/pftest/projects/pages/pages/PageListingScreen.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/org/pftest/projects/testcases/PageEditingTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/org/pftest/projects/testcases/PageEditingTest.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/java/org/pftest/projects/testcases/SampleTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/org/pftest/projects/testcases/SampleTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/resources/config/config.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/resources/config/config.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/resources/config/allure.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/resources/allure.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/resources/config/allure/categories.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/resources/config/allure/environment.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/resources/config/allure/executor.json" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -2667,6 +2674,7 @@
   </component>
   <component name="HighlightingSettingsPerFile">
     <setting file="jar://$MAVEN_REPOSITORY$/org/seleniumhq/selenium/selenium-remote-driver/4.19.1/selenium-remote-driver-4.19.1.jar!/org/openqa/selenium/devtools/CdpVersionFinder.class" root0="SKIP_INSPECTION" />
+    <setting file="file://$PROJECT_DIR$/src/test/java/org/pftest/projects/CommonPage.java" root0="FORCE_HIGHLIGHTING" />
   </component>
   <component name="KubernetesApiPersistence">{}</component>
   <component name="KubernetesApiProvider">{
@@ -2696,6 +2704,7 @@
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
     "ASKED_ADD_EXTERNAL_FILES": "true",
+    "Application.Main.executor": "Run",
     "Downloaded.Files.Path.Enabled": "false",
     "JAR Application.pftest-1.0-SNAPSHOT.jar.executor": "Run",
     "Maven.pftest [clean].executor": "Run",
@@ -2708,20 +2717,41 @@
     "TestNG.PageEditingTest.backFromEditorToPageListingScreen.executor": "Run",
     "TestNG.PageEditingTest.backFromEditorToPageListingScreen_clickBackButton2.executor": "Run",
     "TestNG.PageEditingTest.backFromEditorToPageListingScreen_navigateBack.executor": "Run",
+    "TestNG.PageEditingTest.changeWindowWidthToLessThan1024px.executor": "Run",
     "TestNG.PageEditingTest.createNewBlogPostPageFromBlank.executor": "Run",
     "TestNG.PageEditingTest.createNewBlogPostPageFromTemplate.executor": "Run",
+    "TestNG.PageEditingTest.createNewHomePageFromBlank.executor": "Run",
+    "TestNG.PageEditingTest.createNewHomePageFromBlankWhenHomepage.executor": "Run",
+    "TestNG.PageEditingTest.createNewHomePageFromBlankWhenHomepageIsPublished.executor": "Run",
     "TestNG.PageEditingTest.createNewRegularPasswordPageFromBlank.executor": "Run",
+    "TestNG.PageEditingTest.createNewRegularPasswordPageFromTemplate.executor": "Run",
+    "TestNG.PageEditingTest.dontRemindEnableAutoSave.executor": "Run",
+    "TestNG.PageEditingTest.dontRemindPublishPage.executor": "Run",
+    "TestNG.PageEditingTest.dontRemindSavePage.executor": "Run",
     "TestNG.PageEditingTest.enableAutoSaveWhenHaveSavedPage.executor": "Run",
     "TestNG.PageEditingTest.enableAutoSaveWhenHaventSavedPage.executor": "Run",
     "TestNG.PageEditingTest.executor": "Run",
     "TestNG.PageEditingTest.goToThemeEditorWhenPageIsPublished.executor": "Run",
     "TestNG.PageEditingTest.goToThemeEditorWhenPageIsUnpublished.executor": "Run",
+    "TestNG.PageEditingTest.joinPageFlyCommunity.executor": "Run",
+    "TestNG.PageEditingTest.openBrowserHelpCenter.executor": "Run",
+    "TestNG.PageEditingTest.openLiveChat.executor": "Run",
+    "TestNG.PageEditingTest.openLiveChatBox.executor": "Run",
+    "TestNG.PageEditingTest.openPageEditorByClickingEditButtonInPageListingScreen.executor": "Run",
+    "TestNG.PageEditingTest.openPageEditorBySearchBarInDashboardScreen.executor": "Run",
+    "TestNG.PageEditingTest.openPageEditorInDashboardScreen.executor": "Run",
+    "TestNG.PageEditingTest.openPageEditorInPageListingScreen.executor": "Run",
     "TestNG.PageEditingTest.showCanvasSizeAndFitViewport.executor": "Run",
     "TestNG.PageEditingTest.showPageOutline.executor": "Run",
     "TestNG.PageEditingTest.unpublishedPage.executor": "Run",
+    "TestNG.PageEditingTest.useDeviceHasWidthLessThan1024px.executor": "Run",
     "TestNG.PageEditingTest.verifyPageTitleIsDisplayedInEditor.executor": "Run",
+    "TestNG.PageEditingTest.watchVideoTutorials.executor": "Run",
     "TestNG.SampleTest.executor": "Run",
     "TestNG.SampleTest.sampleTest.executor": "Run",
+    "TestNG.SectionListingTest.createSectionFromBlank.executor": "Run",
+    "TestNG.SectionListingTest.createSectionFromTemplate.executor": "Run",
+    "TestNG.SectionListingTest.executor": "Run",
     "git-widget-placeholder": "master",
     "kotlin-language-version-configured": "true",
     "last_opened_file_path": "/Users/bbadmin/Documents/pftest/src/test/resources/config",
@@ -2730,10 +2760,10 @@
     "node.js.selected.package.eslint": "(autodetect)",
     "node.js.selected.package.tslint": "(autodetect)",
     "nodejs_package_manager_path": "npm",
-    "project.structure.last.edited": "Modules",
+    "project.structure.last.edited": "Problems",
     "project.structure.proportion": "0.15",
-    "project.structure.side.proportion": "0.49195403",
-    "settings.editor.selected.configurable": "web.inspector.settings",
+    "project.structure.side.proportion": "0.28965518",
+    "settings.editor.selected.configurable": "com.github.copilot.settings.ApplicationConfigurable",
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
@@ -2741,12 +2771,15 @@
     <key name="CopyFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/src/test/resources/config" />
     </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/src/test/resources" />
+    </key>
     <key name="CopyClassDialog.RECENTS_KEY">
       <recent name="org.pftest.keywords" />
     </key>
   </component>
-  <component name="RunManager" selected="TestNG.PageEditingTest.goToThemeEditorWhenPageIsPublished">
-    <configuration name="PageEditingTest.enableAutoSaveWhenHaveSavedPage" type="TestNG" temporary="true" nameIsGenerated="true">
+  <component name="RunManager" selected="TestNG.PageEditingTest.dontRemindPublishPage">
+    <configuration name="PageEditingTest.dontRemindEnableAutoSave" type="TestNG" temporary="true" nameIsGenerated="true">
       <module name="pftest" />
       <extension name="coverage">
         <pattern>
@@ -2756,7 +2789,7 @@
       </extension>
       <option name="PACKAGE_NAME" value="org.pftest.projects.testcases" />
       <option name="MAIN_CLASS_NAME" value="org.pftest.projects.testcases.PageEditingTest" />
-      <option name="METHOD_NAME" value="enableAutoSaveWhenHaveSavedPage" />
+      <option name="METHOD_NAME" value="dontRemindEnableAutoSave" />
       <option name="TEST_OBJECT" value="METHOD" />
       <properties />
       <listeners />
@@ -2764,7 +2797,7 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="PageEditingTest.enableAutoSaveWhenHaventSavedPage" type="TestNG" temporary="true" nameIsGenerated="true">
+    <configuration name="PageEditingTest.dontRemindPublishPage" type="TestNG" temporary="true" nameIsGenerated="true">
       <module name="pftest" />
       <extension name="coverage">
         <pattern>
@@ -2774,7 +2807,7 @@
       </extension>
       <option name="PACKAGE_NAME" value="org.pftest.projects.testcases" />
       <option name="MAIN_CLASS_NAME" value="org.pftest.projects.testcases.PageEditingTest" />
-      <option name="METHOD_NAME" value="enableAutoSaveWhenHaventSavedPage" />
+      <option name="METHOD_NAME" value="dontRemindPublishPage" />
       <option name="TEST_OBJECT" value="METHOD" />
       <properties />
       <listeners />
@@ -2782,7 +2815,7 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="PageEditingTest.goToThemeEditorWhenPageIsPublished" type="TestNG" temporary="true" nameIsGenerated="true">
+    <configuration name="PageEditingTest.dontRemindSavePage" type="TestNG" temporary="true" nameIsGenerated="true">
       <module name="pftest" />
       <extension name="coverage">
         <pattern>
@@ -2792,7 +2825,7 @@
       </extension>
       <option name="PACKAGE_NAME" value="org.pftest.projects.testcases" />
       <option name="MAIN_CLASS_NAME" value="org.pftest.projects.testcases.PageEditingTest" />
-      <option name="METHOD_NAME" value="goToThemeEditorWhenPageIsPublished" />
+      <option name="METHOD_NAME" value="dontRemindSavePage" />
       <option name="TEST_OBJECT" value="METHOD" />
       <properties />
       <listeners />
@@ -2800,7 +2833,7 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="PageEditingTest.goToThemeEditorWhenPageIsUnpublished" type="TestNG" temporary="true" nameIsGenerated="true">
+    <configuration name="PageEditingTest.useDeviceHasWidthLessThan1024px" type="TestNG" temporary="true" nameIsGenerated="true">
       <module name="pftest" />
       <extension name="coverage">
         <pattern>
@@ -2810,7 +2843,7 @@
       </extension>
       <option name="PACKAGE_NAME" value="org.pftest.projects.testcases" />
       <option name="MAIN_CLASS_NAME" value="org.pftest.projects.testcases.PageEditingTest" />
-      <option name="METHOD_NAME" value="goToThemeEditorWhenPageIsUnpublished" />
+      <option name="METHOD_NAME" value="useDeviceHasWidthLessThan1024px" />
       <option name="TEST_OBJECT" value="METHOD" />
       <properties />
       <listeners />
@@ -2818,7 +2851,7 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="PageEditingTest.unpublishedPage" type="TestNG" temporary="true" nameIsGenerated="true">
+    <configuration name="SectionListingTest.createSectionFromTemplate" type="TestNG" temporary="true" nameIsGenerated="true">
       <module name="pftest" />
       <extension name="coverage">
         <pattern>
@@ -2827,8 +2860,8 @@
         </pattern>
       </extension>
       <option name="PACKAGE_NAME" value="org.pftest.projects.testcases" />
-      <option name="MAIN_CLASS_NAME" value="org.pftest.projects.testcases.PageEditingTest" />
-      <option name="METHOD_NAME" value="unpublishedPage" />
+      <option name="MAIN_CLASS_NAME" value="org.pftest.projects.testcases.SectionListingTest" />
+      <option name="METHOD_NAME" value="createSectionFromTemplate" />
       <option name="TEST_OBJECT" value="METHOD" />
       <properties />
       <listeners />
@@ -2836,26 +2869,33 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <list>
+      <item itemvalue="TestNG.PageEditingTest.dontRemindEnableAutoSave" />
+      <item itemvalue="TestNG.PageEditingTest.dontRemindPublishPage" />
+      <item itemvalue="TestNG.PageEditingTest.dontRemindSavePage" />
+      <item itemvalue="TestNG.PageEditingTest.useDeviceHasWidthLessThan1024px" />
+      <item itemvalue="TestNG.SectionListingTest.createSectionFromTemplate" />
+    </list>
     <recent_temporary>
       <list>
-        <item itemvalue="TestNG.PageEditingTest.goToThemeEditorWhenPageIsPublished" />
-        <item itemvalue="TestNG.PageEditingTest.goToThemeEditorWhenPageIsUnpublished" />
-        <item itemvalue="TestNG.PageEditingTest.enableAutoSaveWhenHaveSavedPage" />
-        <item itemvalue="TestNG.PageEditingTest.unpublishedPage" />
-        <item itemvalue="TestNG.PageEditingTest.enableAutoSaveWhenHaventSavedPage" />
+        <item itemvalue="TestNG.PageEditingTest.dontRemindPublishPage" />
+        <item itemvalue="TestNG.PageEditingTest.dontRemindSavePage" />
+        <item itemvalue="TestNG.PageEditingTest.useDeviceHasWidthLessThan1024px" />
+        <item itemvalue="TestNG.PageEditingTest.dontRemindEnableAutoSave" />
+        <item itemvalue="TestNG.SectionListingTest.createSectionFromTemplate" />
       </list>
     </recent_temporary>
   </component>
   <component name="SeleniumInternalSettingsState">
     <option name="lastFrameworkName" value="Selenium" />
     <option name="lastLanguageId" value="JAVA" />
-    <option name="lastUrl" value="https://admin.shopify.com/store/quynhquynhiee/apps/pageflybackend-9/pages/settings?type=page&amp;id=0400aa7b-c8e5-4e78-b444-19b1b6f1ab11" />
+    <option name="lastUrl" value="https://admin.shopify.com/store/quynhquynhiee/apps/wip-pagefly/sections" />
   </component>
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
-        <option value="bundled-jdk-9f38398b9061-18abd8497189-intellij.indexing.shared.core-IU-241.14494.240" />
-        <option value="bundled-js-predefined-1d06a55b98c1-74d2a5396914-JavaScript-IU-241.14494.240" />
+        <option value="bundled-jdk-9f38398b9061-39b83d9b5494-intellij.indexing.shared.core-IU-241.15989.150" />
+        <option value="bundled-js-predefined-1d06a55b98c1-91d5c284f522-JavaScript-IU-241.15989.150" />
       </set>
     </attachedChunks>
   </component>
@@ -2874,8 +2914,24 @@
       <workItem from="1714614908048" duration="21089000" />
       <workItem from="1714699291574" duration="29964000" />
       <workItem from="1714957576196" duration="14048000" />
-      <workItem from="1715043968405" duration="21031000" />
+      <workItem from="1715043968405" duration="26328000" />
+      <workItem from="1715131959833" duration="371000" />
+      <workItem from="1715132363041" duration="14927000" />
+      <workItem from="1715153263816" duration="23240000" />
+      <workItem from="1715563346990" duration="8045000" />
+      <workItem from="1715599257635" duration="68000" />
+      <workItem from="1715599334236" duration="49000" />
+      <workItem from="1715649132143" duration="40658000" />
     </task>
+    <task id="LOCAL-00001" summary="create page editing tests">
+      <option name="closed" value="true" />
+      <created>1715072470360</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1715072470360</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">

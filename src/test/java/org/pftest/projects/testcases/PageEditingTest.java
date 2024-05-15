@@ -4,9 +4,7 @@ import io.qameta.allure.Epic;
 import io.qameta.allure.Step;
 import org.pftest.base.BaseTest;
 import org.pftest.enums.PageType;
-import org.testng.annotations.AfterClass;
-import org.testng.annotations.BeforeClass;
-import org.testng.annotations.Test;
+import org.testng.annotations.*;
 
 import java.util.Date;
 
@@ -19,39 +17,18 @@ public class PageEditingTest extends BaseTest {
 
     }
 
-    @Test(description = "TC-001: Go to page listing screen, click on page title in the data table, and verify the page title is displayed in the editor")
-    public void verifyPageTitleIsDisplayedInEditor() {
-        getPageListingScreen().openPageListingPage();
-        getPageListingScreen().verifyPageListingLoaded();
-        String id = getPageListingScreen().openPageInPageListing();
-        getEditorPage().verifyEditorPageLoaded();
-        verifyIdInUrl(id);
-    }
-
-    @Test(description = "TC-003: Go to page listing screen, click on Setting button in the row, then click on 'Edit page' button, and verify the page title is displayed in the editor")
-    public void verifyPageTitleIsDisplayedInEditor2() {
-        getPageListingScreen().openPageListingPage();
-        getPageListingScreen().verifyPageListingLoaded();
-        String id = getPageListingScreen().openPageSettingInPageListing();
-        getPageSettingScreen().verifyPageSettingScreenLoaded();
-        verifyIdInUrl(id);
-        getPageSettingScreen().clickEditPageButton();
-        getEditorPage().verifyEditorPageLoaded();
-        verifyIdInUrl(id);
-    }
-
     @Step("Save and Publish page successfully")
     public void saveAndPublishPageSuccessfully() {
         getEditorPage().clickSaveAndPublishPageButton();
         getEditorPage().verifyPageIsSaving();
-        getEditorPage().confirmBeforePublishModal_TitledTitle();
-        getToast().verifyShowPublishedToast();
+        getEditorPage().confirmBeforePublishPageModal_TitledTitle();
+        getToast().verifyShowPublishedPageToast();
         getEditorPage().closeEnableAutoSaveModal();
         getEditorPage().verifyPageSavedAndPublished();
     }
 
-    @Step("Create a new {0} page from blank")
-    public void createNewPageFromBlank (PageType pageType) {
+    @Step("Create a new {0} page from blank and save and publish successfully")
+    public void saveAndPublishNewPageFromBlank(PageType pageType) {
         getPageListingScreen().openPageListingPage();
         getPageListingScreen().verifyPageListingLoaded();
         // 1. Click on button Create blank page
@@ -66,11 +43,11 @@ public class PageEditingTest extends BaseTest {
         // 4. Badge save: Saving...
         getEditorPage().verifyPageIsSaving();
         // 4. Hiển thị modal:" Your page is ready to publish!"
-        getEditorPage().confirmBeforePublishModal_TitledTitle();
+        getEditorPage().confirmBeforePublishPageModal_TitledTitle();
         // 4. Hiển thị toast "Publishing page..."
 //        getToast().verifyShowPublishingToast();
         // 4. Hiển thị toast "Published"
-        getToast().verifyShowPublishedToast();
+        getToast().verifyShowPublishedPageToast();
         // 4. Nếu chưa remind modal Auto Save thì sẽ hiển thị modal "Enable autosave?"
         getEditorPage().closeEnableAutoSaveModal();
         // 4. Badge save: Saved
@@ -78,8 +55,8 @@ public class PageEditingTest extends BaseTest {
         getEditorPage().verifyPageSavedAndPublished();
     }
 
-    @Step("Create a new {0} page from template")
-    public void createNewPageFromTemplate (PageType pageType) {
+    @Step("Create a new {0} page from template and save and publish successfully")
+    public void saveAndPublishNewPageFromTemplate(PageType pageType) {
         getPageListingScreen().openPageListingPage();
         getPageListingScreen().verifyPageListingLoaded();
         // 1. Click on button Create blank page
@@ -95,11 +72,11 @@ public class PageEditingTest extends BaseTest {
         // 4. Badge save: Saving...
         getEditorPage().verifyPageIsSaving();
         // 4. Hiển thị modal:" Your page is ready to publish!"
-        getEditorPage().confirmBeforePublishModal_TitledTitle();
+        getEditorPage().confirmBeforePublishPageModal_TitledTitle();
         // 4. Hiển thị toast "Publishing page..."
 //        getToast().verifyShowPublishingToast();
         // 4. Hiển thị toast "Published"
-        getToast().verifyShowPublishedToast();
+        getToast().verifyShowPublishedPageToast();
         // 4. Nếu chưa remind modal Auto Save thì sẽ hiển thị modal "Enable autosave?"
         getEditorPage().closeEnableAutoSaveModal();
         // 4. Badge save: Saved
@@ -107,27 +84,198 @@ public class PageEditingTest extends BaseTest {
         getEditorPage().verifyPageSavedAndPublished();
     }
 
+    @Step("Create a new home page from blank and save and publish successfully")
+    public void saveAndPublishNewHomePageFromBlank() {
+        getPageListingScreen().createNewPageFromBlank(PageType.HOME);
+        getEditorPage().verifyEditorPageLoaded();
+        getEditorPage().changePageTitle("Test " + PageType.HOME.name() + " " + new Date());
+        getEditorPage().clickSaveAndPublishPageButton();
+        getEditorPage().confirmBeforePublishPageModal_TitledTitle();
+        getEditorPage().confirmPublishingHomepageModal();
+        getToast().verifyShowPublishedPageToast();
+        getEditorPage().closeEnableAutoSaveModal();
+        getEditorPage().verifyPageSavedAndPublished();
+    }
+
+    @Test(description = "TC-001: Open page editor in the Page Listing screen")
+    public void openPageEditorInPageListingScreen() {
+        getPageListingScreen().openPageListingPage();
+        getPageListingScreen().verifyPageListingLoaded();
+        String pageId = getPageListingScreen().openPageInPageListing();
+        getEditorPage().verifyEditorPageLoaded();
+        verifyIdInUrl(pageId);
+    }
+
+    @Test(description = "TC-002: Open page editor in the Dashboard screen")
+    public void openPageEditorInDashboardScreen() {
+        getDashboardScreen().openDashboardPage();
+        getDashboardScreen().verifyDashboardLoaded();
+        String pageId = getDashboardScreen().openRecentPage();
+        getEditorPage().verifyEditorPageLoaded();
+        verifyIdInUrl(pageId);
+    }
+
+    @Test(description = "TC-003: Open page editor by clicking Edit button in the Page Setting screen")
+    public void openPageEditorByClickingEditButtonInPageListingScreen() {
+        getPageListingScreen().openPageListingPage();
+        getPageListingScreen().verifyPageListingLoaded();
+        String pageId = getPageListingScreen().openPageSettingInPageListing();
+        getPageSettingScreen().verifyPageSettingScreenLoaded();
+        verifyIdInUrl(pageId);
+        getPageSettingScreen().clickEditPageButton();
+        getEditorPage().verifyEditorPageLoaded();
+        verifyIdInUrl(pageId);
+    }
+
+    @Test(description = "TC-004: Open page editor by Search bar in the Dashboard screen")
+    public void openPageEditorBySearchBarInDashboardScreen() {
+        getDashboardScreen().openDashboardPage();
+        getDashboardScreen().verifyDashboardLoaded();
+        getDashboardScreen().searchPageInDashboard();
+        getDashboardScreen().openSearchResultPage();
+        getEditorPage().verifyEditorPageLoaded();
+    }
+
     @Test(description = "TC-009: Create a new blog post page from blank")
     public void createNewBlogPostPageFromBlank() {
-        createNewPageFromBlank(PageType.BLOG);
+        saveAndPublishNewPageFromBlank(PageType.BLOG);
     }
 
     @Test(description = "TC-010: Create a new blog post page from template")
     public void createNewBlogPostPageFromTemplate() {
-        createNewPageFromTemplate(PageType.BLOG);
+        saveAndPublishNewPageFromTemplate(PageType.BLOG);
     }
 
     @Test(description = "TC-011: Create a new regular/password page from blank")
     public void createNewRegularPasswordPageFromBlank() {
-        createNewPageFromBlank(PageType.PAGE);
-        createNewPageFromBlank(PageType.PASSWORD);
+        saveAndPublishNewPageFromBlank(PageType.PAGE);
+        saveAndPublishNewPageFromBlank(PageType.PASSWORD);
     }
 
     @Test(description = "TC-012: Create a new regular/password page from template")
     public void createNewRegularPasswordPageFromTemplate() {
-        createNewPageFromTemplate(PageType.PAGE);
-        createNewPageFromTemplate(PageType.PASSWORD);
+        saveAndPublishNewPageFromTemplate(PageType.PAGE);
+        saveAndPublishNewPageFromTemplate(PageType.PASSWORD);
     }
+
+    @Test(description = "TC-013: Create a new home page from blank when there is no home page is published")
+    public void createNewHomePageFromBlankWhenNoHomePagePublished() {
+        getPageListingScreen().openPageListingPage();
+        getPageListingScreen().verifyPageListingLoaded();
+        getPageListingScreen().verifyHaventPublishedHomepage();
+        saveAndPublishNewHomePageFromBlank();
+    }
+
+    @Test(description = "TC-014: Create a new home page from blank when there is a home page is published", dependsOnMethods = {"createNewHomePageFromBlankWhenNoHomePagePublished"})
+    public void createNewHomePageFromBlankWhenHomepageIsPublished() {
+        getPageListingScreen().openPageListingPage();
+        getPageListingScreen().verifyPageListingLoaded();
+        getPageListingScreen().verifyHavePublishedHomepage();
+        saveAndPublishNewHomePageFromBlank();
+    }
+
+    @Test(description = "TC-017: User select option \"Don't remind me again\" in the modal \"Enable autosave?\"")
+    public void dontRemindEnableAutoSave() {
+        getPageListingScreen().openPageListingPage();
+        getPageListingScreen().verifyPageListingLoaded();
+        getPageListingScreen().userHaventClickRemindEnableAutoSave();
+        getPageListingScreen().userHaventClickRemindEnableAutoSave();
+        getPageListingScreen().createNewPageFromBlank(PageType.PAGE);
+        getEditorPage().verifyEditorPageLoaded();
+        getEditorPage().changePageTitle("Test " + PageType.PAGE.name() + " " + new Date());
+        savePageByShortcut();
+        getEditorPage().confirmBeforeSaveModal_TitledTitle();
+        getEditorPage().confirmSavePageModal();
+        getEditorPage().verifyPageIsSaving();
+        getEditorPage().verifyPageIsSaved();
+        getEditorPage().confirmEnableAutoSaveModal();
+    }
+
+    @Step("Save and Publish new {0} page from blank and select Don't remind me again in the modal Save page")
+    public void saveNewPageFromBlank_selectDontRemindSavePage(PageType pageType) {
+        getPageListingScreen().openPageListingPage();
+        getPageListingScreen().verifyPageListingLoaded();
+        getPageListingScreen().createNewPageFromBlank(pageType);
+        getEditorPage().verifyEditorPageLoaded();
+        getEditorPage().changePageTitle("Test " + pageType.name() + " " + new Date());
+        savePageByShortcut();
+        getEditorPage().confirmBeforeSaveModal_TitledTitle();
+        getEditorPage().selectDontRemindAndConfirmSavePageModal();
+        getEditorPage().verifyPageIsSaving();
+        getEditorPage().verifyPageIsSaved();
+        getEditorPage().closeEnableAutoSaveModal();
+    }
+
+    @Step("Save and Publish new {0} page from blank when user have selected Don't remind me again in the modal Save page")
+    public void saveNewPageFromBlank_haveSelectedDontRemindSavePage(PageType pageType) {
+        getPageListingScreen().openPageListingPage();
+        getPageListingScreen().verifyPageListingLoaded();
+        getPageListingScreen().createNewPageFromBlank(pageType);
+        getEditorPage().verifyEditorPageLoaded();
+        getEditorPage().changePageTitle("Test " + pageType.name() + " " + new Date());
+        savePageByShortcut();
+        getEditorPage().confirmBeforeSaveModal_TitledTitle();
+        getEditorPage().verifyPageIsSaving();
+        getEditorPage().verifyPageIsSaved();
+        getEditorPage().closeEnableAutoSaveModal();
+    }
+
+    @Test(description = "TC-018:  User select option \"Don't remind me again\" in the modal \"Save page\"")
+    public void dontRemindSavePage() {
+        getPageListingScreen().openPageListingPage();
+        getPageListingScreen().verifyPageListingLoaded();
+        getPageListingScreen().userHaventClickRemindSavePage();
+        getPageListingScreen().userHaventClickRemindEnableAutoSave();
+
+        saveNewPageFromBlank_selectDontRemindSavePage(PageType.PAGE);
+        saveNewPageFromBlank_haveSelectedDontRemindSavePage(PageType.PAGE);
+        saveNewPageFromBlank_selectDontRemindSavePage(PageType.PASSWORD);
+    }
+
+    @Step("Save and Publish new home page from blank and select Don't remind me again in the modal Publish page")
+    public void saveAndPublishNewHomePageFromBlank_selectDontRemindPublishPage() {
+        getPageListingScreen().openPageListingPage();
+        getPageListingScreen().verifyPageListingLoaded();
+        getPageListingScreen().createNewPageFromBlank(PageType.HOME);
+        getEditorPage().verifyEditorPageLoaded();
+        getEditorPage().changePageTitle("Test " + PageType.HOME.name() + " " + new Date());
+        getEditorPage().clickSaveAndPublishPageButton();
+        getEditorPage().confirmBeforePublishPageModal_TitledTitle();
+        getEditorPage().selectDontRemindAndConfirmPublishingHomePageModal();
+        getEditorPage().verifyPageIsSaving();
+        getEditorPage().verifyShowUnpublishingPageToast();
+        getEditorPage().verifyPageIsSaved();
+        getEditorPage().verifyPageIsPublished();
+        getEditorPage().verifyShowPublishedPageToast();
+        getEditorPage().closeEnableAutoSaveModal();
+    }
+
+    @Step("Save and Publish new home page from blank when user have selected Don't remind me again in the modal Publish page")
+    public void saveAndPublishNewHomePageFromBlank_haveSelectedDontRemindPublishPage() {
+        getPageListingScreen().openPageListingPage();
+        getPageListingScreen().verifyPageListingLoaded();
+        getPageListingScreen().createNewPageFromBlank(PageType.HOME);
+        getEditorPage().verifyEditorPageLoaded();
+        getEditorPage().changePageTitle("Test " + PageType.HOME.name() + " " + new Date());
+        getEditorPage().clickSaveAndPublishPageButton();
+        getEditorPage().confirmBeforePublishPageModal_TitledTitle();
+        getEditorPage().verifyPageIsSaving();
+        getEditorPage().verifyShowUnpublishingPageToast();
+        getEditorPage().verifyPageIsSaved();
+        getEditorPage().verifyPageIsPublished();
+        getEditorPage().verifyShowPublishedPageToast();
+        getEditorPage().closeEnableAutoSaveModal();
+    }
+
+    @Test(description = "TC-019: User select option \"Don't remind me again\" in the modal \"Publish page\"")
+    public void dontRemindPublishPage() {
+        getPageListingScreen().openPageListingPage();
+        getPageListingScreen().verifyPageListingLoaded();
+
+        saveAndPublishNewHomePageFromBlank_selectDontRemindPublishPage();
+        saveAndPublishNewHomePageFromBlank_haveSelectedDontRemindPublishPage();
+    }
+
 
     @Test(description = "TC-021: User back from editor to page listing screen by click Back button in the Editor header when page is not saved")
     public void backFromEditorToPageListingScreen_clickBackButton() {
@@ -163,7 +311,7 @@ public class PageEditingTest extends BaseTest {
         String testPageTitle = "Test " + PageType.PAGE.name() + " " + new Date();
         getEditorPage().changePageTitle(testPageTitle);
         getEditorPage().clickSavePageButton();
-        getEditorPage().confirmSaveModal();
+        getEditorPage().confirmSavePageModal();
         getEditorPage().verifyPageIsSaving();
         getEditorPage().verifyPageIsSaved();
         getEditorPage().closeEnableAutoSaveModal();
@@ -189,7 +337,7 @@ public class PageEditingTest extends BaseTest {
         // Save page
         getEditorPage().clickSavePageButton();
         getEditorPage().confirmBeforeSaveModal_UntitledTitle(PageType.PAGE + " " + new Date().toString());
-        getEditorPage().confirmSaveModal();
+        getEditorPage().confirmSavePageModal();
         getEditorPage().verifyPageIsSaving();
         getEditorPage().verifyPageIsSaved();
         getEditorPage().closeEnableAutoSaveModal();
@@ -215,7 +363,7 @@ public class PageEditingTest extends BaseTest {
         getEditorPage().verifyEditorPageLoaded();
         getEditorPage().toggleEnableAutoSave();
         getEditorPage().confirmBeforeSaveModal_UntitledTitle(PageType.PAGE + " " + new Date().toString());
-        getEditorPage().confirmSaveModal();
+        getEditorPage().confirmSavePageModal();
     }
 
     @Test(description = "TC-050: User enable autosave when have saved page")
@@ -227,7 +375,7 @@ public class PageEditingTest extends BaseTest {
         getEditorPage().verifyEditorPageLoaded();
         getEditorPage().changePageTitle("Test " + PageType.PAGE.name() + " " + new Date());
         getEditorPage().clickSavePageButton();
-        getEditorPage().confirmSaveModal();
+        getEditorPage().confirmSavePageModal();
         getEditorPage().verifyPageIsSaving();
         getEditorPage().verifyPageIsSaved();
         getEditorPage().closeEnableAutoSaveModal();
@@ -243,8 +391,8 @@ public class PageEditingTest extends BaseTest {
         getPageListingScreen().openPublishedPage();
         getEditorPage().verifyEditorPageLoaded();
         getEditorPage().clickUnpublishPageButton();
-        getEditorPage().verifyShowUnpublishingToast();
-        getEditorPage().verifyShowUnpublishedToast();
+        getEditorPage().verifyShowUnpublishingPageToast();
+        getEditorPage().verifyShowUnpublishedPageToast();
         getEditorPage().verifyPageIsUnpublished();
     }
 
@@ -267,6 +415,80 @@ public class PageEditingTest extends BaseTest {
         getEditorPage().verifyPageIsPublished();
         getEditorPage().verifyGoToThemeEditorButtonEnabled();
         getEditorPage().goToThemeEditor();
+    }
+
+    @Test(description = "TC-067: User open Browser help center")
+    public void openBrowserHelpCenter() {
+        getPageListingScreen().openPageListingPage();
+        getPageListingScreen().verifyPageListingLoaded();
+        getPageListingScreen().openPageInPageListing();
+        getEditorPage().verifyEditorPageLoaded();
+        getEditorPage().openBrowserHelpCenter();
+    }
+
+    @Test(description = "TC-068: User open Live chat box")
+    public void openLiveChatBox() {
+        getPageListingScreen().openPageListingPage();
+        getPageListingScreen().verifyPageListingLoaded();
+        getPageListingScreen().openPageInPageListing();
+        getEditorPage().verifyEditorPageLoaded();
+        getEditorPage().startLiveChat();
+        attachScreenshotPNG();
+    }
+
+    @Test(description = "TC-069: User Join PageFly community")
+    public void joinPageFlyCommunity() {
+        getPageListingScreen().openPageListingPage();
+        getPageListingScreen().verifyPageListingLoaded();
+        getPageListingScreen().openPageInPageListing();
+        getEditorPage().verifyEditorPageLoaded();
+        getEditorPage().joinPageFlyCommunity();
+    }
+
+    @Test(description = "TC-070: User Watch video tutorials")
+    public void watchVideoTutorials() {
+        getPageListingScreen().openPageListingPage();
+        getPageListingScreen().verifyPageListingLoaded();
+        getPageListingScreen().openPageInPageListing();
+        getEditorPage().verifyEditorPageLoaded();
+        getEditorPage().watchVideoTutorials();
+    }
+
+    @Test(description = "TC-071: User change window width to less than 1024px")
+    public void changeWindowWidthToLessThan1024px() {
+        getPageListingScreen().openPageListingPage();
+        getPageListingScreen().verifyPageListingLoaded();
+        getPageListingScreen().openPageInPageListing();
+        getEditorPage().verifyEditorPageLoaded();
+        resizeWindow(1023);
+        getEditorPage().verifyOverlayVisible();
+    }
+
+    @Step("User open editor on mobile screen has width {0}")
+    public void openEditorOnScreenHasWidth(Integer width) {
+        getPageListingScreen().openPageListingPage();
+        resizeWindow(width);
+        try {
+            getPageListingScreen().openPageInPageListingMobile(1);
+        } catch (Exception e) {
+            getPageListingScreen().openPageInPageListing(1);
+        }
+        getPageListingScreen().verifyEditorUnavailableOnMobileModal();
+    }
+
+    @Test(description = "TC-072: User use device has width less than 1024px")
+    public void useDeviceHasWidthLessThan1024px() {
+        openEditorOnScreenHasWidth(900);
+        openEditorOnScreenHasWidth(1023);
+    }
+
+    @Test(description = "TC-118: User open live chat")
+    public void openLiveChat() {
+        getPageListingScreen().openPageListingPage();
+        getPageListingScreen().verifyPageListingLoaded();
+        getPageListingScreen().openPageInPageListing();
+        getEditorPage().verifyEditorPageLoaded();
+        getEditorPage().openLiveChat();
     }
 
     @AfterClass

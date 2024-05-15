@@ -3,6 +3,7 @@ package org.pftest.projects.pages.pages;
 import io.qameta.allure.Step;
 import org.openqa.selenium.By;
 import org.openqa.selenium.support.pagefactory.ByChained;
+import org.pftest.constants.ModalConstants;
 import org.pftest.constants.PagesConstants;
 import org.pftest.enums.PageType;
 import org.pftest.projects.CommonPage;
@@ -21,11 +22,20 @@ public class PageListingScreen extends CommonPage {
     private By dataTable = By.xpath("//*[@id=\"AppFrameMain\"]//*[@class=\"Polaris-IndexTable\"]");
     private By searchAndFilterButton = new ByChained(dataTable, By.xpath("//button[@aria-label='Search and filter results']"));
     private By addFilterButton = new ByChained(dataTable, By.xpath("//button[@aria-label='Add filter']"));
+    private By bulkActionsUnpublishButton = new ByChained(dataTable, By.xpath("//button[.//*[text()='Unpublish'] and not(@disabled)]"));
 
     public By getPageRowByIndex(int index) {
         return By.xpath(String.format("//tbody//tr[%d]", index));
     }
-    public By getPageRowById(String id) {return By.xpath(String.format("//tbody//tr[@id='%s']", id));}
+
+    public By getPageRowByIndexMobile(int index) {
+        return By.xpath("(//*[@class='Polaris-IndexTable']//ul/li[@id]//h6)[" + index + "]");
+    }
+
+    public By getPageRowById(String id) {
+        return By.xpath(String.format("//tbody//tr[@id='%s']", id));
+    }
+
     public By getPublishedPageRowByIndex(int index) {
         String xpath = String.format("(//tbody/tr[//td[@id='pages--table--status']/span[@class='Polaris-Badge Polaris-Badge--toneSuccess']//*[text()='Published']])[%s]", index);
         return By.xpath(xpath);
@@ -46,6 +56,46 @@ public class PageListingScreen extends CommonPage {
         verifyElementVisible(dataTable);
     }
 
+    //    ================== Conditions ==================
+    @Step("Verify haven't published homepage")
+    public void verifyHaventPublishedHomepage() {
+        clickElement(By.id("home"));
+        filterPageByStatus("Published");
+        if (isElementVisible(getPublishedPageRowByIndex(1), 5)) {
+            selectAllPages();
+            unpublishAllSelectedPages();
+        }
+        verifyElementNotVisible(getPublishedPageRowByIndex(1), 5);
+    }
+
+    @Step("Verify have published homepage")
+    public void verifyHavePublishedHomepage() {
+        clickElement(By.id("home"));
+        filterPageByStatus("Published");
+        waitForElementVisible(getPublishedPageRowByIndex(1));
+    }
+
+    @Step("Verify haven't clicked remind option in Enable Autosave modal")
+    public void userHaventClickRemindEnableAutoSave() {
+        getJsExecutor().executeScript("window.localStorage.removeItem('no-auto-save');");
+    }
+
+    @Step("Verify haven't click remind option in Save page modal")
+    public void userHaventClickRemindSavePage() {
+        getJsExecutor().executeScript("window.localStorage.removeItem('warning_saved');");
+    }
+
+
+//    ================== Modals ==================
+    @Step("Verify 'Editor is unavailable on mobile' modal is shown")
+    public void verifyEditorUnavailableOnMobileModal() {
+        waitForElementVisible(modal);
+        verifyElementTextContains(modal, ModalConstants.EDITOR_UNAVAILABLE_ON_MOBILE_MODAL.TITLE);
+        By closeButton = By.xpath(".//*[@role='dialog']//button//*[text()='" + ModalConstants.EDITOR_UNAVAILABLE_ON_MOBILE_MODAL.PRIMARY_BUTTON + "']");
+        clickElement(closeButton);
+        verifyElementNotVisible(modal);
+    }
+
 //    ================== Filter Page ==================
 
     @Step("Filter page by status {0}")
@@ -58,7 +108,27 @@ public class PageListingScreen extends CommonPage {
         clickElement(publishedOption);
     }
 
+//    ================== Bulk Actions ==================
+
+    @Step("Select all pages in the data table")
+    public void selectAllPages() {
+        clickElement(By.xpath("//thead//*[@class='Polaris-Checkbox']"));
+    }
+
+    @Step("Unpublish all selected pages")
+    public void unpublishAllSelectedPages() {
+        clickElement(bulkActionsUnpublishButton);
+        getToast().verifyShowUnpublishingPageToast();
+        getToast().verifyShowUnpublishedPageToast();
+    }
+
 //    ================== Open Page ==================
+
+    @Step("Click on the row {0} in the data table in mobile screen")
+    public void openPageInPageListingMobile(Integer index) {
+        By row = getPageRowByIndexMobile(index);
+        clickElement(row);
+    }
 
     @Step("Click on the row {0} in the data table")
     public String openPageInPageListing(Integer index) {
@@ -85,6 +155,7 @@ public class PageListingScreen extends CommonPage {
     @Step("Open the first published page in the data table")
     public void openPublishedPage() {
         filterPageByStatus("Published");
+        sleep(1);
         By row = getPublishedPageRowByIndex(1);
         clickElement(row);
     }
@@ -92,6 +163,7 @@ public class PageListingScreen extends CommonPage {
     @Step("Open the first unpublished page in the data table")
     public void openUnpublishedPage() {
         filterPageByStatus("Unpublished");
+        sleep(1);
         By row = getPublishedPageRowByIndex(1);
         clickElement(row);
     }
@@ -133,10 +205,12 @@ public class PageListingScreen extends CommonPage {
         clickElement(By.id(pageType.name().toLowerCase() + "-template"));
         waitForPageLoaded();
         verifyPageTitle(PagesConstants.SELECT_PAGE_TEMPLATE);
+        sleep(1);
         // Generate a random index between 0 and 5
         int randomIndex = new Random().nextInt(1, 5);
         By template = By.xpath("(//div[@class='template-list-modal--template-list--template-card']//button/*[text()='Select'])[" + randomIndex + "]");
         moveToElement(template);
+        hoverOnElement(template);
         clickElement(template);
     }
 
@@ -151,7 +225,6 @@ public class PageListingScreen extends CommonPage {
         clickElement(createFromBlankButton);
         clickElement(By.id(pageType.name().toLowerCase() + "-blank"));
     }
-
 
 
 }

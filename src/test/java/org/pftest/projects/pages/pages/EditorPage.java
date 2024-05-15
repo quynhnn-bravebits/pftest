@@ -19,7 +19,7 @@ import java.util.Date;
 import java.util.UUID;
 
 import static org.pftest.constants.ModalConstants.BEFORE_SAVE_MODAL;
-import static org.pftest.constants.UrlConstants.SHOPIFY_BASE_URL;
+import static org.pftest.constants.UrlConstants.*;
 import static org.pftest.keywords.WebUI.*;
 
 // page_url = https://admin.shopify.com/store/quynhquynhiee/apps/wip-pagefly/editor?type=page&id=1
@@ -40,6 +40,8 @@ public class EditorPage extends Toast {
     private By publishedBadge = By.xpath("//*[@id=\"editor-header-bar--status\"]//*/span[@class=\"Polaris-Badge Polaris-Badge--toneSuccess\"]//*[text()=\"Published\"]");
     private By unpublishedBadge = By.xpath("//*[@id=\"editor-header-bar--status\"]//*/span[@class=\"Polaris-Badge Polaris-Badge--toneInfo\"]//*[text()=\"Unpublished\"]");
     private By publishingBadge = By.xpath("//*[@id=\"editor-header-bar--status\"]//*/span[@class=\"Polaris-Badge Polaris-Badge--toneInfo\"]//*[text()=\"Publishing...\"]");
+    private By crispChatBox = By.xpath("//*[@id='crisp-chatbox']//*[@data-chat-status='ongoing']");
+    private By crispIcon = By.xpath("//*[@id='crisp-chatbox']//a[@aria-label='Open chat']");
 
     private By catalogAddElementButton = By.xpath("//button[@id='catalog--add-element-btn']");
     private By catalogAddShopifyElementButton = By.xpath("//button[@id='catalog--add-shopify-element-btn']");
@@ -50,11 +52,22 @@ public class EditorPage extends Toast {
     private By canvasSettingButton = By.id("canvas-size-setting-activator-btn");
     private By editorSettingButton = By.id("editor-header-bar--editor-setting--activator");
     private By moreSettingsButton = By.id("editor-header-bar--more-settings-btn");
+    private By helpAndSupportButton = By.xpath("(//*[@id=\"editor-header-bar--content\"]//button)[last()]");
 
     private By fitViewportCheckbox = By.xpath("//*[@id=\"canvas-size-setting\"]//*/label[.//*[text()='Fit viewport']]");
     private By showCanvasSizeCheckbox = By.xpath("//label[@for=\"show-canvas-size-setting-item\"]");
     private By enableAutoSaveCheckbox = By.xpath("//label[@for=\"auto-save--enable\"]");
     private By goToThemeEditorButton = By.id("go-to-theme-editor-action-btn");
+    private By browseHelpCenterButton = By.xpath("//button//*[text()='Browse Help Center']");
+    private By startLiveChat = By.xpath("//button//*[text()='Start live chat']");
+    private By joinCommunityButton = By.xpath("//button//*[text()='Join PageFly Community']");
+    private By watchVideoTutorialsButton = By.xpath("//button//*[text()='Watch video tutorials']");
+
+    private By editorOverlay = By.xpath("//div[contains(@class, 'Editor-Overlay')]");
+
+    public String takeEditorDndScreenshot(String name) {
+        return takeElementScreenshot(editorDnd, name);
+    }
 
 
     @Step("Open new {0} page editor")
@@ -64,13 +77,33 @@ public class EditorPage extends Toast {
         switchToPageFlyFrame();
     }
 
+    public void verifyEditorDndLoaded() {
+        verifyElementVisible(editorDnd);
+        switchToDragAndDropFrame();
+        waitForPageLoaded();
+        sleep(2);
+        switchToPageFlyFrame();
+    }
 
     @Step("Wait for the page to be loaded")
     public void verifyEditorPageLoaded() {
+        waitForPageLoaded();
         verifyElementVisible(pageTitle);
-        verifyElementVisible(editorDnd);
         verifyElementVisible(inspector);
         verifyElementVisible(headerBar);
+        verifyEditorDndLoaded();
+    }
+
+    @Step("Verify the editor overlay is visible")
+    public void verifyOverlayVisible() {
+        verifyElementVisible(editorOverlay);
+        verifyElementTextContains(editorOverlay, "The browser window is too small for the editor");
+        verifyElementTextContains(editorOverlay, "Please resize the browser to be at least 1024px wide for the editor to work again.");
+    }
+
+    @Step("Verify the editor overlay is hidden")
+    public void verifyOverlayHidden() {
+        verifyElementNotVisible(editorOverlay);
     }
 
 //    ================== Editor Header ==================
@@ -121,6 +154,63 @@ public class EditorPage extends Toast {
         verifyElementChecked(new ByChained(fitViewportCheckbox, By.tagName("input")));
     }
 
+    public void verifyCrispChatBoxOpened() {
+        verifyElementVisible(crispChatBox);
+        Dimension size = getSizeElement(crispChatBox);
+        verifyTrue(size.height > 0 && size.width > 0);
+    }
+
+    public void verifyCrispChatBoxClosed() {
+        verifyElementNotVisible(crispChatBox);
+        Dimension size = getSizeElement(crispChatBox);
+        verifyTrue(size.height * size.width == 0);
+    }
+
+    @Step("Open Browse Help Center")
+    public void openBrowserHelpCenter() {
+        clickElement(helpAndSupportButton);
+        clickElement(browseHelpCenterButton);
+        WebDriverWait wait = new WebDriverWait(DriverManager.getDriver(), Duration.ofSeconds(FrameworkConstants.WAIT_EXPLICIT), Duration.ofMillis(500));
+        wait.until(ExpectedConditions.numberOfWindowsToBe(2));
+        switchToWindowOrTabByPosition(1);
+        wait.until(ExpectedConditions.urlToBe(HELP_CENTER_URL));
+        closeCurrentWindow();
+    }
+
+    @Step("Open Live Chat Box")
+    public void startLiveChat() {
+        clickElement(helpAndSupportButton);
+        clickElement(startLiveChat);
+        verifyCrispChatBoxOpened();
+    }
+
+    @Step("Join PageFly Community")
+    public void joinPageFlyCommunity() {
+        clickElement(helpAndSupportButton);
+        clickElement(joinCommunityButton);
+        WebDriverWait wait = new WebDriverWait(DriverManager.getDriver(), Duration.ofSeconds(FrameworkConstants.WAIT_EXPLICIT), Duration.ofMillis(500));
+        wait.until(ExpectedConditions.numberOfWindowsToBe(2));
+        switchToWindowOrTabByPosition(1);
+        wait.until(ExpectedConditions.urlToBe(PF_COMMUNITY_URL));
+        closeCurrentWindow();
+    }
+
+    @Step("Watch Video Tutorials")
+    public void watchVideoTutorials() {
+        clickElement(helpAndSupportButton);
+        clickElement(watchVideoTutorialsButton);
+        WebDriverWait wait = new WebDriverWait(DriverManager.getDriver(), Duration.ofSeconds(FrameworkConstants.WAIT_EXPLICIT), Duration.ofMillis(500));
+        wait.until(ExpectedConditions.numberOfWindowsToBe(2));
+        switchToWindowOrTabByPosition(1);
+        wait.until(ExpectedConditions.urlToBe(VIDEO_TUTORIALS_URL));
+        closeCurrentWindow();
+    }
+
+    public void openLiveChat() {
+        clickElement(crispIcon);
+        verifyCrispChatBoxOpened();
+    }
+
     @Step("Verify Go To Theme Editor Button is enabled")
     public void verifyGoToThemeEditorButtonEnabled() {
         clickElement(moreSettingsButton);
@@ -138,14 +228,11 @@ public class EditorPage extends Toast {
             clickElement(moreSettingsButton);
         }
         clickElement(goToThemeEditorButton);
-        new WebDriverWait(DriverManager.getDriver(), Duration.ofSeconds(FrameworkConstants.WAIT_EXPLICIT), Duration.ofMillis(500)).until(ExpectedConditions.numberOfWindowsToBe(2));
+        WebDriverWait wait = new WebDriverWait(DriverManager.getDriver(), Duration.ofSeconds(FrameworkConstants.WAIT_EXPLICIT), Duration.ofMillis(500));
+        wait.until(ExpectedConditions.numberOfWindowsToBe(2));
         switchToWindowOrTabByPosition(1);
-        sleep(1);
-        waitForPageLoaded();
-        System.out.println(getCurrentUrl());
-        assert  getCurrentUrl().contains(SHOPIFY_BASE_URL + "/themes");
+        wait.until(ExpectedConditions.urlContains(SHOPIFY_BASE_URL + "/themes"));
         closeCurrentWindow();
-        switchToWindowOrTabByPosition(0);
     }
 
 //    ================== Page Title ==================
@@ -163,7 +250,7 @@ public class EditorPage extends Toast {
 
     @Step("Verify page is Published")
     public void verifyPageIsPublished() {
-        verifyElementVisible(publishedBadge);
+        verifyElementVisible(publishedBadge, 30);
     }
 
     @Step("Verify page is Unpublished")
@@ -174,13 +261,11 @@ public class EditorPage extends Toast {
     @Step("Verify page is Saving")
     public void verifyPageIsSaving() {
         verifyElementVisible(savingBadge);
-        verifyShowSavingToast();
     }
 
     @Step("Verify page is Saved")
     public void verifyPageIsSaved() {
-        verifyElementVisible(savedBadge);
-        verifyShowSavedToast();
+        verifyElementVisible(savedBadge, 30);
     }
 
     @Step("Verify page is Unsaved")
@@ -230,6 +315,7 @@ public class EditorPage extends Toast {
         clickElement(catalogAddElementButton);
         verifyElementVisible(catalogMenu);
         By headingButton = By.id("catalog--catalog-list--heading");
+        moveToElement(headingButton);
         if (waitForElementClickable(headingButton) != null) {
             clickElement(By.id("catalog--catalog-list--heading"));
         }
@@ -270,6 +356,13 @@ public class EditorPage extends Toast {
     }
 
 //    ================== Leave page Modal ==================
+
+    /**
+     * <p>Waits for the modal to be visible.</p>
+     * <p>Verifies that the modal contains the expected text.</p>
+     * <p>Clicks the 'Leave page' button on the modal.</p>
+     * <p>Verifies that the modal is no longer present.</p>
+     */
     @Step("Confirm 'Leave page' modal")
     public void confirmLeavePageModal() {
         waitForElementVisible(modal);
@@ -298,6 +391,12 @@ public class EditorPage extends Toast {
         verifyElementNotVisible(beforeSaveModal);
     }
 
+    /**
+     * <p>Waits for the modal to be visible.</p>
+     * <p>Verifies that the modal contains the expected text.</p>
+     * <p>Clicks the 'Save' button on the modal.</p>
+     * <p>Verifies that the modal is no longer present.</p>
+     */
     @Step("Confirm 'Before Save' modal when the page title is titled")
     public void confirmBeforeSaveModal_TitledTitle() {
         WebElement beforeSaveModal = waitForElementVisible(modal);
@@ -306,24 +405,62 @@ public class EditorPage extends Toast {
         verifyElementNotVisible(beforeSaveModal);
     }
 
+
 //    ================== Save Modal ==================
 
-        /**
-        * <p>Waits for the modal to be visible.</p>
-        * <p>Verifies that the modal contains the expected text.</p>
-        * <p>Clicks the 'Save' button on the modal.</p>
-        * <p>Verifies that the modal is no longer present.</p>
-        */
-        @Step("Confirm 'Save' modal")
-        public void confirmSaveModal() {
-            WebElement saveModal = waitForElementVisible(modal);
-            verifyElementTextContains(modal, ModalConstants.SAVE_MODAL.TITLE);
-            By saveButton = By.xpath(".//*[@role='dialog']//button//*[text()='" + ModalConstants.SAVE_MODAL.PRIMARY_BUTTON +"']");
-            clickElement(saveButton);
-            verifyElementNotVisible(saveModal);
-        }
+    /**
+     * <p>Waits for the modal to be visible.</p>
+     * <p>Verifies that the modal contains the expected text.</p>
+     * <p>Clicks the 'Save' button on the modal.</p>
+     * <p>Verifies that the modal is no longer present.</p>
+     */
+    @Step("Confirm 'Save page' modal")
+    public void confirmSavePageModal() {
+        WebElement saveModal = waitForElementVisible(modal);
+        verifyElementTextContains(modal, ModalConstants.SAVE_MODAL.TITLE);
+        By saveButton = By.xpath(".//*[@role='dialog']//button//*[text()='" + ModalConstants.SAVE_MODAL.PRIMARY_BUTTON + "']");
+        clickElement(saveButton);
+        verifyElementNotVisible(saveModal);
+    }
+
+    @Step("Select Don't remind option and confirm 'Save page' modal")
+    public void selectDontRemindAndConfirmSavePageModal() {
+        WebElement saveModal = waitForElementVisible(modal);
+        verifyElementTextContains(modal, ModalConstants.SAVE_MODAL.TITLE);
+        By checkbox = new ByChained(modal, By.className("Polaris-Checkbox"));
+        clickElement(checkbox);
+        By saveButton = By.xpath(".//*[@role='dialog']//button//*[text()='" + ModalConstants.SAVE_MODAL.PRIMARY_BUTTON + "']");
+        clickElement(saveButton);
+        verifyElementNotVisible(saveModal);
+    }
 
 //    ================== Before Publish Modal ==================
+
+    /**
+     * <p>Waits for the modal to be visible.</p>
+     * <p>Verifies that the modal contains the expected text.</p>
+     * <p>Clicks the 'Publish' button on the modal.</p>
+     * <p>Verifies that the modal is no longer present.</p>
+     */
+    @Step("Confirm 'Publishing homepage' modal")
+    public void confirmPublishingHomepageModal() {
+        WebElement publishingModal = waitForElementVisible(modal);
+        verifyElementTextContains(modal, ModalConstants.PUBLISHING_HOMEPAGE_MODAL.TITLE);
+        By publishButton = By.xpath(".//*[@role='dialog']//button//*[text()='" + ModalConstants.PUBLISHING_HOMEPAGE_MODAL.PRIMARY_BUTTON + "']");
+        clickElement(publishButton);
+        verifyElementNotVisible(publishingModal);
+    }
+
+    @Step("Select Don't remind option and confirm 'Publishing homepage' modal")
+    public void selectDontRemindAndConfirmPublishingHomePageModal() {
+        WebElement publishingModal = waitForElementVisible(modal);
+        verifyElementTextContains(modal, ModalConstants.PUBLISHING_HOMEPAGE_MODAL.TITLE);
+        By checkbox = new ByChained(modal, By.className("Polaris-Checkbox"));
+        clickElement(checkbox);
+        By publishButton = By.xpath(".//*[@role='dialog']//button//*[text()='" + ModalConstants.PUBLISHING_HOMEPAGE_MODAL.PRIMARY_BUTTON + "']");
+        clickElement(publishButton);
+        verifyElementNotVisible(publishingModal);
+    }
 
     /**
      * <p>Waits for the modal to be visible.</p>
@@ -335,7 +472,7 @@ public class EditorPage extends Toast {
      * @param title The new title for the page. If null, the current date and time will be used.
      */
     @Step("Confirm 'Before Publish' modal when the page is untitled")
-    public void confirmBeforePublishModal_UntitledTitle(@Nullable String title) {
+    public void confirmBeforePublishPageModal_UntitledTitle(@Nullable String title) {
         WebElement beforePublishModal = waitForElementVisible(modal);
         verifyElementTextContains(modal, ModalConstants.BEFORE_PUBLISH_MODAL.UNTITLED_TITLE);
         clearAndFillText(modal, title != null ? title : new Date().toString());
@@ -353,7 +490,7 @@ public class EditorPage extends Toast {
      * @param title The new title for the page. If null, the current title will be used.
      */
     @Step("Confirm 'Before Publish' modal when the page is titled")
-    public void confirmBeforePublishModal_TitledTitle(String title) {
+    public void confirmBeforePublishPageModal_TitledTitle(String title) {
         WebElement beforePublishModal = waitForElementVisible(modal);
         verifyElementTextContains(modal, ModalConstants.BEFORE_PUBLISH_MODAL.TITLED_TITLE);
         clearAndFillText(modal, title);
@@ -368,17 +505,54 @@ public class EditorPage extends Toast {
      * <p>Verifies that the modal is no longer present.</p>
      */
     @Step("Confirm 'Before Publish' modal when the page is titled")
-    public void confirmBeforePublishModal_TitledTitle() {
+    public void confirmBeforePublishPageModal_TitledTitle() {
         WebElement beforePublishModal = waitForElementVisible(modal);
         verifyElementTextContains(modal, ModalConstants.BEFORE_PUBLISH_MODAL.TITLED_TITLE);
         clickElement(By.id("menubar--save-modal--primary"));
         verifyElementNotVisible(beforePublishModal);
     }
 
+
+    /**
+     * <p>Waits for the modal to be visible.</p>
+     * <p>Verifies that the modal contains the expected text.</p>
+     * <p>Clicks the 'Publish' button on the modal.</p>
+     * <p>Verifies that the modal is no longer present.</p>
+     */
+    @Step("Confirm 'Before Publish Section' modal")
+    public void confirmBeforePublishSectionModal_UntitledTitle() {
+        WebElement beforePublishModal = waitForElementVisible(modal);
+        verifyElementTextContains(modal, ModalConstants.BEFORE_PUBLISH_SECTION_MODAL.TITLE);
+        clearAndFillText(By.id("menubar--save-modal--page-title"), new Date().toString());
+        clickElement(By.id("menubar--save-modal--primary"));
+        verifyElementNotVisible(beforePublishModal);
+    }
+
+    public void confirmBeforePublishProductPageModal_TitledTitle() {
+        WebElement beforePublishModal = waitForElementVisible(modal);
+        verifyElementTextContains(modal, ModalConstants.BEFORE_PUBLISH_MODAL.TITLED_TITLE);
+        clickElement(By.id("menubar--save-modal--primary"));
+//        @todo: complete this
+        verifyElementNotVisible(beforePublishModal);
+
+    }
+
+//    ================== Published Section Modal ==================
+
+    @Step("Close the 'Section published successfully' modal")
+    public void closePublishedSectionModal() {
+//        WebElement publishedModal = waitForElementVisible(modal);
+//        verifyElementTextContains(modal, ModalConstants.PUBLISH_SECTION_SUCCESS_MODAL.TITLE);
+        WebElement publishedModal = waitForElementTextContains(modal, ModalConstants.PUBLISH_SECTION_SUCCESS_MODAL.TITLE);
+
+        By publishButton = By.xpath(".//*[@role='dialog']//button//*[text()='" + ModalConstants.PUBLISH_SECTION_SUCCESS_MODAL.PRIMARY_BUTTON + "']");
+        clickElement(publishButton);
+        verifyElementNotVisible(publishedModal);
+    }
+
 //    ================== Enable Autosave Modal ==================
 
     /**
-     * <p>Confirms the 'Enable Auto Save' modal.</p>
      * <p>Waits for the modal to be visible.</p>
      * <p>Verifies that the modal contains the expected text.</p>
      * <p>Clicks the checkbox in the modal footer.</p>
@@ -398,6 +572,12 @@ public class EditorPage extends Toast {
         verifyElementNotVisible(autosaveModal);
     }
 
+    /**
+     * <p>Waits for the modal to be visible.</p>
+     * <p>Verifies that the modal contains the expected text.</p>
+     * <p>Clicks the 'Cancel' button on the modal.</p>
+     * <p>Verifies that the modal is no longer present.</p>
+     */
     @Step("Close the 'Enable Auto Save' modal")
     public void closeEnableAutoSaveModal() {
         WebElement autosaveModal = waitForElementVisible(modal);

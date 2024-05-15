@@ -25,7 +25,22 @@
         </allure.cmd.download.url>
     </properties>
 
+<!--    <repositories>-->
+<!--        <repository>-->
+<!--            <id>GroupDocsJavaAPI</id>-->
+<!--            <name>GroupDocs Java API</name>-->
+<!--            <url>https://repository.groupdocs.com/repo/</url>-->
+<!--        </repository>-->
+<!--    </repositories>-->
+
     <dependencies>
+        <!--Vision compare-->
+<!--        <dependency>-->
+<!--            <groupId>com.groupdocs</groupId>-->
+<!--            <artifactId>groupdocs-comparison</artifactId>-->
+<!--            <version>22.3</version>-->
+<!--        </dependency>-->
+
         <dependency>
             <groupId>com.google.guava</groupId>
             <artifactId>guava</artifactId>
@@ -181,4 +196,6 @@
             </plugin>
         </plugins>
     </build>
+
+
 </project>
