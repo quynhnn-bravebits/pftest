@@ -41,6 +41,13 @@ public class PageListingScreen extends CommonPage {
         return By.xpath(xpath);
     }
 
+    public By getUnpublishedPageRowByIndex(int index) {
+        String xpath = String.format("(//tbody/tr[//td[@id='pages--table--status']/span[@class='Polaris-Badge']//*[text()='Unpublished']])[%s]", index);
+        return By.xpath(xpath);
+    }
+
+
+
     public void openPageListingPage() {
         openWebsite("https://admin.shopify.com/store/quynhquynhiee/apps/wip-pagefly/pages");
         switchToPageFlyFrame();
@@ -164,7 +171,7 @@ public class PageListingScreen extends CommonPage {
     public void openUnpublishedPage() {
         filterPageByStatus("Unpublished");
         sleep(1);
-        By row = getPublishedPageRowByIndex(1);
+        By row = getUnpublishedPageRowByIndex(1);
         clickElement(row);
     }
 

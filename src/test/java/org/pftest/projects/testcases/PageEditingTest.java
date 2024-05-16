@@ -4,8 +4,11 @@ import io.qameta.allure.Epic;
 import io.qameta.allure.Step;
 import org.pftest.base.BaseTest;
 import org.pftest.enums.PageType;
+import org.testng.ITestResult;
 import org.testng.annotations.*;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 
 import static org.pftest.keywords.WebUI.*;
@@ -174,8 +177,9 @@ public class PageEditingTest extends BaseTest {
         saveAndPublishNewHomePageFromBlank();
     }
 
-    @Test(description = "TC-017: User select option \"Don't remind me again\" in the modal \"Enable autosave?\"")
-    public void dontRemindEnableAutoSave() {
+    @Step("Save and Publish new PAGE page from blank and select Don't remind me again in the modal Enable autosave?")
+    @Test(groups = "Select Don't remind me again", description = "TC-017: User select option \"Don't remind me again\" in the modal \"Enable autosave?\"")
+    public void saveNewPageFromBlank_selectDontRemindEnableAutoSave() {
         getPageListingScreen().openPageListingPage();
         getPageListingScreen().verifyPageListingLoaded();
         getPageListingScreen().userHaventClickRemindEnableAutoSave();
@@ -220,19 +224,14 @@ public class PageEditingTest extends BaseTest {
         getEditorPage().closeEnableAutoSaveModal();
     }
 
-    @Test(description = "TC-018:  User select option \"Don't remind me again\" in the modal \"Save page\"")
+    @Test(groups = "Select Don't remind me again", description = "TC-018:  User select option \"Don't remind me again\" in the modal \"Save page\"")
     public void dontRemindSavePage() {
-        getPageListingScreen().openPageListingPage();
-        getPageListingScreen().verifyPageListingLoaded();
-        getPageListingScreen().userHaventClickRemindSavePage();
-        getPageListingScreen().userHaventClickRemindEnableAutoSave();
-
         saveNewPageFromBlank_selectDontRemindSavePage(PageType.PAGE);
         saveNewPageFromBlank_haveSelectedDontRemindSavePage(PageType.PAGE);
         saveNewPageFromBlank_selectDontRemindSavePage(PageType.PASSWORD);
     }
 
-    @Step("Save and Publish new home page from blank and select Don't remind me again in the modal Publish page")
+    @Step("Save and Publish new HOME page from blank and select Don't remind me again in the modal Publish page")
     public void saveAndPublishNewHomePageFromBlank_selectDontRemindPublishPage() {
         getPageListingScreen().openPageListingPage();
         getPageListingScreen().verifyPageListingLoaded();
@@ -243,14 +242,14 @@ public class PageEditingTest extends BaseTest {
         getEditorPage().confirmBeforePublishPageModal_TitledTitle();
         getEditorPage().selectDontRemindAndConfirmPublishingHomePageModal();
         getEditorPage().verifyPageIsSaving();
-        getEditorPage().verifyShowUnpublishingPageToast();
+        getEditorPage().verifyShowPublishingPageToast();
         getEditorPage().verifyPageIsSaved();
         getEditorPage().verifyPageIsPublished();
         getEditorPage().verifyShowPublishedPageToast();
         getEditorPage().closeEnableAutoSaveModal();
     }
 
-    @Step("Save and Publish new home page from blank when user have selected Don't remind me again in the modal Publish page")
+    @Step("Save and Publish new HOME page from blank when user have selected Don't remind me again in the modal Publish page")
     public void saveAndPublishNewHomePageFromBlank_haveSelectedDontRemindPublishPage() {
         getPageListingScreen().openPageListingPage();
         getPageListingScreen().verifyPageListingLoaded();
@@ -260,22 +259,97 @@ public class PageEditingTest extends BaseTest {
         getEditorPage().clickSaveAndPublishPageButton();
         getEditorPage().confirmBeforePublishPageModal_TitledTitle();
         getEditorPage().verifyPageIsSaving();
-        getEditorPage().verifyShowUnpublishingPageToast();
+        getEditorPage().verifyShowPublishingPageToast();
         getEditorPage().verifyPageIsSaved();
         getEditorPage().verifyPageIsPublished();
         getEditorPage().verifyShowPublishedPageToast();
         getEditorPage().closeEnableAutoSaveModal();
     }
 
-    @Test(description = "TC-019: User select option \"Don't remind me again\" in the modal \"Publish page\"")
-    public void dontRemindPublishPage() {
+    @Step("Save and Publish new {0} page from blank and select Don't remind me again in the modal Publish page")
+    public void saveAndPublishNewProductCollectionPageFromBlank_selectDontRemindPublishPage(PageType pageType) {
+        assert new ArrayList<>(Arrays.asList(PageType.PRODUCT, PageType.COLLECTION)).contains(pageType);
+
         getPageListingScreen().openPageListingPage();
         getPageListingScreen().verifyPageListingLoaded();
+        getPageListingScreen().createNewPageFromBlank(pageType);
+        getEditorPage().verifyEditorPageLoaded();
+        getEditorPage().changePageTitle("Test " + pageType.name() + " " + new Date());
+        getEditorPage().clickSaveAndPublishPageButton();
+        getEditorPage().verifyPageIsSaving();
+        getEditorPage().confirmBeforePublishProductCollectionPageModal_TitledTitle();
 
+        if (pageType == PageType.PRODUCT) {
+            getEditorPage().selectDontRemindAndConfirmPublishProductModal();
+        } else {
+            getEditorPage().selectDontRemindAndConfirmPublishCollectionModal();
+        }
+
+        getEditorPage().verifyShowPublishingPageToast();
+        getEditorPage().verifyShowPublishedPageToast();
+        getEditorPage().verifyPageIsSaved();
+        getEditorPage().verifyPageIsPublished();
+        getEditorPage().closeEnableAutoSaveModal();
+    }
+
+    @Step("Save and Publish new {0} page from blank when user have selected Don't remind me again in the modal Publish page")
+    public void saveAndPublishNewProductCollectionPageFromBlank_haveSelectedDontRemindPublishPage(PageType pageType) {
+        assert new ArrayList<>(Arrays.asList(PageType.PRODUCT, PageType.COLLECTION)).contains(pageType);
+
+        getPageListingScreen().openPageListingPage();
+        getPageListingScreen().verifyPageListingLoaded();
+        getPageListingScreen().createNewPageFromBlank(pageType);
+        getEditorPage().verifyEditorPageLoaded();
+        getEditorPage().changePageTitle("Test " + pageType.name() + " " + new Date());
+        getEditorPage().clickSaveAndPublishPageButton();
+        getEditorPage().verifyPageIsSaving();
+        getEditorPage().confirmBeforePublishProductCollectionPageModal_TitledTitle();
+        getEditorPage().verifyShowPublishingPageToast();
+        getEditorPage().verifyShowPublishedPageToast();
+        getEditorPage().verifyPageIsSaved();
+        getEditorPage().verifyPageIsPublished();
+        getEditorPage().closeEnableAutoSaveModal();
+    }
+
+    @Test(groups = {"Select Don't remind me again"}, description = "TC-019: User select option \"Don't remind me again\" in the modal \"Publish page\" for HOME page")
+    public void dontRemindPublishHomePage() {
         saveAndPublishNewHomePageFromBlank_selectDontRemindPublishPage();
         saveAndPublishNewHomePageFromBlank_haveSelectedDontRemindPublishPage();
     }
 
+    @Test(groups = {"Select Don't remind me again"}, description = "TC-019: User select option \"Don't remind me again\" in the modal \"Publish page\" for PRODUCT page")
+    public void dontRemindPublishProductPage() {
+        saveAndPublishNewProductCollectionPageFromBlank_selectDontRemindPublishPage(PageType.PRODUCT);
+        saveAndPublishNewProductCollectionPageFromBlank_haveSelectedDontRemindPublishPage(PageType.PRODUCT);
+    }
+
+    @Test(groups = {"Select Don't remind me again"}, description = "TC-019: User select option \"Don't remind me again\" in the modal \"Publish page\" for COLLECTION page")
+    public void dontRemindPublishCollectionPage() {
+        saveAndPublishNewProductCollectionPageFromBlank_selectDontRemindPublishPage(PageType.COLLECTION);
+        saveAndPublishNewProductCollectionPageFromBlank_haveSelectedDontRemindPublishPage(PageType.COLLECTION);
+    }
+
+    @Step("Save and Publish new {0} page from blank when user have selected Don't remind me again in the modal Enable autosave")
+    public void saveAndPublishNewPageFromBlank_haveSelectedDontRemindEnableAutoSave(PageType pageType) {
+        getPageListingScreen().openPageListingPage();
+        getPageListingScreen().verifyPageListingLoaded();
+        getPageListingScreen().createNewPageFromBlank(pageType);
+        getEditorPage().verifyEditorPageLoaded();
+        getEditorPage().changePageTitle("Test " + pageType.name() + " " + new Date());
+        getEditorPage().clickSaveAndPublishPageButton();
+        getEditorPage().verifyPageIsSaving();
+        getEditorPage().confirmBeforePublishPageModal_TitledTitle();
+        getToast().verifyShowPublishedPageToast();
+        getEditorPage().verifyPageSavedAndPublished();
+        verifyElementNotVisible(modal);
+    }
+
+    @Test(groups = {"Select Don't remind me again"}, description = "TC-020: User select option \"Don't remind me again\" in the modal \"Enable autosave?\"")
+    public void dontRemindEnableAutoSave() {
+        saveNewPageFromBlank_selectDontRemindEnableAutoSave();
+        saveAndPublishNewPageFromBlank_haveSelectedDontRemindEnableAutoSave(PageType.PAGE);
+        saveAndPublishNewPageFromBlank_haveSelectedDontRemindEnableAutoSave(PageType.PASSWORD);
+    }
 
     @Test(description = "TC-021: User back from editor to page listing screen by click Back button in the Editor header when page is not saved")
     public void backFromEditorToPageListingScreen_clickBackButton() {
@@ -489,6 +563,17 @@ public class PageEditingTest extends BaseTest {
         getPageListingScreen().openPageInPageListing();
         getEditorPage().verifyEditorPageLoaded();
         getEditorPage().openLiveChat();
+    }
+
+    @AfterMethod
+    public void resetDontRemindAfterTest(ITestResult result) {
+        String[] groups = result.getMethod().getGroups();
+        for (String group : groups) {
+            if (group.equals("Select Don't remind me again")) {
+                resetDontRemind();
+                break;
+            }
+        }
     }
 
     @AfterClass

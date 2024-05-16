@@ -7,8 +7,7 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import java.util.List;
 
-import static org.pftest.keywords.WebUI.verifyElementVisible;
-import static org.pftest.keywords.WebUI.verifySelectedByValue;
+import static org.pftest.keywords.WebUI.*;
 
 // page_url = about:blank
 public class PageAssignmentModal {
@@ -19,6 +18,8 @@ public class PageAssignmentModal {
     By selectedResourcesList = By.xpath("//div[@id='pages--page-assignment--selected-resources']//ul[contains(@class, 'Polaris-ResourceList')]");
     By assignButton = By.id("pages--page-assignment--assign-product-btn");
     By unassignButton = By.id("pages--page-assignment--unassign-product-btn");
+    By availableResourceItem = By.xpath("//div[@id='pages--page-assignment--available-resources']//li[.//input[@type='checkbox']]");
+    By selectedResourceItem = By.xpath("//div[@id='pages--page-assignment--selected-resources']//li[.//input[@type='checkbox']]");
 
     By getSelectedAvailableResourceByIndex(int index) {
         return By.xpath("//div[@id='pages--page-assignment--available-resources']//li[.//input[@type='checkbox' and @aria-checked='true']][" + index + "]");
@@ -34,17 +35,29 @@ public class PageAssignmentModal {
         return By.xpath("//div[@id='pages--page-assignment--selected-resources']//li[.//input[@type='checkbox' and @aria-checked='false']][" + index + "]");
     }
 
-    public void verifyPageAssignmentModalVisible() {
-        verifyElementVisible(applyOptionButton);
-        verifySelectedByValue(applyOptionButton, "custom");
-        verifyElementVisible(searchAvailableResourcesInput);
-        verifyElementVisible(availableResourcesList);
-        verifyElementVisible(searchSelectedResourcesInput);
-        verifyElementVisible(assignButton);
-        verifyElementVisible(unassignButton);
+    public Integer getAvailableResourcesCount() {
+        return getWebElements(availableResourceItem).size();
     }
 
-    public void assignProducts () {
+    public Integer getSelectedResourcesCount() {
+        return getWebElements(selectedResourceItem).size();
+    }
 
+    public void verifyPageAssignmentModalVisible() {
+        waitForElementPresent(applyOptionButton);
+        verifySelectedByValue(applyOptionButton, "custom");
+        waitForElementVisible(searchAvailableResourcesInput);
+        waitForElementVisible(availableResourcesList);
+        waitForElementVisible(searchSelectedResourcesInput);
+        waitForElementVisible(assignButton);
+        waitForElementVisible(unassignButton);
+    }
+
+    public void assignProduct () {
+        int availableResourcesCount = getAvailableResourcesCount();
+        clickElement(getUnselectedAvailableResourceByIndex(1));
+        clickElement(assignButton);
+        verifyTrue(availableResourcesCount - 1 == getAvailableResourcesCount(), "Available resources items count is false");
+        verifyTrue(getSelectedResourcesCount() == 1, "Selected resources items count is false");
     }
 }

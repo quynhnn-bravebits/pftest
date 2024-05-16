@@ -43,6 +43,16 @@ public class ModalConstants {
         public static final String PRIMARY_BUTTON = "Publish";
     }
 
+    static public final class PUBLISHING_PRODUCT_PAGE_MODAL {
+        public static final String TITLE = "Publish product page";
+        public static final String PRIMARY_BUTTON = "Publish";
+    }
+
+     static public final class PUBLISHING_COLLECTION_PAGE_MODAL {
+            public static final String TITLE = "Publish collection page";
+            public static final String PRIMARY_BUTTON = "Publish";
+        }
+
     static public final class PUBLISH_SECTION_SUCCESS_MODAL {
         public static final String TITLE = "Section published successfully";
         public static final String PRIMARY_BUTTON = "Close";

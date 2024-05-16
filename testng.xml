@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="All Test Suite">
+    <test verbose="2" preserve-order="true"
+          name="/Users/bbadmin/Documents/BB/pfcompany/src/test/java/org/pftest/projects/testcases/PageEditingTest.java">
+        <classes>
+            <class name="org.pftest.projects.testcases.PageEditingTest">
+                <methods>
+                    <include name="openPageEditorInPageListingScreen"/>
+                    <include name="openPageEditorInDashboardScreen"/>
+                    <include name="openPageEditorByClickingEditButtonInPageListingScreen"/>
+                    <include name="openPageEditorBySearchBarInDashboardScreen"/>
+                    <include name="createNewBlogPostPageFromBlank"/>
+                    <include name="createNewBlogPostPageFromTemplate"/>
+                    <include name="createNewRegularPasswordPageFromBlank"/>
+                    <include name="createNewRegularPasswordPageFromTemplate"/>
+                    <include name="createNewHomePageFromBlankWhenNoHomePagePublished"/>
+                    <include name="saveNewPageFromBlank_selectDontRemindEnableAutoSave"/>
+                    <include name="dontRemindSavePage"/>
+                    <include name="dontRemindEnableAutoSave"/>
+                    <include name="dontRemindPublishHomePage"/>
+                    <include name="dontRemindPublishProductPage"/>
+                    <include name="dontRemindPublishCollectionPage"/>
+                    <include name="backFromEditorToPageListingScreen_clickBackButton"/>
+                    <include name="backFromEditorToPageListingScreen_navigateBack"/>
+                    <include name="backFromEditorToPageListingScreen_clickBackButton2"/>
+                    <include name="showCanvasSizeAndFitViewport"/>
+                    <include name="enableAutoSaveWhenHaventSavedPage"/>
+                    <include name="enableAutoSaveWhenHaveSavedPage"/>
+                    <include name="unpublishedPage"/>
+                    <include name="goToThemeEditorWhenPageIsUnpublished"/>
+                    <include name="goToThemeEditorWhenPageIsPublished"/>
+                    <include name="openBrowserHelpCenter"/>
+                    <include name="openLiveChatBox"/>
+                    <include name="joinPageFlyCommunity"/>
+                    <include name="watchVideoTutorials"/>
+                    <include name="changeWindowWidthToLessThan1024px"/>
+                    <include name="useDeviceHasWidthLessThan1024px"/>
+                    <include name="openLiveChat"/>
+                </methods>
+            </class>
+        </classes>
+    </test>
+</suite>

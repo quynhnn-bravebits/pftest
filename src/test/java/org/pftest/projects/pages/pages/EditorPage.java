@@ -25,6 +25,8 @@ import static org.pftest.keywords.WebUI.*;
 // page_url = https://admin.shopify.com/store/quynhquynhiee/apps/wip-pagefly/editor?type=page&id=1
 public class EditorPage extends Toast {
 
+    private PageAssignmentModal pageAssignmentModal = new PageAssignmentModal();
+
     private By headerBar = By.id("editor-header-bar");
     private By inspector = By.id("editor--inspector");
     private By pageOutline = By.id("page-outline-section");
@@ -233,6 +235,7 @@ public class EditorPage extends Toast {
         switchToWindowOrTabByPosition(1);
         wait.until(ExpectedConditions.urlContains(SHOPIFY_BASE_URL + "/themes"));
         closeCurrentWindow();
+
     }
 
 //    ================== Page Title ==================
@@ -513,6 +516,7 @@ public class EditorPage extends Toast {
     }
 
 
+
     /**
      * <p>Waits for the modal to be visible.</p>
      * <p>Verifies that the modal contains the expected text.</p>
@@ -528,14 +532,50 @@ public class EditorPage extends Toast {
         verifyElementNotVisible(beforePublishModal);
     }
 
-    public void confirmBeforePublishProductPageModal_TitledTitle() {
+    @Step("Confirm 'Your page is ready to publish!' modal")
+    public void confirmBeforePublishProductCollectionPageModal_TitledTitle() {
         WebElement beforePublishModal = waitForElementVisible(modal);
         verifyElementTextContains(modal, ModalConstants.BEFORE_PUBLISH_MODAL.TITLED_TITLE);
         clickElement(By.id("menubar--save-modal--primary"));
-//        @todo: complete this
+        pageAssignmentModal.verifyPageAssignmentModalVisible();
+        pageAssignmentModal.assignProduct();
+        clickElement(By.id("menubar--save-modal--primary"));
         verifyElementNotVisible(beforePublishModal);
+    }
+
+    @Step("Confirm 'Publish product page' modal")
+    public void confirmPublishProductModal() {
+        WebElement publishProductModal =  waitForElementVisible(modal);
+        verifyElementTextContains(modal, ModalConstants.PUBLISHING_PRODUCT_PAGE_MODAL.TITLE);
+        By publishButton = By.xpath(".//*[@role='dialog']//button//*[text()='" + ModalConstants.PUBLISHING_PRODUCT_PAGE_MODAL.PRIMARY_BUTTON + "']");
+        clickElement(publishButton);
+        verifyElementNotVisible(publishProductModal);
 
     }
+
+    @Step("Select Don't remind option and confirm 'Publish product page' modal")
+    public void selectDontRemindAndConfirmPublishProductModal() {
+        WebElement publishProductModal =  waitForElementVisible(modal);
+        verifyElementTextContains(modal, ModalConstants.PUBLISHING_PRODUCT_PAGE_MODAL.TITLE);
+        By checkbox = new ByChained(modal, By.className("Polaris-Checkbox"));
+        clickElement(checkbox);
+        By publishButton = By.xpath(".//*[@role='dialog']//button//*[text()='" + ModalConstants.PUBLISHING_PRODUCT_PAGE_MODAL.PRIMARY_BUTTON + "']");
+        clickElement(publishButton);
+        verifyElementNotVisible(publishProductModal);
+    }
+
+    @Step("Select Don't remind option and confirm 'Publish collection page' modal")
+    public void selectDontRemindAndConfirmPublishCollectionModal() {
+        WebElement publishProductModal =  waitForElementVisible(modal);
+        verifyElementTextContains(modal, ModalConstants.PUBLISHING_COLLECTION_PAGE_MODAL.TITLE);
+        By checkbox = new ByChained(modal, By.className("Polaris-Checkbox"));
+        clickElement(checkbox);
+        By publishButton = By.xpath(".//*[@role='dialog']//button//*[text()='" + ModalConstants.PUBLISHING_COLLECTION_PAGE_MODAL.PRIMARY_BUTTON + "']");
+        clickElement(publishButton);
+        verifyElementNotVisible(publishProductModal);
+    }
+
+
 
 //    ================== Published Section Modal ==================
 
