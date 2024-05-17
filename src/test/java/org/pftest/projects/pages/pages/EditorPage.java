@@ -14,6 +14,7 @@ import org.pftest.enums.PageType;
 import org.pftest.projects.commons.Toast;
 
 import javax.annotation.Nullable;
+import java.io.File;
 import java.time.Duration;
 import java.util.Date;
 import java.util.UUID;
@@ -25,51 +26,47 @@ import static org.pftest.keywords.WebUI.*;
 // page_url = https://admin.shopify.com/store/quynhquynhiee/apps/wip-pagefly/editor?type=page&id=1
 public class EditorPage extends Toast {
 
-    private PageAssignmentModal pageAssignmentModal = new PageAssignmentModal();
+    private final PageAssignmentModal pageAssignmentModal = new PageAssignmentModal();
 
-    private By headerBar = By.id("editor-header-bar");
-    private By inspector = By.id("editor--inspector");
-    private By pageOutline = By.id("page-outline-section");
-    private By editorDnd = By.id("pf-sandbox");
-    private By pageTitle = By.id("editor-header-bar--page-title");
-    private By modal = By.xpath("//*[@id=\"PolarisPortalsContainer\"]//*//div[@role=\"dialog\"]/div[1]");
-    private By catalogMenu = By.id("catalog-menu-section");
-    private By catalogList = By.id("catalog-items");
+    private final By headerBar = By.id("editor-header-bar");
+    private final By inspector = By.id("editor--inspector");
+    private final By pageOutline = By.id("page-outline-section");
+    private final By editorDnd = By.id("pf-sandbox");
+    private final By pageTitle = By.id("editor-header-bar--page-title");
+    private final By modal = By.xpath("//*[@id=\"PolarisPortalsContainer\"]//*//div[@role=\"dialog\"]/div[1]");
+    private final By catalogMenu = By.id("catalog-menu-section");
+    private final By catalogList = By.id("catalog-items");
 
-    private By savedBadge = By.xpath("//*[@id=\"editor-header-bar--status\"]//*/span[@class=\"Polaris-Badge Polaris-Badge--toneSuccess\"]//*[text()=\"Saved\"]");
-    private By unsavedBadge = By.xpath("//*[@id=\"editor-header-bar--status\"]//*/span[@class=\"Polaris-Badge Polaris-Badge--toneAttention\"]//*[text()=\"Unsaved\"]");
-    private By savingBadge = By.xpath("//*[@id=\"editor-header-bar--status\"]//*/span[@class=\"Polaris-Badge Polaris-Badge--toneInfo\"]//*[text()=\"Saving...\"]");
-    private By publishedBadge = By.xpath("//*[@id=\"editor-header-bar--status\"]//*/span[@class=\"Polaris-Badge Polaris-Badge--toneSuccess\"]//*[text()=\"Published\"]");
-    private By unpublishedBadge = By.xpath("//*[@id=\"editor-header-bar--status\"]//*/span[@class=\"Polaris-Badge Polaris-Badge--toneInfo\"]//*[text()=\"Unpublished\"]");
-    private By publishingBadge = By.xpath("//*[@id=\"editor-header-bar--status\"]//*/span[@class=\"Polaris-Badge Polaris-Badge--toneInfo\"]//*[text()=\"Publishing...\"]");
-    private By crispChatBox = By.xpath("//*[@id='crisp-chatbox']//*[@data-chat-status='ongoing']");
-    private By crispIcon = By.xpath("//*[@id='crisp-chatbox']//a[@aria-label='Open chat']");
+    private final By savedBadge = By.xpath("//*[@id=\"editor-header-bar--status\"]//*/span[@class=\"Polaris-Badge Polaris-Badge--toneSuccess\"]//*[text()=\"Saved\"]");
+    private final By unsavedBadge = By.xpath("//*[@id=\"editor-header-bar--status\"]//*/span[@class=\"Polaris-Badge Polaris-Badge--toneAttention\"]//*[text()=\"Unsaved\"]");
+    private final By savingBadge = By.xpath("//*[@id=\"editor-header-bar--status\"]//*/span[@class=\"Polaris-Badge Polaris-Badge--toneInfo\"]//*[text()=\"Saving...\"]");
+    private final By publishedBadge = By.xpath("//*[@id=\"editor-header-bar--status\"]//*/span[@class=\"Polaris-Badge Polaris-Badge--toneSuccess\"]//*[text()=\"Published\"]");
+    private final By unpublishedBadge = By.xpath("//*[@id=\"editor-header-bar--status\"]//*/span[@class=\"Polaris-Badge Polaris-Badge--toneInfo\"]//*[text()=\"Unpublished\"]");
+    private final By publishingBadge = By.xpath("//*[@id=\"editor-header-bar--status\"]//*/span[@class=\"Polaris-Badge Polaris-Badge--toneInfo\"]//*[text()=\"Publishing...\"]");
+    private final By crispChatBox = By.xpath("//*[@id='crisp-chatbox']//*[@data-chat-status='ongoing']");
+    private final By crispIcon = By.xpath("//*[@id='crisp-chatbox']//a[@aria-label='Open chat']");
 
-    private By catalogAddElementButton = By.xpath("//button[@id='catalog--add-element-btn']");
-    private By catalogAddShopifyElementButton = By.xpath("//button[@id='catalog--add-shopify-element-btn']");
-    private By catalogAdd3rdPartyElementButton = By.xpath("//button[@id='catalog--add-3rd-party-element']");
-    private By showPageOutlineButton = By.xpath("//button[@id='outline--activator']");
+    private final By catalogAddElementButton = By.xpath("//button[@id='catalog--add-element-btn']");
+    private final By catalogAddShopifyElementButton = By.xpath("//button[@id='catalog--add-shopify-element-btn']");
+    private final By catalogAdd3rdPartyElementButton = By.xpath("//button[@id='catalog--add-3rd-party-element']");
+    private final By showPageOutlineButton = By.xpath("//button[@id='outline--activator']");
 
-    private By editorBackButton = By.id("editor-header-bar--exit-btn");
-    private By canvasSettingButton = By.id("canvas-size-setting-activator-btn");
-    private By editorSettingButton = By.id("editor-header-bar--editor-setting--activator");
-    private By moreSettingsButton = By.id("editor-header-bar--more-settings-btn");
-    private By helpAndSupportButton = By.xpath("(//*[@id=\"editor-header-bar--content\"]//button)[last()]");
+    private final By editorBackButton = By.id("editor-header-bar--exit-btn");
+    private final By canvasSettingButton = By.id("canvas-size-setting-activator-btn");
+    private final By editorSettingButton = By.id("editor-header-bar--editor-setting--activator");
+    private final By moreSettingsButton = By.id("editor-header-bar--more-settings-btn");
+    private final By helpAndSupportButton = By.xpath("(//*[@id=\"editor-header-bar--content\"]//button)[last()]");
 
-    private By fitViewportCheckbox = By.xpath("//*[@id=\"canvas-size-setting\"]//*/label[.//*[text()='Fit viewport']]");
-    private By showCanvasSizeCheckbox = By.xpath("//label[@for=\"show-canvas-size-setting-item\"]");
-    private By enableAutoSaveCheckbox = By.xpath("//label[@for=\"auto-save--enable\"]");
-    private By goToThemeEditorButton = By.id("go-to-theme-editor-action-btn");
-    private By browseHelpCenterButton = By.xpath("//button//*[text()='Browse Help Center']");
-    private By startLiveChat = By.xpath("//button//*[text()='Start live chat']");
-    private By joinCommunityButton = By.xpath("//button//*[text()='Join PageFly Community']");
-    private By watchVideoTutorialsButton = By.xpath("//button//*[text()='Watch video tutorials']");
+    private final By fitViewportCheckbox = By.xpath("//*[@id=\"canvas-size-setting\"]//*/label[.//*[text()='Fit viewport']]");
+    private final By showCanvasSizeCheckbox = By.xpath("//label[@for=\"show-canvas-size-setting-item\"]");
+    private final By enableAutoSaveCheckbox = By.xpath("//label[@for=\"auto-save--enable\"]");
+    private final By goToThemeEditorButton = By.id("go-to-theme-editor-action-btn");
+    private final By browseHelpCenterButton = By.xpath("//button//*[text()='Browse Help Center']");
+    private final By startLiveChat = By.xpath("//button//*[text()='Start live chat']");
+    private final By joinCommunityButton = By.xpath("//button//*[text()='Join PageFly Community']");
+    private final By watchVideoTutorialsButton = By.xpath("//button//*[text()='Watch video tutorials']");
 
-    private By editorOverlay = By.xpath("//div[contains(@class, 'Editor-Overlay')]");
-
-    public String takeEditorDndScreenshot(String name) {
-        return takeElementScreenshot(editorDnd, name);
-    }
+    private final By editorOverlay = By.xpath("//div[contains(@class, 'Editor-Overlay')]");
 
 
     @Step("Open new {0} page editor")
@@ -370,7 +367,7 @@ public class EditorPage extends Toast {
     public void confirmLeavePageModal() {
         waitForElementVisible(modal);
         verifyElementTextContains(modal, ModalConstants.LEAVE_PAGE_MODAL.TITLE);
-        clickElement(modal.xpath(".//button//*[text()='" + ModalConstants.LEAVE_PAGE_MODAL.PRIMARY_BUTTON + "']"));
+        clickElement(By.xpath(".//button//*[text()='" + ModalConstants.LEAVE_PAGE_MODAL.PRIMARY_BUTTON + "']"));
         verifyElementNotVisible(modal);
     }
 
@@ -603,8 +600,8 @@ public class EditorPage extends Toast {
     public void confirmEnableAutoSaveModal() {
         // Define the modal and its elements
         WebElement autosaveModal = waitForElementVisible(modal);
-        By checkbox = modal.cssSelector(".Polaris-Checkbox");
-        By enableButton = modal.xpath(".//button//*[text()='Enable']");
+        By checkbox = By.cssSelector(".Polaris-Checkbox");
+        By enableButton = By.xpath(".//button//*[text()='Enable']");
 
         verifyElementTextContains(modal, ModalConstants.ENABLE_AUTO_SAVE_MODAL.TITLE);
         clickElement(checkbox);
@@ -622,11 +619,16 @@ public class EditorPage extends Toast {
     public void closeEnableAutoSaveModal() {
         WebElement autosaveModal = waitForElementVisible(modal);
         verifyElementTextContains(modal, ModalConstants.ENABLE_AUTO_SAVE_MODAL.TITLE);
-        By cancelButton = modal.xpath(".//button//*[text()='Cancel']");
+        By cancelButton = By.xpath(".//button//*[text()='Cancel']");
         clickElement(cancelButton);
         sleep(0.5);
         verifyElementNotVisible(autosaveModal);
     }
 
+//    ================== Drag and Drop Canvas ==================
 
+    @Step("Take Dnd canvas screenshot")
+    public File takeDndCanvasScreenshot(String name) {
+        return takeElementScreenshot(editorDnd, name);
+    }
 }

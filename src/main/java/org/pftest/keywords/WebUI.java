@@ -99,7 +99,7 @@ public class WebUI {
      *
      * @param screenName Screenshot name
      */
-    public static String takeElementScreenshot(By by, String screenName) {
+    public static File takeElementScreenshot(By by, String screenName) {
         SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy HH-mm-ss");
         try {
             String path = Helpers.getCurrentDir() + FrameworkConstants.EXPORT_CAPTURE_PATH;
@@ -110,17 +110,18 @@ public class WebUI {
                 LogUtils.info("Folder created: " + file);
             }
 
+            AllureManager.takeScreenshotElement(getWebElement(by));
             File source = getWebElement(by).getScreenshotAs(OutputType.FILE);
             // result.getName() gets the name of the test case and assigns it to the screenshot file name
             String imagePath = path + "/" + screenName + "_" + dateFormat.format(new Date()) + ".png";
             FileUtils.copyFile(source, new File(imagePath));
             LogUtils.info("Screenshot taken: " + screenName);
             LogUtils.info("Screenshot taken current URL: " + getCurrentUrl());
-            return imagePath;
+            return source;
         } catch (Exception e) {
             System.out.println("Exception while taking screenshot: " + e.getMessage());
         }
-        return "";
+        return null;
     }
 
     /**
@@ -223,17 +224,17 @@ public class WebUI {
             String pathFolderDownload = getPathDownloadDirectory();
             File dir = new File(pathFolderDownload);
             File[] files = dir.listFiles();
-            if (files == null || files.length == 0) {
-                flag = false;
-            }
-            for (int i = 0; i < files.length; i++) {
-                if (files[i].getName().contains(fileName)) {
+
+            assert files != null;
+            for (File file : files) {
+                if (file.getName().contains(fileName)) {
                     flag = true;
+                    break;
                 }
             }
             return flag;
         } catch (Exception e) {
-            e.getMessage();
+            System.out.println("Error in verifyFileContainsInDownloadDirectory: " + e.getMessage());
             return flag;
         }
     }
@@ -250,17 +251,17 @@ public class WebUI {
             String pathFolderDownload = getPathDownloadDirectory();
             File dir = new File(pathFolderDownload);
             File[] files = dir.listFiles();
-            if (files == null || files.length == 0) {
-                flag = false;
-            }
-            for (int i = 0; i < files.length; i++) {
-                if (files[i].getName().equals(fileName)) {
+
+            assert files != null;
+            for (File file : files) {
+                if (file.getName().equals(fileName)) {
                     flag = true;
+                    break;
                 }
             }
             return flag;
         } catch (Exception e) {
-            e.getMessage();
+            System.out.println("Error in verifyFileEqualsInDownloadDirectory: " + e.getMessage());
             return flag;
         }
     }
@@ -277,7 +278,7 @@ public class WebUI {
         int i = 0;
         while (i < timeoutSeconds) {
             boolean exist = verifyFileContainsInDownloadDirectory(fileName);
-            if (exist == true) {
+            if (exist) {
                 i = timeoutSeconds;
                 return check = true;
             }
@@ -299,7 +300,7 @@ public class WebUI {
         int i = 0;
         while (i < timeoutSeconds) {
             boolean exist = verifyFileEqualsInDownloadDirectory(fileName);
-            if (exist == true) {
+            if (exist) {
                 i = timeoutSeconds;
                 return check = true;
             }
@@ -323,7 +324,7 @@ public class WebUI {
                 }
             }
         } catch (Exception e) {
-            e.getMessage();
+            System.out.println("Error in deleteAllFileInDownloadDirectory: " + e.getMessage());
         }
     }
 
@@ -336,13 +337,14 @@ public class WebUI {
         try {
             File file = new File(pathDirectory);
             File[] listOfFiles = file.listFiles();
-            for (int i = 0; i < listOfFiles.length; i++) {
-                if (listOfFiles[i].isFile()) {
-                    new File(listOfFiles[i].toString()).delete();
+            assert listOfFiles != null;
+            for (File listOfFile : listOfFiles) {
+                if (listOfFile.isFile()) {
+                    new File(listOfFile.toString()).delete();
                 }
             }
         } catch (Exception e) {
-            e.getMessage();
+            System.out.println("Error in deleteAllFileInDirectory: " + e.getMessage());
         }
     }
 
@@ -821,7 +823,7 @@ public class WebUI {
     /**
      * Verify if the given text presents anywhere in the page source.
      *
-     * @param text
+     * @param text expected text
      * @return true/false
      */
     @Step("Verify Page sources Contains Text {0}")
@@ -841,10 +843,10 @@ public class WebUI {
         smartWait();
 
         boolean checked = getWebElement(by).isSelected();
-        if (checked == true) {
+        if (checked) {
             return true;
         } else {
-            Assert.assertTrue(false, "The element NOT checked.");
+            Assert.fail("The element NOT checked.");
             return false;
         }
     }
@@ -863,10 +865,10 @@ public class WebUI {
 
         boolean checked = getWebElement(by).isSelected();
 
-        if (checked == true) {
+        if (checked) {
             return true;
         } else {
-            Assert.assertTrue(false, message);
+            Assert.fail(message);
             return false;
         }
     }
@@ -1069,7 +1071,7 @@ public class WebUI {
         if (indexFirstOption == index) {
             return true;
         } else {
-            Assert.assertTrue(false, "The option NOT selected. " + by);
+            Assert.fail("The option NOT selected. " + by);
             return false;
         }
     }
@@ -1415,7 +1417,7 @@ public class WebUI {
     @Step("Verify Equals: {0} ---AND--- {1}")
     public static boolean verifyEquals(Object value1, Object value2) {
         boolean result = value1.equals(value2);
-        if (result == true) {
+        if (result) {
             LogUtils.info("Verify Equals: " + value1 + " = " + value2);
             AllureManager.saveTextLog("Verify Equals: " + value1 + " = " + value2);
         } else {
@@ -1437,7 +1439,7 @@ public class WebUI {
     @Step("Verify Equals: {0} ---AND--- {1}")
     public static boolean verifyEquals(Object value1, Object value2, String message) {
         boolean result = value1.equals(value2);
-        if (result == true) {
+        if (result) {
             LogUtils.info("Verify Equals: " + value1 + " = " + value2);
             AllureManager.saveTextLog("Verify Equals: " + value1 + " = " + value2);
         } else {
@@ -1458,7 +1460,7 @@ public class WebUI {
     @Step("Verify Contains: {0} ---AND--- {1}")
     public static boolean verifyContains(String value1, String value2) {
         boolean result = value1.contains(value2);
-        if (result == true) {
+        if (result) {
             LogUtils.info("Verify Equals: " + value1 + " CONTAINS " + value2);
             AllureManager.saveTextLog("Verify Contains: " + value1 + "CONTAINS" + value2);
         } else {
@@ -1481,7 +1483,7 @@ public class WebUI {
     @Step("Verify Contains: {0} ---AND--- {1}")
     public static boolean verifyContains(String value1, String value2, String message) {
         boolean result = value1.contains(value2);
-        if (result == true) {
+        if (result) {
             LogUtils.info("Verify Equals: " + value1 + " CONTAINS " + value2);
             AllureManager.saveTextLog("Verify Contains: " + value1 + "CONTAINS" + value2);
         } else {
@@ -1500,7 +1502,7 @@ public class WebUI {
      */
     @Step("Verify TRUE with condition: {0}")
     public static boolean verifyTrue(Boolean condition) {
-        if (condition == true) {
+        if (condition) {
             LogUtils.info("Verify TRUE: " + condition);
             AllureManager.saveTextLog("Verify TRUE: " + condition);
         } else {
@@ -1520,13 +1522,13 @@ public class WebUI {
      */
     @Step("Verify TRUE with condition: {0}")
     public static boolean verifyTrue(Boolean condition, String message) {
-        if (condition == true) {
+        if (condition) {
             LogUtils.info("Verify TRUE: " + condition);
             AllureManager.saveTextLog("Verify TRUE: " + condition);
         } else {
             LogUtils.info("Verify TRUE: " + condition);
             AllureManager.saveTextLog("Verify TRUE: " + condition);
-            Assert.assertTrue(condition, message);
+            Assert.fail(message);
         }
         return condition;
     }
@@ -1562,7 +1564,7 @@ public class WebUI {
 
         boolean result = getTextElement(by).trim().equals(text.trim());
 
-        if (result == true) {
+        if (result) {
             LogUtils.info("Verify text of an element [Equals]: " + result);
         } else {
             LogUtils.warn("Verify text of an element [Equals]: " + result);
@@ -1597,7 +1599,7 @@ public class WebUI {
 
         boolean result = getTextElement(by).trim().equals(text.trim());
 
-        if (result == true) {
+        if (result) {
             LogUtils.info("Verify text of an element [Equals]: " + result);
         } else {
             LogUtils.warn("Verify text of an element [Equals]: " + result);
@@ -1625,7 +1627,7 @@ public class WebUI {
 
         boolean result = getTextElement(by).trim().contains(text.trim());
 
-        if (result == true) {
+        if (result) {
             LogUtils.info("Verify text of an element [Contains]: " + result);
         } else {
             LogUtils.warn("Verify text of an element [Contains]: " + result);
@@ -1660,7 +1662,7 @@ public class WebUI {
 
         boolean result = getTextElement(by).trim().contains(text.trim());
 
-        if (result == true) {
+        if (result) {
             LogUtils.info("Verify text of an element [Contains]: " + result);
         } else {
             LogUtils.warn("Verify text of an element [Contains]: " + result);
@@ -1846,7 +1848,7 @@ public class WebUI {
             addScreenshotToReport(Thread.currentThread().getStackTrace()[1].getMethodName() + "_" + DateUtils.getCurrentDateTime());
             return true;
         } catch (Exception e) {
-            if (message.isEmpty() || message == null) {
+            if (message.isEmpty()) {
                 LogUtils.error("The element does NOT present. " + e.getMessage());
                 Assert.fail("The element does NOT present. " + e.getMessage());
             } else {
@@ -1878,7 +1880,7 @@ public class WebUI {
             addScreenshotToReport(Thread.currentThread().getStackTrace()[1].getMethodName() + "_" + DateUtils.getCurrentDateTime());
             return true;
         } catch (Exception e) {
-            if (message.isEmpty() || message == null) {
+            if (message.isEmpty()) {
                 LogUtils.error("The element does NOT present. " + e.getMessage());
                 Assert.fail("The element does NOT present. " + e.getMessage());
             } else {
@@ -1970,7 +1972,7 @@ public class WebUI {
         try {
             WebDriverWait wait = new WebDriverWait(DriverManager.getDriver(), Duration.ofSeconds(FrameworkConstants.WAIT_EXPLICIT), Duration.ofMillis(500));
             wait.until(ExpectedConditions.presenceOfElementLocated(by));
-            if (message.isEmpty() || message == null) {
+            if (message.isEmpty()) {
                 LogUtils.error("The element presents. " + by);
                 Assert.fail("The element presents. " + by);
             } else {
@@ -1998,7 +2000,7 @@ public class WebUI {
         try {
             WebDriverWait wait = new WebDriverWait(DriverManager.getDriver(), Duration.ofSeconds(timeout));
             wait.until(ExpectedConditions.presenceOfElementLocated(by));
-            if (message.isEmpty() || message == null) {
+            if (message.isEmpty()) {
                 LogUtils.error("The element presents. " + by);
                 Assert.fail("The element presents. " + by);
             } else {
@@ -2093,7 +2095,7 @@ public class WebUI {
             LogUtils.info("Verify element visible " + by);
             return true;
         } catch (Exception e) {
-            if (message.isEmpty() || message == null) {
+            if (message.isEmpty()) {
                 LogUtils.error("The element is not visible. " + by);
                 Assert.fail("The element is NOT visible. " + by);
             } else {
@@ -2122,7 +2124,7 @@ public class WebUI {
             LogUtils.info("Verify element visible " + by);
             return true;
         } catch (Exception e) {
-            if (message.isEmpty() || message == null) {
+            if (message.isEmpty()) {
                 LogUtils.error("The element is not visible. " + by);
                 Assert.fail("The element is NOT visible. " + by);
             } else {
@@ -2193,7 +2195,7 @@ public class WebUI {
             wait.until(ExpectedConditions.invisibilityOfElementLocated(by));
             return true;
         } catch (Exception e) {
-            if (message.isEmpty() || message == null) {
+            if (message.isEmpty()) {
                 LogUtils.error("FAILED. The element is visible " + by);
                 Assert.fail("FAILED. The element is visible " + by);
             } else {
@@ -2221,7 +2223,7 @@ public class WebUI {
             wait.until(ExpectedConditions.invisibilityOfElementLocated(by));
             return true;
         } catch (Exception e) {
-            if (message.isEmpty() || message == null) {
+            if (message.isEmpty()) {
                 LogUtils.error("FAILED. The element is visible " + by);
                 Assert.fail("FAILED. The element is visible " + by);
             } else {
@@ -3017,12 +3019,10 @@ public class WebUI {
             WebDriverWait wait = new WebDriverWait(DriverManager.getDriver(), Duration.ofSeconds(timeOut), Duration.ofMillis(500));
 
             boolean check = verifyElementVisible(by, timeOut);
-            if (check == true) {
-                return wait.until(ExpectedConditions.visibilityOfElementLocated(by));
-            } else {
+            if (!check) {
                 scrollToElementAtTop(by);
-                return wait.until(ExpectedConditions.visibilityOfElementLocated(by));
             }
+            return wait.until(ExpectedConditions.visibilityOfElementLocated(by));
         } catch (Throwable error) {
             LogUtils.error("Timeout waiting for the element Visible. " + by.toString());
             Assert.fail("Timeout waiting for the element Visible. " + by.toString());
@@ -3043,12 +3043,10 @@ public class WebUI {
         try {
             WebDriverWait wait = new WebDriverWait(DriverManager.getDriver(), Duration.ofSeconds(FrameworkConstants.WAIT_EXPLICIT), Duration.ofMillis(500));
             boolean check = isElementVisible(by, 1);
-            if (check == true) {
-                return wait.until(ExpectedConditions.visibilityOfElementLocated(by));
-            } else {
+            if (!check) {
                 scrollToElementAtBottom(by);
-                return wait.until(ExpectedConditions.visibilityOfElementLocated(by));
             }
+            return wait.until(ExpectedConditions.visibilityOfElementLocated(by));
         } catch (Throwable error) {
             LogUtils.error("Timeout waiting for the element Visible. " + by.toString());
             Assert.fail("Timeout waiting for the element Visible. " + by.toString());
@@ -3064,12 +3062,10 @@ public class WebUI {
         try {
             WebDriverWait wait = new WebDriverWait(DriverManager.getDriver(), Duration.ofSeconds(FrameworkConstants.WAIT_EXPLICIT), Duration.ofMillis(500));
             boolean check = isElementVisible(newLocator, 1);
-            if (check == true) {
-                return wait.until(ExpectedConditions.visibilityOfElementLocated(newLocator));
-            } else {
+            if (!check) {
                 scrollToElementAtBottom(newLocator);
-                return wait.until(ExpectedConditions.visibilityOfElementLocated(newLocator));
             }
+            return wait.until(ExpectedConditions.visibilityOfElementLocated(newLocator));
         } catch (Throwable error) {
             LogUtils.error("Timeout waiting for the element Visible. " + newLocator.toString());
             Assert.fail("Timeout waiting for the element Visible. " + newLocator.toString());
@@ -3092,8 +3088,8 @@ public class WebUI {
             WebDriverWait wait = new WebDriverWait(DriverManager.getDriver(), Duration.ofSeconds(timeOut), Duration.ofMillis(500));
             return wait.until(ExpectedConditions.elementToBeClickable(getWebElement(by)));
         } catch (Throwable error) {
-            Assert.fail("Timeout waiting for the element ready to click. " + by.toString());
             LogUtils.error("Timeout waiting for the element ready to click. " + by.toString());
+            Assert.fail("Timeout waiting for the element ready to click. " + by.toString());
         }
         return null;
     }
@@ -3111,8 +3107,8 @@ public class WebUI {
             WebDriverWait wait = new WebDriverWait(DriverManager.getDriver(), Duration.ofSeconds(FrameworkConstants.WAIT_EXPLICIT), Duration.ofMillis(500));
             return wait.until(ExpectedConditions.elementToBeClickable(getWebElement(by)));
         } catch (Throwable error) {
-            Assert.fail("Timeout waiting for the element ready to click. " + by.toString());
             LogUtils.error("Timeout waiting for the element ready to click. " + by.toString());
+            Assert.fail("Timeout waiting for the element ready to click. " + by.toString());
         }
         return null;
     }

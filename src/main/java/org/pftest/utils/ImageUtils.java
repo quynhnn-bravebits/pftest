@@ -9,13 +9,51 @@ import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
-import java.util.Base64;
-import java.util.Date;
 
 public class ImageUtils {
     private static final double acceptedDifference = 0.05;
 
-    public static boolean bufferedImagesEqual(BufferedImage imgA, BufferedImage imgB) throws IOException {
+    private BufferedImage imgA;
+    private BufferedImage imgB;
+
+    public ImageUtils(BufferedImage imgA, BufferedImage imgB) {
+        this.imgA = imgA;
+        this.imgB = imgB;
+    }
+
+    public ImageUtils() {
+    }
+
+    public BufferedImage getImgA() {
+        return imgA;
+    }
+
+    public static BufferedImage loadImage(File file) {
+        try {
+            return ImageIO.read(file);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    public void setImgA(File fileA) {
+        this.imgA = ImageUtils.loadImage(fileA);
+    }
+
+    public BufferedImage getImgB() {
+        return imgB;
+    }
+
+    public void setImgB(File fileB) {
+        this.imgB = ImageUtils.loadImage(fileB);
+    }
+
+    public boolean isImagesEqual() throws IOException {
+        return isImagesEqual(imgA, imgB);
+    }
+
+    public static boolean isImagesEqual(BufferedImage imgA, BufferedImage imgB) throws IOException {
         int width = imgA.getWidth();
         int height = imgA.getHeight();
         int totalPixels = width * height;

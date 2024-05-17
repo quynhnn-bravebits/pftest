@@ -4,6 +4,7 @@ import java.io.*;
 import java.nio.charset.Charset;
 import java.text.Normalizer;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Locale;
 import java.util.regex.Pattern;
 
@@ -80,11 +81,7 @@ public class Helpers {
      * @return array of string values after splitting
      */
     public static ArrayList<String> splitString(String str, String valueSplit) {
-        ArrayList<String> arrayListString = new ArrayList<>();
-        for (String s : str.split(valueSplit, 0)) {
-            arrayListString.add(s);
-        }
-        return arrayListString;
+        return new ArrayList<>(Arrays.asList(str.split(valueSplit, 0)));
     }
 
 }

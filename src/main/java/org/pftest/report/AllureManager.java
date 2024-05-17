@@ -42,7 +42,7 @@ public class AllureManager {
         try {
             return ((TakesScreenshot) DriverManager.getDriver()).getScreenshotAs(BYTES);
         } catch (Exception ex) {
-            ex.getMessage();
+            System.out.println("Error in takeScreenshotToAttachOnAllureReport: " + ex.getMessage());
         }
         return new byte[0];
     }
@@ -51,8 +51,9 @@ public class AllureManager {
     public static byte[] takeScreenshotStep() {
         try {
             return ((TakesScreenshot) DriverManager.getDriver()).getScreenshotAs(BYTES);
-        } catch (Exception ex) {
-            ex.getMessage();
+        }
+        catch (Exception ex) {
+            System.out.println("Error in takeScreenshotStep: " + ex.getMessage());
         }
         return new byte[0];
     }
@@ -62,7 +63,7 @@ public class AllureManager {
         try {
             return ((RemoteWebElement) element).getScreenshotAs(OutputType.BYTES);
         } catch (Exception ex) {
-            ex.getMessage();
+            System.out.println("Error in takeScreenshotElement: " + ex.getMessage());
         }
         return new byte[0];
     }
