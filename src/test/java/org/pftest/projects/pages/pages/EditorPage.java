@@ -22,6 +22,7 @@ import java.util.UUID;
 import static org.pftest.constants.ModalConstants.BEFORE_SAVE_MODAL;
 import static org.pftest.constants.UrlConstants.*;
 import static org.pftest.keywords.WebUI.*;
+import static org.pftest.report.AllureManager.takeScreenshotStep;
 
 // page_url = https://admin.shopify.com/store/quynhquynhiee/apps/wip-pagefly/editor?type=page&id=1
 public class EditorPage extends Toast {
@@ -277,7 +278,7 @@ public class EditorPage extends Toast {
 
     @Step("Show Page Outline")
     public void showPageOutline() {
-        if (verifyElementNotVisible(pageOutline)) {
+        if (!isElementVisible(pageOutline, 3)) {
             clickElement(showPageOutlineButton);
             waitForElementVisible(pageOutline);
         }
@@ -285,7 +286,7 @@ public class EditorPage extends Toast {
 
     @Step("Hide Page Outline")
     public void hidePageOutline() {
-        if (verifyElementVisible(pageOutline)) {
+        if (isElementVisible(pageOutline, 3)) {
             clickElement(showPageOutlineButton);
             sleep(0.5);
             verifyElementNotVisible(pageOutline);

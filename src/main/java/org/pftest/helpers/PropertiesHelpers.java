@@ -1,5 +1,7 @@
 package org.pftest.helpers;
 
+import org.pftest.utils.LogUtils;
+
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -30,11 +32,11 @@ public class PropertiesHelpers {
                 properties.putAll(tempProp);
             }
             file.close();
-//            LogUtils.info("Loaded all properties files.");
-            //LogUtils.info(properties);
+            LogUtils.info("Loaded all properties files.");
+            LogUtils.info(properties);
             return properties;
         } catch (IOException e) {
-//            LogUtils.info("Warning !! Can not Load All File.");
+            LogUtils.info("Warning !! Can not Load All File.");
             return new Properties();
         }
     }

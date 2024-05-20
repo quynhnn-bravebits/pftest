@@ -12,7 +12,6 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 
-import static org.pftest.keywords.WebUI.takeFullPageScreenshot;
 import static org.pftest.keywords.WebUI.takeFullPageScreenshotBMP;
 
 
@@ -22,21 +21,16 @@ public class SampleTest extends BaseTest {
     @Test
     public void sampleTest() throws IOException {
         getPageListingScreen().openPageListingPage();
-        String id = "bc8ec280-a756-4f4a-a119-1080ed51a8f0";
-        getPageListingScreen().openPageInPageListing(id);
-        getEditorPage().verifyEditorPageLoaded();
-        String img1 = takeFullPageScreenshotBMP("img1");
-        System.out.println(img1);
-        getEditorPage().backToPageListingScreen();
         getPageListingScreen().verifyPageListingLoaded();
-        getPageListingScreen().openPageInPageListing(id);
+        getPageListingScreen().createNewPageFromBlank(PageType.PAGE);
         getEditorPage().verifyEditorPageLoaded();
-        String img2 = takeFullPageScreenshotBMP("img2");
-        System.out.println(img2);
-        BufferedImage bufferedImg1 = ImageIO.read(new File(img1));
-        BufferedImage bufferedImg2 = ImageIO.read(new File(img2));
-        boolean result = ImageUtils.bufferedImagesEqual(bufferedImg1, bufferedImg2);
-        System.out.println(result);
-        assert result;
+        getEditorPage().clickSaveAndPublishPageButton();
+        getEditorPage().verifyPageIsSaving();
+        getEditorPage().confirmBeforePublishSectionModal_UntitledTitle();
+        getToast().verifyShowPublishingSectionToast();
+        getToast().verifyShowPublishedSectionToast();
+        getEditorPage().closePublishedSectionModal();
+        getEditorPage().closeEnableAutoSaveModal();
+
     }
 }

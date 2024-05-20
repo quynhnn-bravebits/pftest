@@ -4,9 +4,11 @@ import io.qameta.allure.Epic;
 import io.qameta.allure.Step;
 import org.pftest.base.BaseTest;
 import org.pftest.enums.PageType;
+import org.pftest.utils.ImageUtils;
 import org.testng.ITestResult;
 import org.testng.annotations.*;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
@@ -377,11 +379,17 @@ public class PageEditingTest extends BaseTest {
     }
 
     @Test(description = "TC-023: User back from editor to page listing screen by click Back button in the Editor header when page is saved manually")
-    public void backFromEditorToPageListingScreen_clickBackButton2() {
+    public void backFromEditorToPageListingScreen_clickBackButton2() throws IOException {
         getPageListingScreen().openPageListingPage();
         getPageListingScreen().verifyPageListingLoaded();
-        getPageListingScreen().createNewPageFromBlank(PageType.PAGE);
+        getPageListingScreen().createNewPageFromTemplate(PageType.PAGE);
         getEditorPage().verifyEditorPageLoaded();
+        getEditorPage().hidePageOutline();
+
+        ImageUtils imageCompare = new ImageUtils();
+        imageCompare.setImgA(getEditorPage().takeDndCanvasScreenshot("editor-after-save"));
+        String id = getParamFromUrl("id");
+
         String testPageTitle = "Test " + PageType.PAGE.name() + " " + new Date();
         getEditorPage().changePageTitle(testPageTitle);
         getEditorPage().clickSavePageButton();
@@ -389,8 +397,47 @@ public class PageEditingTest extends BaseTest {
         getEditorPage().verifyPageIsSaving();
         getEditorPage().verifyPageIsSaved();
         getEditorPage().closeEnableAutoSaveModal();
+
         getEditorPage().backToPageListingScreen();
         getPageListingScreen().verifyPageListingLoaded();
+
+        getPageListingScreen().openPageInPageListing(id);
+        getEditorPage().verifyEditorPageLoaded();
+        getEditorPage().hidePageOutline();
+
+        imageCompare.setImgB(getEditorPage().takeDndCanvasScreenshot("editor-after-reopen"));
+        verifyTrue(imageCompare.isImagesEqual());
+    }
+
+    @Test(description = "TC-024: User back from editor to page listing screen by click Back button in Editor header when autosave is enabled")
+    public void backFromEditorToPageListingScreen_clickBackButton3() throws IOException {
+        getPageListingScreen().openPageListingPage();
+        getPageListingScreen().verifyPageListingLoaded();
+        getPageListingScreen().createNewPageFromTemplate(PageType.PAGE);
+        getEditorPage().verifyEditorPageLoaded();
+        getEditorPage().hidePageOutline();
+
+        ImageUtils imageCompare = new ImageUtils();
+        imageCompare.setImgA(getEditorPage().takeDndCanvasScreenshot("editor-after-save"));
+        String id = getParamFromUrl("id");
+
+        String testPageTitle = "Test " + PageType.PAGE.name() + " " + new Date();
+        getEditorPage().changePageTitle(testPageTitle);
+        getEditorPage().toggleEnableAutoSave();
+        getEditorPage().confirmBeforeSaveModal_TitledTitle();
+        getEditorPage().confirmSavePageModal();
+        getEditorPage().verifyPageIsSaving();
+        getEditorPage().verifyPageIsSaved();
+
+        getEditorPage().backToPageListingScreen();
+        getPageListingScreen().verifyPageListingLoaded();
+
+        getPageListingScreen().openPageInPageListing(id);
+        getEditorPage().verifyEditorPageLoaded();
+        getEditorPage().hidePageOutline();
+
+        imageCompare.setImgB(getEditorPage().takeDndCanvasScreenshot("editor-after-reopen"));
+        verifyTrue(imageCompare.isImagesEqual());
     }
 
 //    @Test(description = "TC-032: User show page outline")

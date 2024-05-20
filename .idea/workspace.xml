@@ -4,19 +4,18 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="e4a49eb7-4aa6-4344-a0e5-fffc133666e9" name="Changes" comment="create page editing tests">
-      <change afterPath="$PROJECT_DIR$/readme.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/resources/suites/page-editing-suite.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/testng.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.gitignore" afterDir="false" />
+    <list default="true" id="e4a49eb7-4aa6-4344-a0e5-fffc133666e9" name="Changes" comment="PFSHOPIFY-7943: Refactor code">
+      <change afterPath="$PROJECT_DIR$/ExportData/Images/editor-after-reopen_17-05-2024 16-05-56.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ExportData/Images/editor-after-reopen_20-05-2024 08-49-19.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ExportData/Images/editor-after-save_17-05-2024 16-05-39.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ExportData/Images/editor-after-save_20-05-2024 08-49-12.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/qodana.yaml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/pftest/constants/ModalConstants.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/pftest/constants/ModalConstants.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/org/pftest/base/BaseTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/org/pftest/base/BaseTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/pftest/helpers/PropertiesHelpers.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/pftest/helpers/PropertiesHelpers.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/pftest/utils/ImageUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/pftest/utils/ImageUtils.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/java/org/pftest/projects/pages/pages/EditorPage.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/org/pftest/projects/pages/pages/EditorPage.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/org/pftest/projects/pages/pages/PageAssignmentModal.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/org/pftest/projects/pages/pages/PageAssignmentModal.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/org/pftest/projects/pages/pages/PageListingScreen.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/org/pftest/projects/pages/pages/PageListingScreen.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/java/org/pftest/projects/testcases/PageEditingTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/org/pftest/projects/testcases/PageEditingTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/org/pftest/projects/testcases/SampleTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/org/pftest/projects/testcases/SampleTest.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -87,6 +86,7 @@
     "TestNG.MainPageTest.executor": "Run",
     "TestNG.PageEditingTest.backFromEditorToPageListingScreen.executor": "Run",
     "TestNG.PageEditingTest.backFromEditorToPageListingScreen_clickBackButton2.executor": "Run",
+    "TestNG.PageEditingTest.backFromEditorToPageListingScreen_clickBackButton3.executor": "Run",
     "TestNG.PageEditingTest.backFromEditorToPageListingScreen_navigateBack.executor": "Run",
     "TestNG.PageEditingTest.changeWindowWidthToLessThan1024px.executor": "Run",
     "TestNG.PageEditingTest.createNewBlogPostPageFromBlank.executor": "Run",
@@ -125,7 +125,7 @@
     "TestNG.SectionListingTest.createSectionFromBlank.executor": "Run",
     "TestNG.SectionListingTest.createSectionFromTemplate.executor": "Run",
     "TestNG.SectionListingTest.executor": "Run",
-    "git-widget-placeholder": "quynhnn-pftest",
+    "git-widget-placeholder": "automation-test",
     "kotlin-language-version-configured": "true",
     "last_opened_file_path": "/Users/bbadmin/Documents/pftest/src/test/resources/config",
     "node.js.detected.package.eslint": "true",
@@ -133,13 +133,20 @@
     "node.js.selected.package.eslint": "(autodetect)",
     "node.js.selected.package.tslint": "(autodetect)",
     "nodejs_package_manager_path": "npm",
-    "project.structure.last.edited": "Problems",
+    "project.structure.last.edited": "Modules",
     "project.structure.proportion": "0.15",
     "project.structure.side.proportion": "0.28965518",
     "settings.editor.selected.configurable": "com.github.copilot.settings.ApplicationConfigurable",
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
+  <component name="QodanaReportsService">
+    <option name="descriptions">
+      <ReportDescription localRun="true" path="/private/var/folders/5l/cq9tq84s6b5dfmg0c96lv3r40000gn/T/qodana_output/qodana.sarif.json" reportGuid="9105c30b-2921-47b2-a8e3-41e9bc339141" reportId="pfcompany/qodana/2024-05-17" />
+      <ReportDescription localRun="true" path="/private/var/folders/5l/cq9tq84s6b5dfmg0c96lv3r40000gn/T/qodana_output2/qodana.sarif.json" reportGuid="b6e374c4-229f-4b4a-a71b-553cd8f92ad4" reportId="pfcompany/qodana/2024-05-17" />
+      <ReportDescription localRun="true" path="/private/var/folders/5l/cq9tq84s6b5dfmg0c96lv3r40000gn/T/qodana_output1/qodana.sarif.json" reportGuid="94ecfd57-fbf3-4697-84e1-a0f165052704" reportId="pfcompany/qodana/2024-05-17" />
+    </option>
+  </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/src/test/resources/config" />
@@ -152,8 +159,8 @@
       <recent name="org.pftest.keywords" />
     </key>
   </component>
-  <component name="RunManager" selected="TestNG./Users/bbadmin/Documents/BB/pfcompany/testng.xml">
-    <configuration name="PageEditingTest.dontRemindEnableAutoSave" type="TestNG" temporary="true" nameIsGenerated="true">
+  <component name="RunManager" selected="TestNG.SampleTest.sampleTest">
+    <configuration name="PageEditingTest.backFromEditorToPageListingScreen_clickBackButton2" type="TestNG" temporary="true" nameIsGenerated="true">
       <module name="pftest" />
       <extension name="coverage">
         <pattern>
@@ -163,7 +170,7 @@
       </extension>
       <option name="PACKAGE_NAME" value="org.pftest.projects.testcases" />
       <option name="MAIN_CLASS_NAME" value="org.pftest.projects.testcases.PageEditingTest" />
-      <option name="METHOD_NAME" value="dontRemindEnableAutoSave" />
+      <option name="METHOD_NAME" value="backFromEditorToPageListingScreen_clickBackButton2" />
       <option name="TEST_OBJECT" value="METHOD" />
       <properties />
       <listeners />
@@ -171,7 +178,7 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="PageEditingTest.dontRemindPublishAllPages" type="TestNG" temporary="true" nameIsGenerated="true">
+    <configuration name="PageEditingTest.backFromEditorToPageListingScreen_clickBackButton3" type="TestNG" temporary="true" nameIsGenerated="true">
       <module name="pftest" />
       <extension name="coverage">
         <pattern>
@@ -181,7 +188,7 @@
       </extension>
       <option name="PACKAGE_NAME" value="org.pftest.projects.testcases" />
       <option name="MAIN_CLASS_NAME" value="org.pftest.projects.testcases.PageEditingTest" />
-      <option name="METHOD_NAME" value="dontRemindPublishAllPages" />
+      <option name="METHOD_NAME" value="backFromEditorToPageListingScreen_clickBackButton3" />
       <option name="TEST_OBJECT" value="METHOD" />
       <properties />
       <listeners />
@@ -189,7 +196,7 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="PageEditingTest.dontRemindPublishHomePage" type="TestNG" temporary="true" nameIsGenerated="true">
+    <configuration name="PageEditingTest.createNewBlogPostPageFromBlank" type="TestNG" temporary="true" nameIsGenerated="true">
       <module name="pftest" />
       <extension name="coverage">
         <pattern>
@@ -199,7 +206,7 @@
       </extension>
       <option name="PACKAGE_NAME" value="org.pftest.projects.testcases" />
       <option name="MAIN_CLASS_NAME" value="org.pftest.projects.testcases.PageEditingTest" />
-      <option name="METHOD_NAME" value="dontRemindPublishHomePage" />
+      <option name="METHOD_NAME" value="createNewBlogPostPageFromBlank" />
       <option name="TEST_OBJECT" value="METHOD" />
       <properties />
       <listeners />
@@ -207,7 +214,7 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="PageEditingTest.goToThemeEditorWhenPageIsUnpublished" type="TestNG" temporary="true" nameIsGenerated="true">
+    <configuration name="PageEditingTest.openPageEditorBySearchBarInDashboardScreen" type="TestNG" temporary="true" nameIsGenerated="true">
       <module name="pftest" />
       <extension name="coverage">
         <pattern>
@@ -217,7 +224,7 @@
       </extension>
       <option name="PACKAGE_NAME" value="org.pftest.projects.testcases" />
       <option name="MAIN_CLASS_NAME" value="org.pftest.projects.testcases.PageEditingTest" />
-      <option name="METHOD_NAME" value="goToThemeEditorWhenPageIsUnpublished" />
+      <option name="METHOD_NAME" value="openPageEditorBySearchBarInDashboardScreen" />
       <option name="TEST_OBJECT" value="METHOD" />
       <properties />
       <listeners />
@@ -225,10 +232,18 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="/Users/bbadmin/Documents/BB/pfcompany/testng.xml" type="TestNG" temporary="true" nameIsGenerated="true">
+    <configuration name="SampleTest.sampleTest" type="TestNG" temporary="true" nameIsGenerated="true">
       <module name="pftest" />
-      <option name="SUITE_NAME" value="$PROJECT_DIR$/testng.xml" />
-      <option name="TEST_OBJECT" value="SUITE" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="org.pftest.projects.testcases.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="org.pftest.projects.testcases" />
+      <option name="MAIN_CLASS_NAME" value="org.pftest.projects.testcases.SampleTest" />
+      <option name="METHOD_NAME" value="sampleTest" />
+      <option name="TEST_OBJECT" value="METHOD" />
       <properties />
       <listeners />
       <method v="2">
@@ -236,26 +251,26 @@
       </method>
     </configuration>
     <list>
-      <item itemvalue="TestNG./Users/bbadmin/Documents/BB/pfcompany/testng.xml" />
-      <item itemvalue="TestNG.PageEditingTest.dontRemindPublishAllPages" />
-      <item itemvalue="TestNG.PageEditingTest.dontRemindPublishHomePage" />
-      <item itemvalue="TestNG.PageEditingTest.goToThemeEditorWhenPageIsUnpublished" />
-      <item itemvalue="TestNG.PageEditingTest.dontRemindEnableAutoSave" />
+      <item itemvalue="TestNG.PageEditingTest.backFromEditorToPageListingScreen_clickBackButton3" />
+      <item itemvalue="TestNG.SampleTest.sampleTest" />
+      <item itemvalue="TestNG.PageEditingTest.backFromEditorToPageListingScreen_clickBackButton2" />
+      <item itemvalue="TestNG.PageEditingTest.createNewBlogPostPageFromBlank" />
+      <item itemvalue="TestNG.PageEditingTest.openPageEditorBySearchBarInDashboardScreen" />
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="TestNG./Users/bbadmin/Documents/BB/pfcompany/testng.xml" />
-        <item itemvalue="TestNG.PageEditingTest.goToThemeEditorWhenPageIsUnpublished" />
-        <item itemvalue="TestNG.PageEditingTest.dontRemindEnableAutoSave" />
-        <item itemvalue="TestNG.PageEditingTest.dontRemindPublishHomePage" />
-        <item itemvalue="TestNG.PageEditingTest.dontRemindPublishAllPages" />
+        <item itemvalue="TestNG.SampleTest.sampleTest" />
+        <item itemvalue="TestNG.PageEditingTest.backFromEditorToPageListingScreen_clickBackButton3" />
+        <item itemvalue="TestNG.PageEditingTest.backFromEditorToPageListingScreen_clickBackButton2" />
+        <item itemvalue="TestNG.PageEditingTest.createNewBlogPostPageFromBlank" />
+        <item itemvalue="TestNG.PageEditingTest.openPageEditorBySearchBarInDashboardScreen" />
       </list>
     </recent_temporary>
   </component>
   <component name="SeleniumInternalSettingsState">
     <option name="lastFrameworkName" value="Selenium" />
     <option name="lastLanguageId" value="JAVA" />
-    <option name="lastUrl" value="https://admin.shopify.com/store/quynhquynhiee/apps/wip-pagefly/sections" />
+    <option name="lastUrl" value="https://accounts.shopify.com/select?rid=c394ee22-b00a-4d63-b402-b400d67c5838" />
   </component>
   <component name="SharedIndexes">
     <attachedChunks>
@@ -288,7 +303,9 @@
       <workItem from="1715599257635" duration="68000" />
       <workItem from="1715599334236" duration="49000" />
       <workItem from="1715649132143" duration="40658000" />
-      <workItem from="1715763834883" duration="21409000" />
+      <workItem from="1715763834883" duration="22679000" />
+      <workItem from="1715908547285" duration="19162000" />
+      <workItem from="1716168055854" duration="8865000" />
     </task>
     <task id="LOCAL-00001" summary="create page editing tests">
       <option name="closed" value="true" />
@@ -298,7 +315,15 @@
       <option name="project" value="LOCAL" />
       <updated>1715072470360</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="PFSHOPIFY-7943: Refactor code">
+      <option name="closed" value="true" />
+      <created>1715931401140</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1715931401140</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -351,15 +376,25 @@
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
     <option name="LOCAL_CHANGES_DETAILS_PREVIEW_SHOWN" value="false" />
     <MESSAGE value="create page editing tests" />
-    <option name="LAST_COMMIT_MESSAGE" value="create page editing tests" />
+    <MESSAGE value="PFSHOPIFY-7943: Refactor code" />
+    <option name="LAST_COMMIT_MESSAGE" value="PFSHOPIFY-7943: Refactor code" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/org/pftest/helpers/PropertiesHelpers.java</url>
-          <line>22</line>
+          <line>24</line>
           <option name="timeStamp" value="1" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-method">
+          <url>file://$PROJECT_DIR$/src/test/java/org/pftest/projects/testcases/PageEditingTest.java</url>
+          <line>412</line>
+          <properties class="org.pftest.projects.testcases.PageEditingTest" method="backFromEditorToPageListingScreen_clickBackButton3">
+            <option name="EMULATED" value="true" />
+            <option name="WATCH_EXIT" value="false" />
+          </properties>
+          <option name="timeStamp" value="4" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
