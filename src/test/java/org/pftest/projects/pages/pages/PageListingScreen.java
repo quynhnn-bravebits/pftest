@@ -6,7 +6,7 @@ import org.openqa.selenium.support.pagefactory.ByChained;
 import org.pftest.constants.ModalConstants;
 import org.pftest.constants.PagesConstants;
 import org.pftest.enums.PageType;
-import org.pftest.projects.CommonPage;
+import org.pftest.projects.pages.CommonPage;
 
 import java.util.Random;
 

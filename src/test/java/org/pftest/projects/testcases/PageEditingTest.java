@@ -1,6 +1,7 @@
 package org.pftest.projects.testcases;
 
 import io.qameta.allure.Epic;
+import io.qameta.allure.Feature;
 import io.qameta.allure.Step;
 import org.pftest.base.BaseTest;
 import org.pftest.enums.PageType;
@@ -141,28 +142,33 @@ public class PageEditingTest extends BaseTest {
         getEditorPage().verifyEditorPageLoaded();
     }
 
+    @Feature("Save and Publish")
     @Test(description = "TC-009: Create a new blog post page from blank")
     public void createNewBlogPostPageFromBlank() {
         saveAndPublishNewPageFromBlank(PageType.BLOG);
     }
 
+    @Feature("Save and Publish")
     @Test(description = "TC-010: Create a new blog post page from template")
     public void createNewBlogPostPageFromTemplate() {
         saveAndPublishNewPageFromTemplate(PageType.BLOG);
     }
 
+    @Feature("Save and Publish")
     @Test(description = "TC-011: Create a new regular/password page from blank")
     public void createNewRegularPasswordPageFromBlank() {
         saveAndPublishNewPageFromBlank(PageType.PAGE);
         saveAndPublishNewPageFromBlank(PageType.PASSWORD);
     }
 
+    @Feature("Save and Publish")
     @Test(description = "TC-012: Create a new regular/password page from template")
     public void createNewRegularPasswordPageFromTemplate() {
         saveAndPublishNewPageFromTemplate(PageType.PAGE);
         saveAndPublishNewPageFromTemplate(PageType.PASSWORD);
     }
 
+    @Feature("Save and Publish")
     @Test(description = "TC-013: Create a new home page from blank when there is no home page is published")
     public void createNewHomePageFromBlankWhenNoHomePagePublished() {
         getPageListingScreen().openPageListingPage();
@@ -171,6 +177,7 @@ public class PageEditingTest extends BaseTest {
         saveAndPublishNewHomePageFromBlank();
     }
 
+    @Feature("Save and Publish")
     @Test(description = "TC-014: Create a new home page from blank when there is a home page is published", dependsOnMethods = {"createNewHomePageFromBlankWhenNoHomePagePublished"})
     public void createNewHomePageFromBlankWhenHomepageIsPublished() {
         getPageListingScreen().openPageListingPage();
@@ -179,6 +186,7 @@ public class PageEditingTest extends BaseTest {
         saveAndPublishNewHomePageFromBlank();
     }
 
+    @Feature("Don't remind me again")
     @Step("Save and Publish new PAGE page from blank and select Don't remind me again in the modal Enable autosave?")
     @Test(groups = "Select Don't remind me again", description = "TC-017: User select option \"Don't remind me again\" in the modal \"Enable autosave?\"")
     public void saveNewPageFromBlank_selectDontRemindEnableAutoSave() {
@@ -226,10 +234,12 @@ public class PageEditingTest extends BaseTest {
         getEditorPage().closeEnableAutoSaveModal();
     }
 
+    @Feature("Don't remind me again")
     @Test(groups = "Select Don't remind me again", description = "TC-018:  User select option \"Don't remind me again\" in the modal \"Save page\"")
     public void dontRemindSavePage() {
         saveNewPageFromBlank_selectDontRemindSavePage(PageType.PAGE);
         saveNewPageFromBlank_haveSelectedDontRemindSavePage(PageType.PAGE);
+        saveNewPageFromBlank_haveSelectedDontRemindSavePage(PageType.BLOG);
         saveNewPageFromBlank_selectDontRemindSavePage(PageType.PASSWORD);
     }
 
@@ -313,18 +323,21 @@ public class PageEditingTest extends BaseTest {
         getEditorPage().closeEnableAutoSaveModal();
     }
 
+    @Feature("Don't remind me again")
     @Test(groups = {"Select Don't remind me again"}, description = "TC-019: User select option \"Don't remind me again\" in the modal \"Publish page\" for HOME page")
     public void dontRemindPublishHomePage() {
         saveAndPublishNewHomePageFromBlank_selectDontRemindPublishPage();
         saveAndPublishNewHomePageFromBlank_haveSelectedDontRemindPublishPage();
     }
 
+    @Feature("Don't remind me again")
     @Test(groups = {"Select Don't remind me again"}, description = "TC-019: User select option \"Don't remind me again\" in the modal \"Publish page\" for PRODUCT page")
     public void dontRemindPublishProductPage() {
         saveAndPublishNewProductCollectionPageFromBlank_selectDontRemindPublishPage(PageType.PRODUCT);
         saveAndPublishNewProductCollectionPageFromBlank_haveSelectedDontRemindPublishPage(PageType.PRODUCT);
     }
 
+    @Feature("Don't remind me again")
     @Test(groups = {"Select Don't remind me again"}, description = "TC-019: User select option \"Don't remind me again\" in the modal \"Publish page\" for COLLECTION page")
     public void dontRemindPublishCollectionPage() {
         saveAndPublishNewProductCollectionPageFromBlank_selectDontRemindPublishPage(PageType.COLLECTION);
@@ -346,6 +359,7 @@ public class PageEditingTest extends BaseTest {
         verifyElementNotVisible(modal);
     }
 
+    @Feature("Don't remind me again")
     @Test(groups = {"Select Don't remind me again"}, description = "TC-020: User select option \"Don't remind me again\" in the modal \"Enable autosave?\"")
     public void dontRemindEnableAutoSave() {
         saveNewPageFromBlank_selectDontRemindEnableAutoSave();
@@ -353,6 +367,7 @@ public class PageEditingTest extends BaseTest {
         saveAndPublishNewPageFromBlank_haveSelectedDontRemindEnableAutoSave(PageType.PASSWORD);
     }
 
+    @Feature("Leave page")
     @Test(description = "TC-021: User back from editor to page listing screen by click Back button in the Editor header when page is not saved")
     public void backFromEditorToPageListingScreen_clickBackButton() {
         getPageListingScreen().openPageListingPage();
@@ -365,6 +380,7 @@ public class PageEditingTest extends BaseTest {
         getPageListingScreen().verifyPageListingLoaded();
     }
 
+    @Feature("Leave page")
     @Test(description = "TC-022: User back from editor to page listing screen by click Back button in the browser navigator when page is not saved")
     public void backFromEditorToPageListingScreen_navigateBack() {
         getPageListingScreen().openPageListingPage();
@@ -378,6 +394,7 @@ public class PageEditingTest extends BaseTest {
         getPageListingScreen().verifyPageListingLoaded();
     }
 
+    @Feature("Leave page")
     @Test(description = "TC-023: User back from editor to page listing screen by click Back button in the Editor header when page is saved manually")
     public void backFromEditorToPageListingScreen_clickBackButton2() throws IOException {
         getPageListingScreen().openPageListingPage();
@@ -409,6 +426,7 @@ public class PageEditingTest extends BaseTest {
         verifyTrue(imageCompare.isImagesEqual());
     }
 
+    @Feature("Leave page")
     @Test(description = "TC-024: User back from editor to page listing screen by click Back button in Editor header when autosave is enabled")
     public void backFromEditorToPageListingScreen_clickBackButton3() throws IOException {
         getPageListingScreen().openPageListingPage();
@@ -447,6 +465,7 @@ public class PageEditingTest extends BaseTest {
 //        getEditorPage().togglePageOutlineAndCheckCanvasSize();
 //    }
 
+    @Feature("Editor settings")
     @Test(description = "TC-038: User select option \"Show Canvas size\" and \"Fit viewport\" then close editor then open editor again")
     public void showCanvasSizeAndFitViewport() {
         getPageListingScreen().openPageListingPage();
@@ -476,6 +495,7 @@ public class PageEditingTest extends BaseTest {
         getEditorPage().verifyFitViewport();
     }
 
+    @Feature("Editor settings")
     @Test(description = "TC-049: User enable autosave when haven't saved page")
     public void enableAutoSaveWhenHaventSavedPage() {
         getPageListingScreen().openPageListingPage();
@@ -487,6 +507,7 @@ public class PageEditingTest extends BaseTest {
         getEditorPage().confirmSavePageModal();
     }
 
+    @Feature("Editor settings")
     @Test(description = "TC-050: User enable autosave when have saved page")
     public void enableAutoSaveWhenHaveSavedPage() {
         // Create a new page and save
@@ -517,6 +538,7 @@ public class PageEditingTest extends BaseTest {
         getEditorPage().verifyPageIsUnpublished();
     }
 
+    @Feature("Editor settings")
     @Test(description = "TC-062: User go to theme editor when page is unpublished")
     public void goToThemeEditorWhenPageIsUnpublished() {
         getPageListingScreen().openPageListingPage();
@@ -527,6 +549,7 @@ public class PageEditingTest extends BaseTest {
         getEditorPage().verifyGoToThemeEditorButtonDisabled();
     }
 
+    @Feature("Editor settings")
     @Test(description = "TC-063: User go to theme editor when page is published")
     public void goToThemeEditorWhenPageIsPublished() {
         getPageListingScreen().openPageListingPage();
@@ -538,6 +561,7 @@ public class PageEditingTest extends BaseTest {
         getEditorPage().goToThemeEditor();
     }
 
+    @Feature("Editor helpers")
     @Test(description = "TC-067: User open Browser help center")
     public void openBrowserHelpCenter() {
         getPageListingScreen().openPageListingPage();
@@ -547,6 +571,7 @@ public class PageEditingTest extends BaseTest {
         getEditorPage().openBrowserHelpCenter();
     }
 
+    @Feature("Editor helpers")
     @Test(description = "TC-068: User open Live chat box")
     public void openLiveChatBox() {
         getPageListingScreen().openPageListingPage();
@@ -557,6 +582,7 @@ public class PageEditingTest extends BaseTest {
         attachScreenshotPNG();
     }
 
+    @Feature("Editor helpers")
     @Test(description = "TC-069: User Join PageFly community")
     public void joinPageFlyCommunity() {
         getPageListingScreen().openPageListingPage();
@@ -566,6 +592,7 @@ public class PageEditingTest extends BaseTest {
         getEditorPage().joinPageFlyCommunity();
     }
 
+    @Feature("Editor helpers")
     @Test(description = "TC-070: User Watch video tutorials")
     public void watchVideoTutorials() {
         getPageListingScreen().openPageListingPage();
@@ -575,6 +602,7 @@ public class PageEditingTest extends BaseTest {
         getEditorPage().watchVideoTutorials();
     }
 
+    @Feature("Screen size")
     @Test(description = "TC-071: User change window width to less than 1024px")
     public void changeWindowWidthToLessThan1024px() {
         getPageListingScreen().openPageListingPage();
@@ -603,6 +631,7 @@ public class PageEditingTest extends BaseTest {
         openEditorOnScreenHasWidth(1023);
     }
 
+    @Feature("Editor helpers")
     @Test(description = "TC-118: User open live chat")
     public void openLiveChat() {
         getPageListingScreen().openPageListingPage();
@@ -610,6 +639,91 @@ public class PageEditingTest extends BaseTest {
         getPageListingScreen().openPageInPageListing();
         getEditorPage().verifyEditorPageLoaded();
         getEditorPage().openLiveChat();
+    }
+
+    @Feature("Inspector")
+    @Test(description = "Change heading content color to random color and verify the color value")
+    public void changeContentColorToRandomColor() {
+        getPageListingScreen().openPageListingPage();
+        getPageListingScreen().verifyPageListingLoaded();
+        getPageListingScreen().createNewPageFromBlank(PageType.PAGE);
+        getEditorPage().verifyEditorPageLoaded();
+        getEditorPage().dragAndDropHeadingElement();
+        getEditorPage().changeContentColor();
+        getEditorPage().changeContentColor();
+        getEditorPage().changeContentColor();
+    }
+
+    @Feature("Inspector")
+    @Test(description = "Change padding value of heading element and verify the padding value")
+    public void changePaddingValueOfHeadingElement() {
+        getPageListingScreen().openPageListingPage();
+        getPageListingScreen().verifyPageListingLoaded();
+        getPageListingScreen().createNewPageFromBlank(PageType.PAGE);
+        getEditorPage().verifyEditorPageLoaded();
+        getEditorPage().dragAndDropHeadingElement();
+        getEditorPage().changePaddingValue("left", 30);
+        getEditorPage().changePaddingValue("right", 40);
+        getEditorPage().changePaddingValue("bottom", 50);
+        getEditorPage().changePaddingValue("top", 20);
+        getEditorPage().changePaddingValue(10);
+    }
+
+    @Feature("Inspector")
+    @Test(description = "Change margin value of heading element and verify the margin value")
+    public void changeMarginValueOfHeadingElement() {
+        getPageListingScreen().openPageListingPage();
+        getPageListingScreen().verifyPageListingLoaded();
+        getPageListingScreen().createNewPageFromBlank(PageType.PAGE);
+        getEditorPage().verifyEditorPageLoaded();
+        getEditorPage().dragAndDropHeadingElement();
+        getEditorPage().changeMarginValue("left", 30);
+        getEditorPage().changeMarginValue("right", 40);
+        getEditorPage().changeMarginValue("bottom", 50);
+        getEditorPage().changeMarginValue("top", 20);
+        getEditorPage().changeMarginValue(10);
+    }
+
+    @Feature("Inspector")
+    @Test(description = "Change font family of heading element and verify the font family value")
+    public void changeFontFamilyOfHeadingElement() {
+        getPageListingScreen().openPageListingPage();
+        getPageListingScreen().verifyPageListingLoaded();
+        getPageListingScreen().createNewPageFromBlank(PageType.PAGE);
+        getEditorPage().verifyEditorPageLoaded();
+        getEditorPage().dragAndDropHeadingElement();
+        getEditorPage().changeFontFamily("Abel");
+        getEditorPage().changeFontFamily("Actor");
+    }
+
+    @Feature("Inspector")
+    @Test(description = "Change font size of heading element by slider and verify the font size value")
+    public void changeFontSizeOfHeadingElementBySlider() {
+        getPageListingScreen().openPageListingPage();
+        getPageListingScreen().verifyPageListingLoaded();
+        getPageListingScreen().createNewPageFromBlank(PageType.PAGE);
+        getEditorPage().verifyEditorPageLoaded();
+        getEditorPage().dragAndDropHeadingElement();
+        getEditorPage().changeFontSize_Slide(10);
+        getEditorPage().changeFontSize_Slide(20);
+        getEditorPage().changeFontSize_Slide(30);
+        getEditorPage().changeFontSize_Slide(40);
+        getEditorPage().changeFontSize_Slide(50);
+    }
+
+    @Feature("Inspector")
+    @Test(description = "Change font size of heading element by input and verify the font size value")
+    public void changeFontSizeOfHeadingElementByInput() {
+        getPageListingScreen().openPageListingPage();
+        getPageListingScreen().verifyPageListingLoaded();
+        getPageListingScreen().createNewPageFromBlank(PageType.PAGE);
+        getEditorPage().verifyEditorPageLoaded();
+        getEditorPage().dragAndDropHeadingElement();
+        getEditorPage().changeFontSize_Input("10");
+        getEditorPage().changeFontSize_Input("40");
+        getEditorPage().changeFontSize_Input("20");
+        getEditorPage().changeFontSize_Input("30");
+        getEditorPage().changeFontSize_Input("50");
     }
 
     @AfterMethod

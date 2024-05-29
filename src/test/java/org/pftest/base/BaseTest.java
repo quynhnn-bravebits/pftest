@@ -1,20 +1,15 @@
 package org.pftest.base;
 
 import io.qameta.allure.Attachment;
-import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ThreadGuard;
 import org.pftest.driver.DriverManager;
 import org.pftest.driver.TargetFactory;
-import org.pftest.projects.CommonPage;
+import org.pftest.projects.pages.CommonPage;
 import org.testng.ITestResult;
 import org.testng.annotations.*;
-
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 
 import static org.pftest.keywords.WebUI.getJsExecutor;
 

@@ -22,12 +22,13 @@ import java.util.UUID;
 import static org.pftest.constants.ModalConstants.BEFORE_SAVE_MODAL;
 import static org.pftest.constants.UrlConstants.*;
 import static org.pftest.keywords.WebUI.*;
-import static org.pftest.report.AllureManager.takeScreenshotStep;
 
 // page_url = https://admin.shopify.com/store/quynhquynhiee/apps/wip-pagefly/editor?type=page&id=1
 public class EditorPage extends Toast {
 
     private final PageAssignmentModal pageAssignmentModal = new PageAssignmentModal();
+    private final EditorPageInspector editorPageInspector = new EditorPageInspector();
+    private final EditorPageSandbox editorPageSandbox = new EditorPageSandbox();
 
     private final By headerBar = By.id("editor-header-bar");
     private final By inspector = By.id("editor--inspector");
@@ -307,6 +308,66 @@ public class EditorPage extends Toast {
         System.out.println("Canvas width before: " + canvasWidth + " Canvas width after: " + canvasWidthAfter + " Page Outline width: " + pageOutlineWidth);
         System.out.println(canvasWidth - pageOutlineWidth + " " + canvasWidthAfter);
         assert canvasWidthAfter == canvasWidth - pageOutlineWidth;
+    }
+
+//    ================== Page Inspector ==================
+
+    @Step("Change content color and verify selected element has the correct color")
+    public void changeContentColor() {
+        String targetColor = editorPageInspector.changeContentColorClick();
+        System.out.println("targetColor = " + targetColor);
+        String id = getSelectedElementId();
+        System.out.println("id = " + id);
+        editorPageSandbox.verifySelectedElementHasCssAttribute(id, "color", targetColor);
+    }
+
+    @Step("Change padding and verify selected element has the correct padding")
+    public void changePaddingValue(Integer value) {
+        editorPageInspector.changePadding(value);
+        String id = getSelectedElementId();
+        editorPageSandbox.verifySelectedElementHasCssAttribute(id, "padding", value + "px");
+    }
+
+    @Step("Change padding {0} and verify selected element has the correct padding")
+    public void changePaddingValue(String type, Integer value) {
+        editorPageInspector.changePadding(type, value);
+        String id = getSelectedElementId();
+        editorPageSandbox.verifySelectedElementHasCssAttribute(id, "padding-" + type, value + "px");
+    }
+
+    @Step("Change margin and verify selected element has the correct margin")
+    public void changeMarginValue(Integer value) {
+        editorPageInspector.changeMargin(value);
+        String id = getSelectedElementId();
+        editorPageSandbox.verifySelectedElementHasCssAttribute(id, "margin", value + "px");
+    }
+
+    @Step("Change margin {0} and verify selected element has the correct margin")
+    public void changeMarginValue(String type, Integer value) {
+        editorPageInspector.changeMargin(type, value);
+        String id = getSelectedElementId();
+        editorPageSandbox.verifySelectedElementHasCssAttribute(id, "margin-" + type, value + "px");
+    }
+
+    @Step("Change font and verify selected element has the correct font")
+    public void changeFontFamily(String fontFamily) {
+        editorPageInspector.selectFontFamily(fontFamily);
+        String id = getSelectedElementId();
+        editorPageSandbox.verifySelectedElementHasCssAttribute(id, "font-family", fontFamily);
+    }
+
+    @Step("Change font size and verify selected element has the correct font size")
+    public void changeFontSize_Slide(Integer fontSize) {
+        editorPageInspector.changeFontSize(fontSize);
+        String id = getSelectedElementId();
+        editorPageSandbox.verifySelectedElementHasCssAttribute(id, "font-size", fontSize + "px");
+    }
+
+    @Step("Change font size and verify selected element has the correct font size")
+    public void changeFontSize_Input(String fontSize) {
+        editorPageInspector.changeFontSize(fontSize);
+        String id = getSelectedElementId();
+        editorPageSandbox.verifySelectedElementHasCssAttribute(id, "font-size", fontSize + "px");
     }
 
 //    ================== Edit Page ==================

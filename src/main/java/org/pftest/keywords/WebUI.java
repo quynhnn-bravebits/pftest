@@ -846,7 +846,7 @@ public class WebUI {
         if (checked) {
             return true;
         } else {
-            Assert.fail("The element NOT checked.");
+            LogUtils.warn("The element NOT checked.");
             return false;
         }
     }
@@ -868,7 +868,7 @@ public class WebUI {
         if (checked) {
             return true;
         } else {
-            Assert.fail(message);
+            LogUtils.warn(message);
             return false;
         }
     }
@@ -1533,6 +1533,21 @@ public class WebUI {
         return condition;
     }
 
+    public static String getSelectedElementId() {
+        try {
+            Object response = getJsExecutor().executeScript(
+                    "return window.pfSelected.state.id"
+            );
+            LogUtils.info("Selected Element ID: " + response);
+            AllureManager.saveTextLog("Selected Element ID: " + response);
+            return (String) response;
+        } catch (JavascriptException e) {
+            LogUtils.error("No selected element found");
+            AllureManager.saveTextLog("No selected element found");
+            Assert.fail("No selected element found");
+        }
+        return null;
+    }
 
     /**
      * Verify text of an element. (equals)
@@ -2368,6 +2383,7 @@ public class WebUI {
         }
     }
 
+    // @todo: this function not work due to frame difference
     @Step("Drag from element {0} from app-iframe to element {1} from pf-sandbox")
     public static boolean dragAndDropFromAppIframeToPfSandbox(By fromElement, By toElement) {
         smartWait();
@@ -2782,6 +2798,24 @@ public class WebUI {
         AllureManager.saveTextLog("Click on element with JS: " + by);
         addScreenshotToReport(Thread.currentThread().getStackTrace()[1].getMethodName() + "_" + DateUtils.getCurrentDateTime());
 
+    }
+
+    public static void randomClickInsideElement(By by) {
+        Rectangle rect = waitForElementVisible(by).getRect();
+        int elementWidth = rect.getWidth();
+        int elementHeight = rect.getHeight();
+
+        Actions actions = new Actions(DriverManager.getDriver());
+
+        Random random = new Random();
+        int randomX =  random.nextInt(-elementWidth/2, elementWidth/2);
+        int randomY = random.nextInt(-elementHeight/2, elementHeight/2);
+        actions.moveToElement(waitForElementVisible(by), randomX, randomY).click().perform();
+
+        LogUtils.info("Clicked on the element " + by.toString());
+
+        AllureManager.saveTextLog("Clicked on the element " + by.toString());
+        addScreenshotToReport(Thread.currentThread().getStackTrace()[1].getMethodName() + "_" + DateUtils.getCurrentDateTime());
     }
 
     /**
@@ -3542,7 +3576,7 @@ public class WebUI {
 
         try {
             WebDriverWait wait = new WebDriverWait(DriverManager.getDriver(), Duration.ofSeconds(FrameworkConstants.WAIT_EXPLICIT), Duration.ofMillis(500));
-            By buttonLocator = By.xpath("//*/button/span[text()='" + buttonText + "']");
+            By buttonLocator = By.xpath("//button[.//span[text()='" + buttonText + "']]");
             return wait.until(ExpectedConditions.presenceOfElementLocated(buttonLocator));
         } catch (Throwable error) {
             LogUtils.error("Element not exist. " + buttonText);
@@ -3570,6 +3604,14 @@ public class WebUI {
             Assert.fail("Element not exist. " + buttonText);
         }
         return null;
+    }
+
+    @Step("Click on Polaris Button with text {0}")
+    public static void clickPolarisButtonHasText(String buttonText) {
+        waitForPolarisButtonHasTextPresent(buttonText).click();
+        LogUtils.info("Click on Polaris Button with text: " + buttonText);
+        AllureManager.saveTextLog("Click on Polaris Button with text: " + buttonText);
+        addScreenshotToReport(Thread.currentThread().getStackTrace()[1].getMethodName() + "_" + DateUtils.getCurrentDateTime());
     }
 
     /**

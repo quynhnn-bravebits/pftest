@@ -5,7 +5,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.support.pagefactory.ByChained;
 import org.pftest.constants.PagesConstants;
 import org.pftest.constants.UrlConstants;
-import org.pftest.projects.CommonPage;
+import org.pftest.projects.pages.CommonPage;
 
 import static org.pftest.keywords.WebUI.*;
 

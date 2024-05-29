@@ -12,25 +12,24 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 
-import static org.pftest.keywords.WebUI.takeFullPageScreenshotBMP;
+import static org.pftest.keywords.WebUI.*;
 
 
 @Epic("Sample Test")
 @Feature("Sample Test Feature")
 public class SampleTest extends BaseTest {
     @Test
-    public void sampleTest() throws IOException {
-        getPageListingScreen().openPageListingPage();
-        getPageListingScreen().verifyPageListingLoaded();
-        getPageListingScreen().createNewPageFromBlank(PageType.PAGE);
-        getEditorPage().verifyEditorPageLoaded();
-        getEditorPage().clickSaveAndPublishPageButton();
-        getEditorPage().verifyPageIsSaving();
-        getEditorPage().confirmBeforePublishSectionModal_UntitledTitle();
-        getToast().verifyShowPublishingSectionToast();
-        getToast().verifyShowPublishedSectionToast();
-        getEditorPage().closePublishedSectionModal();
-        getEditorPage().closeEnableAutoSaveModal();
+    public void sampleTest() {
+       getPageListingScreen().openPageListingPage();
+         getPageListingScreen().verifyPageListingLoaded();
+         getPageListingScreen().createNewPageFromBlank(PageType.PAGE);
+         getEditorPage().verifyEditorPageLoaded();
+         getEditorPage().dragAndDropHeadingElement();
+         getEditorPage().changeContentColor();
 
+//        getJsExecutor().executeScript(
+//                "function a () {return pfSelected.state}; window.a = a"
+//        );
+//        getJsExecutor().executeScript("a();return a()");
     }
 }

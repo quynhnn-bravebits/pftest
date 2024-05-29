@@ -2,16 +2,11 @@ package org.pftest.projects.pages.pages;
 
 import io.qameta.allure.Step;
 import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.pagefactory.ByChained;
 import org.pftest.constants.PagesConstants;
 import org.pftest.constants.UrlConstants;
-import org.pftest.projects.CommonPage;
+import org.pftest.projects.pages.CommonPage;
 
-import java.util.List;
 import java.util.Random;
 
 import static org.pftest.keywords.WebUI.*;
