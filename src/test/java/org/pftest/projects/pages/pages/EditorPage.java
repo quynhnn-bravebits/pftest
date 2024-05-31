@@ -22,6 +22,7 @@ import java.util.UUID;
 import static org.pftest.constants.ModalConstants.BEFORE_SAVE_MODAL;
 import static org.pftest.constants.UrlConstants.*;
 import static org.pftest.keywords.WebUI.*;
+import static org.pftest.utils.ColorUtils.convertRGBtoRGBA;
 
 // page_url = https://admin.shopify.com/store/quynhquynhiee/apps/wip-pagefly/editor?type=page&id=1
 public class EditorPage extends Toast {
@@ -47,6 +48,7 @@ public class EditorPage extends Toast {
     private final By publishingBadge = By.xpath("//*[@id=\"editor-header-bar--status\"]//*/span[@class=\"Polaris-Badge Polaris-Badge--toneInfo\"]//*[text()=\"Publishing...\"]");
     private final By crispChatBox = By.xpath("//*[@id='crisp-chatbox']//*[@data-chat-status='ongoing']");
     private final By crispIcon = By.xpath("//*[@id='crisp-chatbox']//a[@aria-label='Open chat']");
+    private final By openLiveChatButton = By.id("open-live-chat-activator-btn");
 
     private final By catalogAddElementButton = By.xpath("//button[@id='catalog--add-element-btn']");
     private final By catalogAddShopifyElementButton = By.xpath("//button[@id='catalog--add-shopify-element-btn']");
@@ -208,7 +210,7 @@ public class EditorPage extends Toast {
     }
 
     public void openLiveChat() {
-        clickElement(crispIcon);
+        clickElement(openLiveChatButton);
         verifyCrispChatBoxOpened();
     }
 
@@ -370,16 +372,166 @@ public class EditorPage extends Toast {
         editorPageSandbox.verifySelectedElementHasCssAttribute(id, "font-size", fontSize + "px");
     }
 
+    @Step("Change text align and verify selected element has the correct text align")
+    public void changeTextAlignment(String textAlign) {
+        editorPageInspector.changeTextAlign(textAlign);
+        String id = getSelectedElementId();
+        editorPageSandbox.verifySelectedElementHasCssAttribute(id, "text-align", textAlign);
+    }
+
+    @Step("Change text decoration and verify selected element has the correct text decoration")
+    public void changeTextDecoration(String textDecoration) {
+        editorPageInspector.changeTextDecoration(textDecoration);
+        String id = getSelectedElementId();
+        editorPageSandbox.verifySelectedElementHasCssAttribute(id, "text-decoration-line", textDecoration);
+    }
+
+    @Step("Toggle off text decoration and verify selected element has removed text decoration attribute")
+    public void toggleOffTextDecoration(String textDecoration) {
+        editorPageInspector.changeTextDecoration(textDecoration);
+        String id = getSelectedElementId();
+        editorPageSandbox.verifySelectedElementHasRemovedCssAttribute(id, "text-decoration-line", textDecoration);
+    }
+
+    @Step("Change text style and verify selected element has the correct text style")
+    public void changeTextStyleItalic(String textStyle) {
+        editorPageInspector.changeTextStyleItalic(textStyle);
+        String id = getSelectedElementId();
+        editorPageSandbox.verifySelectedElementHasCssAttribute(id, "font-style", textStyle);
+    }
+
+    @Step("Toggle off text style and verify selected element has removed text style attribute")
+    public void toggleOffTextStyleItalic(String textStyle) {
+        editorPageInspector.changeTextStyleItalic(textStyle);
+        String id = getSelectedElementId();
+        editorPageSandbox.verifySelectedElementHasRemovedCssAttribute(id, "font-style", textStyle);
+    }
+
+    @Step("Change font weight and verify selected element has the correct font weight")
+    public void changeTextStyleBold(String fontWeight) {
+        editorPageInspector.changeTextStyleBold(fontWeight);
+        String id = getSelectedElementId();
+        // In CSS, the "bold" keyword is equivalent to the numerical value 700.
+        editorPageSandbox.verifySelectedElementHasCssAttribute(id, "font-weight", "700");
+    }
+
+    @Step("Toggle off font weight and verify selected element has removed font weight attribute")
+    public void toggleOffTextStyleBold(String fontWeight) {
+        editorPageInspector.changeTextStyleBold(fontWeight);
+        String id = getSelectedElementId();
+        editorPageSandbox.verifySelectedElementHasRemovedCssAttribute(id, "font-weight", fontWeight);
+    }
+
+    @Step("Change font weight to {0} and verify selected element has the correct font weight")
+    public void changeFontWeight(String fontWeight) {
+        editorPageInspector.changeFontWeight(fontWeight);
+        String id = getSelectedElementId();
+        editorPageSandbox.verifySelectedElementHasCssAttribute(id, "font-weight", fontWeight);
+    }
+
+    @Step("Change line height to {0} and verify selected element has the correct line height")
+    public void changeLineHeightByInput(String lineHeight) {
+        editorPageInspector.changeLineHeightByInput(lineHeight);
+        String id = getSelectedElementId();
+        editorPageSandbox.verifySelectedElementHasCssAttribute(id, "line-height", lineHeight + "px");
+    }
+
+    @Step("Change line height to {0} and verify selected element has the correct line height")
+    public void changeLineHeightBySlider(String lineHeight) {
+        editorPageInspector.changeLineSpacingBySlider(Integer.parseInt(lineHeight));
+        String id = getSelectedElementId();
+        editorPageSandbox.verifySelectedElementHasCssAttribute(id, "line-height", lineHeight + "px");
+    }
+
+    @Step("Change letter spacing to {0} and verify selected element has the correct line spacing")
+    public void changeLetterSpacingByInput(String letterSpacing) {
+        editorPageInspector.changeLetterSpacingByInput(letterSpacing);
+        String id = getSelectedElementId();
+        editorPageSandbox.verifySelectedElementHasCssAttribute(id, "letter-spacing", letterSpacing + "px");
+    }
+
+    @Step("Change letter spacing to {0} and verify selected element has the correct line spacing")
+    public void changeLetterSpacingBySlider(String letterSpacing) {
+        int value = Integer.parseInt(letterSpacing);
+        editorPageInspector.changeLetterSpacingBySlider(value);
+        String id = getSelectedElementId();
+        int min = -20;
+        int max = 20;
+        int expected = min > value ? min : Math.min(max, value);
+        editorPageSandbox.verifySelectedElementHasCssAttribute(id, "letter-spacing", expected + "px");
+    }
+
+    @Step("Change text transform to {0} and verify selected element has the correct text transform")
+    public void changeTextTransform(String textTransform) {
+        editorPageInspector.changeTextTransform(textTransform);
+        String id = getSelectedElementId();
+        editorPageSandbox.verifySelectedElementHasCssAttribute(id, "text-transform", textTransform);
+    }
+
+    @Step("Toggle off text transform and verify selected element has removed text transform attribute")
+    public void toggleOffTextTransform(String textTransform) {
+        editorPageInspector.changeTextTransform(textTransform);
+        String id = getSelectedElementId();
+        editorPageSandbox.verifySelectedElementHasRemovedCssAttribute(id, "text-transform", textTransform);
+    }
+
+    @Step("Change background color and verify selected element has the correct background color")
+    public void changeBackgroundColor() {
+        String targetColor = editorPageInspector.changeBackgroundColorClick();
+        String id = getSelectedElementId();
+        editorPageSandbox.verifySelectedElementHasCssAttribute(id, "background-color", convertRGBtoRGBA(targetColor));
+    }
+
+    @Step("Change background color to {0} and verify selected element has the correct background color")
+    public void changeBackgroundColor(String color) {
+        editorPageInspector.changeBackgroundColorSendKeys(color);
+        String id = getSelectedElementId();
+        editorPageSandbox.verifySelectedElementHasCssAttribute(id, "background-color", convertRGBtoRGBA(color));
+    }
+
+    @Step("Change border style and verify selected element has the correct border style")
+    public void changeBorderStyle(String borderStyle) {
+        editorPageInspector.changeBorderStyle(borderStyle);
+        String id = getSelectedElementId();
+        editorPageSandbox.verifySelectedElementHasCssAttribute(id, "border-style", borderStyle);
+    }
+
+    @Step("Toggle off border style and verify selected element has removed border style attribute")
+    public void toggleOffBorderStyle(String borderStyle) {
+        editorPageInspector.changeBorderStyle(borderStyle);
+        String id = getSelectedElementId();
+        editorPageSandbox.verifySelectedElementHasRemovedCssAttribute(id, "border-style", borderStyle);
+    }
+
+
 //    ================== Edit Page ==================
 
     @Step("Drag and drop Heading element to the editor")
     public void dragAndDropHeadingElement() {
+        sleep(0.5);
         clickElement(catalogAddElementButton);
         verifyElementVisible(catalogMenu);
         By headingButton = By.id("catalog--catalog-list--heading");
         moveToElement(headingButton);
         if (waitForElementClickable(headingButton) != null) {
             clickElement(By.id("catalog--catalog-list--heading"));
+        }
+        verifyElementVisible(catalogList);
+        By fromElement = By.className("Catalog-Image");
+        By toElement = By.cssSelector("iframe");
+        dragAndDrop(fromElement, toElement);
+        verifyElementVisible(unsavedBadge);
+    }
+
+    @Step("Drag and drop Paragraph element to the editor")
+    public void dragAndDropParagraphElement() {
+        sleep(0.5);
+        clickElement(catalogAddElementButton);
+        verifyElementVisible(catalogMenu);
+        By paragraphButton = By.id("catalog--catalog-list--paragraph");
+        moveToElement(paragraphButton);
+        if (waitForElementClickable(paragraphButton) != null) {
+            clickElement(paragraphButton);
         }
         verifyElementVisible(catalogList);
         By fromElement = By.className("Catalog-Image");

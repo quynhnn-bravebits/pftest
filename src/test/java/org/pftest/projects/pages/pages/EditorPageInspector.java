@@ -3,13 +3,9 @@ package org.pftest.projects.pages.pages;
 import io.qameta.allure.Step;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
-import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.pagefactory.ByChained;
 
-import java.util.List;
 import java.util.Objects;
 
 import static org.pftest.keywords.WebUI.*;
@@ -22,20 +18,13 @@ public class EditorPageInspector {
     By stylingButton = By.id("styling");
 
     By contentColorInput = By.id("inspector--content-color--input");
-    By colorPickerBox = By.id("inspector--content-color--color-picker-box");
+    By contentColorPickerBox = By.id("inspector--content-color--color-picker-box");
     By fontFamilyActivator = By.id("inspector--font-family--activator");
+    By backgroundColorInput = By.id("inspector-background-color--input");
+    By backgroundColorPickerBox = By.id("inspector-background-color--color-picker-box");
 
     By paddingInput = By.id("inspector--spacing--padding");
-    By paddingLeftInput = By.id("inspector--spacing--padding-left");
-    By paddingTopInput = By.id("inspector--spacing--padding-top");
-    By paddingRightInput = By.id("inspector--spacing--padding-right");
-    By paddingBottomInput = By.id("inspector--spacing--padding-bottom");
-
     By marginInput = By.id("inspector--spacing--margin");
-    By marginLeftInput = By.id("inspector--spacing--margin-left");
-    By marginTopInput = By.id("inspector--spacing--margin-top");
-    By marginRightInput = By.id("inspector--spacing--margin-right");
-    By marginBottomInput = By.id("inspector--spacing--margin-bottom");
 
     public void verifyEditorPageInspectorLoaded() {
         verifyElementVisible(By.id("editor--inspector"));
@@ -43,10 +32,55 @@ public class EditorPageInspector {
         verifyElementVisible(stylingButton);
     }
 
+    /*
+     * Change font size using range slider
+     *
+     * @param fontSize font size to change
+     * @param sliderSelector selector of the range slider
+     *
+     */
+    public void rangeSlider(int fontSize, By sliderSelector) {
+        WebElement slider = waitForElementVisible(sliderSelector);
+        int currentFontSize = (int) Double.parseDouble(getAttributeElement(sliderSelector, "aria-valuenow"));
+        if (currentFontSize > fontSize) {
+            for (int i = 0; i <= currentFontSize - fontSize; i++) {
+                slider.sendKeys(Keys.ARROW_LEFT);
+            }
+        }
+        else if (currentFontSize < fontSize) {
+            for (int i = 0; i < fontSize - currentFontSize; i++) {
+                slider.sendKeys(Keys.ARROW_RIGHT);
+            }
+        }
+    }
+
+    /*
+     * Random click inside element
+     *
+     * @param by selector of the element
+     *
+     */
+    public void randomClickColorPicker() {
+        By colorPicker = By.cssSelector(".Polaris-ColorPicker__ColorLayer");
+        By hueSlider = By.cssSelector(".Polaris-ColorPicker__HuePicker .Polaris-ColorPicker__Slidable");
+        By alphaSlider = By.cssSelector(".Polaris-ColorPicker__AlphaPicker .Polaris-ColorPicker__Slidable");
+        randomClickInsideElement(colorPicker);
+        randomClickInsideElement(alphaSlider);
+        randomClickInsideElement(hueSlider);
+    }
+
     @Step("Open Styling tab")
     public void openStylingTab() {
         if (!Objects.equals(getAttributeElement(stylingButton, "aria-selected"), "true")) {
             clickElement(stylingButton);
+        }
+    }
+
+    @Step("Open typo more setting")
+    public void openTypoMoreSetting() {
+        By polarisTypoMoreSettingBox = By.xpath("//div[contains(@class, 'Polaris-ShadowBevel') and .//*[@id='inspector--font-weight-selector']]");
+        if (!isElementVisible(polarisTypoMoreSettingBox, 1)) {
+            clickElement(By.id("typo-more-setting-activator-btn"));
         }
     }
 
@@ -68,15 +102,27 @@ public class EditorPageInspector {
     public String changeContentColorClick() {
         openStylingTab();
         clickElement(contentColorInput);
-        waitForElementVisible(colorPickerBox);
-        By colorPicker = By.cssSelector(".Polaris-ColorPicker__ColorLayer");
-        By hueSlider = By.cssSelector(".Polaris-ColorPicker__HuePicker .Polaris-ColorPicker__Slidable");
-        By alphaSlider = By.cssSelector(".Polaris-ColorPicker__AlphaPicker .Polaris-ColorPicker__Slidable");
-        randomClickInsideElement(colorPicker);
-        randomClickInsideElement(alphaSlider);
-        randomClickInsideElement(hueSlider);
+        waitForElementVisible(contentColorPickerBox);
+        randomClickColorPicker();
         clickElement(By.id("inspector--content-color--input-Prefix"));
         return getAttributeElement(contentColorInput, "value");
+    }
+
+    @Step("Change background color to {color}")
+    public void changeBackgroundColorSendKeys(String color) {
+        openStylingTab();
+        verifyElementVisible(backgroundColorInput);
+        clearAndFillText(backgroundColorInput, color);
+    }
+
+    @Step("Change background color to random color and return the color value")
+    public String changeBackgroundColorClick() {
+        openStylingTab();
+        clickElement(backgroundColorInput);
+        waitForElementVisible(backgroundColorPickerBox);
+        randomClickColorPicker();
+        clickElement(By.id("inspector-background-color--input-Prefix"));
+        return getAttributeElement(backgroundColorInput, "value");
     }
 
     @Step("Change padding to {padding}")
@@ -159,7 +205,6 @@ public class EditorPageInspector {
                 slider.sendKeys(Keys.ARROW_RIGHT);
             }
         }
-//        clearAndFillText(fontSizeInput, fontSize);
     }
 
     @Step("Change font size to {fontSize}")
@@ -169,5 +214,87 @@ public class EditorPageInspector {
         clearAndFillText(fontSizeInput, fontSize);
     }
 
+    @Step("Change text alignment to {alignment}")
+    public void changeTextAlign(String alignment) {
+        openStylingTab();
+        By alignmentButton = By.id("inspector--button-toggle--text-align-" + alignment);
+        clickElement(alignmentButton);
+    }
 
+    @Step("Change text decoration to {decoration}")
+    public void changeTextDecoration(String decoration) {
+        openStylingTab();
+        By decorationButton = By.id("inspector--button-toggle--text-decoration-line-" + decoration);
+        clickElement(decorationButton);
+    }
+
+    @Step("Change text style to {style}")
+    public void changeTextStyleItalic(String style) {
+        openStylingTab();
+        By styleButton = By.id("inspector--button-toggle--font-style-" + style);
+        clickElement(styleButton);
+    }
+
+    @Step("Change font weight to {weight}")
+    public void changeTextStyleBold(String weight) {
+        openStylingTab();
+        By weightButton = By.id("inspector--button-toggle--font-weight-" + weight);
+        clickElement(weightButton);
+    }
+
+    @Step("Change font weight to {weight}")
+    public void changeFontWeight(String weight) {
+        openStylingTab();
+        openTypoMoreSetting();
+        clickElement(By.id("inspector--font-weight-selector"));
+        By weightButton = By.id("inspector--select--" + weight);
+        clickElement(weightButton);
+    }
+
+    @Step("Change line height to {lineHeight}")
+    public void changeLineHeightByInput(String lineHeight) {
+        openStylingTab();
+        openTypoMoreSetting();
+        By lineHeightInput = By.id("inspector--line-height--input");
+        clearAndFillText(lineHeightInput, lineHeight);
+    }
+
+    @Step("Change line spacing to {lineSpacing}")
+    public void changeLineSpacingBySlider(int lineSpacing) {
+        openStylingTab();
+        openTypoMoreSetting();
+        By slider = By.id("inspector--line-height--slider");
+        rangeSlider(lineSpacing, slider);
+    }
+
+    @Step("Change letter spacing to {letterSpacing}")
+    public void changeLetterSpacingByInput(String letterSpacing) {
+        openStylingTab();
+        openTypoMoreSetting();
+        By letterSpacingInput = By.id("inspector--letter-spacing--input");
+        clearAndFillText(letterSpacingInput, letterSpacing);
+    }
+
+    @Step("Change letter spacing to {letterSpacing}")
+    public void changeLetterSpacingBySlider(int letterSpacing) {
+        openStylingTab();
+        openTypoMoreSetting();
+        By slider = By.id("inspector--letter-spacing--slider");
+        rangeSlider(letterSpacing, slider);
+    }
+
+    @Step("Change text transform to {transform}")
+    public void changeTextTransform(String transform) {
+        openStylingTab();
+        openTypoMoreSetting();
+        By transformButton = By.id("inspector--button-toggle--text-transform-" + transform);
+        clickElement(transformButton);
+    }
+
+    @Step("Change border style to {style}")
+    public void changeBorderStyle(String style) {
+        openStylingTab();
+        By styleButton = By.id("inspector--button-toggle--border-style-" + style);
+        clickElement(styleButton);
+    }
 }

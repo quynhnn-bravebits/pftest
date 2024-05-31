@@ -3268,6 +3268,29 @@ public class WebUI {
     }
 
     /**
+     * Verify if the web element not has an attribute with the specified name and value.
+     *
+     * @param by             an element of object type By
+     * @param attributeName  The name of the attribute to wait for.
+     * @param attributeValue The value of attribute
+     * @return true/false
+     */
+    @Step("Verify element {0} not have attribute {1} with value {2}")
+    public static boolean verifyElementNotHaveAttributeValue(By by, String attributeName, String attributeValue) {
+        smartWait();
+
+        waitForElementVisible(by);
+        try {
+            String actualValue = getCssValueElement(by, attributeName);
+            return actualValue.equals(attributeValue);
+        } catch (Throwable error) {
+            LogUtils.error("Object: " + by.toString() + ". Found value: " + attributeValue + " with attribute type: " + attributeName + ". Actual get Attribute value is: " + getAttributeElement(by, attributeName));
+            Assert.fail("Object: " + by.toString() + ". Found value: " + attributeValue + " with attribute type: " + attributeName + ". Actual get Attribute value is: " + getAttributeElement(by, attributeName));
+            return false;
+        }
+    }
+
+    /**
      * Verify if the web element has an attribute with the specified name.
      *
      * @param by            Represent a web element.

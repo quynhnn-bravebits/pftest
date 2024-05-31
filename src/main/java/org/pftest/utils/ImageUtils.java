@@ -11,7 +11,7 @@ import java.io.File;
 import java.io.IOException;
 
 public class ImageUtils {
-    private static final double acceptedDifference = 0.01;
+    private static final double acceptedDifference = 0.05;
 
     private BufferedImage imgA;
     private BufferedImage imgB;

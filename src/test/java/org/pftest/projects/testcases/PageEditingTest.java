@@ -625,6 +625,7 @@ public class PageEditingTest extends BaseTest {
         getPageListingScreen().verifyEditorUnavailableOnMobileModal();
     }
 
+    @Feature("Screen size")
     @Test(description = "TC-072: User use device has width less than 1024px")
     public void useDeviceHasWidthLessThan1024px() {
         openEditorOnScreenHasWidth(900);
@@ -724,6 +725,151 @@ public class PageEditingTest extends BaseTest {
         getEditorPage().changeFontSize_Input("20");
         getEditorPage().changeFontSize_Input("30");
         getEditorPage().changeFontSize_Input("50");
+    }
+
+    @Feature("Inspector")
+    @Test(description = "Change text alignment of heading element and verify the text alignment value")
+    public void changeTextAlignmentOfHeadingElement() {
+        getPageListingScreen().openPageListingPage();
+        getPageListingScreen().verifyPageListingLoaded();
+        getPageListingScreen().createNewPageFromBlank(PageType.PAGE);
+        getEditorPage().verifyEditorPageLoaded();
+        getEditorPage().dragAndDropHeadingElement();
+        getEditorPage().changeTextAlignment("left");
+        getEditorPage().changeTextAlignment("center");
+        getEditorPage().changeTextAlignment("right");
+    }
+
+    @Feature("Inspector")
+    @Test(description = "Change text decoration of heading element and verify the text decoration value")
+    public void changeTextDecorationOfHeadingElement() {
+        getPageListingScreen().openPageListingPage();
+        getPageListingScreen().verifyPageListingLoaded();
+        getPageListingScreen().createNewPageFromBlank(PageType.PAGE);
+        getEditorPage().verifyEditorPageLoaded();
+        getEditorPage().dragAndDropHeadingElement();
+        getEditorPage().changeTextDecoration("underline");
+        getEditorPage().changeTextDecoration("line-through");
+        getEditorPage().toggleOffTextDecoration("line-through");
+    }
+
+    @Feature("Inspector")
+    @Test(description = "Change text style of heading element to italic and verify the text style value")
+    public void changeTextStyleOfHeadingElement() {
+        getPageListingScreen().openPageListingPage();
+        getPageListingScreen().verifyPageListingLoaded();
+        getPageListingScreen().createNewPageFromBlank(PageType.PAGE);
+        getEditorPage().verifyEditorPageLoaded();
+        getEditorPage().dragAndDropHeadingElement();
+        getEditorPage().changeTextStyleItalic("italic");
+        getEditorPage().toggleOffTextStyleItalic("italic");
+        getEditorPage().changeTextStyleItalic("italic");
+        getEditorPage().toggleOffTextStyleItalic("italic");
+
+    }
+
+    @Feature("Inspector")
+    @Test(description = "Change text style of heading element to bold and verify the text style value")
+    public void changeFontWeightOfHeadingElement() {
+        getPageListingScreen().openPageListingPage();
+        getPageListingScreen().verifyPageListingLoaded();
+        getPageListingScreen().createNewPageFromBlank(PageType.PAGE);
+        getEditorPage().verifyEditorPageLoaded();
+        getEditorPage().dragAndDropParagraphElement();
+        getEditorPage().changeTextStyleBold("bold");
+        getEditorPage().toggleOffTextStyleBold("bold");
+    }
+
+    @Feature("Inspector")
+    @Test(description = "Change font weight of heading element and verify the font weight value")
+    public void changeFontWeightOfHeadingElement2() {
+        getPageListingScreen().openPageListingPage();
+        getPageListingScreen().verifyPageListingLoaded();
+        getPageListingScreen().createNewPageFromBlank(PageType.PAGE);
+        getEditorPage().verifyEditorPageLoaded();
+        getEditorPage().dragAndDropHeadingElement();
+        getEditorPage().changeFontWeight("100");
+        getEditorPage().changeFontWeight("200");
+        getEditorPage().changeFontWeight("300");
+        getEditorPage().changeFontWeight("400");
+        getEditorPage().changeFontWeight("500");
+        getEditorPage().changeFontWeight("600");
+        getEditorPage().changeFontWeight("700");
+        getEditorPage().changeFontWeight("800");
+        getEditorPage().changeFontWeight("900");
+    }
+
+    @Feature("Inspector")
+    @Test(description = "Change line height of paragraph element and verify the line height value")
+    public void changeLineHeightOfHeadingElement() {
+        getPageListingScreen().openPageListingPage();
+        getPageListingScreen().verifyPageListingLoaded();
+        getPageListingScreen().createNewPageFromBlank(PageType.PAGE);
+        getEditorPage().verifyEditorPageLoaded();
+        getEditorPage().dragAndDropParagraphElement();
+        getEditorPage().changeLineHeightByInput("10");
+        getEditorPage().changeLineHeightBySlider("40");
+        getEditorPage().changeLineHeightByInput("20");
+        getEditorPage().changeLineHeightByInput("30");
+        getEditorPage().changeLineHeightBySlider("50");
+    }
+
+    @Feature("Inspector")
+    @Test(description = "Change letter spacing of heading element and verify the letter spacing value")
+    public void changeLetterSpacingOfHeadingElement() {
+        getPageListingScreen().openPageListingPage();
+        getPageListingScreen().verifyPageListingLoaded();
+        getPageListingScreen().createNewPageFromBlank(PageType.PAGE);
+        getEditorPage().verifyEditorPageLoaded();
+        getEditorPage().dragAndDropHeadingElement();
+        getEditorPage().changeLetterSpacingByInput("10");
+        getEditorPage().changeLetterSpacingBySlider("40");
+        getEditorPage().changeLetterSpacingByInput("-20");
+        getEditorPage().changeLetterSpacingByInput("-10");
+        getEditorPage().changeLetterSpacingBySlider("10");
+    }
+
+    @Feature("Inspector")
+    @Test(description = "Change text transform of heading element and verify the text transform value")
+    public void changeTextTransformOfHeadingElement() {
+        getPageListingScreen().openPageListingPage();
+        getPageListingScreen().verifyPageListingLoaded();
+        getPageListingScreen().createNewPageFromBlank(PageType.PAGE);
+        getEditorPage().verifyEditorPageLoaded();
+        getEditorPage().dragAndDropHeadingElement();
+        getEditorPage().changeTextTransform("uppercase");
+        getEditorPage().changeTextTransform("capitalize");
+        getEditorPage().toggleOffTextTransform("capitalize");
+    }
+
+    @Feature("Inspector")
+    @Test(description = "Change background color of heading element and verify the background color value")
+    public void changeBackgroundColorOfHeadingElement() {
+        getPageListingScreen().openPageListingPage();
+        getPageListingScreen().verifyPageListingLoaded();
+        getPageListingScreen().createNewPageFromTemplate(PageType.PAGE);
+        getEditorPage().verifyEditorPageLoaded();
+        getEditorPage().dragAndDropHeadingElement();
+        getEditorPage().changeBackgroundColor();
+        getEditorPage().changeBackgroundColor();
+        getEditorPage().changeBackgroundColor();
+        getEditorPage().changeBackgroundColor("rgba(217, 245, 84, 0.51)");
+        getEditorPage().changeBackgroundColor("rgb(255, 128, 232)");
+    }
+
+    @Feature("Inspector")
+    @Test(description = "Change border style of heading element and verify the border style value")
+    public void changeBorderStyleOfHeadingElement() {
+        getPageListingScreen().openPageListingPage();
+        getPageListingScreen().verifyPageListingLoaded();
+        getPageListingScreen().createNewPageFromTemplate(PageType.PAGE);
+        getEditorPage().verifyEditorPageLoaded();
+        getEditorPage().dragAndDropHeadingElement();
+        getEditorPage().changeBorderStyle("solid");
+        getEditorPage().changeBorderStyle("none");
+        getEditorPage().changeBorderStyle("dotted");
+        getEditorPage().changeBorderStyle("dashed");
+        getEditorPage().toggleOffBorderStyle("dashed");
     }
 
     @AfterMethod

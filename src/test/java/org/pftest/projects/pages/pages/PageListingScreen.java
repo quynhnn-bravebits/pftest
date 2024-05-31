@@ -5,6 +5,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.support.pagefactory.ByChained;
 import org.pftest.constants.ModalConstants;
 import org.pftest.constants.PagesConstants;
+import org.pftest.constants.UrlConstants;
 import org.pftest.enums.PageType;
 import org.pftest.projects.pages.CommonPage;
 
@@ -49,7 +50,7 @@ public class PageListingScreen extends CommonPage {
 
 
     public void openPageListingPage() {
-        openWebsite("https://admin.shopify.com/store/quynhquynhiee/apps/wip-pagefly/pages");
+        openWebsite(UrlConstants.PF_PAGES_URL);
         switchToPageFlyFrame();
     }
 
