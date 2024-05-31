@@ -10,9 +10,9 @@ name: Java CI with Maven
 
 on:
   push:
-    branches: [ "main" ]
+    branches: [ "quynhnn-pftest" ]
   pull_request:
-    branches: [ "main" ]
+    branches: [ "quynhnn-pftest" ]
 
 jobs:
   build:
