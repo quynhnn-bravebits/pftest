@@ -1,0 +1,1 @@
+Clicked on the element By.chained({By.xpath: //*[@id="AppFrameMain"]//*[@class="Polaris-IndexTable"],By.xpath: //button[@aria-label='Add filter']})
