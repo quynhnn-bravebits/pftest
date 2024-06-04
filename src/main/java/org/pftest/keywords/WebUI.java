@@ -1418,12 +1418,24 @@ public class WebUI {
     @Step("Verify Equals: {0} ---AND--- {1}")
     public static boolean verifyEquals(Object value1, Object value2) {
         boolean result = value1.equals(value2);
+
+        String strValue1 = value1.toString();
+        String strValue2 = value2.toString();
+        int maxLength = 100;
+        // Check if the values are too long and truncate them if necessary
+        if (strValue1.length() > maxLength) {
+            strValue1 = strValue1.substring(0, maxLength) + "...";
+        }
+        if (strValue2.length() > maxLength) {
+            strValue2 = strValue2.substring(0, maxLength) + "...";
+        }
+
         if (result) {
-            LogUtils.info("Verify Equals: " + value1 + " = " + value2);
-            AllureManager.saveTextLog("Verify Equals: " + value1 + " = " + value2);
+            LogUtils.info("Verify Equals: " + strValue1 + " = " + strValue2);
+            AllureManager.saveTextLog("Verify Equals: " + strValue1 + " = " + strValue2);
         } else {
-            LogUtils.info("Verify Equals: " + value1 + " != " + value2);
-            AllureManager.saveTextLog("Verify Equals: " + value1 + " != " + value2);
+            LogUtils.info("Verify Equals: " + strValue1 + " != " + strValue2);
+            AllureManager.saveTextLog("Verify Equals: " + strValue1 + " != " + strValue2);
             Assert.assertEquals(value1, value2, value1 + " != " + value2);
         }
         return result;

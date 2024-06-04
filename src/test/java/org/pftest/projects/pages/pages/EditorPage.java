@@ -11,6 +11,7 @@ import org.pftest.constants.FrameworkConstants;
 import org.pftest.constants.ModalConstants;
 import org.pftest.driver.DriverManager;
 import org.pftest.enums.PageType;
+import org.pftest.projects.commons.Badge;
 import org.pftest.projects.commons.Toast;
 
 import javax.annotation.Nullable;
@@ -30,6 +31,7 @@ public class EditorPage extends Toast {
     private final PageAssignmentModal pageAssignmentModal = new PageAssignmentModal();
     private final EditorPageInspector editorPageInspector = new EditorPageInspector();
     private final EditorPageSandbox editorPageSandbox = new EditorPageSandbox();
+    private final Badge badge = new Badge();
 
     private final By headerBar = By.id("editor-header-bar");
     private final By inspector = By.id("editor--inspector");
@@ -40,12 +42,6 @@ public class EditorPage extends Toast {
     private final By catalogMenu = By.id("catalog-menu-section");
     private final By catalogList = By.id("catalog-items");
 
-    private final By savedBadge = By.xpath("//*[@id=\"editor-header-bar--status\"]//*/span[@class=\"Polaris-Badge Polaris-Badge--toneSuccess\"]//*[text()=\"Saved\"]");
-    private final By unsavedBadge = By.xpath("//*[@id=\"editor-header-bar--status\"]//*/span[@class=\"Polaris-Badge Polaris-Badge--toneAttention\"]//*[text()=\"Unsaved\"]");
-    private final By savingBadge = By.xpath("//*[@id=\"editor-header-bar--status\"]//*/span[@class=\"Polaris-Badge Polaris-Badge--toneInfo\"]//*[text()=\"Saving...\"]");
-    private final By publishedBadge = By.xpath("//*[@id=\"editor-header-bar--status\"]//*/span[@class=\"Polaris-Badge Polaris-Badge--toneSuccess\"]//*[text()=\"Published\"]");
-    private final By unpublishedBadge = By.xpath("//*[@id=\"editor-header-bar--status\"]//*/span[@class=\"Polaris-Badge Polaris-Badge--toneInfo\"]//*[text()=\"Unpublished\"]");
-    private final By publishingBadge = By.xpath("//*[@id=\"editor-header-bar--status\"]//*/span[@class=\"Polaris-Badge Polaris-Badge--toneInfo\"]//*[text()=\"Publishing...\"]");
     private final By crispChatBox = By.xpath("//*[@id='crisp-chatbox']//*[@data-chat-status='ongoing']");
     private final By crispIcon = By.xpath("//*[@id='crisp-chatbox']//a[@aria-label='Open chat']");
     private final By openLiveChatButton = By.id("open-live-chat-activator-btn");
@@ -85,7 +81,7 @@ public class EditorPage extends Toast {
     @Step("Get canvas html source")
     public String getCanvasHtml() {
         switchToDragAndDropFrame();
-        String html = waitForElementPresent(By.id("editor-dnd-wrapper")).getAttribute("outerHTML");
+        String html = waitForElementPresent(By.id("editor-dnd-wrapper")).getAttribute("innerHTML");
         switchToPageFlyFrame();
         return html;
     }
@@ -128,11 +124,21 @@ public class EditorPage extends Toast {
         clickElement(undoButton);
     }
 
+    @Step("Verify Undo button is disabled")
+    public void verifyUndoButtonDisabled() {
+        verifyButtonIsDisabled(undoButton);
+    }
+
     @Step("Click Redo button")
     public void clickRedoButton() {
         waitForElementClickable(redoButton);
         sleep(0.1);
         clickElement(redoButton);
+    }
+
+    @Step("Verify Redo button is disabled")
+    public void verifyRedoButtonDisabled() {
+        verifyButtonIsDisabled(redoButton);
     }
 
     @Step("Enable autosave")
@@ -277,28 +283,24 @@ public class EditorPage extends Toast {
 
     @Step("Verify page is Published")
     public void verifyPageIsPublished() {
-        verifyElementVisible(publishedBadge, 30);
+        badge.verifyPublishedBadge(30);
     }
 
     @Step("Verify page is Unpublished")
     public void verifyPageIsUnpublished() {
-        verifyElementVisible(unpublishedBadge);
+        badge.verifyUnpublishedBadge();
     }
 
     @Step("Verify page is Saving")
     public void verifyPageIsSaving() {
-        verifyElementVisible(savingBadge);
+        badge.verifySavingBadge();
     }
 
     @Step("Verify page is Saved")
     public void verifyPageIsSaved() {
-        verifyElementVisible(savedBadge, 30);
+        badge.verifySavedBadge(30);
     }
 
-    @Step("Verify page is Unsaved")
-    public void verifyPageIsUnsaved() {
-        verifyElementVisible(unsavedBadge);
-    }
 
 //    ================== Page Outline ==================
 
@@ -590,7 +592,7 @@ public class EditorPage extends Toast {
         By fromElement = By.className("Catalog-Image");
         By toElement = By.cssSelector("iframe");
         dragAndDrop(fromElement, toElement);
-        verifyElementVisible(unsavedBadge);
+        badge.verifyUnsavedBadge();
     }
 
     @Step("Drag and drop Paragraph element to the editor")
@@ -607,7 +609,7 @@ public class EditorPage extends Toast {
         By fromElement = By.className("Catalog-Image");
         By toElement = By.cssSelector("iframe");
         dragAndDrop(fromElement, toElement);
-        verifyElementVisible(unsavedBadge);
+        badge.verifyUnsavedBadge();
     }
 
 //    ================== Save/Publish Page ==================
@@ -623,15 +625,11 @@ public class EditorPage extends Toast {
         clickElement(By.id("editor-header-bar--save-and-publish-page-btn"));
     }
 
-    @Step("Verify page published successfully")
-    public void verifyPagePublished() {
-        verifyElementVisible(publishedBadge);
-    }
 
     @Step("Verify page saved and published successfully")
     public void verifyPageSavedAndPublished() {
-        verifyElementVisible(savedBadge, 30);
-        verifyElementVisible(publishedBadge, 30);
+        badge.verifySavedBadge(30);
+        badge.verifyPublishedBadge(30);
     }
 
     public void clickUnpublishPageButton() {

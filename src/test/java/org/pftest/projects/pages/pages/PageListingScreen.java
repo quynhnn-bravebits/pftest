@@ -15,15 +15,15 @@ import static org.pftest.keywords.WebUI.*;
 
 // page_url = https://admin.shopify.com/store/quynhquynhiee/apps/wip-pagefly/pages
 public class PageListingScreen extends CommonPage {
-    private By importButton = By.id("import-btn");
-    private By exportButton = By.id("export-btn");
-    private By createFromTemplateButton = By.xpath("//*/button/span[text()='" + PagesConstants.CREATE_FROM_TEMPLATE_BUTTON + "']");
-    private By createFromBlankButton = By.xpath("//*/button/span[text()='" + PagesConstants.CREATE_FROM_BLANK_BUTTON + "']");
+    private final By importButton = By.id("import-btn");
+    private final By exportButton = By.id("export-btn");
+    private final By createFromTemplateButton = By.xpath("//*/button/span[text()='" + PagesConstants.CREATE_FROM_TEMPLATE_BUTTON + "']");
+    private final By createFromBlankButton = By.xpath("//*/button/span[text()='" + PagesConstants.CREATE_FROM_BLANK_BUTTON + "']");
 
-    private By dataTable = By.xpath("//*[@id=\"AppFrameMain\"]//*[@class=\"Polaris-IndexTable\"]");
-    private By searchAndFilterButton = new ByChained(dataTable, By.xpath("//button[@aria-label='Search and filter results']"));
-    private By addFilterButton = new ByChained(dataTable, By.xpath("//button[@aria-label='Add filter']"));
-    private By bulkActionsUnpublishButton = new ByChained(dataTable, By.xpath("//button[.//*[text()='Unpublish'] and not(@disabled)]"));
+    private final By dataTable = By.xpath("//*[@id=\"AppFrameMain\"]//*[@class=\"Polaris-IndexTable\"]");
+    private final By searchAndFilterButton = new ByChained(dataTable, By.xpath("//button[@aria-label='Search and filter results']"));
+    private final By addFilterButton = new ByChained(dataTable, By.xpath("//button[@aria-label='Add filter']"));
+    private final By bulkActionsUnpublishButton = new ByChained(dataTable, By.xpath("//button[.//*[text()='Unpublish'] and not(@disabled)]"));
 
     public By getPageRowByIndex(int index) {
         return By.xpath(String.format("//tbody//tr[%d]", index));

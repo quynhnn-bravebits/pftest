@@ -1,4 +1,4 @@
-package org.pftest.projects.pages.pages;
+package org.pftest.projects.pages.sections;
 
 import io.qameta.allure.Step;
 import org.openqa.selenium.By;

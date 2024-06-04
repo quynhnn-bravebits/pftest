@@ -8,7 +8,7 @@ import org.pftest.projects.pages.dashboard.DashboardScreen;
 import org.pftest.projects.pages.pages.EditorPage;
 import org.pftest.projects.pages.pages.PageListingScreen;
 import org.pftest.projects.pages.pages.PageSettingScreen;
-import org.pftest.projects.pages.pages.SectionListingScreen;
+import org.pftest.projects.pages.sections.SectionListingScreen;
 
 import static org.pftest.keywords.WebUI.*;
 
