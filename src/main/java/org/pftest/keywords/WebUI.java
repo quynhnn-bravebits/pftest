@@ -141,6 +141,7 @@ public class WebUI {
                 LogUtils.info("Folder created: " + file);
             }
 
+            AllureManager.takeScreenshotStep();
             LogUtils.info("Driver for Screenshot: " + DriverManager.getDriver());
             // Create reference of TakesScreenshot
             TakesScreenshot ts = (TakesScreenshot) DriverManager.getDriver();
@@ -2719,6 +2720,8 @@ public class WebUI {
 
     @Step("Clear text in text box word by word")
     public static void clearTextWordByWord(By by) {
+        waitForElementVisible(by).sendKeys(Keys.END);
+
         WebElement element = waitForElementVisible(by);
         String value = element.getAttribute("value"); // get the current text in the input field
 
@@ -3684,4 +3687,5 @@ public class WebUI {
         }
         return null;
     }
+
 }

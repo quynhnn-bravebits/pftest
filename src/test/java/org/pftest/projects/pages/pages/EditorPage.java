@@ -22,7 +22,7 @@ import java.util.UUID;
 import static org.pftest.constants.ModalConstants.BEFORE_SAVE_MODAL;
 import static org.pftest.constants.UrlConstants.*;
 import static org.pftest.keywords.WebUI.*;
-import static org.pftest.utils.ColorUtils.convertRGBtoRGBA;
+import static org.pftest.utils.CommonUtils.convertRGBtoRGBA;
 
 // page_url = https://admin.shopify.com/store/quynhquynhiee/apps/wip-pagefly/editor?type=page&id=1
 public class EditorPage extends Toast {
@@ -49,6 +49,8 @@ public class EditorPage extends Toast {
     private final By crispChatBox = By.xpath("//*[@id='crisp-chatbox']//*[@data-chat-status='ongoing']");
     private final By crispIcon = By.xpath("//*[@id='crisp-chatbox']//a[@aria-label='Open chat']");
     private final By openLiveChatButton = By.id("open-live-chat-activator-btn");
+    private final By undoButton = By.id("pf-undo-btn");
+    private final By redoButton = By.id("pf-redo-btn");
 
     private final By catalogAddElementButton = By.xpath("//button[@id='catalog--add-element-btn']");
     private final By catalogAddShopifyElementButton = By.xpath("//button[@id='catalog--add-shopify-element-btn']");
@@ -78,6 +80,14 @@ public class EditorPage extends Toast {
         String URL = "https://admin.shopify.com/store/quynhquynhiee/apps/wip-pagefly/editor?type=" + pageType.name().toLowerCase() + "&id=" + UUID.randomUUID();
         openWebsite(URL);
         switchToPageFlyFrame();
+    }
+
+    @Step("Get canvas html source")
+    public String getCanvasHtml() {
+        switchToDragAndDropFrame();
+        String html = waitForElementPresent(By.id("editor-dnd-wrapper")).getAttribute("outerHTML");
+        switchToPageFlyFrame();
+        return html;
     }
 
     public void verifyEditorDndLoaded() {
@@ -110,6 +120,20 @@ public class EditorPage extends Toast {
     }
 
 //    ================== Editor Header ==================
+
+    @Step("Click Undo button")
+    public void clickUndoButton() {
+        waitForElementClickable(undoButton);
+        sleep(0.1);
+        clickElement(undoButton);
+    }
+
+    @Step("Click Redo button")
+    public void clickRedoButton() {
+        waitForElementClickable(redoButton);
+        sleep(0.1);
+        clickElement(redoButton);
+    }
 
     @Step("Enable autosave")
     public void toggleEnableAutoSave() {
@@ -236,7 +260,6 @@ public class EditorPage extends Toast {
         switchToWindowOrTabByPosition(1);
         wait.until(ExpectedConditions.urlContains(SHOPIFY_BASE_URL + "/themes"));
         closeCurrentWindow();
-
     }
 
 //    ================== Page Title ==================
@@ -314,12 +337,29 @@ public class EditorPage extends Toast {
 
 //    ================== Page Inspector ==================
 
+    @Step("Change text content and verify selected element has the correct text content")
+    public void changeTextContent(String text) {
+        editorPageInspector.changeTextContent(text);
+        String id = getSelectedElementId();
+        switchToDragAndDropFrame();
+        verifyElementTextEquals(By.xpath("//*[@data-pf-id='" + id + "']"), text);
+        switchToPageFlyFrame();
+    }
+
     @Step("Change content color and verify selected element has the correct color")
     public void changeContentColor() {
-        String targetColor = editorPageInspector.changeContentColorClick();
+        String targetColor = convertRGBtoRGBA(editorPageInspector.changeContentColorClick());
         System.out.println("targetColor = " + targetColor);
         String id = getSelectedElementId();
         System.out.println("id = " + id);
+        editorPageSandbox.verifySelectedElementHasCssAttribute(id, "color", targetColor);
+    }
+
+    @Step("Change content color to {0} and verify selected element has the correct color")
+    public void changeContentColor(String color) {
+        String targetColor = convertRGBtoRGBA(color);
+        editorPageInspector.changeContentColorSendKeys(color);
+        String id = getSelectedElementId();
         editorPageSandbox.verifySelectedElementHasCssAttribute(id, "color", targetColor);
     }
 
@@ -370,6 +410,29 @@ public class EditorPage extends Toast {
         editorPageInspector.changeFontSize(fontSize);
         String id = getSelectedElementId();
         editorPageSandbox.verifySelectedElementHasCssAttribute(id, "font-size", fontSize + "px");
+    }
+
+    @Step("Change opacity and verify selected element has the correct opacity")
+    public void changeOpacity_Slide(Integer opacity) {
+        editorPageInspector.changeOpacity(opacity);
+        String id = getSelectedElementId();
+        int expected = opacity < 20 ? 20 : Math.min(100, opacity);
+        editorPageSandbox.verifySelectedElementHasCssAttribute(id, "opacity", String.valueOf(expected / 100.0).replaceAll("\\.0$", ""));
+    }
+
+    @Step("Change opacity and verify selected element has the correct opacity")
+    public void changeOpacity_Input(String opacityStr) {
+        editorPageInspector.changeOpacity(opacityStr);
+        String id = getSelectedElementId();
+        int opacity = Integer.parseInt(opacityStr);
+        int expected = opacity < 20 ? 20 : Math.min(100, opacity);
+        editorPageSandbox.verifySelectedElementHasCssAttribute(id, "opacity", String.valueOf(expected / 100.0).replaceAll("\\.0$", ""));
+
+        String expectedError = opacity < 20 ? "The minimum possible value is: 20" : opacity > 100 ? "The maximum possible value is: 100" : null;
+        By errorField = By.xpath("//*[@id='fieldIdError' and contains(text(), '" + expectedError + "')]");
+        if (expectedError != null) {
+            verifyElementVisible(errorField);
+        }
     }
 
     @Step("Change text align and verify selected element has the correct text align")
@@ -503,17 +566,24 @@ public class EditorPage extends Toast {
         editorPageSandbox.verifySelectedElementHasRemovedCssAttribute(id, "border-style", borderStyle);
     }
 
+    @Step("Change display style and verify selected element has the correct display style")
+    public void changeDisplayStyle(String displayStyle, String displayStyleValue) {
+        editorPageInspector.changeDisplayStyle(displayStyle);
+        String id = getSelectedElementId();
+        editorPageSandbox.verifySelectedElementHasCssAttribute(id, "display", displayStyleValue);
+    }
+
 
 //    ================== Edit Page ==================
 
     @Step("Drag and drop Heading element to the editor")
     public void dragAndDropHeadingElement() {
-        sleep(0.5);
+        waitForElementClickable(catalogAddElementButton);
         clickElement(catalogAddElementButton);
         verifyElementVisible(catalogMenu);
         By headingButton = By.id("catalog--catalog-list--heading");
         moveToElement(headingButton);
-        if (waitForElementClickable(headingButton) != null) {
+        if (waitForElementClickable(headingButton, 10) != null) {
             clickElement(By.id("catalog--catalog-list--heading"));
         }
         verifyElementVisible(catalogList);
@@ -530,7 +600,7 @@ public class EditorPage extends Toast {
         verifyElementVisible(catalogMenu);
         By paragraphButton = By.id("catalog--catalog-list--paragraph");
         moveToElement(paragraphButton);
-        if (waitForElementClickable(paragraphButton) != null) {
+        if (waitForElementClickable(paragraphButton, 10) != null) {
             clickElement(paragraphButton);
         }
         verifyElementVisible(catalogList);
@@ -725,8 +795,6 @@ public class EditorPage extends Toast {
         clickElement(By.id("menubar--save-modal--primary"));
         verifyElementNotVisible(beforePublishModal);
     }
-
-
 
     /**
      * <p>Waits for the modal to be visible.</p>

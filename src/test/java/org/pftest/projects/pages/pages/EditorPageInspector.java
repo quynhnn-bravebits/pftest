@@ -72,7 +72,10 @@ public class EditorPageInspector {
     @Step("Open Styling tab")
     public void openStylingTab() {
         if (!Objects.equals(getAttributeElement(stylingButton, "aria-selected"), "true")) {
+            waitForElementClickable(stylingButton);
+            sleep(0.1);
             clickElement(stylingButton);
+            verifyElementAttributeValue(stylingButton, "aria-selected", "true");
         }
     }
 
@@ -87,8 +90,22 @@ public class EditorPageInspector {
     @Step("Open General tab")
     public void openGeneralTab() {
         if (!Objects.equals(getAttributeElement(generalButton, "aria-selected"), "true")) {
+            changeBackgroundColorSendKeys("open");
+            waitForElementClickable(generalButton);
+            sleep(0.1);
             clickElement(generalButton);
+            verifyElementAttributeValue(generalButton, "aria-selected", "true");
         }
+    }
+
+    @Step("Change text content to {content}")
+    public void changeTextContent(String content) {
+        openGeneralTab();
+        By textContentInput = By.id("pf_text_editor_");
+        verifyElementVisible(textContentInput);
+        clearTextCtrlA(textContentInput);
+        clearAndFillText(textContentInput, content);
+        sleep(0.3);
     }
 
     @Step("Change content color to {color}")
@@ -123,6 +140,14 @@ public class EditorPageInspector {
         randomClickColorPicker();
         clickElement(By.id("inspector-background-color--input-Prefix"));
         return getAttributeElement(backgroundColorInput, "value");
+    }
+
+    @Step("Change border color to {color}")
+    public void changeBorderColorSendKeys(String color) {
+        openStylingTab();
+        By borderColorInput = By.id("inspector--border-color--input");
+        verifyElementVisible(borderColorInput);
+        clearAndFillText(borderColorInput, color);
     }
 
     @Step("Change padding to {padding}")
@@ -192,19 +217,8 @@ public class EditorPageInspector {
     @Step("Change font size to {fontSize}")
     public void changeFontSize(int fontSize) {
         openStylingTab();
-        By sliderSelector = By.id("inspector--font-size--slider");
-        WebElement slider = waitForElementVisible(sliderSelector);
-        int currentFontSize = (int) Double.parseDouble(getAttributeElement(sliderSelector, "aria-valuenow"));
-        if (currentFontSize > fontSize) {
-            for (int i = 0; i <= currentFontSize - fontSize; i++) {
-                slider.sendKeys(Keys.ARROW_LEFT);
-            }
-        }
-        else if (currentFontSize < fontSize) {
-            for (int i = 0; i < fontSize - currentFontSize; i++) {
-                slider.sendKeys(Keys.ARROW_RIGHT);
-            }
-        }
+        By slider = By.id("inspector--font-size--slider");
+        rangeSlider(fontSize, slider);
     }
 
     @Step("Change font size to {fontSize}")
@@ -212,6 +226,20 @@ public class EditorPageInspector {
         openStylingTab();
         By fontSizeInput = By.id("inspector--font-size--input");
         clearAndFillText(fontSizeInput, fontSize);
+    }
+
+    @Step("Change opacity to {opacity}")
+    public void changeOpacity(int opacity) {
+        openStylingTab();
+        By slider = By.id("inspector--opacity--slider");
+        rangeSlider(opacity, slider);
+    }
+
+    @Step("Change opacity to {opacity}")
+    public void changeOpacity(String opacity) {
+        openStylingTab();
+        By opacityInput = By.id("inspector--opacity--input");
+        clearAndFillText(opacityInput, opacity);
     }
 
     @Step("Change text alignment to {alignment}")
@@ -295,6 +323,13 @@ public class EditorPageInspector {
     public void changeBorderStyle(String style) {
         openStylingTab();
         By styleButton = By.id("inspector--button-toggle--border-style-" + style);
+        clickElement(styleButton);
+    }
+
+    @Step("Change display style to {style}")
+    public void changeDisplayStyle(String style) {
+        openStylingTab();
+        By styleButton = By.id("inspector--button-toggle--display-" + style);
         clickElement(styleButton);
     }
 }

@@ -5,6 +5,7 @@ import io.qameta.allure.Feature;
 import io.qameta.allure.Step;
 import org.pftest.base.BaseTest;
 import org.pftest.enums.PageType;
+import org.pftest.report.AllureManager;
 import org.pftest.utils.ImageUtils;
 import org.testng.ITestResult;
 import org.testng.annotations.*;
@@ -13,6 +14,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
+import java.util.List;
 
 import static org.pftest.keywords.WebUI.*;
 
@@ -643,7 +645,7 @@ public class PageEditingTest extends BaseTest {
     }
 
     @Feature("Inspector")
-    @Test(description = "Change heading content color to random color and verify the color value")
+    @Test(description = "INS-001: Change heading content color to random color and verify the color value")
     public void changeContentColorToRandomColor() {
         getPageListingScreen().openPageListingPage();
         getPageListingScreen().verifyPageListingLoaded();
@@ -656,7 +658,7 @@ public class PageEditingTest extends BaseTest {
     }
 
     @Feature("Inspector")
-    @Test(description = "Change padding value of heading element and verify the padding value")
+    @Test(description = "INS-002: Change padding value of heading element and verify the padding value")
     public void changePaddingValueOfHeadingElement() {
         getPageListingScreen().openPageListingPage();
         getPageListingScreen().verifyPageListingLoaded();
@@ -671,7 +673,7 @@ public class PageEditingTest extends BaseTest {
     }
 
     @Feature("Inspector")
-    @Test(description = "Change margin value of heading element and verify the margin value")
+    @Test(description = "INS-003: Change margin value of heading element and verify the margin value")
     public void changeMarginValueOfHeadingElement() {
         getPageListingScreen().openPageListingPage();
         getPageListingScreen().verifyPageListingLoaded();
@@ -686,7 +688,7 @@ public class PageEditingTest extends BaseTest {
     }
 
     @Feature("Inspector")
-    @Test(description = "Change font family of heading element and verify the font family value")
+    @Test(description = "INS-004: Change font family of heading element and verify the font family value")
     public void changeFontFamilyOfHeadingElement() {
         getPageListingScreen().openPageListingPage();
         getPageListingScreen().verifyPageListingLoaded();
@@ -698,7 +700,7 @@ public class PageEditingTest extends BaseTest {
     }
 
     @Feature("Inspector")
-    @Test(description = "Change font size of heading element by slider and verify the font size value")
+    @Test(description = "INS-005: Change font size of heading element by slider and verify the font size value")
     public void changeFontSizeOfHeadingElementBySlider() {
         getPageListingScreen().openPageListingPage();
         getPageListingScreen().verifyPageListingLoaded();
@@ -713,7 +715,7 @@ public class PageEditingTest extends BaseTest {
     }
 
     @Feature("Inspector")
-    @Test(description = "Change font size of heading element by input and verify the font size value")
+    @Test(description = "INS-005: Change font size of heading element by input and verify the font size value")
     public void changeFontSizeOfHeadingElementByInput() {
         getPageListingScreen().openPageListingPage();
         getPageListingScreen().verifyPageListingLoaded();
@@ -728,7 +730,7 @@ public class PageEditingTest extends BaseTest {
     }
 
     @Feature("Inspector")
-    @Test(description = "Change text alignment of heading element and verify the text alignment value")
+    @Test(description = "INS-006: Change text alignment of heading element and verify the text alignment value")
     public void changeTextAlignmentOfHeadingElement() {
         getPageListingScreen().openPageListingPage();
         getPageListingScreen().verifyPageListingLoaded();
@@ -741,7 +743,7 @@ public class PageEditingTest extends BaseTest {
     }
 
     @Feature("Inspector")
-    @Test(description = "Change text decoration of heading element and verify the text decoration value")
+    @Test(description = "INS-007: Change text decoration of heading element and verify the text decoration value")
     public void changeTextDecorationOfHeadingElement() {
         getPageListingScreen().openPageListingPage();
         getPageListingScreen().verifyPageListingLoaded();
@@ -754,7 +756,7 @@ public class PageEditingTest extends BaseTest {
     }
 
     @Feature("Inspector")
-    @Test(description = "Change text style of heading element to italic and verify the text style value")
+    @Test(description = "INS-008: Change text style of heading element to italic and verify the text style value")
     public void changeTextStyleOfHeadingElement() {
         getPageListingScreen().openPageListingPage();
         getPageListingScreen().verifyPageListingLoaded();
@@ -769,7 +771,7 @@ public class PageEditingTest extends BaseTest {
     }
 
     @Feature("Inspector")
-    @Test(description = "Change text style of heading element to bold and verify the text style value")
+    @Test(description = "INS-008: Change text style of heading element to bold and verify the text style value")
     public void changeFontWeightOfHeadingElement() {
         getPageListingScreen().openPageListingPage();
         getPageListingScreen().verifyPageListingLoaded();
@@ -781,7 +783,7 @@ public class PageEditingTest extends BaseTest {
     }
 
     @Feature("Inspector")
-    @Test(description = "Change font weight of heading element and verify the font weight value")
+    @Test(description = "INS-009: Change font weight of heading element and verify the font weight value")
     public void changeFontWeightOfHeadingElement2() {
         getPageListingScreen().openPageListingPage();
         getPageListingScreen().verifyPageListingLoaded();
@@ -800,7 +802,7 @@ public class PageEditingTest extends BaseTest {
     }
 
     @Feature("Inspector")
-    @Test(description = "Change line height of paragraph element and verify the line height value")
+    @Test(description = "INS-010: Change line height of paragraph element and verify the line height value")
     public void changeLineHeightOfHeadingElement() {
         getPageListingScreen().openPageListingPage();
         getPageListingScreen().verifyPageListingLoaded();
@@ -815,7 +817,7 @@ public class PageEditingTest extends BaseTest {
     }
 
     @Feature("Inspector")
-    @Test(description = "Change letter spacing of heading element and verify the letter spacing value")
+    @Test(description = "INS-011: Change letter spacing of heading element and verify the letter spacing value")
     public void changeLetterSpacingOfHeadingElement() {
         getPageListingScreen().openPageListingPage();
         getPageListingScreen().verifyPageListingLoaded();
@@ -830,7 +832,7 @@ public class PageEditingTest extends BaseTest {
     }
 
     @Feature("Inspector")
-    @Test(description = "Change text transform of heading element and verify the text transform value")
+    @Test(description = "INS-012: Change text transform of heading element and verify the text transform value")
     public void changeTextTransformOfHeadingElement() {
         getPageListingScreen().openPageListingPage();
         getPageListingScreen().verifyPageListingLoaded();
@@ -843,7 +845,7 @@ public class PageEditingTest extends BaseTest {
     }
 
     @Feature("Inspector")
-    @Test(description = "Change background color of heading element and verify the background color value")
+    @Test(description = "INS-013: Change background color of heading element and verify the background color value")
     public void changeBackgroundColorOfHeadingElement() {
         getPageListingScreen().openPageListingPage();
         getPageListingScreen().verifyPageListingLoaded();
@@ -858,7 +860,7 @@ public class PageEditingTest extends BaseTest {
     }
 
     @Feature("Inspector")
-    @Test(description = "Change border style of heading element and verify the border style value")
+    @Test(description = "INS-014: Change border style of heading element and verify the border style value")
     public void changeBorderStyleOfHeadingElement() {
         getPageListingScreen().openPageListingPage();
         getPageListingScreen().verifyPageListingLoaded();
@@ -871,6 +873,38 @@ public class PageEditingTest extends BaseTest {
         getEditorPage().changeBorderStyle("dashed");
         getEditorPage().toggleOffBorderStyle("dashed");
     }
+
+    @Feature("Inspector")
+    @Test(description = "INS-018: Change display style of heading element and verify the display style value")
+    public void changeDisplayStyleOfHeadingElement() {
+        getPageListingScreen().openPageListingPage();
+        getPageListingScreen().verifyPageListingLoaded();
+        getPageListingScreen().createNewPageFromBlank(PageType.PASSWORD);
+        getEditorPage().verifyEditorPageLoaded();
+        getEditorPage().dragAndDropHeadingElement();
+        getEditorPage().changeBorderStyle("solid");
+        getEditorPage().changeDisplayStyle("block", "block");
+        getEditorPage().changeDisplayStyle("inline", "inline-block");
+        getEditorPage().changeDisplayStyle("inline", "block");
+    }
+
+    @Feature("Inspector")
+    @Test(description = "INS-019: Change opacity of paragraph element and verify the opacity value")
+    public void changeOpacityOfParagraphElement() {
+        getPageListingScreen().openPageListingPage();
+        getPageListingScreen().verifyPageListingLoaded();
+        getPageListingScreen().createNewPageFromBlank(PageType.PAGE);
+        getEditorPage().verifyEditorPageLoaded();
+        getEditorPage().dragAndDropParagraphElement();
+        getEditorPage().changeOpacity_Slide(10);
+        getEditorPage().changeOpacity_Input("19");
+        getEditorPage().changeOpacity_Slide(20);
+        getEditorPage().changeOpacity_Input("30");
+        getEditorPage().changeOpacity_Input("40");
+        getEditorPage().changeOpacity_Slide(100);
+        getEditorPage().changeOpacity_Input("101");
+    }
+
 
     @AfterMethod
     public void resetDontRemindAfterTest(ITestResult result) {
