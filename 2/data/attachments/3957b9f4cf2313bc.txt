@@ -1,0 +1,1 @@
+Verify text of an element [Equals] : true. The actual text is 'This is a new paragraph' not equals 'This is a new paragraph'

@@ -1,0 +1,1 @@
+Clicked on the element By.xpath: //div[@id='pages--page-assignment--available-resources']//li[.//input[@type='checkbox' and @aria-checked='false']][1]

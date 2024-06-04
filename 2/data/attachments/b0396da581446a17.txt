@@ -1,0 +1,1 @@
+Clear and Fill rgb(255, 128, 232) on By.id: inspector-background-color--input
