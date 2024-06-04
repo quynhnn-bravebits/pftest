@@ -1,0 +1,1 @@
+Clear and Fill rgba(217, 245, 84, 0.51) on By.id: inspector-background-color--input

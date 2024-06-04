@@ -1,0 +1,1 @@
+Clicked on the element By.xpath: (//tbody/tr[//td[@id='pages--table--status']/span[@class='Polaris-Badge Polaris-Badge--toneSuccess']//*[text()='Published']])[1]
