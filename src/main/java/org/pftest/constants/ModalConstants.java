@@ -62,5 +62,11 @@ public class ModalConstants {
         public static final String TITLE = "Editor is unavailable on mobile";
         public static final String PRIMARY_BUTTON = "Close";
     }
+
+    static public final class SELECT_PAGE_TEMPLATE_MODAL {
+        public static final String TITLE = "Select page template";
+        public static final String PRIMARY_BUTTON = "Select";
+        public static final String SECONDARY_BUTTON = "Cancel";
+    }
 }
 

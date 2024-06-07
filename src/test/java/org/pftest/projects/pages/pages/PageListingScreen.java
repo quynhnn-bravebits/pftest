@@ -199,6 +199,21 @@ public class PageListingScreen extends CommonPage {
 
 //    ================== Create New Page ==================
 
+    @Step("Select a page template")
+    public void selectPageTemplate() {
+        waitForPageLoaded();
+        verifyPageTitle(PagesConstants.SELECT_PAGE_TEMPLATE);
+        sleep(1);
+        int templatesCount = getWebElements(By.xpath("//div[@class='template-list-modal--template-list--template-card']//button/*[text()='Select']"))
+                .size();
+        // Generate a random index between 0 and 5
+        int randomIndex = new Random().nextInt(1, templatesCount);
+        By template = By.xpath("(//div[@class='template-list-modal--template-list--template-card']//button/*[text()='Select'])[" + randomIndex + "]");
+        moveToElement(template);
+        hoverOnElement(template);
+        clickElement(template);
+    }
+
     /**
      * <p>Clicks the 'Create from template' button on the page.</p>
      * <p>Clicks the template specified by the pageType parameter.</p>
@@ -211,15 +226,7 @@ public class PageListingScreen extends CommonPage {
     public void createNewPageFromTemplate(PageType pageType) {
         clickElement(createFromTemplateButton);
         clickElement(By.id(pageType.name().toLowerCase() + "-template"));
-        waitForPageLoaded();
-        verifyPageTitle(PagesConstants.SELECT_PAGE_TEMPLATE);
-        sleep(1);
-        // Generate a random index between 0 and 5
-        int randomIndex = new Random().nextInt(1, 5);
-        By template = By.xpath("(//div[@class='template-list-modal--template-list--template-card']//button/*[text()='Select'])[" + randomIndex + "]");
-        moveToElement(template);
-        hoverOnElement(template);
-        clickElement(template);
+        selectPageTemplate();
     }
 
     /**

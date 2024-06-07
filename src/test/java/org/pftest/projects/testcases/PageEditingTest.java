@@ -11,10 +11,7 @@ import org.testng.ITestResult;
 import org.testng.annotations.*;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 import static org.pftest.keywords.WebUI.*;
 
@@ -23,6 +20,17 @@ public class PageEditingTest extends BaseTest {
     @BeforeClass
     public void setup() {
 
+    }
+
+    @Step("Save page successfully")
+    public void savePageSuccessfully() {
+        getEditorPage().clickSavePageButton();
+        if (!Objects.equals(getValueFromLocalStorage("warning_saved"), "true")) {
+            getEditorPage().confirmSavePageModal();
+        }
+        getEditorPage().verifyPageIsSaving();
+        getEditorPage().verifyPageIsSaved();
+        getEditorPage().closeEnableAutoSaveModal();
     }
 
     @Step("Save and Publish page successfully")
@@ -211,6 +219,7 @@ public class PageEditingTest extends BaseTest {
     public void saveNewPageFromBlank_selectDontRemindSavePage(PageType pageType) {
         getPageListingScreen().openPageListingPage();
         getPageListingScreen().verifyPageListingLoaded();
+//        resetDontRemind();
         getPageListingScreen().createNewPageFromBlank(pageType);
         getEditorPage().verifyEditorPageLoaded();
         getEditorPage().changePageTitle("Test " + pageType.name() + " " + new Date());
@@ -242,7 +251,7 @@ public class PageEditingTest extends BaseTest {
         saveNewPageFromBlank_selectDontRemindSavePage(PageType.PAGE);
         saveNewPageFromBlank_haveSelectedDontRemindSavePage(PageType.PAGE);
         saveNewPageFromBlank_haveSelectedDontRemindSavePage(PageType.BLOG);
-        saveNewPageFromBlank_selectDontRemindSavePage(PageType.PASSWORD);
+        saveNewPageFromBlank_haveSelectedDontRemindSavePage(PageType.PASSWORD);
     }
 
     @Step("Save and Publish new HOME page from blank and select Don't remind me again in the modal Publish page")

@@ -1,8 +1,6 @@
 package org.pftest.projects.testcases;
 
-import io.qameta.allure.Epic;
-import io.qameta.allure.Feature;
-import io.qameta.allure.Step;
+import io.qameta.allure.*;
 import org.pftest.base.BaseTest;
 import org.pftest.enums.PageType;
 import org.pftest.report.AllureManager;
@@ -12,13 +10,14 @@ import org.testng.annotations.Test;
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.pftest.keywords.WebUI.sleep;
-import static org.pftest.keywords.WebUI.verifyEquals;
+import static io.qameta.allure.SeverityLevel.CRITICAL;
+import static org.pftest.keywords.WebUI.*;
 
 @Epic("Undo/Redo")
 public class UndoRedoTest extends BaseTest {
-    private List<String> canvasHtml = new ArrayList<>();
-    private int currentStep = -1;
+    private final PageEditingTest pageEditingTest = new PageEditingTest();
+    private List<String> canvasHtml;
+    private int currentStep;
 
     @BeforeMethod
     public void resetSteps () {
@@ -33,6 +32,7 @@ public class UndoRedoTest extends BaseTest {
         canvasHtml.add(getEditorPage().getCanvasHtml());
         currentStep++;
         AllureManager.takeScreenshotStep();
+        sleep(0.5);
     }
 
     @Step("{description}")
@@ -42,6 +42,7 @@ public class UndoRedoTest extends BaseTest {
             currentStep--;
         }
 
+        waitForPageLoaded();
         sleep(1);
         AllureManager.takeScreenshotStep();
         String expected = canvasHtml.get(currentStep);
@@ -62,6 +63,7 @@ public class UndoRedoTest extends BaseTest {
     }
 
     @Feature("Template page")
+    @Severity(CRITICAL)
     @Test(description = "UR-001: User undo when change the heading element in template page")
     public void undoChangeTextContentOfHeadingElement() {
         addStep(
@@ -115,8 +117,9 @@ public class UndoRedoTest extends BaseTest {
     }
 
     @Feature("Template page")
+    @Severity(CRITICAL)
     @Test(description = "UR-002: User undo and redo in template page")
-    public void undoRedoChangeTextContentOfHeadingElement() {
+    public void undoRedoInTemplatePage() {
         addStep(
                 "Step 0: Init template page",
                 () -> {
@@ -192,4 +195,135 @@ public class UndoRedoTest extends BaseTest {
         getEditorPage().verifyUndoButtonDisabled();
     }
 
+    @Flaky
+    @Feature("Version history")
+    @Severity(CRITICAL)
+    @Test(description = "UR-003: User undo and redo when change the page template")
+    public void undoRedoChangePageTemplate() {
+        addStep(
+                "Step 0: Init template page",
+                () -> {
+                    getPageListingScreen().openPageListingPage();
+                    getPageListingScreen().verifyPageListingLoaded();
+                    getPageListingScreen().createNewPageFromTemplate(PageType.PAGE);
+                    getEditorPage().verifyEditorPageLoaded();
+                }
+        );
+
+        addStep(
+                "Step 1: Drag and drop heading element",
+                () -> getEditorPage().dragAndDropHeadingElement()
+        );
+
+        addStep(
+                "Step 2: Change content color",
+                () -> getEditorPage().changeContentColor("rgb(239, 45, 201)")
+        );
+
+        addStep(
+                "Step 3: Change opacity",
+                () -> getEditorPage().changeOpacity_Input("50")
+        );
+
+        addStep(
+                "Step 4: Change padding value",
+                () -> getEditorPage().changePaddingValue(20)
+        );
+
+        addStep(
+                "Step 5: Open and select page template",
+                () -> {
+                    getEditorPage().openAndSelectPageTemplate();
+                    waitForPageLoaded();
+                }
+        );
+
+        undo(
+                "Step 6: Undo change page template",
+                1
+        );
+
+        redo(
+                "Step 7: Redo change page template",
+                1
+        );
+
+        undo(
+                "Step 8: Undo change template and padding value",
+                2
+        );
+
+        undo(
+                "Step 9: Undo change opacity and content color",
+                2
+        );
+
+        undo(
+                "Step 10: Undo drag and drop heading element",
+                1
+        );
+
+        getEditorPage().verifyUndoButtonDisabled();
+    }
+
+    @Step("{description}")
+    public void addHistory(String description, Runnable step) {
+        step.run();
+        pageEditingTest.savePageSuccessfully();
+        canvasHtml = canvasHtml.subList(0, currentStep + 1);
+        String source = getEditorPage().getCanvasHtmlProcessed();
+        canvasHtml.add(source);
+        currentStep++;
+        AllureManager.takeScreenshotStep();
+    }
+
+    @Step("Restore to history version {index} and verify the source code of canvas")
+    public void restoreToHistoryVersion(int index) {
+        String expectedSource = getEditorPage().restoreToVersionHistory(index+1);
+        sleep(1);
+        AllureManager.takeScreenshotStep();
+        verifyEquals(expectedSource, canvasHtml.get(currentStep - index));
+        String actualSource = getEditorPage().getCanvasHtmlProcessed();
+        verifyEquals(actualSource, expectedSource);
+    }
+
+    @Flaky
+    @Severity(CRITICAL)
+    @Feature("Version history")
+    @Test(description = "UR-004: User restore a previous version of a page", groups = "Select Don't remind me again")
+    public void restorePreviousVersion() {
+        try {
+            pageEditingTest.saveNewPageFromBlank_selectDontRemindSavePage(PageType.PAGE);
+
+            addHistory(
+                    "Step 1: Init template page",
+                    () -> {
+                        getEditorPage().dragAndDropHeadingElement();
+                        getEditorPage().changeContentColor("rgb(239, 45, 201)");
+                    }
+            );
+
+            addHistory(
+                    "Step 2: Drag and drop paragraph element",
+                    () -> getEditorPage().dragAndDropParagraphElement()
+            );
+
+            addHistory(
+                    "Step 3: Open and select page template",
+                    () -> {
+                        getEditorPage().openAndSelectPageTemplate();
+                        waitForPageLoaded();
+                    }
+            );
+
+            System.out.println("Current step: " + currentStep);
+
+            for (int i = currentStep; i >= 0; i--) {
+                restoreToHistoryVersion(i);
+            }
+
+        } finally {
+            resetDontRemind();
+        }
+    }
 }

@@ -1131,6 +1131,21 @@ public class WebUI {
         LogUtils.info("Switch to Frame by Name. " + DRAG_DROP_IFRAME);
     }
 
+    @Step("Switch to Version history preview frame")
+    public static void switchToHistoryPreviewFrame() {
+        smartWait();
+
+        WebDriverWait wait = new WebDriverWait(DriverManager.getDriver(), Duration.ofSeconds(FrameworkConstants.WAIT_EXPLICIT), Duration.ofMillis(500));
+
+        // Get the iframe inside the modal
+        By modal = By.xpath("//*[@id=\"PolarisPortalsContainer\"]//*//div[@role=\"dialog\"]/div[1]");
+        WebElement iframe = waitForElementVisible(modal).findElement(By.tagName("iframe"));
+
+        wait.until(ExpectedConditions.frameToBeAvailableAndSwitchToIt(iframe));
+
+        LogUtils.info("Switch to History preview by Name. " + DRAG_DROP_IFRAME);
+    }
+
 
     /**
      * Switch to iframe by Element is this iframe tag
@@ -1415,7 +1430,7 @@ public class WebUI {
      * @param value2 The object two
      * @return true/false
      */
-    @Step("Verify Equals: {0} ---AND--- {1}")
+//    @Step("Verify Equals: {0} ---AND--- {1}")
     public static boolean verifyEquals(Object value1, Object value2) {
         boolean result = value1.equals(value2);
 
@@ -3698,6 +3713,11 @@ public class WebUI {
             }
         }
         return null;
+    }
+
+    @Step("Get value of {key} from localstorage")
+    public static String getValueFromLocalStorage(String key) {
+        return (String) ((JavascriptExecutor) DriverManager.getDriver()).executeScript("return localStorage.getItem('" + key + "');");
     }
 
 }

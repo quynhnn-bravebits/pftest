@@ -25,21 +25,7 @@
         </allure.cmd.download.url>
     </properties>
 
-<!--    <repositories>-->
-<!--        <repository>-->
-<!--            <id>GroupDocsJavaAPI</id>-->
-<!--            <name>GroupDocs Java API</name>-->
-<!--            <url>https://repository.groupdocs.com/repo/</url>-->
-<!--        </repository>-->
-<!--    </repositories>-->
-
     <dependencies>
-        <!--Vision compare-->
-<!--        <dependency>-->
-<!--            <groupId>com.groupdocs</groupId>-->
-<!--            <artifactId>groupdocs-comparison</artifactId>-->
-<!--            <version>22.3</version>-->
-<!--        </dependency>-->
 
         <dependency>
             <groupId>com.google.guava</groupId>
@@ -155,6 +141,12 @@
             <artifactId>selenium-devtools-v123</artifactId>
             <version>4.19.1</version>
             <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <!-- jsoup HTML parser library @ https://jsoup.org/ -->
+            <groupId>org.jsoup</groupId>
+            <artifactId>jsoup</artifactId>
+            <version>1.17.2</version>
         </dependency>
     </dependencies>
     <build>

@@ -19,11 +19,12 @@ import java.io.File;
 import java.time.Duration;
 import java.util.Date;
 import java.util.UUID;
+import java.util.regex.Pattern;
 
 import static org.pftest.constants.ModalConstants.BEFORE_SAVE_MODAL;
 import static org.pftest.constants.UrlConstants.*;
 import static org.pftest.keywords.WebUI.*;
-import static org.pftest.utils.CommonUtils.convertRGBtoRGBA;
+import static org.pftest.utils.CommonUtils.*;
 
 // page_url = https://admin.shopify.com/store/quynhquynhiee/apps/wip-pagefly/editor?type=page&id=1
 public class EditorPage extends Toast {
@@ -41,6 +42,7 @@ public class EditorPage extends Toast {
     private final By modal = By.xpath("//*[@id=\"PolarisPortalsContainer\"]//*//div[@role=\"dialog\"]/div[1]");
     private final By catalogMenu = By.id("catalog-menu-section");
     private final By catalogList = By.id("catalog-items");
+    private final By historyActivatorButton = By.id("revisions--activator-btn");
 
     private final By crispChatBox = By.xpath("//*[@id='crisp-chatbox']//*[@data-chat-status='ongoing']");
     private final By crispIcon = By.xpath("//*[@id='crisp-chatbox']//a[@aria-label='Open chat']");
@@ -81,9 +83,25 @@ public class EditorPage extends Toast {
     @Step("Get canvas html source")
     public String getCanvasHtml() {
         switchToDragAndDropFrame();
-        String html = waitForElementPresent(By.id("editor-dnd-wrapper")).getAttribute("innerHTML");
+        String html = DriverManager.getDriver().getPageSource();
         switchToPageFlyFrame();
-        return html;
+        return htmlSourceSpecialElementProcessing(html);
+    }
+
+    @Step("Get canvas html processed source")
+    public String getCanvasHtmlProcessed() {
+        switchToDragAndDropFrame();
+        String html = DriverManager.getDriver().getPageSource();
+        switchToPageFlyFrame();
+        return htmlSourceProcessing(html);
+    }
+
+    @Step("Get history preview source")
+    public String getHistoryPreviewSource() {
+        switchToHistoryPreviewFrame();
+        String html = DriverManager.getDriver().getPageSource();
+        switchToPageFlyFrame();
+        return htmlSourceProcessing(html);
     }
 
     public void verifyEditorDndLoaded() {
@@ -116,6 +134,24 @@ public class EditorPage extends Toast {
     }
 
 //    ================== Editor Header ==================
+
+    @Step("Open templates from editor page templates")
+    public void openAndSelectPageTemplate() {
+        // open page templates from editor
+        clickElement(moreSettingsButton);
+        clickElement(By.id("template-action-btn"));
+        PageListingScreen pageListingScreen = new PageListingScreen();
+        // select template
+        pageListingScreen.selectPageTemplate();
+        // confirm select template modal
+        WebElement publishProductModal =  waitForElementVisible(modal);
+        verifyElementTextContains(modal, ModalConstants.SELECT_PAGE_TEMPLATE_MODAL.TITLE);
+        By publishButton = By.xpath(".//*[@role='dialog']//button//*[text()='" + ModalConstants.SELECT_PAGE_TEMPLATE_MODAL.PRIMARY_BUTTON + "']");
+        By checkbox = By.cssSelector(".Polaris-Checkbox");
+        clickElement(checkbox);
+        clickElement(publishButton);
+        verifyElementNotVisible(publishProductModal);
+    }
 
     @Step("Click Undo button")
     public void clickUndoButton() {
@@ -632,6 +668,7 @@ public class EditorPage extends Toast {
         badge.verifyPublishedBadge(30);
     }
 
+    @Step("Click 'Unpublish' button")
     public void clickUnpublishPageButton() {
         clickElement(By.id("editor-header-bar--other-save-actions-btn"));
         clickElement(By.id("editor-header-bar--unpublish-page-btn"));
@@ -852,8 +889,6 @@ public class EditorPage extends Toast {
         verifyElementNotVisible(publishProductModal);
     }
 
-
-
 //    ================== Published Section Modal ==================
 
     @Step("Close the 'Section published successfully' modal")
@@ -904,6 +939,36 @@ public class EditorPage extends Toast {
         sleep(0.5);
         verifyElementNotVisible(autosaveModal);
     }
+
+//    ================== History ==================
+
+    @Step("Open 'Version history' modal")
+    public void openVersionHistoryModal() {
+        clickElement(historyActivatorButton);
+        verifyElementVisible(modal);
+        verifyElementTextContains(modal, "Version history");
+        waitForPageLoaded();
+    }
+
+    @Step("Restore to version history {0}")
+    public String restoreToVersionHistory(int index) {
+        openVersionHistoryModal();
+        sleep(2);
+        By versionButton = new ByChained(modal, By.xpath("//button[@id]"));
+        By versionButtonByIndex = By.xpath("(//*[@id=\"PolarisPortalsContainer\"]//*//div[@role=\"dialog\"]/div[1]//button[@id])["+ index + "]");
+        waitForElementVisible(versionButtonByIndex, 15);
+        waitForElementClickable(versionButtonByIndex, 15);
+        clickElement(versionButtonByIndex);
+        waitForPageLoaded();
+        sleep(2);
+        String source = getHistoryPreviewSource();
+        clickPolarisButtonHasText("Restore");
+        clickPolarisButtonHasText("Restore"); // confirm modal
+        verifyElementNotVisible(modal);
+        waitForPageLoaded();
+        return source;
+    }
+
 
 //    ================== Drag and Drop Canvas ==================
 
