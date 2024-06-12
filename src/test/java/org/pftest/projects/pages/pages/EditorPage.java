@@ -14,12 +14,11 @@ import org.pftest.enums.PageType;
 import org.pftest.projects.commons.Badge;
 import org.pftest.projects.commons.Toast;
 
-import javax.annotation.Nullable;
 import java.io.File;
 import java.time.Duration;
 import java.util.Date;
+import java.util.Objects;
 import java.util.UUID;
-import java.util.regex.Pattern;
 
 import static org.pftest.constants.ModalConstants.BEFORE_SAVE_MODAL;
 import static org.pftest.constants.UrlConstants.*;
@@ -144,7 +143,7 @@ public class EditorPage extends Toast {
         // select template
         pageListingScreen.selectPageTemplate();
         // confirm select template modal
-        WebElement publishProductModal =  waitForElementVisible(modal);
+        WebElement publishProductModal = waitForElementVisible(modal);
         verifyElementTextContains(modal, ModalConstants.SELECT_PAGE_TEMPLATE_MODAL.TITLE);
         By publishButton = By.xpath(".//*[@role='dialog']//button//*[text()='" + ModalConstants.SELECT_PAGE_TEMPLATE_MODAL.PRIMARY_BUTTON + "']");
         By checkbox = By.cssSelector(".Polaris-Checkbox");
@@ -562,6 +561,13 @@ public class EditorPage extends Toast {
         editorPageSandbox.verifySelectedElementHasCssAttribute(id, "letter-spacing", expected + "px");
     }
 
+    @Step("Change column height to {0} and verify selected element has the correct column height")
+    public void changeColumnHeightInput(String columnHeight) {
+        editorPageInspector.changeColumnHeightByInput(columnHeight);
+        String id = getSelectedElementId();
+        editorPageSandbox.verifySelectedElementHasCssAttribute(id, "min-height", columnHeight + "px");
+    }
+
     @Step("Change text transform to {0} and verify selected element has the correct text transform")
     public void changeTextTransform(String textTransform) {
         editorPageInspector.changeTextTransform(textTransform);
@@ -611,18 +617,61 @@ public class EditorPage extends Toast {
         editorPageSandbox.verifySelectedElementHasCssAttribute(id, "display", displayStyleValue);
     }
 
+    @Step("Add new item to the list and verify the item is added")
+    public void addNewItemToList() {
+        String id = getSelectedElementId();
+        String type = getSelectedElementType();
+        System.out.println("type = " + type);
+        int befNum = editorPageSandbox.getElementsNumber(id, type);
+        if (Objects.equals(type, "Row")) {
+            int maxCols = editorPageInspector.getColumnsPerLine();
+            if (befNum >= maxCols) {
+                System.out.println("The maximum number of columns per row is reached");
+                return;
+            }
+        }
+        editorPageInspector.addNewItemToList();
+        sleep(0.5);
+        int aftNum = editorPageSandbox.getElementsNumber(id, type);
+        verifyTrue(aftNum == befNum + 1, "The new item is not added to the list");
+    }
+
+
+    @Step("Remove item from the list and verify the item is removed")
+    public void removeItemFromList() {
+        int befNum = editorPageSandbox.getElementsNumber(getSelectedElementId(), getSelectedElementType());
+        editorPageInspector.removeItemFromList();
+        sleep(0.5);
+        clickOnSelectedElement();
+        sleep(0.5);
+        int aftNum = editorPageSandbox.getElementsNumber(getSelectedElementId(), getSelectedElementType());
+        verifyTrue(aftNum == befNum - 1, "The item is not removed from the list");
+    }
+
 
 //    ================== Edit Page ==================
 
-    @Step("Drag and drop Heading element to the editor")
-    public void dragAndDropHeadingElement() {
-        waitForElementClickable(catalogAddElementButton);
-        clickElement(catalogAddElementButton);
-        verifyElementVisible(catalogMenu);
-        By headingButton = By.id("catalog--catalog-list--heading");
-        moveToElement(headingButton);
-        if (waitForElementClickable(headingButton, 10) != null) {
-            clickElement(By.id("catalog--catalog-list--heading"));
+    public void dragAndDropElementToSandbox(By catalog, By list, By toElement) {
+        waitForElementClickable(catalog);
+        clickElement(catalog);
+        moveToElement(list);
+        if (waitForElementClickable(list, 10) != null) {
+            clickElement(list);
+        }
+        verifyElementVisible(catalogList);
+        By fromElement = By.className("Catalog-Image");
+        dragAndDropFromAppIframeToPfSandbox(fromElement, toElement);
+
+        badge.verifyUnsavedBadge();
+    }
+
+    public void dragAndDropElement(By catalog, By list) {
+        waitForElementClickable(catalog);
+        clickElement(catalog);
+        verifyElementVisible(catalog);
+        moveToElement(list);
+        if (waitForElementClickable(list, 10) != null) {
+            clickElement(list);
         }
         verifyElementVisible(catalogList);
         By fromElement = By.className("Catalog-Image");
@@ -631,21 +680,33 @@ public class EditorPage extends Toast {
         badge.verifyUnsavedBadge();
     }
 
+    public void dragAndDropCatalogElement(By list) {
+        dragAndDropElement(catalogAddElementButton, list);
+    }
+
+    public void dragAndDropShopifyElement(By list) {
+        dragAndDropElement(catalogAddShopifyElementButton, list);
+    }
+
+    public void dragAndDrop3rdPartyElement(By list) {
+        dragAndDropElement(catalogAdd3rdPartyElementButton, list);
+    }
+
+    @Step("Drag and drop Layout element to the editor")
+    public void dragAndDropLayoutElement() {
+        dragAndDropCatalogElement(By.id("catalog--catalog-list--layout"));
+    }
+
+    @Step("Drag and drop Heading element to the editor")
+    public void dragAndDropHeadingElement() {
+        By headingButton = By.id("catalog--catalog-list--heading");
+        dragAndDropCatalogElement(headingButton);
+    }
+
     @Step("Drag and drop Paragraph element to the editor")
     public void dragAndDropParagraphElement() {
-        sleep(0.5);
-        clickElement(catalogAddElementButton);
-        verifyElementVisible(catalogMenu);
         By paragraphButton = By.id("catalog--catalog-list--paragraph");
-        moveToElement(paragraphButton);
-        if (waitForElementClickable(paragraphButton, 10) != null) {
-            clickElement(paragraphButton);
-        }
-        verifyElementVisible(catalogList);
-        By fromElement = By.className("Catalog-Image");
-        By toElement = By.cssSelector("iframe");
-        dragAndDrop(fromElement, toElement);
-        badge.verifyUnsavedBadge();
+        dragAndDropCatalogElement(paragraphButton);
     }
 
 //    ================== Save/Publish Page ==================
@@ -788,13 +849,12 @@ public class EditorPage extends Toast {
      * <p>Clicks the 'Publish' button on the modal.</p>
      * <p>Verifies that the modal is no longer present.</p>
      *
-     * @param title The new title for the page. If null, the current date and time will be used.
      */
     @Step("Confirm 'Before Publish' modal when the page is untitled")
-    public void confirmBeforePublishPageModal_UntitledTitle(@Nullable String title) {
+    public void confirmBeforePublishPageModal_UntitledTitle() {
         WebElement beforePublishModal = waitForElementVisible(modal);
         verifyElementTextContains(modal, ModalConstants.BEFORE_PUBLISH_MODAL.UNTITLED_TITLE);
-        clearAndFillText(modal, title != null ? title : new Date().toString());
+        clearAndFillText((modal), new Date().toString());
         clickElement(By.id("menubar--save-modal--primary"));
         verifyElementNotVisible(beforePublishModal);
     }
@@ -859,7 +919,7 @@ public class EditorPage extends Toast {
 
     @Step("Confirm 'Publish product page' modal")
     public void confirmPublishProductModal() {
-        WebElement publishProductModal =  waitForElementVisible(modal);
+        WebElement publishProductModal = waitForElementVisible(modal);
         verifyElementTextContains(modal, ModalConstants.PUBLISHING_PRODUCT_PAGE_MODAL.TITLE);
         By publishButton = By.xpath(".//*[@role='dialog']//button//*[text()='" + ModalConstants.PUBLISHING_PRODUCT_PAGE_MODAL.PRIMARY_BUTTON + "']");
         clickElement(publishButton);
@@ -869,7 +929,7 @@ public class EditorPage extends Toast {
 
     @Step("Select Don't remind option and confirm 'Publish product page' modal")
     public void selectDontRemindAndConfirmPublishProductModal() {
-        WebElement publishProductModal =  waitForElementVisible(modal);
+        WebElement publishProductModal = waitForElementVisible(modal);
         verifyElementTextContains(modal, ModalConstants.PUBLISHING_PRODUCT_PAGE_MODAL.TITLE);
         By checkbox = new ByChained(modal, By.className("Polaris-Checkbox"));
         clickElement(checkbox);
@@ -880,7 +940,7 @@ public class EditorPage extends Toast {
 
     @Step("Select Don't remind option and confirm 'Publish collection page' modal")
     public void selectDontRemindAndConfirmPublishCollectionModal() {
-        WebElement publishProductModal =  waitForElementVisible(modal);
+        WebElement publishProductModal = waitForElementVisible(modal);
         verifyElementTextContains(modal, ModalConstants.PUBLISHING_COLLECTION_PAGE_MODAL.TITLE);
         By checkbox = new ByChained(modal, By.className("Polaris-Checkbox"));
         clickElement(checkbox);
@@ -955,7 +1015,7 @@ public class EditorPage extends Toast {
         openVersionHistoryModal();
         sleep(2);
         By versionButton = new ByChained(modal, By.xpath("//button[@id]"));
-        By versionButtonByIndex = By.xpath("(//*[@id=\"PolarisPortalsContainer\"]//*//div[@role=\"dialog\"]/div[1]//button[@id])["+ index + "]");
+        By versionButtonByIndex = By.xpath("(//*[@id=\"PolarisPortalsContainer\"]//*//div[@role=\"dialog\"]/div[1]//button[@id])[" + index + "]");
         waitForElementVisible(versionButtonByIndex, 15);
         waitForElementClickable(versionButtonByIndex, 15);
         clickElement(versionButtonByIndex);

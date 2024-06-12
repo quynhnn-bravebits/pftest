@@ -1,14 +1,5 @@
 package org.pftest.keywords;
 
-import org.openqa.selenium.Rectangle;
-import org.pftest.constants.FrameworkConstants;
-import org.pftest.driver.DriverManager;
-import org.pftest.enums.FailureHandling;
-import org.pftest.helpers.Helpers;
-import org.pftest.report.AllureManager;
-import org.pftest.utils.BrowserInfoUtils;
-import org.pftest.utils.DateUtils;
-import org.pftest.utils.LogUtils;
 import com.google.common.util.concurrent.Uninterruptibles;
 import com.google.zxing.BinaryBitmap;
 import com.google.zxing.LuminanceSource;
@@ -20,6 +11,7 @@ import io.qameta.allure.Step;
 import org.apache.commons.io.FileUtils;
 import org.openqa.selenium.Dimension;
 import org.openqa.selenium.Point;
+import org.openqa.selenium.Rectangle;
 import org.openqa.selenium.*;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.devtools.DevTools;
@@ -32,6 +24,14 @@ import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import org.pftest.constants.FrameworkConstants;
+import org.pftest.driver.DriverManager;
+import org.pftest.enums.FailureHandling;
+import org.pftest.helpers.Helpers;
+import org.pftest.report.AllureManager;
+import org.pftest.utils.BrowserInfoUtils;
+import org.pftest.utils.DateUtils;
+import org.pftest.utils.LogUtils;
 import org.testng.Assert;
 import org.testng.asserts.SoftAssert;
 
@@ -1118,8 +1118,8 @@ public class WebUI {
         WebDriverWait wait = new WebDriverWait(DriverManager.getDriver(), Duration.ofSeconds(FrameworkConstants.WAIT_EXPLICIT), Duration.ofMillis(500));
         wait.until(ExpectedConditions.frameToBeAvailableAndSwitchToIt(APP_IFRAME));
         getJsExecutor().executeScript("window.localStorage.setItem('rc-checker-key', 'welcome2PF');");
-
         LogUtils.info("Switch to Frame by Name. " + APP_IFRAME);
+        createFakeMouse();
     }
 
     @Step("Switch to Frame by Name: pf-sandbox")
@@ -1128,7 +1128,57 @@ public class WebUI {
 
         WebDriverWait wait = new WebDriverWait(DriverManager.getDriver(), Duration.ofSeconds(FrameworkConstants.WAIT_EXPLICIT), Duration.ofMillis(500));
         wait.until(ExpectedConditions.frameToBeAvailableAndSwitchToIt(DRAG_DROP_IFRAME));
+        createFakeMouse();
         LogUtils.info("Switch to Frame by Name. " + DRAG_DROP_IFRAME);
+    }
+
+    public static void moveMouseToTopLeftCorner() {
+        WebDriver driver = DriverManager.getDriver();
+        Actions actions = new Actions(driver);
+        Point iframeLocation = getLocationElement(By.tagName("body"));
+        actions.moveByOffset(iframeLocation.getX(), iframeLocation.getY()).perform();
+
+    }
+
+    public static void createFakeMouse() {
+        getJsExecutor().executeScript(
+        "var fakeMouse = document.querySelector('#fakeMouse');" +
+                "if (!fakeMouse) {" +
+                "  fakeMouse = document.createElement('div');" +
+                "  fakeMouse.id = 'fakeMouse';" +
+                "  fakeMouse.style.borderRadius = '50%';" +
+                "  fakeMouse.style.backgroundColor = 'red';" +
+                "  fakeMouse.style.position = 'absolute';" +
+                "  fakeMouse.style.display = 'block';" +
+                "  fakeMouse.style.zIndex = '999';" +
+                "  document.body?.appendChild(fakeMouse);" +
+                "}" +
+                "document.addEventListener('mousemove', function(e) {" +
+                "  fakeMouse.style.left = e.clientX + 'px';" +
+                "  fakeMouse.style.top = e.clientY + 'px';" +
+                "  fakeMouse.style.width = '10px';" +
+                "  fakeMouse.style.height = '10px';" +
+                "  fakeMouse.style.border = 'none';" +
+                "});" +
+                "document.addEventListener('click', function(e) {" +
+                "  fakeMouse.style.display = 'block';" +
+                "  fakeMouse.style.left = e.clientX + 'px';" +
+                "  fakeMouse.style.top = e.clientY + 'px';" +
+                "  fakeMouse.style.border = '5px solid pink';" +
+                "  fakeMouse.style.width = '20px';" +
+                "  fakeMouse.style.height = '20px';" +
+                "});" +
+                "document.addEventListener('drag', function(e) {" +
+                "  fakeMouse.style.display = 'block';" +
+                "  fakeMouse.style.left = e.clientX + 'px';" +
+                "  fakeMouse.style.top = e.clientY + 'px';" +
+                "  fakeMouse.style.border = '5px solid yellow';" +
+                "  fakeMouse.style.width = '15px';" +
+                "  fakeMouse.style.height = '15px';" +
+                "});"
+);
+
+        moveMouseToTopLeftCorner();
     }
 
     @Step("Switch to Version history preview frame")
@@ -1561,6 +1611,10 @@ public class WebUI {
         return condition;
     }
 
+    /**
+     * Get the selected element ID from the PageFly editor
+     * @return ID
+     */
     public static String getSelectedElementId() {
         try {
             Object response = getJsExecutor().executeScript(
@@ -1568,6 +1622,26 @@ public class WebUI {
             );
             LogUtils.info("Selected Element ID: " + response);
             AllureManager.saveTextLog("Selected Element ID: " + response);
+            return (String) response;
+        } catch (JavascriptException e) {
+            LogUtils.error("No selected element found");
+            AllureManager.saveTextLog("No selected element found");
+            Assert.fail("No selected element found");
+        }
+        return null;
+    }
+
+    /**
+     * Get the selected element type from the PageFly editor
+     * @return Type
+     */
+    public static String getSelectedElementType() {
+        try {
+            Object response = getJsExecutor().executeScript(
+                    "return window.pfSelected.state.type"
+            );
+            LogUtils.info("Selected Element Type: " + response);
+            AllureManager.saveTextLog("Selected Element Type: " + response);
             return (String) response;
         } catch (JavascriptException e) {
             LogUtils.error("No selected element found");
@@ -2417,17 +2491,18 @@ public class WebUI {
         smartWait();
 
         try {
-            switchToPageFlyFrame();
-            WebElement from = getWebElement(fromElement);
-            Actions actions = new Actions(DriverManager.getDriver());
-            actions.clickAndHold(from).build().perform();
+            Point fromElementOffset = getLocationElement(fromElement);
+            Dimension fromElementSize = getSizeElement(fromElement);
 
-            switchToDragAndDropFrame();
-            WebElement to = getWebElement(toElement);
-            actions.moveToElement(to).release().build().perform();
+            Point toElementOffset = getDragAndDropElementLocation(toElement);
+            Dimension toElementSize = getDragAndDropElementSize(toElement);
 
-            switchToPageFlyFrame();
+            // Drop to the middle of the target element
+            int x = toElementOffset.getX() + toElementSize.getWidth() / 2 - ( fromElementOffset.getX() + fromElementSize.getWidth() / 2);
+            int y = toElementOffset.getY() + toElementSize.getHeight() / 2 - ( fromElementOffset.getY() + fromElementSize.getHeight() / 2);
 
+            Actions action = new Actions(DriverManager.getDriver());
+            action.dragAndDropBy(getWebElement(fromElement), x, y).release().build().perform();
             return true;
         } catch (Exception e) {
             LogUtils.info(e.getMessage());
@@ -2491,20 +2566,21 @@ public class WebUI {
         try {
             Robot robot = new Robot();
             robot.mouseMove(0, 0);
-            int X1 = getWebElement(fromElement).getLocation().getX() + (getWebElement(fromElement).getSize().getWidth() / 2);
-            int Y1 = getWebElement(fromElement).getLocation().getY() + (getWebElement(fromElement).getSize().getHeight() / 2);
-            System.out.println(X1 + " , " + Y1);
-            sleep(1);
+            Point appIframeOffset = getAppIframeLocation();
+            System.out.println("App iframe offset: " + appIframeOffset.getX() + " , " + appIframeOffset.getY());
+            int X1 = getWebElement(fromElement).getLocation().getX() + (getWebElement(fromElement).getSize().getWidth() / 2) + appIframeOffset.getX();
+            int Y1 = getWebElement(fromElement).getLocation().getY() + (getWebElement(fromElement).getSize().getHeight() / 2) + appIframeOffset.getY();
+            System.out.println("From X: " + X1 + " Y: " + Y1);
 
             //This place takes the current coordinates plus 120px which is the browser header (1920x1080 current window)
             //Header: chrome is being controlled by automated test software
-            robot.mouseMove(X1, Y1 + 120);
+            robot.mouseMove(X1, Y1 + 120 + 50);
+            Thread.sleep(100);
             robot.mousePress(InputEvent.BUTTON1_DOWN_MASK);
-
-            sleep(1);
-            robot.mouseMove(X, Y + 120);
-            sleep(1);
+            Thread.sleep(500);
+            robot.mouseMove(X, Y + 120 + 50);
             robot.mouseRelease(InputEvent.BUTTON1_DOWN_MASK);
+            sleep(3);
             return true;
         } catch (Exception e) {
             LogUtils.info(e.getMessage());
@@ -2830,6 +2906,156 @@ public class WebUI {
 
     }
 
+    /**
+     * Get the location of the app iframe inside the browser
+     */
+    public static Point getAppIframeLocation() {
+        switchToDefaultContent();
+        Point res = getWebElement(By.tagName("iframe")).getLocation();
+        switchToPageFlyFrame();
+        return res;
+    }
+
+    /**
+     * Get the location of the drag and drop frame inside the app iframe
+     */
+    public static Point getDragAndDropFrameLocation() {
+        switchToPageFlyFrame();
+        Point res = getWebElement(By.tagName("iframe")).getLocation();
+        switchToPageFlyFrame();
+        return res;
+    }
+
+    /**
+     * Get the location of the element inside the drag and drop frame
+     */
+    public static Point getDragAndDropFrameElementLocation (By by) {
+        switchToDragAndDropFrame();
+        Point res = getLocationElement(by);
+        switchToPageFlyFrame();
+        return res;
+    }
+
+    public static double getDragAndDropFrameScaleValue () {
+        switchToPageFlyFrame();
+        By container = By.xpath("//div[contains(@class, 'pa')]//div[iframe]");
+        String transform = getCssValueElement(container, "transform");
+        // The transformValue should be something like "matrix(a, b, c, d, tx, ty)"
+        // The "scale" value is equivalent to "a" (scaleX) and "d" (scaleY) in the matrix
+        String[] split = transform.replace("matrix(", "").replace(")", "").split(",");
+        String scale = split[0];
+        return Double.valueOf(scale);
+    }
+
+    /**
+     * Get the real location of the element inside the app iframe
+     */
+    public static Point getDragAndDropElementLocation(By by) {
+        double scale = getDragAndDropFrameScaleValue();
+        Point dragAndDropFrameLocation = getDragAndDropFrameLocation();
+        Point dragAndDropElementLocation = getDragAndDropFrameElementLocation(by);
+
+        int x = (int) (dragAndDropElementLocation.getX() * scale + dragAndDropFrameLocation.getX()) + 2;
+        int y = (int) (dragAndDropElementLocation.getY() * scale + dragAndDropFrameLocation.getY()) + 2;
+        System.out.println("Dnd x: " + x + " y: " + y);
+        return new Point(x, y);
+    }
+
+    /**
+     * Get the real rectangle of the element inside the app iframe
+     */
+    public static Dimension getDragAndDropElementSize(By by) {
+        double scale = getDragAndDropFrameScaleValue();
+
+        switchToDragAndDropFrame();
+        Dimension size = getSizeElement(by);
+        switchToPageFlyFrame();
+
+        int width = (int) (size.getWidth() * scale);
+        int height = (int) (size.getHeight() * scale);
+        return new Dimension(width, height);
+
+    }
+
+    /**
+     * Get the real rectangle of the element inside the app iframe
+     */
+    public static Rectangle getDragAndDropElementRectangle(By by) {
+        double scale = getDragAndDropFrameScaleValue();
+        Point dragAndDropFrameLocation = getDragAndDropFrameLocation();
+        Point dragAndDropElementLocation = getDragAndDropFrameElementLocation(by);
+
+        switchToDragAndDropFrame();
+        Dimension size = getSizeElement(by);
+        switchToPageFlyFrame();
+
+        int x = (int) (dragAndDropElementLocation.getX() * scale + dragAndDropFrameLocation.getX()) + 2;
+        int y = (int) (dragAndDropElementLocation.getY() * scale + dragAndDropFrameLocation.getY()) + 2;
+        int width = (int) (size.getWidth() * scale);
+        int height = (int) (size.getHeight() * scale);
+        System.out.println("Dnd x: " + x + " y: " + y);
+        System.out.println("Dnd width: " + width + " height: " + height);
+        return new Rectangle(x, y, height, width);
+
+    }
+
+
+    /**
+     * Click on border left of the element
+     *
+     * @param by an element of object type By
+     */
+    @Step("Click on element {0}")
+    public static void clickOnBorderElement (By by) {
+        try {
+            double scale = getDragAndDropFrameScaleValue();
+            switchToDragAndDropFrame();
+            Point position = getLocationElement(by);
+            Dimension size = getSizeElement(by);
+            int offsetX = (int) (position.getX() * scale);
+            int offsetY = (int) (position.getY() * scale);
+            int height = (int) (size.getHeight() * scale);
+
+            String script = "var circle = document.getElementById('clicked_point');" +
+                    "if (circle) {" +
+                    "   circle.parentNode.removeChild(circle);" +
+                    "}" +
+                    "var newCircle = document.createElement('div');" +
+                    "newCircle.id = 'clicked_point';" +
+                    "newCircle.style.width = '10px';" +
+                    "newCircle.style.height = '10px';" +
+                    "newCircle.style.borderRadius = '50%';" +
+                    "newCircle.style.backgroundColor = 'blue';" +
+                    "newCircle.style.position = 'absolute';" +
+                    "newCircle.style.left = '" + (offsetX ) + "px';" +
+                    "newCircle.style.top = '" + (offsetY + height - 10) + "px';" +
+                    "document.body.appendChild(newCircle);";
+            getJsExecutor().executeScript(script, waitForElementVisible(by));
+
+            moveToElement(By.id("clicked_point"));
+            clickElement(By.id("clicked_point"));
+
+            LogUtils.info("Clicked on the element " + by.toString());
+            AllureManager.saveTextLog("Clicked on the element " + by.toString());
+            addScreenshotToReport(Thread.currentThread().getStackTrace()[1].getMethodName() + "_" + DateUtils.getCurrentDateTime());
+        } finally {
+            switchToPageFlyFrame();
+        }
+    }
+
+    /**
+     * Re-click on the selected element
+     */
+    public static void clickOnSelectedElement() {
+        clickOnBorderElement(By.xpath("//div[contains(@class, 'pf-selection')]"));
+    }
+
+    /**
+     * Click randomly inside the element
+     *
+     * @param by an element of object type By
+     */
+    @Step("Random click inside element {0}")
     public static void randomClickInsideElement(By by) {
         Rectangle rect = waitForElementVisible(by).getRect();
         int elementWidth = rect.getWidth();

@@ -5,9 +5,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.Dimension;
 import org.pftest.projects.commons.Toast;
 import org.pftest.projects.pages.dashboard.DashboardScreen;
-import org.pftest.projects.pages.pages.EditorPage;
-import org.pftest.projects.pages.pages.PageListingScreen;
-import org.pftest.projects.pages.pages.PageSettingScreen;
+import org.pftest.projects.pages.pages.*;
 import org.pftest.projects.pages.sections.SectionListingScreen;
 
 import static org.pftest.keywords.WebUI.*;
@@ -20,6 +18,8 @@ public class CommonPage {
 
     private Toast toast;
     private EditorPage editorPage;
+    private EditorPageSandbox editorPageSandbox;
+    private EditorPageInspector editorPageInspector;
     private PageListingScreen pageListingScreen;
     private PageSettingScreen pageSettingScreen;
     private DashboardScreen dashboardScreen;
@@ -37,6 +37,20 @@ public class CommonPage {
             editorPage = new EditorPage();
         }
         return editorPage;
+    }
+
+    public EditorPageSandbox getEditorPageSandbox() {
+        if (editorPageSandbox == null) {
+            editorPageSandbox = new EditorPageSandbox();
+        }
+        return editorPageSandbox;
+    }
+
+    public EditorPageInspector getEditorPageInspector() {
+        if (editorPageInspector == null) {
+            editorPageInspector = new EditorPageInspector();
+        }
+        return editorPageInspector;
     }
 
     public PageListingScreen getPageListingScreen() {

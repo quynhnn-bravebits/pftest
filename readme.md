@@ -15,7 +15,9 @@ mvn clean install
 
 2. **Select Allure Results Data Directory**: Open the `src/test/resources/allure.properties` file and set the path for the Allure results data directory.
 
-3. **Run Tests**: Navigate to the `testng.xml` file in your project directory. Right-click on the file and select the `Run` option. Wait for the tests to execute.
+3. **Run Tests**: 
+- Way 1: Right-click on the `src/test/java/org/pftest/projects/testcases` directory and select the `Run` option.
+- Way 2: Navigate to the `testng.xml` file in your project directory. Right-click on the file and select the `Run` option. Wait for the tests to execute.
 
 4. **View Test Report**: After the tests have run, you can generate the Allure report by running the following command in your terminal:
 
@@ -29,6 +31,5 @@ allure serve allure-results
 ```
 
 This will generate the Allure report and automatically open it in your default web browser.
-```
 
 Please replace `<allure-results-directory-path>` with the actual path to your Allure results directory.

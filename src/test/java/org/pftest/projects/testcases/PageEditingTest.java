@@ -1,17 +1,22 @@
 package org.pftest.projects.testcases;
 
-import io.qameta.allure.Epic;
-import io.qameta.allure.Feature;
-import io.qameta.allure.Step;
+import io.qameta.allure.*;
+import org.openqa.selenium.By;
 import org.pftest.base.BaseTest;
+import org.pftest.enums.ElementType;
 import org.pftest.enums.PageType;
-import org.pftest.report.AllureManager;
 import org.pftest.utils.ImageUtils;
 import org.testng.ITestResult;
-import org.testng.annotations.*;
+import org.testng.annotations.AfterClass;
+import org.testng.annotations.AfterMethod;
+import org.testng.annotations.BeforeClass;
+import org.testng.annotations.Test;
 
 import java.io.IOException;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Date;
+import java.util.Objects;
 
 import static org.pftest.keywords.WebUI.*;
 
@@ -912,6 +917,35 @@ public class PageEditingTest extends BaseTest {
         getEditorPage().changeOpacity_Input("40");
         getEditorPage().changeOpacity_Slide(100);
         getEditorPage().changeOpacity_Input("101");
+    }
+
+    @Feature("Element")
+    @Story("Layout element")
+    @Severity(SeverityLevel.CRITICAL)
+    @Link("https://docs.google.com/spreadsheets/d/1HgNIFwDdQ5k2HB1x2pfV_KnBaWvQLi6aGy7W44yXUFs/edit?pli=1#gid=855623679&range=B87")
+    @AllureId("TC-084")
+    @Test(description = "TC-084: User use Layout element and set Column style")
+    public void useLayoutElementAndSetColumnStyle() {
+        getPageListingScreen().openPageListingPage();
+        getPageListingScreen().verifyPageListingLoaded();
+        getPageListingScreen().createNewPageFromBlank(PageType.PAGE);
+        getEditorPage().verifyEditorPageLoaded();
+        getEditorPage().dragAndDropLayoutElement();
+        getEditorPageSandbox().selectElement("Column");
+        getEditorPage().changeColumnHeightInput("300");
+        getEditorPage().addNewItemToList();
+        getEditorPage().removeItemFromList();
+        getEditorPage().dragAndDropElementToSandbox(By.id("catalog--add-element-btn"), By.id("catalog--catalog-list--heading"), By.xpath("//div[contains(@class, 'pf-selection')]"));
+        sleep(3);
+        System.out.println(getSelectedElementType());
+        System.out.println(ElementType.HEADING.getType());
+        verifyTrue(Objects.equals(getSelectedElementType(), ElementType.HEADING.getType()), "Selected element type is not HEADING");
+        getEditorPageSandbox().selectElement("Row");
+        for (int i = 0; i < 12; i++) {
+            getEditorPage().addNewItemToList();
+        }
+        getEditorPage().changePageTitle("Test " + PageType.PAGE.name() + " " + new Date());
+        saveAndPublishPageSuccessfully();
     }
 
 

@@ -98,6 +98,15 @@ public class EditorPageInspector {
         }
     }
 
+    public int getColumnsPerLine () {
+        openGeneralTab();
+        By columnsPerLineInput = By.id("inspector--base--columns-per-line--input");
+        return Integer.parseInt(getAttributeElement(columnsPerLineInput, "value"));
+    }
+
+//    ================== INSPECTOR ACTIONS ==================
+//
+//    ================== GENERAL TAB ==================
     @Step("Change text content to {content}")
     public void changeTextContent(String content) {
         openGeneralTab();
@@ -108,6 +117,29 @@ public class EditorPageInspector {
         sleep(0.3);
     }
 
+    @Step("Add new item")
+    public void addNewItemToList() {
+        openGeneralTab();
+        By addNewItemButton = By.id("sortable-list--add-new-item-btn");
+        waitForElementClickable(addNewItemButton);
+        clickElement(addNewItemButton);
+    }
+
+    @Step("Change column height to {columnHeight}")
+    public void changeColumnHeightByInput(String columnHeight) {
+        openGeneralTab();
+        By columnHeightInput = By.id("inspector--base--column-height--input");
+        clearAndFillText(columnHeightInput, columnHeight);
+    }
+
+    @Step("Click delete inside Content/Columns")
+    public void removeItemFromList() {
+        openGeneralTab();
+        By deleteButton = By.xpath("//*[@id='CONTENT']//*[starts-with(@id, 'sortable-item-')]//*[contains(@class, 'delete-item-btn')]");
+        clickElement(deleteButton);
+    }
+
+//    ================== STYLING TAB ==================
     @Step("Change content color to {color}")
     public void changeContentColorSendKeys(String color) {
         openStylingTab();
