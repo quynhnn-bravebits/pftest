@@ -14,7 +14,10 @@ import org.pftest.enums.PageType;
 import org.pftest.projects.commons.Badge;
 import org.pftest.projects.commons.Toast;
 
+import javax.annotation.Nullable;
 import java.io.File;
+import java.math.RoundingMode;
+import java.text.DecimalFormat;
 import java.time.Duration;
 import java.util.Date;
 import java.util.Objects;
@@ -383,13 +386,87 @@ public class EditorPage extends Toast {
         switchToPageFlyFrame();
     }
 
+    @Step("Change columns per line to {0} and verify selected element has the correct columns per line")
+    public void changeColumnsPerLine_Input(String number) {
+        editorPageInspector.changeColumnsPerLineByInput(number);
+        String id = getSelectedElementId();
+        int colsNum = Integer.parseInt(number);
+        int min = 1, max = 12;
+        int expected = colsNum < min ? min : Math.min(max, colsNum);
+        DecimalFormat df = new DecimalFormat("0.0");
+        df.setRoundingMode(RoundingMode.FLOOR);
+        // @todo: find solution to verify number of columns per line
+//        editorPageSandbox.verifySelectedElementHasCssAttribute(id, "--c-lg", df.format(12.0/expected) );
+
+        String expectedError = colsNum < min ? "The minimum possible value is: 1" : colsNum > max ? "The maximum possible value is: 12" : null;
+        By errorField = By.xpath("//*[@id='fieldIdError' and contains(text(), '" + expectedError + "')]");
+        if (expectedError != null) {
+            verifyElementVisible(errorField);
+        } else {
+            verifyElementNotVisible(errorField);
+        }
+    }
+
+    @Step("Change content position to {0} and verify selected element has the correct content position")
+    public void changeContentPosition(String position) {
+        editorPageInspector.changeContentPosition(position);
+        String id = getSelectedElementId();
+        String justifyContent = "" + position.charAt(0);
+        String alignItems = "" + position.charAt(1);
+        @Nullable String expectedJustifyContent = switch (justifyContent) {
+            case "l" -> "flex-start";
+            case "c" -> "center";
+            case "r" -> "flex-end";
+            default -> null;
+        };
+        @Nullable String expectedAlignItems = switch (alignItems) {
+            case "t" -> "flex-start";
+            case "m" -> "center";
+            case "b" -> "flex-end";
+            default -> null;
+        };
+        if (position.equals("lt")) {
+            editorPageSandbox.verifySelectedElementNotHaveCssAttribute(id, "justify-content");
+            editorPageSandbox.verifySelectedElementNotHaveCssAttribute(id, "align-items");
+            return;
+        }
+        editorPageSandbox.verifySelectedElementHasCssAttributeValue(id, "justify-content", expectedJustifyContent);
+        editorPageSandbox.verifySelectedElementHasCssAttributeValue(id, "align-items", expectedAlignItems);
+    }
+
+    @Step("Change enable equal height to {0} and verify selected element has the correct equal height")
+    public void changeEnableEqualHeight(String enableEqualHeight) {
+        editorPageInspector.changeEnableEqualHeight(enableEqualHeight);
+        String id = getSelectedElementId();
+        editorPageSandbox.verifyElementsHeightEqual(id, getSelectedElementType());
+    }
+
+    @Step("Change columns spacing to {0} and verify selected element has the correct columns spacing")
+    public void changeColumnsSpacingInput(String spacing) {
+        editorPageInspector.changeColumnsSpacingByInput(spacing);
+        String id = getSelectedElementId();
+        int min = 0, max = 60;
+        int spacingValue = Math.abs(Integer.parseInt(spacing));
+        int expected = spacingValue < min ? min : Math.min(max, spacingValue);
+
+        editorPageSandbox.verifySelectedElementHasStyleAttributeValue(id, "--s-lg", truncateDecimal(expected / 2.0, 1) + "px");
+
+        String expectedError = spacingValue < min ? "The minimum possible value is: 0" : spacingValue > max ? "The maximum possible value is: 60" : null;
+        By errorField = By.xpath("//*[@id='fieldIdError' and contains(text(), '" + expectedError + "')]");
+        if (expectedError != null) {
+            verifyElementVisible(errorField);
+        } else {
+            verifyElementNotVisible(errorField);
+        }
+    }
+
     @Step("Change content color and verify selected element has the correct color")
     public void changeContentColor() {
         String targetColor = convertRGBtoRGBA(editorPageInspector.changeContentColorClick());
         System.out.println("targetColor = " + targetColor);
         String id = getSelectedElementId();
         System.out.println("id = " + id);
-        editorPageSandbox.verifySelectedElementHasCssAttribute(id, "color", targetColor);
+        editorPageSandbox.verifySelectedElementHasCssAttributeValue(id, "color", targetColor);
     }
 
     @Step("Change content color to {0} and verify selected element has the correct color")
@@ -397,56 +474,56 @@ public class EditorPage extends Toast {
         String targetColor = convertRGBtoRGBA(color);
         editorPageInspector.changeContentColorSendKeys(color);
         String id = getSelectedElementId();
-        editorPageSandbox.verifySelectedElementHasCssAttribute(id, "color", targetColor);
+        editorPageSandbox.verifySelectedElementHasCssAttributeValue(id, "color", targetColor);
     }
 
     @Step("Change padding and verify selected element has the correct padding")
     public void changePaddingValue(Integer value) {
         editorPageInspector.changePadding(value);
         String id = getSelectedElementId();
-        editorPageSandbox.verifySelectedElementHasCssAttribute(id, "padding", value + "px");
+        editorPageSandbox.verifySelectedElementHasCssAttributeValue(id, "padding", value + "px");
     }
 
     @Step("Change padding {0} and verify selected element has the correct padding")
     public void changePaddingValue(String type, Integer value) {
         editorPageInspector.changePadding(type, value);
         String id = getSelectedElementId();
-        editorPageSandbox.verifySelectedElementHasCssAttribute(id, "padding-" + type, value + "px");
+        editorPageSandbox.verifySelectedElementHasCssAttributeValue(id, "padding-" + type, value + "px");
     }
 
     @Step("Change margin and verify selected element has the correct margin")
     public void changeMarginValue(Integer value) {
         editorPageInspector.changeMargin(value);
         String id = getSelectedElementId();
-        editorPageSandbox.verifySelectedElementHasCssAttribute(id, "margin", value + "px");
+        editorPageSandbox.verifySelectedElementHasCssAttributeValue(id, "margin", value + "px");
     }
 
     @Step("Change margin {0} and verify selected element has the correct margin")
     public void changeMarginValue(String type, Integer value) {
         editorPageInspector.changeMargin(type, value);
         String id = getSelectedElementId();
-        editorPageSandbox.verifySelectedElementHasCssAttribute(id, "margin-" + type, value + "px");
+        editorPageSandbox.verifySelectedElementHasCssAttributeValue(id, "margin-" + type, value + "px");
     }
 
     @Step("Change font and verify selected element has the correct font")
     public void changeFontFamily(String fontFamily) {
         editorPageInspector.selectFontFamily(fontFamily);
         String id = getSelectedElementId();
-        editorPageSandbox.verifySelectedElementHasCssAttribute(id, "font-family", fontFamily);
+        editorPageSandbox.verifySelectedElementHasCssAttributeValue(id, "font-family", fontFamily);
     }
 
     @Step("Change font size and verify selected element has the correct font size")
     public void changeFontSize_Slide(Integer fontSize) {
         editorPageInspector.changeFontSize(fontSize);
         String id = getSelectedElementId();
-        editorPageSandbox.verifySelectedElementHasCssAttribute(id, "font-size", fontSize + "px");
+        editorPageSandbox.verifySelectedElementHasCssAttributeValue(id, "font-size", fontSize + "px");
     }
 
     @Step("Change font size and verify selected element has the correct font size")
     public void changeFontSize_Input(String fontSize) {
         editorPageInspector.changeFontSize(fontSize);
         String id = getSelectedElementId();
-        editorPageSandbox.verifySelectedElementHasCssAttribute(id, "font-size", fontSize + "px");
+        editorPageSandbox.verifySelectedElementHasCssAttributeValue(id, "font-size", fontSize + "px");
     }
 
     @Step("Change opacity and verify selected element has the correct opacity")
@@ -454,7 +531,7 @@ public class EditorPage extends Toast {
         editorPageInspector.changeOpacity(opacity);
         String id = getSelectedElementId();
         int expected = opacity < 20 ? 20 : Math.min(100, opacity);
-        editorPageSandbox.verifySelectedElementHasCssAttribute(id, "opacity", String.valueOf(expected / 100.0).replaceAll("\\.0$", ""));
+        editorPageSandbox.verifySelectedElementHasCssAttributeValue(id, "opacity", String.valueOf(expected / 100.0).replaceAll("\\.0$", ""));
     }
 
     @Step("Change opacity and verify selected element has the correct opacity")
@@ -463,7 +540,7 @@ public class EditorPage extends Toast {
         String id = getSelectedElementId();
         int opacity = Integer.parseInt(opacityStr);
         int expected = opacity < 20 ? 20 : Math.min(100, opacity);
-        editorPageSandbox.verifySelectedElementHasCssAttribute(id, "opacity", String.valueOf(expected / 100.0).replaceAll("\\.0$", ""));
+        editorPageSandbox.verifySelectedElementHasCssAttributeValue(id, "opacity", String.valueOf(expected / 100.0).replaceAll("\\.0$", ""));
 
         String expectedError = opacity < 20 ? "The minimum possible value is: 20" : opacity > 100 ? "The maximum possible value is: 100" : null;
         By errorField = By.xpath("//*[@id='fieldIdError' and contains(text(), '" + expectedError + "')]");
@@ -476,35 +553,35 @@ public class EditorPage extends Toast {
     public void changeTextAlignment(String textAlign) {
         editorPageInspector.changeTextAlign(textAlign);
         String id = getSelectedElementId();
-        editorPageSandbox.verifySelectedElementHasCssAttribute(id, "text-align", textAlign);
+        editorPageSandbox.verifySelectedElementHasCssAttributeValue(id, "text-align", textAlign);
     }
 
     @Step("Change text decoration and verify selected element has the correct text decoration")
     public void changeTextDecoration(String textDecoration) {
         editorPageInspector.changeTextDecoration(textDecoration);
         String id = getSelectedElementId();
-        editorPageSandbox.verifySelectedElementHasCssAttribute(id, "text-decoration-line", textDecoration);
+        editorPageSandbox.verifySelectedElementHasCssAttributeValue(id, "text-decoration-line", textDecoration);
     }
 
     @Step("Toggle off text decoration and verify selected element has removed text decoration attribute")
     public void toggleOffTextDecoration(String textDecoration) {
         editorPageInspector.changeTextDecoration(textDecoration);
         String id = getSelectedElementId();
-        editorPageSandbox.verifySelectedElementHasRemovedCssAttribute(id, "text-decoration-line", textDecoration);
+        editorPageSandbox.verifySelectedElementHasRemovedCssAttributeValue(id, "text-decoration-line", textDecoration);
     }
 
     @Step("Change text style and verify selected element has the correct text style")
     public void changeTextStyleItalic(String textStyle) {
         editorPageInspector.changeTextStyleItalic(textStyle);
         String id = getSelectedElementId();
-        editorPageSandbox.verifySelectedElementHasCssAttribute(id, "font-style", textStyle);
+        editorPageSandbox.verifySelectedElementHasCssAttributeValue(id, "font-style", textStyle);
     }
 
     @Step("Toggle off text style and verify selected element has removed text style attribute")
     public void toggleOffTextStyleItalic(String textStyle) {
         editorPageInspector.changeTextStyleItalic(textStyle);
         String id = getSelectedElementId();
-        editorPageSandbox.verifySelectedElementHasRemovedCssAttribute(id, "font-style", textStyle);
+        editorPageSandbox.verifySelectedElementHasRemovedCssAttributeValue(id, "font-style", textStyle);
     }
 
     @Step("Change font weight and verify selected element has the correct font weight")
@@ -512,42 +589,42 @@ public class EditorPage extends Toast {
         editorPageInspector.changeTextStyleBold(fontWeight);
         String id = getSelectedElementId();
         // In CSS, the "bold" keyword is equivalent to the numerical value 700.
-        editorPageSandbox.verifySelectedElementHasCssAttribute(id, "font-weight", "700");
+        editorPageSandbox.verifySelectedElementHasCssAttributeValue(id, "font-weight", "700");
     }
 
     @Step("Toggle off font weight and verify selected element has removed font weight attribute")
     public void toggleOffTextStyleBold(String fontWeight) {
         editorPageInspector.changeTextStyleBold(fontWeight);
         String id = getSelectedElementId();
-        editorPageSandbox.verifySelectedElementHasRemovedCssAttribute(id, "font-weight", fontWeight);
+        editorPageSandbox.verifySelectedElementHasRemovedCssAttributeValue(id, "font-weight", fontWeight);
     }
 
     @Step("Change font weight to {0} and verify selected element has the correct font weight")
     public void changeFontWeight(String fontWeight) {
         editorPageInspector.changeFontWeight(fontWeight);
         String id = getSelectedElementId();
-        editorPageSandbox.verifySelectedElementHasCssAttribute(id, "font-weight", fontWeight);
+        editorPageSandbox.verifySelectedElementHasCssAttributeValue(id, "font-weight", fontWeight);
     }
 
     @Step("Change line height to {0} and verify selected element has the correct line height")
     public void changeLineHeightByInput(String lineHeight) {
         editorPageInspector.changeLineHeightByInput(lineHeight);
         String id = getSelectedElementId();
-        editorPageSandbox.verifySelectedElementHasCssAttribute(id, "line-height", lineHeight + "px");
+        editorPageSandbox.verifySelectedElementHasCssAttributeValue(id, "line-height", lineHeight + "px");
     }
 
     @Step("Change line height to {0} and verify selected element has the correct line height")
     public void changeLineHeightBySlider(String lineHeight) {
         editorPageInspector.changeLineSpacingBySlider(Integer.parseInt(lineHeight));
         String id = getSelectedElementId();
-        editorPageSandbox.verifySelectedElementHasCssAttribute(id, "line-height", lineHeight + "px");
+        editorPageSandbox.verifySelectedElementHasCssAttributeValue(id, "line-height", lineHeight + "px");
     }
 
     @Step("Change letter spacing to {0} and verify selected element has the correct line spacing")
     public void changeLetterSpacingByInput(String letterSpacing) {
         editorPageInspector.changeLetterSpacingByInput(letterSpacing);
         String id = getSelectedElementId();
-        editorPageSandbox.verifySelectedElementHasCssAttribute(id, "letter-spacing", letterSpacing + "px");
+        editorPageSandbox.verifySelectedElementHasCssAttributeValue(id, "letter-spacing", letterSpacing + "px");
     }
 
     @Step("Change letter spacing to {0} and verify selected element has the correct line spacing")
@@ -558,74 +635,80 @@ public class EditorPage extends Toast {
         int min = -20;
         int max = 20;
         int expected = min > value ? min : Math.min(max, value);
-        editorPageSandbox.verifySelectedElementHasCssAttribute(id, "letter-spacing", expected + "px");
+        editorPageSandbox.verifySelectedElementHasCssAttributeValue(id, "letter-spacing", expected + "px");
     }
 
     @Step("Change column height to {0} and verify selected element has the correct column height")
     public void changeColumnHeightInput(String columnHeight) {
         editorPageInspector.changeColumnHeightByInput(columnHeight);
         String id = getSelectedElementId();
-        editorPageSandbox.verifySelectedElementHasCssAttribute(id, "min-height", columnHeight + "px");
+        editorPageSandbox.verifySelectedElementHasCssAttributeValue(id, "min-height", columnHeight + "px");
     }
 
     @Step("Change text transform to {0} and verify selected element has the correct text transform")
     public void changeTextTransform(String textTransform) {
         editorPageInspector.changeTextTransform(textTransform);
         String id = getSelectedElementId();
-        editorPageSandbox.verifySelectedElementHasCssAttribute(id, "text-transform", textTransform);
+        editorPageSandbox.verifySelectedElementHasCssAttributeValue(id, "text-transform", textTransform);
     }
 
     @Step("Toggle off text transform and verify selected element has removed text transform attribute")
     public void toggleOffTextTransform(String textTransform) {
         editorPageInspector.changeTextTransform(textTransform);
         String id = getSelectedElementId();
-        editorPageSandbox.verifySelectedElementHasRemovedCssAttribute(id, "text-transform", textTransform);
+        editorPageSandbox.verifySelectedElementHasRemovedCssAttributeValue(id, "text-transform", textTransform);
     }
 
     @Step("Change background color and verify selected element has the correct background color")
     public void changeBackgroundColor() {
         String targetColor = editorPageInspector.changeBackgroundColorClick();
         String id = getSelectedElementId();
-        editorPageSandbox.verifySelectedElementHasCssAttribute(id, "background-color", convertRGBtoRGBA(targetColor));
+        editorPageSandbox.verifySelectedElementHasCssAttributeValue(id, "background-color", convertRGBtoRGBA(targetColor));
     }
 
     @Step("Change background color to {0} and verify selected element has the correct background color")
     public void changeBackgroundColor(String color) {
         editorPageInspector.changeBackgroundColorSendKeys(color);
         String id = getSelectedElementId();
-        editorPageSandbox.verifySelectedElementHasCssAttribute(id, "background-color", convertRGBtoRGBA(color));
+        editorPageSandbox.verifySelectedElementHasCssAttributeValue(id, "background-color", convertRGBtoRGBA(color));
     }
 
     @Step("Change border style and verify selected element has the correct border style")
     public void changeBorderStyle(String borderStyle) {
         editorPageInspector.changeBorderStyle(borderStyle);
         String id = getSelectedElementId();
-        editorPageSandbox.verifySelectedElementHasCssAttribute(id, "border-style", borderStyle);
+        editorPageSandbox.verifySelectedElementHasCssAttributeValue(id, "border-style", borderStyle);
     }
 
     @Step("Toggle off border style and verify selected element has removed border style attribute")
     public void toggleOffBorderStyle(String borderStyle) {
         editorPageInspector.changeBorderStyle(borderStyle);
         String id = getSelectedElementId();
-        editorPageSandbox.verifySelectedElementHasRemovedCssAttribute(id, "border-style", borderStyle);
+        editorPageSandbox.verifySelectedElementHasRemovedCssAttributeValue(id, "border-style", borderStyle);
     }
 
     @Step("Change display style and verify selected element has the correct display style")
     public void changeDisplayStyle(String displayStyle, String displayStyleValue) {
         editorPageInspector.changeDisplayStyle(displayStyle);
         String id = getSelectedElementId();
-        editorPageSandbox.verifySelectedElementHasCssAttribute(id, "display", displayStyleValue);
+        editorPageSandbox.verifySelectedElementHasCssAttributeValue(id, "display", displayStyleValue);
     }
 
     @Step("Add new item to the list and verify the item is added")
     public void addNewItemToList() {
         String id = getSelectedElementId();
         String type = getSelectedElementType();
-        System.out.println("type = " + type);
+
         int befNum = editorPageSandbox.getElementsNumber(id, type);
         if (Objects.equals(type, "Row")) {
             int maxCols = editorPageInspector.getColumnsPerLine();
             if (befNum >= maxCols) {
+                System.out.println("The maximum number of columns per row is reached");
+                return;
+            }
+        }
+        else if (Objects.equals(type, "Column")) {
+            if (befNum >= 12) {
                 System.out.println("The maximum number of columns per row is reached");
                 return;
             }

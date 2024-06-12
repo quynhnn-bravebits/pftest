@@ -1,10 +1,7 @@
 package org.pftest.projects.testcases;
 
 import io.qameta.allure.*;
-import org.openqa.selenium.By;
-import org.openqa.selenium.WebElement;
 import org.pftest.base.BaseTest;
-import org.pftest.driver.DriverManager;
 import org.pftest.enums.PageType;
 import org.pftest.report.AllureManager;
 import org.testng.annotations.BeforeMethod;
@@ -28,6 +25,7 @@ public class UndoRedoTest extends BaseTest {
         currentStep = -1;
     }
 
+    @Override
     @Step("{description}")
     public void addStep(String description, Runnable step) {
         step.run();

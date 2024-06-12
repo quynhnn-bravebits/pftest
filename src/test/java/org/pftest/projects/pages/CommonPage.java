@@ -7,6 +7,7 @@ import org.pftest.projects.commons.Toast;
 import org.pftest.projects.pages.dashboard.DashboardScreen;
 import org.pftest.projects.pages.pages.*;
 import org.pftest.projects.pages.sections.SectionListingScreen;
+import org.pftest.report.AllureManager;
 
 import static org.pftest.keywords.WebUI.*;
 
@@ -97,5 +98,11 @@ public class CommonPage {
     public void verifyPageTitle(String title) {
         verifyElementVisible(pageTitle);
         verifyElementText(pageTitle, title);
+    }
+
+    @Step("{description}")
+    public void addStep(String description, Runnable step) {
+        step.run();
+        AllureManager.takeScreenshotStep();
     }
 }

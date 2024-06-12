@@ -926,26 +926,156 @@ public class PageEditingTest extends BaseTest {
     @AllureId("TC-084")
     @Test(description = "TC-084: User use Layout element and set Column style")
     public void useLayoutElementAndSetColumnStyle() {
-        getPageListingScreen().openPageListingPage();
-        getPageListingScreen().verifyPageListingLoaded();
-        getPageListingScreen().createNewPageFromBlank(PageType.PAGE);
-        getEditorPage().verifyEditorPageLoaded();
-        getEditorPage().dragAndDropLayoutElement();
-        getEditorPageSandbox().selectElement("Column");
-        getEditorPage().changeColumnHeightInput("300");
-        getEditorPage().addNewItemToList();
-        getEditorPage().removeItemFromList();
-        getEditorPage().dragAndDropElementToSandbox(By.id("catalog--add-element-btn"), By.id("catalog--catalog-list--heading"), By.xpath("//div[contains(@class, 'pf-selection')]"));
-        sleep(3);
-        System.out.println(getSelectedElementType());
-        System.out.println(ElementType.HEADING.getType());
-        verifyTrue(Objects.equals(getSelectedElementType(), ElementType.HEADING.getType()), "Selected element type is not HEADING");
-        getEditorPageSandbox().selectElement("Row");
-        for (int i = 0; i < 12; i++) {
-            getEditorPage().addNewItemToList();
-        }
-        getEditorPage().changePageTitle("Test " + PageType.PAGE.name() + " " + new Date());
-        saveAndPublishPageSuccessfully();
+        addStep(
+                "Step 0: Init plank page",
+                () -> {
+                    getPageListingScreen().openPageListingPage();
+                    getPageListingScreen().verifyPageListingLoaded();
+                    getPageListingScreen().createNewPageFromBlank(PageType.PAGE);
+                    getEditorPage().verifyEditorPageLoaded();
+                }
+        );
+
+        addStep(
+                "Step 1: Drag and drop Layout element",
+                () -> getEditorPage().dragAndDropLayoutElement()
+        );
+
+        addStep(
+                "Step 2: Change column height to 300px",
+                () -> {
+                    getEditorPageSandbox().selectElement("Column");
+                    getEditorPage().changeColumnHeightInput("300");
+                }
+        );
+
+        addStep(
+                "Step 3: Add new item to list",
+                () -> getEditorPage().addNewItemToList()
+        );
+
+        addStep(
+                "Step 4: Remove item from list",
+                () -> getEditorPage().removeItemFromList()
+        );
+
+        addStep(
+                "Step 5: Drag and drop Heading element into Column",
+                () -> {
+                    getEditorPage().dragAndDropElementToSandbox(By.id("catalog--add-element-btn"), By.id("catalog--catalog-list--heading"), By.xpath("//div[contains(@class, 'pf-selection')]"));
+                    verifyTrue(Objects.equals(getSelectedElementType(), ElementType.HEADING.getType()), "Selected element type is not HEADING");
+                }
+        );
+
+        addStep(
+                "Step 6: Add new item to list 12 times",
+                () -> {
+                    getEditorPageSandbox().selectElement("Column");
+                    for (int i = 0; i < 12; i++) {
+                        getEditorPage().addNewItemToList();
+                    }
+                }
+        );
+
+        addStep(
+                "Step 7: Save and publish page",
+                () -> {
+                    getEditorPage().changePageTitle("Test " + PageType.PAGE.name() + " " + new Date());
+                    saveAndPublishPageSuccessfully();
+                }
+        );
+
+    }
+
+    @Feature("Element")
+    @Story("Layout element")
+    @Severity(SeverityLevel.CRITICAL)
+    @Link("https://docs.google.com/spreadsheets/d/1HgNIFwDdQ5k2HB1x2pfV_KnBaWvQLi6aGy7W44yXUFs/edit?pli=1#gid=855623679&range=B88")
+    @AllureId("TC-085")
+    @Test(description = "TC-085: User use Layout element and set Row style")
+    public void useLayoutElementAndSetRowStyle() {
+        addStep(
+                "Step 0: Init plank page",
+                () -> {
+                    getPageListingScreen().openPageListingPage();
+                    getPageListingScreen().verifyPageListingLoaded();
+                    getPageListingScreen().createNewPageFromBlank(PageType.PAGE);
+                    getEditorPage().verifyEditorPageLoaded();
+                }
+        );
+
+        addStep(
+                "Step 1: Drag and drop Layout element",
+                () -> getEditorPage().dragAndDropLayoutElement()
+        );
+
+        addStep(
+                "Step 2: Drag and drop Heading element into Column",
+                () -> {
+                    getEditorPage().dragAndDropElementToSandbox(By.id("catalog--add-element-btn"), By.id("catalog--catalog-list--heading"), By.xpath("//div[contains(@class, 'pf-selection')]"));
+                    verifyTrue(Objects.equals(getSelectedElementType(), ElementType.HEADING.getType()), "Selected element type is not HEADING");
+                    getEditorPageSandbox().selectElement("Row");
+                }
+        );
+
+        addStep(
+                "Step 3: Change columns per line",
+                () -> {
+                    getEditorPageSandbox().selectElement("Row");
+                    getEditorPage().changeColumnsPerLine_Input("0");
+                    getEditorPage().changeColumnsPerLine_Input("1");
+                    getEditorPage().changeColumnsPerLine_Input("12");
+                    getEditorPage().changeColumnsPerLine_Input("14");
+                }
+        );
+
+        addStep(
+                "Step 4: Change columns per line to 120",
+                () -> {
+                    getEditorPage().changeColumnsPerLine_Input("120");
+                }
+        );
+
+        addStep(
+                "Step 5: Change content position",
+                () -> {
+                    getEditorPage().changeContentPosition("lt");
+                    getEditorPage().changeContentPosition("ct");
+                    getEditorPage().changeContentPosition("rt");
+                    getEditorPage().changeContentPosition("lm");
+                    getEditorPage().changeContentPosition("cm");
+                    getEditorPage().changeContentPosition("rm");
+                    getEditorPage().changeContentPosition("lb");
+                    getEditorPage().changeContentPosition("cb");
+                    getEditorPage().changeContentPosition("rb");
+                }
+        );
+
+        addStep(
+                "Step 6: Enable equal height",
+                () -> {
+                    getEditorPage().changeEnableEqualHeight("YES");
+                }
+        );
+
+        addStep(
+                "Step 7: Change column spacing",
+                () -> {
+                    getEditorPage().changeColumnsSpacingInput("-1");
+                    getEditorPage().changeColumnsSpacingInput("0");
+                    getEditorPage().changeColumnsSpacingInput("25");
+                    getEditorPage().changeColumnsSpacingInput("60");
+                    getEditorPage().changeColumnsSpacingInput("61");
+                }
+        );
+
+        addStep(
+                "Step 8: Save and publish page",
+                () -> {
+                    getEditorPage().changePageTitle("Test " + PageType.PAGE.name() + " " + new Date());
+                    saveAndPublishPageSuccessfully();
+                }
+        );
     }
 
 

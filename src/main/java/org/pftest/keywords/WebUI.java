@@ -3524,6 +3524,30 @@ public class WebUI {
     }
 
     /**
+     * Verify if the web element has a style attribute with the specified name and value.
+     *
+     * @param by             an element of object type By
+     * @param attributeName  The name of the attribute to wait for.
+     * @param attributeValue The value of attribute
+     * @return true/false
+     */
+    @Step("Verify element {0} with style attribute {1} has value is {2}")
+    public static boolean verifyElementStyleAttributeValue(By by, String attributeName, String attributeValue) {
+        smartWait();
+
+        waitForElementVisible(by);
+        try {
+            String script = "return getComputedStyle(arguments[0]).getPropertyValue('" + attributeName + "').trim();";
+            String actualValue = (String) getJsExecutor().executeScript(script, getWebElement(by));
+            return actualValue.equals(attributeValue);
+        } catch (Throwable error) {
+            LogUtils.error("Object: " + by.toString() + ". Not found value: " + attributeValue + " with attribute type: " + attributeName + ". Actual get Attribute value is: " + getAttributeElement(by, attributeName));
+            Assert.fail("Object: " + by.toString() + ". Not found value: " + attributeValue + " with attribute type: " + attributeName + ". Actual get Attribute value is: " + getAttributeElement(by, attributeName));
+            return false;
+        }
+    }
+
+    /**
      * Verify if the web element not has an attribute with the specified name and value.
      *
      * @param by             an element of object type By
@@ -3532,7 +3556,7 @@ public class WebUI {
      * @return true/false
      */
     @Step("Verify element {0} not have attribute {1} with value {2}")
-    public static boolean verifyElementNotHaveAttributeValue(By by, String attributeName, String attributeValue) {
+    public static boolean verifyElementNotHaveCssAttributeValue(By by, String attributeName, String attributeValue) {
         smartWait();
 
         waitForElementVisible(by);
@@ -3542,6 +3566,20 @@ public class WebUI {
         } catch (Throwable error) {
             LogUtils.error("Object: " + by.toString() + ". Found value: " + attributeValue + " with attribute type: " + attributeName + ". Actual get Attribute value is: " + getAttributeElement(by, attributeName));
             Assert.fail("Object: " + by.toString() + ". Found value: " + attributeValue + " with attribute type: " + attributeName + ". Actual get Attribute value is: " + getAttributeElement(by, attributeName));
+            return false;
+        }
+    }
+
+    @Step("Verify element {0} not have attribute {1}")
+    public static boolean verifyElementNotHaveCssAttribute(By by, String attributeName) {
+        smartWait();
+        waitForElementVisible(by);
+        try {
+            String actualValue = getCssValueElement(by, attributeName);
+            return actualValue == null || actualValue.isEmpty();
+        } catch (Throwable error) {
+            LogUtils.error("Object: " + by.toString() + ". Found value: " + attributeName + ". Actual get Attribute value is: " + getAttributeElement(by, attributeName));
+            Assert.fail("Object: " + by.toString() + ". Found value: " + attributeName + ". Actual get Attribute value is: " + getAttributeElement(by, attributeName));
             return false;
         }
     }

@@ -2,12 +2,12 @@ package org.pftest.utils;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Attribute;
-import org.jsoup.nodes.Attributes;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
-import java.io.StringReader;
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -65,7 +65,6 @@ public class CommonUtils {
         return Objects.requireNonNull(doc.getElementById("__pf")).html();
     }
 
-
     public static String htmlSourceProcessing(String htmlSource) {
         Document doc = Jsoup.parse(htmlSource);
         processSpecialElements(doc);
@@ -104,4 +103,16 @@ public class CommonUtils {
 
         return newDoc.html();
     }
+
+    public static String truncateDecimal(double number, int scale) {
+        if (number == (long) number) {
+            return String.format("%d", (long) number);
+        } else if (number > 0) {
+            return String.valueOf(new BigDecimal(String.valueOf(number)).setScale(scale, RoundingMode.FLOOR).doubleValue());
+        } else {
+            return String.valueOf(new BigDecimal(String.valueOf(number)).setScale(scale, RoundingMode.CEILING).doubleValue());
+        }
+    }
+
+
 }

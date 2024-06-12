@@ -125,6 +125,35 @@ public class EditorPageInspector {
         clickElement(addNewItemButton);
     }
 
+    @Step("Change columns per line to {columnsPerLine}")
+    public void changeColumnsPerLineByInput(String columnsPerLine) {
+        openGeneralTab();
+        By columnsPerLineInput = By.id("inspector--base--columns-per-line--input");
+        clearAndFillText(columnsPerLineInput, columnsPerLine);
+    }
+
+    @Step("Change content position to {position}")
+    public void changeContentPosition(String position) {
+        openGeneralTab();
+        By positionButton = By.id("inspector--position--" + position);
+        moveToElement(positionButton);
+        clickElement(positionButton);
+    }
+
+    @Step("Change enable equal height to {enable}")
+    public void changeEnableEqualHeight(String enable) {
+        openGeneralTab();
+        By enableEqualHeightButton = new ByChained(By.id("enable-equal-height"), By.xpath("//button[@role='" + enable + "']"));
+        clickElement(enableEqualHeightButton);
+    }
+
+    @Step("Change columns spacing to {columnsSpacing}")
+    public void changeColumnsSpacingByInput(String columnsSpacing) {
+        openGeneralTab();
+        By columnsSpacingInput = By.id("inspector--base--columns-spacing--input");
+        clearAndFillText(columnsSpacingInput, columnsSpacing);
+    }
+
     @Step("Change column height to {columnHeight}")
     public void changeColumnHeightByInput(String columnHeight) {
         openGeneralTab();
