@@ -36,19 +36,33 @@ public class CommonUtils {
         // Remove all attributes except class from elements with class "pf-slide"
         elements = doc.getElementsByClass("pf-slide");
         for (Element pfSlideElement : elements) {
-            Attributes attributes = pfSlideElement.attributes();
-            for (Attribute attribute : attributes) {
+            Iterator<Attribute> attrIterator = pfSlideElement.attributes().iterator();
+            while (attrIterator.hasNext()) {
+                Attribute attribute = attrIterator.next();
                 if (!attribute.getKey().equals("class")) {
-                    pfSlideElement.removeAttr(attribute.getKey());
+                    attrIterator.remove();
                 }
             }
+        }
+
+        for (Element element : doc.getAllElements()) {
+            // Remove dynamic pf classes
+            String classValue = element.attr("class");
+            String[] classes = classValue.split("\\s+");
+            List<String> newClasses = new ArrayList<>();
+            for (String cls : classes) {
+                if (!cls.matches("pf-\\d+_") && !cls.matches("__pf_\\w+") && !cls.equals("no-outline")) {
+                    newClasses.add(cls);
+                }
+            }
+            element.attr("class", String.join(" ", newClasses));
         }
     }
 
     public static String htmlSourceSpecialElementProcessing(String htmlSource) {
         Document doc = Jsoup.parse(htmlSource);
         processSpecialElements(doc);
-        return Objects.requireNonNull(doc.getElementById("__pf")).html().replaceAll("pf-\\d+_", "").replace("no-outline", "");
+        return Objects.requireNonNull(doc.getElementById("__pf")).html();
     }
 
 
@@ -65,16 +79,6 @@ public class CommonUtils {
                     attrIterator.remove();
                 }
             }
-            // Remove dynamic pf classes
-            String classValue = element.attr("class");
-            String[] classes = classValue.split("\\s+");
-            List<String> newClasses = new ArrayList<>();
-            for (String cls : classes) {
-                if (!cls.matches("pf-\\d+_") && !cls.matches("__pf_\\w+") && !cls.equals("no-outline")) {
-                    newClasses.add(cls);
-                }
-            }
-            element.attr("class", String.join(" ", newClasses));
         }
 
         Document newDoc = Document.createShell(doc.baseUri());

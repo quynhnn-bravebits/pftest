@@ -1,7 +1,10 @@
 package org.pftest.projects.testcases;
 
 import io.qameta.allure.*;
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebElement;
 import org.pftest.base.BaseTest;
+import org.pftest.driver.DriverManager;
 import org.pftest.enums.PageType;
 import org.pftest.report.AllureManager;
 import org.testng.annotations.BeforeMethod;
@@ -56,7 +59,9 @@ public class UndoRedoTest extends BaseTest {
             getEditorPage().clickRedoButton();
             currentStep++;
         }
+        waitForPageLoaded();
         sleep(1);
+        AllureManager.takeScreenshotStep();
         String expected = canvasHtml.get(currentStep);
         String actual = getEditorPage().getCanvasHtml();
         verifyEquals(actual, expected);
@@ -265,6 +270,156 @@ public class UndoRedoTest extends BaseTest {
 
         getEditorPage().verifyUndoButtonDisabled();
     }
+
+    @Feature("Element")
+    @Severity(CRITICAL)
+    @Story("Layout")
+    @Test(description = "UR-005: User undo and redo when change the layout element styles")
+    public void undoRedoChangeLayoutElementStyles() {
+        addStep(
+                "Step 0: Init plank page",
+                () -> {
+                    getPageListingScreen().openPageListingPage();
+                    getPageListingScreen().verifyPageListingLoaded();
+                    getPageListingScreen().createNewPageFromBlank(PageType.PAGE);
+                    getEditorPage().verifyEditorPageLoaded();
+                }
+        );
+
+        addStep(
+                "Step 1: Drag and drop layout element",
+                () -> getEditorPage().dragAndDropLayoutElement()
+        );
+
+        addStep(
+                "Step 2: Change content color",
+                () -> getEditorPage().changeContentColor("rgb(239, 45, 201)")
+        );
+
+        addStep(
+                "Step 3: Change padding value",
+                () -> getEditorPage().changePaddingValue(20)
+        );
+
+        addStep(
+                "Step 4: Change margin value",
+                () -> getEditorPage().changeMarginValue(20)
+        );
+
+        addStep(
+                "Step 5: Change font family",
+                () -> getEditorPage().changeFontFamily("Abel")
+        );
+
+        addStep(
+                "Step 6: Change font size",
+                () -> getEditorPage().changeFontSize_Input("30")
+        );
+
+        sleep(1);
+
+        undo(
+                "Step 7: Undo change font size",
+                1
+        );
+
+        undo(
+                "Step 8: Undo change font family",
+                1
+        );
+
+        undo(
+                "Step 9: Undo change margin value",
+                1
+        );
+
+        undo(
+                "Step 10: Undo change padding value",
+                1
+        );
+
+        undo(
+                "Step 11: Undo change content color",
+                1
+        );
+
+        undo(
+                "Step 12: Undo drag and drop layout element",
+                1
+        );
+
+        getEditorPage().verifyUndoButtonDisabled();
+
+        redo(
+                "Step 13: Redo drag and drop layout element",
+                1
+        );
+
+        redo(
+                "Step 14: Redo change content color",
+                1
+        );
+
+        redo(
+                "Step 15: Redo change padding value",
+                1
+        );
+
+        redo(
+                "Step 16: Redo change margin value",
+                1
+        );
+
+        redo(
+                "Step 17: Redo change font family",
+                1
+        );
+
+        redo(
+                "Step 18: Redo change font size",
+                1
+        );
+
+        getEditorPage().verifyRedoButtonDisabled();
+    }
+
+    @Feature("Element")
+    @Severity(CRITICAL)
+    @Story("Layout")
+    @Test(description = "UR-006: User undo and redo when set row content")
+    public void undoRedoSetRowContent() {
+        addStep(
+                "Step 0: Init plank page",
+                () -> {
+                    getPageListingScreen().openPageListingPage();
+                    getPageListingScreen().verifyPageListingLoaded();
+                    getPageListingScreen().createNewPageFromBlank(PageType.PAGE);
+                    getEditorPage().verifyEditorPageLoaded();
+                }
+        );
+
+        addStep(
+                "Step 1: Drag and drop layout element",
+                () -> getEditorPage().dragAndDropLayoutElement()
+        );
+
+        addStep(
+                "Step 2: Drag and drop heading element",
+                () -> getEditorPage().dragAndDropHeadingElement()
+        );
+
+        System.out.println("Selected section element");
+        getEditorPageSandbox().selectElement("Section");
+        System.out.println("=====================================");
+        System.out.println("Selected row element");
+        getEditorPageSandbox().selectElement("Row");
+        System.out.println("=====================================");
+        System.out.println("Selected column element");
+        getEditorPageSandbox().selectElement("Column");
+        System.out.println("=====================================");
+        sleep(3);
+    }
+
 
     @Step("{description}")
     public void addHistory(String description, Runnable step) {
