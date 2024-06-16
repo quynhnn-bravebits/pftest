@@ -11,6 +11,7 @@ import org.pftest.constants.FrameworkConstants;
 import org.pftest.constants.ModalConstants;
 import org.pftest.driver.DriverManager;
 import org.pftest.enums.PageType;
+import org.pftest.enums.RichTextOptionTagName;
 import org.pftest.projects.commons.Badge;
 import org.pftest.projects.commons.Toast;
 
@@ -25,6 +26,7 @@ import java.util.UUID;
 
 import static org.pftest.constants.ModalConstants.BEFORE_SAVE_MODAL;
 import static org.pftest.constants.UrlConstants.*;
+import static org.pftest.helpers.ClipboardHelper.getClipboardContent;
 import static org.pftest.keywords.WebUI.*;
 import static org.pftest.utils.CommonUtils.*;
 
@@ -386,6 +388,47 @@ public class EditorPage extends Toast {
         switchToPageFlyFrame();
     }
 
+    @Step("Select text content {0} in the rich text editor and make it {1}")
+    public void selectAndAdjustTextContent(String text, RichTextOptionTagName... options) {
+        editorPageInspector.selectAndAdjustTextContent(text, options);
+        // verify text content is adjusted
+        String id = getSelectedElementId();
+        String richTextContent = editorPageInspector.getRichTextHTMLContent();
+        String editorElementContent = editorPageSandbox.getSelectedElementHTMLContent(id);
+        verifyEquals(richTextContent, editorElementContent);
+    }
+
+    @Step("Change enable show icon to {0} and verify selected element has show correct icon")
+    public void changeShowIcon(String showIcon, @Nullable String _position, @Nullable String _verticalAlignment) {
+        editorPageInspector.changeShowIcon(showIcon);
+        String id = getSelectedElementId();
+        String position = _position;
+        String verticalAlignment = _verticalAlignment;
+
+        if (_position != null) {
+            editorPageInspector.changeIconPosition(_position);
+        } else {
+            position =  editorPageInspector.getIconPosition();
+        }
+
+        if (_verticalAlignment != null) {
+            editorPageInspector.changeIconVerticalAlignment(_verticalAlignment);
+        } else if (!Objects.equals(_position, "TOP")) {
+            verticalAlignment = editorPageInspector.getIconVerticalAlignment();
+        }
+
+        editorPageSandbox.verifySelectedElementHasIcon(id, position, verticalAlignment);
+    }
+
+    @Step("Paste from clipboard into selected element")
+    public void pasteIntoSelectedElement() {
+        String clipboardContent = getClipboardContent();
+        assert clipboardContent != null;
+        String id = getSelectedElementId();
+        editorPageInspector.pasteClipboardTextContent();
+        verifyEquals(clipboardContent, editorPageSandbox.getSelectedElementHTMLContent(id));
+    }
+
     @Step("Change columns per line to {0} and verify selected element has the correct columns per line")
     public void changeColumnsPerLine_Input(String number) {
         editorPageInspector.changeColumnsPerLineByInput(number);
@@ -599,6 +642,20 @@ public class EditorPage extends Toast {
         editorPageSandbox.verifySelectedElementHasRemovedCssAttributeValue(id, "font-weight", fontWeight);
     }
 
+    @Step("Change text decoration line to {0} and verify selected element has the correct text decoration line")
+    public void changeTextStyleDecorationLine(String textDecoration) {
+        editorPageInspector.changeTextStyleDecorationLine(textDecoration);
+        String id = getSelectedElementId();
+        editorPageSandbox.verifySelectedElementHasCssAttributeValue(id, "text-decoration-line", textDecoration);
+    }
+
+    @Step("Toggle off text decoration line and verify selected element has removed text decoration line attribute")
+    public void toggleOffTextStyleDecorationLine(String textDecoration) {
+        editorPageInspector.changeTextStyleDecorationLine(textDecoration);
+        String id = getSelectedElementId();
+        editorPageSandbox.verifySelectedElementHasRemovedCssAttributeValue(id, "text-decoration-line", textDecoration);
+    }
+
     @Step("Change font weight to {0} and verify selected element has the correct font weight")
     public void changeFontWeight(String fontWeight) {
         editorPageInspector.changeFontWeight(fontWeight);
@@ -685,6 +742,41 @@ public class EditorPage extends Toast {
         editorPageInspector.changeBorderStyle(borderStyle);
         String id = getSelectedElementId();
         editorPageSandbox.verifySelectedElementHasRemovedCssAttributeValue(id, "border-style", borderStyle);
+    }
+
+    @Step("Change border radius to {0} and verify selected element has the correct border radius")
+    public void changeBorderRadius(String borderRadius) {
+        editorPageInspector.changeBorderRadius(borderRadius);
+        String id = getSelectedElementId();
+        editorPageSandbox.verifySelectedElementHasCssAttributeValue(id, "border-radius", borderRadius + "px");
+    }
+
+    @Step("Change border width to {0} and verify selected element has the correct border width")
+    public void changeBorderWidth(String borderWidth) {
+        editorPageInspector.changeBorderWidth(borderWidth);
+        String id = getSelectedElementId();
+        editorPageSandbox.verifySelectedElementHasCssAttributeValue(id, "border-width", borderWidth + "px");
+    }
+
+    @Step("Change show drop cap to {0}, drop cap content to {1} and verify selected element has the correct drop cap")
+    public void changeShowDropCap(String showDropCap, @Nullable String dropCapContent) {
+        editorPageInspector.changeShowDropCap(showDropCap);
+        if (showDropCap.equals("NO")) {
+            return;
+        }
+        String id = getSelectedElementId();
+        switchToDragAndDropFrame();
+        verifyElementVisible(By.xpath("//*[@data-pf-id='" + id + "']//*[@data-pf-type='Dropcap']"));
+        switchToPageFlyFrame();
+        if (dropCapContent != null) {
+            editorPageSandbox.selectElement("Dropcap");
+            id = getSelectedElementId();
+            editorPageInspector.changeDropCapContent(dropCapContent);
+            switchToDragAndDropFrame();
+            verifyElementTextEquals(By.xpath("//*[@data-pf-id='" + id + "']"), dropCapContent);
+            switchToPageFlyFrame();
+        }
+
     }
 
     @Step("Change display style and verify selected element has the correct display style")

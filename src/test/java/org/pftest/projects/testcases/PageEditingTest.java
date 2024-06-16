@@ -5,6 +5,7 @@ import org.openqa.selenium.By;
 import org.pftest.base.BaseTest;
 import org.pftest.enums.ElementType;
 import org.pftest.enums.PageType;
+import org.pftest.enums.RichTextOptionTagName;
 import org.pftest.utils.ImageUtils;
 import org.testng.ITestResult;
 import org.testng.annotations.AfterClass;
@@ -18,6 +19,7 @@ import java.util.Arrays;
 import java.util.Date;
 import java.util.Objects;
 
+import static org.pftest.helpers.ClipboardHelper.putTextIntoClipboard;
 import static org.pftest.keywords.WebUI.*;
 
 @Epic("Page Editing")
@@ -521,6 +523,8 @@ public class PageEditingTest extends BaseTest {
         getEditorPage().toggleEnableAutoSave();
         getEditorPage().confirmBeforeSaveModal_UntitledTitle(PageType.PAGE + " " + new Date().toString());
         getEditorPage().confirmSavePageModal();
+        getEditorPage().verifyPageIsSaving();
+        getEditorPage().verifyPageIsSaved();
     }
 
     @Feature("Editor settings")
@@ -1074,6 +1078,254 @@ public class PageEditingTest extends BaseTest {
                 () -> {
                     getEditorPage().changePageTitle("Test " + PageType.PAGE.name() + " " + new Date());
                     saveAndPublishPageSuccessfully();
+                }
+        );
+    }
+
+    @Feature("Element")
+    @Story("Heading element")
+    @Severity(SeverityLevel.CRITICAL)
+    @Link("https://docs.google.com/spreadsheets/d/1HgNIFwDdQ5k2HB1x2pfV_KnBaWvQLi6aGy7W44yXUFs/edit?pli=1#gid=855623679&range=B93")
+    @AllureId("TC-089")
+    @Test(description = "TC-089: User use Heading element and set style")
+    public void useHeadingElementAndSetStyle() {
+        addStep(
+                "Step 0: Init plank page",
+                () -> {
+                    getPageListingScreen().openPageListingPage();
+                    getPageListingScreen().verifyPageListingLoaded();
+                    getPageListingScreen().createNewPageFromBlank(PageType.PAGE);
+                    getEditorPage().verifyEditorPageLoaded();
+                }
+        );
+
+        addStep(
+                "Step 1: Drag and drop Heading element",
+                () -> getEditorPage().dragAndDropHeadingElement()
+        );
+
+        addStep(
+                "Step 2: Update heading content",
+                () -> {
+                    getEditorPage().changeTextContent("Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.");
+                }
+        );
+
+        addStep(
+                "Step 3: Highlight text and adjust options in the rich text editor",
+                () -> {
+                    getEditorPage().selectAndAdjustTextContent("ipsum", RichTextOptionTagName.ITALIC, RichTextOptionTagName.BOLD);
+                    getEditorPage().selectAndAdjustTextContent("sed do eiusmod tempor incididunt", RichTextOptionTagName.STRIKE);
+                }
+        );
+
+        addStep(
+                "Step 4: Enable show icon and set icon position to RIGHT, icon vertical position to TOP",
+                () -> {
+                    getEditorPage().changeShowIcon("YES", "RIGHT", "TOP");
+                }
+        );
+
+        addStep(
+                "Step 5: Change margin left to 10px",
+                () -> {
+                    getEditorPage().changeMarginValue("left", 10);
+                }
+        );
+
+        addStep(
+                "Step 6: Change font family to Actor",
+                () -> {
+                    getEditorPage().changeFontFamily("Actor");
+                }
+        );
+
+        addStep(
+                "Step 7: Change background color to random color",
+                () -> {
+                    getEditorPage().changeBackgroundColor();
+                }
+        );
+
+        addStep(
+                "Step 8: Save and publish page",
+                () -> {
+                    getEditorPage().changePageTitle("Test " + PageType.PAGE.name() + " " + new Date());
+                    saveAndPublishPageSuccessfully();
+                }
+        );
+
+    }
+
+    @Feature("Element")
+    @Story("Heading element")
+    @Severity(SeverityLevel.CRITICAL)
+    @Link("https://docs.google.com/spreadsheets/d/1HgNIFwDdQ5k2HB1x2pfV_KnBaWvQLi6aGy7W44yXUFs/edit?pli=1#gid=855623679&range=B94")
+    @AllureId("TC-091")
+    @Test(description = "TC-090: User use Heading element and enable auto save")
+    public void useHeadingElementWhenEnableAutoSave() {
+        addStep(
+                "Step 0: Init plank page and enable auto save",
+                this::enableAutoSaveWhenHaventSavedPage
+        );
+
+        addStep(
+                "Step 1: Drag and drop Heading element",
+                () -> getEditorPage().dragAndDropHeadingElement()
+        );
+
+        addStep(
+                "Step 2: Copy text into clipboard",
+                () -> {
+                    putTextIntoClipboard("Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.");
+                }
+        );
+
+        addStep(
+                "Step 3: Paste text from clipboard",
+                () -> {
+                    getEditorPage().pasteIntoSelectedElement();
+                }
+        );
+
+        addStep(
+                "Step 4: Change content color to rgb(255, 125, 247) and change font size to 30px",
+                () -> {
+                    getEditorPage().changeContentColor("rgb(255, 125, 247)");
+                    getEditorPage().changeFontSize_Input("30");
+                }
+        );
+
+        addStep(
+                "Step 5: Reload page",
+                () -> {
+                    getEditorPage().verifyPageIsSaved();
+                    String beforeHTML = getEditorPage().getCanvasHtml();
+                    reloadPage();
+                    switchToPageFlyFrame();
+                    getEditorPage().verifyEditorPageLoaded();
+                    String afterHTML = getEditorPage().getCanvasHtml();
+                    assert beforeHTML.equals(afterHTML);
+                }
+        );
+    }
+
+    @Feature("Element")
+    @Story("Paragraph element")
+    @Severity(SeverityLevel.CRITICAL)
+    @Link("https://docs.google.com/spreadsheets/d/1HgNIFwDdQ5k2HB1x2pfV_KnBaWvQLi6aGy7W44yXUFs/edit?pli=1#gid=855623679&range=B95")
+    @AllureId("TC-092")
+    @Test(description = "TC-092: User use Paragraph element and set style")
+    public void useParagraphElementAndSetStyle() {
+        addStep(
+                "Step 0: Init plank page",
+                () -> {
+                    getPageListingScreen().openPageListingPage();
+                    getPageListingScreen().verifyPageListingLoaded();
+                    getPageListingScreen().createNewPageFromBlank(PageType.PAGE);
+                    getEditorPage().verifyEditorPageLoaded();
+                }
+        );
+
+        addStep(
+                "Step 1: Drag and drop Paragraph element",
+                () -> getEditorPage().dragAndDropParagraphElement()
+        );
+
+        addStep(
+                "Step 2: Update paragraph content",
+                () -> {
+                    getEditorPage().changeTextContent("This new paragraph content is updated by automation test");
+                }
+        );
+
+       addStep(
+               "Step 3: Enable show drop cap and change drop cap text to ''",
+                () -> {
+                     getEditorPage().changeShowDropCap("YES", "Hello word!");
+                }
+       );
+
+        addStep(
+                "Step 4: Change text style to strike",
+                () -> {
+                    getEditorPage().changeTextStyleDecorationLine("line-through");
+                }
+        );
+
+        addStep(
+                "Step 5: Select border style to dotted",
+                () -> {
+                    getEditorPage().changeBorderStyle("dotted");
+                }
+        );
+
+        addStep(
+                "Step 6: Change border radius to 10px and border width to 5px",
+                () -> {
+                    getEditorPage().changeBorderRadius("10");
+                    getEditorPage().changeBorderWidth("5");
+                }
+        );
+
+        addStep(
+                "Step : Save and publish page",
+                () -> {
+                    getEditorPage().changePageTitle("Test " + PageType.PAGE.name() + " " + new Date());
+                    saveAndPublishPageSuccessfully();
+                }
+        );
+    }
+
+    @Feature("Element")
+    @Story("Paragraph element")
+    @Severity(SeverityLevel.CRITICAL)
+    @Link("https://docs.google.com/spreadsheets/d/1HgNIFwDdQ5k2HB1x2pfV_KnBaWvQLi6aGy7W44yXUFs/edit?pli=1#gid=855623679&range=B96")
+    @AllureId("TC-093")
+    @Test(description = "TC-090: User use Paragraph element and enable auto save")
+    public void useParagraphElementWhenEnableAutoSave() {
+        addStep(
+                "Step 0: Init plank page and enable auto save",
+                this::enableAutoSaveWhenHaventSavedPage
+        );
+
+        addStep(
+                "Step 1: Drag and drop Paragraph element",
+                () -> getEditorPage().dragAndDropParagraphElement()
+        );
+
+        addStep(
+                "Step 2: Copy text into clipboard",
+                () -> {
+                    putTextIntoClipboard("Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.");
+                }
+        );
+
+        addStep(
+                "Step 3: Paste text from clipboard",
+                () -> {
+                    getEditorPage().pasteIntoSelectedElement();
+                }
+        );
+
+        addStep(
+                "Step 4: Change content color to rgb(255, 125, 247) and change font size to 30px",
+                () -> {
+                    getEditorPage().changeContentColor("rgb(255, 125, 247)");
+                    getEditorPage().changeFontSize_Input("30");
+                }
+        );
+
+        addStep(
+                "Step 5: Reload page",
+                () -> {
+                    getEditorPage().verifyPageIsSaved();
+                    String beforeHTML = getEditorPage().getCanvasHtml();
+                    reloadPage();
+                    switchToPageFlyFrame();
+                    getEditorPage().verifyEditorPageLoaded();
+                    String afterHTML = getEditorPage().getCanvasHtml();
+                    assert beforeHTML.equals(afterHTML);
                 }
         );
     }

@@ -1158,7 +1158,7 @@ public class WebUI {
                 "  fakeMouse.style.top = e.clientY + 'px';" +
                 "  fakeMouse.style.width = '10px';" +
                 "  fakeMouse.style.height = '10px';" +
-                "  fakeMouse.style.border = 'none';" +
+                "  fakeMouse.style.display = 'none';" +
                 "});" +
                 "document.addEventListener('click', function(e) {" +
                 "  fakeMouse.style.display = 'block';" +
@@ -3833,7 +3833,7 @@ public class WebUI {
      * If it's Windows, it simulates pressing Ctrl + V.
      */
     @Step("Paste style using keyboard shortcut")
-    public void pasteStyleByShortcut() {
+    public static void pasteStyleByShortcut() {
         Actions action = new Actions(DriverManager.getDriver());
         String os = System.getProperty("os.name").toLowerCase();
 
@@ -3983,5 +3983,69 @@ public class WebUI {
     public static String getValueFromLocalStorage(String key) {
         return (String) ((JavascriptExecutor) DriverManager.getDriver()).executeScript("return localStorage.getItem('" + key + "');");
     }
+
+    /**
+     * Set range selection for specific text in element by JavaScript
+     * @param by element locator
+     * @param text text to select
+     */
+    @Step("Select text {text} in element {by}")
+    public static void highlightTextInElementByJs(By by, String text) {
+        WebElement element = waitForElementVisible(by);
+        clickElement(by);
+        getJsExecutor().executeScript("var elem = arguments[0];" +
+                "var searchText = arguments[1];" +
+                "var selection = window.getSelection();" +
+                "var range = document.createRange();" +
+                "if (elem.innerText === searchText) {" +
+                "range.selectNode(elem);" +
+                "}" +
+                "else {" +
+                "var textNode;" +
+                "for (var i = 0; i < elem.childNodes.length; i++) {" +
+                "   var node = elem.childNodes[i]; " +
+                "   if (node.nodeType === Node.TEXT_NODE && node.nodeValue.indexOf(searchText) >= 0) { " +
+                "       textNode = node; " +
+                "   } " +
+                "}" +
+                "var startIndex = textNode.nodeValue.indexOf(searchText);" +
+                "var endIndex = startIndex + searchText.length;" +
+                "range.setStart(textNode, startIndex);" +
+                "range.setEnd(textNode, endIndex);" +
+                "}" +
+                "selection.removeAllRanges();" +
+                "selection.addRange(range);", element, text);
+    }
+
+    @Step("Move cursor to end of content in element {by}")
+    public static void moveCursorToEndOfContent(By by) {
+        WebElement element = waitForElementVisible(by);
+        getJsExecutor().executeScript(
+                "var element = arguments[0];" +
+                        "var range = document.createRange();" +
+                        "range.selectNodeContents(element);" +
+                        "range.collapse(false);" +
+                        "var selection = window.getSelection();" +
+                        "selection.removeAllRanges();" +
+                        "selection.addRange(range);",
+                element);
+    }
+
+    /**
+     * Verify if the selected text is wrapped in a specific tag
+     * @param tagName tag name
+     * @return true if the selected text is wrapped in the specified tag, false otherwise
+     */
+    @Step("Verify selected text is wrapped in tag {tagName}")
+    public static boolean verifySelectedTextWrappedInTag(String tagName) {
+        boolean res = (Boolean) getJsExecutor().executeScript(
+                    "var tagName = arguments[0];" +
+                    "var selection = window.getSelection(); " +
+                    "return selection.anchorNode.getElementsByTagName(tagName).length > 0;",tagName);
+        Assert.assertTrue(res, "Selected text is not wrapped in tag " + tagName);
+        LogUtils.info("Selected text is wrapped in tag " + tagName);
+        return res;
+    }
+
 
 }

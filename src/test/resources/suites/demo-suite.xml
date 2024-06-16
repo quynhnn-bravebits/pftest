@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="Demo Suite">
+    <test verbose="2" preserve-order="true"
+          name="/Users/bbadmin/Documents/BB/pfcompany/src/test/java/org/pftest/projects/testcases/PageEditingTest.java">
+        <classes>
+            <class name="org.pftest.projects.testcases.PageEditingTest">
+                <methods>
+<!--                    <include name="useLayoutElementAndSetRowStyle"/>-->
+                    <include name="useLayoutElementAndSetColumnStyle"/>
+                </methods>
+            </class>
+        </classes>
+    </test>
+    <test verbose="2" preserve-order="true"
+          name="/Users/bbadmin/Documents/BB/pfcompany/src/test/java/org/pftest/projects/testcases/UndoRedoTest.java">
+        <classes>
+            <class name="org.pftest.projects.testcases.UndoRedoTest">
+                <methods>
+                    <include name="undoRedoInTemplatePage"/>
+                </methods>
+            </class>
+        </classes>
+    </test>
+</suite>

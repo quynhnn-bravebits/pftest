@@ -5,6 +5,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.pagefactory.ByChained;
+import org.pftest.enums.RichTextOptionTagName;
 
 import java.util.Objects;
 
@@ -104,6 +105,24 @@ public class EditorPageInspector {
         return Integer.parseInt(getAttributeElement(columnsPerLineInput, "value"));
     }
 
+    public String getRichTextHTMLContent () {
+        openGeneralTab();
+        By textContentInput = By.id("pf_text_editor_");
+        return getAttributeElement(textContentInput, "innerHTML").replaceAll("</?(second-sel|first-sel)>", "").replaceAll("<br>$", "");
+    }
+
+    public String getIconPosition() {
+        openGeneralTab();
+        By iconPositionSwitch = By.id("icon-position");
+        return getAttributeElement(new ByChained(iconPositionSwitch, By.xpath("//button[contains(@class, 'Polaris-Button--variantSecondary')]")), "role");
+    }
+
+    public String getIconVerticalAlignment() {
+        openGeneralTab();
+        By iconVerticalAlignmentSwitch = By.id("icon-vertical-alignment");
+        return getAttributeElement(new ByChained(iconVerticalAlignmentSwitch, By.xpath("//button[contains(@class, 'Polaris-Button--variantSecondary')]")), "role");
+    }
+
 //    ================== INSPECTOR ACTIONS ==================
 //
 //    ================== GENERAL TAB ==================
@@ -115,6 +134,70 @@ public class EditorPageInspector {
         clearTextCtrlA(textContentInput);
         clearAndFillText(textContentInput, content);
         sleep(0.3);
+    }
+
+    @Step("Paste text from clipboard to text box")
+    public void pasteClipboardTextContent() {
+        openGeneralTab();
+        By textContentInput = By.id("pf_text_editor_");
+        verifyElementVisible(textContentInput);
+        clearText(textContentInput);
+        moveCursorToEndOfContent(textContentInput);
+        pasteStyleByShortcut();
+        sleep(0.3);
+    }
+
+    @Step("Select text content {text} and adjust to {option}")
+    public void selectAndAdjustTextContent(String text, RichTextOptionTagName... options) {
+        openGeneralTab();
+        By textContentInput = By.id("pf_text_editor_");
+        highlightTextInElementByJs(textContentInput, text);
+        for (RichTextOptionTagName option : options) {
+            clickElement(By.id("pf_text_editor_" + option.getTagName()));
+            verifySelectedTextWrappedInTag(option.getHtmlTag());
+            sleep(2);
+        }
+    }
+
+    @Step("Change show icon to {showIcon}")
+    public void changeShowIcon(String showIcon) {
+        openGeneralTab();
+        By showIconButton = new ByChained(By.id("show-icon"), By.xpath("//button[@role='" + showIcon.toUpperCase() + "']"));
+        clickElement(showIconButton);
+    }
+
+    @Step("Change icon position to {position}")
+    public void changeIconPosition(String position) {
+        System.out.println("Change icon position to " + position);
+        openGeneralTab();
+        By iconPositionButton = By.xpath("//*[@id='icon-position']//button[@role='" + position.toUpperCase() + "']");
+        sleep(0.5);
+        clickElement(iconPositionButton);
+    }
+
+    @Step("Change icon vertical alignment to {alignment}")
+    public void changeIconVerticalAlignment(String alignment) {
+        System.out.println("Change icon vertical alignment to " + alignment);
+        openGeneralTab();
+        By iconVerticalAlignmentButton = By.xpath("//*[@id='icon-vertical-alignment']//button[@role='" + alignment.toUpperCase() + "']");
+        sleep(0.5);
+        clickElement(iconVerticalAlignmentButton);
+    }
+
+    @Step("Change show drop cap to {showDropCap}")
+    public void changeShowDropCap(String showDropCap) {
+        openGeneralTab();
+        scrollToElementAtTop(By.id("show-dropcap"));
+        By showDropCapButton = new ByChained(By.id("show-dropcap"), By.xpath("//button[@role='" + showDropCap + "']"));
+        clickElement(showDropCapButton);
+    }
+
+    @Step("Change drop cap content to {content}")
+    public void changeDropCapContent(String content) {
+        openGeneralTab();
+        scrollToElementAtTop(By.id("dropcap-text"));
+        By dropCapContentInput = new ByChained(By.id("dropcap-text"), By.tagName("input"));
+        clearAndFillText(dropCapContentInput, content);
     }
 
     @Step("Add new item")
@@ -203,13 +286,6 @@ public class EditorPageInspector {
         return getAttributeElement(backgroundColorInput, "value");
     }
 
-    @Step("Change border color to {color}")
-    public void changeBorderColorSendKeys(String color) {
-        openStylingTab();
-        By borderColorInput = By.id("inspector--border-color--input");
-        verifyElementVisible(borderColorInput);
-        clearAndFillText(borderColorInput, color);
-    }
 
     @Step("Change padding to {padding}")
     public void changePadding(Integer padding) {
@@ -263,8 +339,10 @@ public class EditorPageInspector {
     @Step("Select font family {fontFamily}")
     public void selectFontFamily(String fontFamily) {
         openStylingTab();
+        scrollToElementAtTop(By.id("TYPOGRAPHY"));
         By fontFamilyDropdown = By.id("inspector--font-family-selector--activator");
         clickElement(fontFamilyDropdown);
+        waitForElementVisible(By.id("inspector--font-family-selector--font-default"));
         By fontSelector = By.cssSelector("[id^='inspector--font-family-selector---font']");
         if (verifyOptionDynamicExist(fontSelector, fontFamily)) {
             selectOptionDynamic(fontSelector, fontFamily);
@@ -331,6 +409,13 @@ public class EditorPageInspector {
         clickElement(weightButton);
     }
 
+    @Step("Change text decoration to {decoration}")
+    public void changeTextStyleDecorationLine(String decoration) {
+        openStylingTab();
+        By decorationButton = By.id("inspector--button-toggle--text-decoration-line-" + decoration);
+        clickElement(decorationButton);
+    }
+
     @Step("Change font weight to {weight}")
     public void changeFontWeight(String weight) {
         openStylingTab();
@@ -385,6 +470,47 @@ public class EditorPageInspector {
         openStylingTab();
         By styleButton = By.id("inspector--button-toggle--border-style-" + style);
         clickElement(styleButton);
+    }
+
+
+    @Step("Change border width to {borderWidth}")
+    public void changeBorderWidth(String borderWidth) {
+        openStylingTab();
+        scrollToElementAtTop(By.id("BORDER"));
+        clickElement(By.id("inspector--border--more-setting--activator"));
+        By borderWidthInput = By.id("inspector--border--border-width");
+        clearAndFillText(borderWidthInput, borderWidth);
+        clickElement(By.id("inspector--border--more-setting--activator"));
+    }
+
+    @Step("Change border {type} width to {borderWidth}")
+    public void changeBorderWidth(String type, String borderWidth) {
+        openStylingTab();
+        scrollToElementAtTop(By.id("BORDER"));
+        clickElement(By.id("inspector--border--more-setting--activator"));
+        By borderWidthInput = By.id("inspector--border--border-" + type +"-width");
+        clearAndFillText(borderWidthInput, borderWidth);
+        clickElement(By.id("inspector--border--more-setting--activator"));
+    }
+
+    @Step("Change border radius to {borderRadius}")
+    public void changeBorderRadius(String borderRadius) {
+        openStylingTab();
+        scrollToElementAtTop(By.id("BORDER"));
+        clickElement(By.id("inspector--border--more-setting--activator"));
+        By borderRadiusInput = By.id("inspector--border--border-radius");
+        clearAndFillText(borderRadiusInput, borderRadius);
+        clickElement(By.id("inspector--border--more-setting--activator"));
+    }
+
+    @Step("Change border {type} radius to {borderRadius}")
+    public void changeBorderRadius(String type, String borderRadius) {
+        openStylingTab();
+        scrollToElementAtTop(By.id("BORDER"));
+        clickElement(By.id("inspector--border--more-setting--activator"));
+        By borderRadiusInput = By.id("inspector--border--border-" + type +"-radius");
+        clearAndFillText(borderRadiusInput, borderRadius);
+        clickElement(By.id("inspector--border--more-setting--activator"));
     }
 
     @Step("Change display style to {style}")

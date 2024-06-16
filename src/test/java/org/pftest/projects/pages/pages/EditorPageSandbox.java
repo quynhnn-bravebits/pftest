@@ -2,12 +2,15 @@ package org.pftest.projects.pages.pages;
 
 import io.qameta.allure.Step;
 import org.openqa.selenium.By;
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebElement;
 
+import javax.annotation.Nullable;
 import java.util.List;
 import java.util.Objects;
 
 import static org.pftest.keywords.WebUI.*;
+import static org.pftest.keywords.WebUI.verifyElementAttributeValue;
 
 // page_url = about:blank
 public class EditorPageSandbox {
@@ -40,6 +43,25 @@ public class EditorPageSandbox {
         switchToPageFlyFrame();
     }
 
+    @Step("Verify selected element has icon at position {position} and vertical alignment {alignment}")
+    public void verifySelectedElementHasIcon(String id, String position, @Nullable String alignment) {
+        switchToDragAndDropFrame();
+        By icon = switch (position) {
+            case "LEFT", "TOP" -> By.xpath("//*[@data-pf-id='" + id + "']/*[1][starts-with(@data-pf-type, 'Icon')]");
+            case "RIGHT" -> By.xpath("//*[@data-pf-id='" + id + "']/*[last()][starts-with(@data-pf-type, 'Icon')]");
+            default -> null;
+        };
+        verifyElementVisible(icon);
+        if (position.equals("TOP")) {
+            verifyElementAttributeValue(icon, "display", "block");
+            verifyElementStyleAttributeValue(icon, "vertical-align", "middle");
+        }
+        else if (alignment != null){
+            verifyElementStyleAttributeValue(icon, "vertical-align", alignment.toLowerCase());
+        }
+        switchToPageFlyFrame();
+    }
+
     @Step("Select {0} element")
     public void selectElement(String type) {
         By element = By.xpath("//*[@data-pf-type='" + type + "']");
@@ -48,7 +70,7 @@ public class EditorPageSandbox {
         verifyTrue(Objects.equals(getSelectedElementType(), type), "Selected element is not a " + type + " element");
     }
 
-    private class NewItemType {
+    private static class NewItemType {
         String elementType;
         String parentType;
 
@@ -85,6 +107,21 @@ public class EditorPageSandbox {
                 xpath = "//*[@data-pf-type='" + parentType + "' and @data-pf-id='" + id + "']//*[@data-pf-type='" + elementType + "']";
             }
             return getWebElements(By.xpath(xpath)).size();
+        } finally {
+            switchToPageFlyFrame();
+        }
+    }
+
+    /**
+     * Get the HTML content of the selected element except the icon
+     * @param id
+     * @return
+     */
+    public String getSelectedElementHTMLContent (String id) {
+        try {
+            switchToDragAndDropFrame();
+            By element = By.xpath("//*[@data-pf-id='" + id + "']");
+            return getAttributeElement(element, "innerHTML").replaceAll("<svg[^>]*>.*</svg>", "");
         } finally {
             switchToPageFlyFrame();
         }
