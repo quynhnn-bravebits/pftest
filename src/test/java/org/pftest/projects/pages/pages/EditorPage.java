@@ -398,6 +398,30 @@ public class EditorPage extends Toast {
         verifyEquals(richTextContent, editorElementContent);
     }
 
+    @Step("Change horizontal alignment to {0} and verify selected element has the correct horizontal alignment")
+    public void changeHorizontalAlignment(String alignment) {
+        editorPageInspector.changeHorizontalAlignment(alignment);
+        String id = getSelectedElementId();
+        String marginLeft = null, marginRight = null;
+        switch (alignment) {
+            case "center" -> {
+                marginLeft = "auto";
+                marginRight = "auto";
+            }
+            case "right" -> {
+                marginLeft = "auto";
+                marginRight = "0px";
+            }
+            case "left" -> {
+                marginLeft = "0px";
+                marginRight = "auto";
+            }
+        }
+
+        editorPageSandbox.verifySelectedElementHasStyleAttributeValue(id, "margin-left", marginLeft);
+        editorPageSandbox.verifySelectedElementHasStyleAttributeValue(id, "margin-right", marginRight);
+    }
+
     @Step("Change enable show icon to {0} and verify selected element has show correct icon")
     public void changeShowIcon(String showIcon, @Nullable String _position, @Nullable String _verticalAlignment) {
         editorPageInspector.changeShowIcon(showIcon);
@@ -728,6 +752,99 @@ public class EditorPage extends Toast {
         editorPageInspector.changeBackgroundColorSendKeys(color);
         String id = getSelectedElementId();
         editorPageSandbox.verifySelectedElementHasCssAttributeValue(id, "background-color", convertRGBtoRGBA(color));
+    }
+
+    @Step("Upload image from computer and set as background image")
+    public void changeBackgroundImageFromUploadedLocalImage(String path) {
+        String url = editorPageInspector.selectNewUploadedImageFromComputer(path);
+        String id = getSelectedElementId();
+        editorPageSandbox.verifySelectedElementHasCssAttributeValue(id, "background-image", "url(\"" + url + "\")");
+    }
+
+    @Step("Change background image and verify selected element has the correct background image")
+    public void selectBackgroundImage() {
+        String url = editorPageInspector.openModalAndSelectImageFromMediaFiles();
+        String id = getSelectedElementId();
+        editorPageSandbox.verifySelectedElementHasCssAttributeValue(id, "background-image", "url(\"" + url + "\")");
+    }
+
+    @Step("Upload image from url and set as background image")
+    public void changeImageSourceFromUploadedUrlImage(String url) {
+        String targetUrl = editorPageInspector.selectNewUploadedImageFromUrl(url);
+        String id = getSelectedElementId();
+        editorPageSandbox.verifySelectedElementHasCssAttributeValue(id, "src", targetUrl);
+    }
+
+    @Step("Change enable full width to {0}, width to {1} and verify selected element has the correct full width")
+    public void changeEnableFullWidth(String enableFullWidth, @Nullable String width) {
+        editorPageInspector.changeEnableFullWidth(enableFullWidth, width);
+        String id = getSelectedElementId();
+        if (enableFullWidth.equals("YES")) {
+            editorPageSandbox.verifySelectedElementHasStyleAttributeValue(id, "width", "100%");
+            return;
+        }
+
+        int max = 2000, min = 1, value = Integer.parseInt(Objects.requireNonNull(width));
+        int expected = value < min ? min : Math.min(max, value);
+        editorPageSandbox.verifySelectedElementHasStyleAttributeValue(id, "width", expected + "px");
+
+        String expectedError = value < min ? "The minimum possible value is: 1" : value > max ? "The maximum possible value is: 2000" : null;
+        By errorField = By.xpath("//*[@id='fieldIdError' and contains(text(), '" + expectedError + "')]");
+        if (expectedError != null) {
+            verifyElementVisible(errorField);
+        } else {
+            verifyElementNotVisible(errorField);
+        }
+    }
+
+    @Step("Change image ratio to {0}, height to {1} and verify selected element has the correct image ratio")
+    public void changeImageRatio(String imageRatio, @Nullable String imageHeight) {
+        editorPageInspector.changeImageRatio(imageRatio);
+        String id = getSelectedElementId();
+
+        if (imageRatio.toUpperCase().equals("CUSTOM") && imageHeight != null) {
+            editorPageInspector.changeImageHeight(imageHeight);
+            editorPageSandbox.verifySelectedElementHasStyleAttributeValue(id, "height", imageHeight + "px");
+        }
+        else if (imageRatio.toUpperCase().equals("ORIGINAL")) {
+            editorPageSandbox.verifySelectedElementHasStyleAttributeValue(id, "aspect-ratio", "unset");
+        }
+        else if (imageRatio.toUpperCase().equals("SQUARE")) {
+            editorPageSandbox.verifySelectedElementHasStyleAttributeValue(id, "aspect-ratio", "1 / 1");
+        }
+    }
+
+    @Step("Change image object fit to {0} and verify selected element has the correct image object fit")
+    public void changeImageObjectFit(String objectFit) {
+        editorPageInspector.changeImageObjectFit(objectFit);
+        String id = getSelectedElementId();
+        editorPageSandbox.verifySelectedElementHasStyleAttributeValue(id, "object-fit", objectFit.toLowerCase());
+    }
+
+    @Step("Change background image size to {0} and verify selected element has the correct background image size")
+    public void changeBackgroundSize(String backgroundSize) {
+        editorPageInspector.changeBackgroundSize(backgroundSize);
+        String id = getSelectedElementId();
+        editorPageSandbox.verifySelectedElementHasStyleAttributeValue(id, "background-size", backgroundSize);
+    }
+
+    @Step("Change background position to {0} and verify selected element has the correct background position")
+    public void changeBackgroundPosition(String backgroundPosition) {
+        editorPageInspector.changeBackgroundPosition(backgroundPosition);
+        String id = getSelectedElementId();
+        String backgroundPositionValue = switch (backgroundPosition) {
+            case "lt" -> "left top";
+            case "ct" -> "center top";
+            case "rt" -> "right top";
+            case "lm" -> "left center";
+            case "cm" -> "center center";
+            case "rm" -> "right center";
+            case "lb" -> "left bottom";
+            case "cb" -> "center bottom";
+            case "rb" -> "right bottom";
+            default -> null;
+        };
+        editorPageSandbox.verifySelectedElementHasStyleAttributeValue(id, "background-position", backgroundPositionValue);
     }
 
     @Step("Change border style and verify selected element has the correct border style")

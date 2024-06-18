@@ -79,4 +79,10 @@ public class Toast {
         By toastElement = By.xpath("//*[@id=\"PolarisPortalsContainer\"]//*[@class=\"Polaris-Frame-Toast\"]//*[text()=\"" + toast + "\"]");
         verifyElementVisible(toastElement);
     }
+
+    @Step("Wait for '{0}' toast")
+    static public void waitForToast(String toast, int timeout) {
+        By toastElement = By.xpath("//*[@id=\"PolarisPortalsContainer\"]//*[@class=\"Polaris-Frame-Toast\"]//*[text()=\"" + toast + "\"]");
+        waitForElementVisible(toastElement, timeout);
+    }
 }

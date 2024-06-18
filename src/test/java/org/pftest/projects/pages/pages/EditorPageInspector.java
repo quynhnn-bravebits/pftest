@@ -7,9 +7,11 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.pagefactory.ByChained;
 import org.pftest.enums.RichTextOptionTagName;
 
+import javax.annotation.Nullable;
 import java.util.Objects;
 
 import static org.pftest.keywords.WebUI.*;
+import static org.pftest.projects.commons.Toast.waitForToast;
 
 // page_url = about:blank
 public class EditorPageInspector {
@@ -91,7 +93,6 @@ public class EditorPageInspector {
     @Step("Open General tab")
     public void openGeneralTab() {
         if (!Objects.equals(getAttributeElement(generalButton, "aria-selected"), "true")) {
-            changeBackgroundColorSendKeys("open");
             waitForElementClickable(generalButton);
             sleep(0.1);
             clickElement(generalButton);
@@ -251,6 +252,61 @@ public class EditorPageInspector {
         clickElement(deleteButton);
     }
 
+    @Step("Change click action to {action}")
+    public void changeClickAction(String action) {
+        openGeneralTab();
+        scrollToElementAtTop(By.id("click-action"));
+        clickElement(By.xpath("//*[@id='click-action']//button"));
+        selectOptionDynamic(By.cssSelector("[id^='inspector--select--']"), action);
+    }
+
+    @Step("Change popup content to {content}")
+    public void changePopupContent(String content) {
+        openGeneralTab();
+        scrollToElementAtTop(By.id("popup-content"));
+        clickElement(By.xpath("//*[@id='popup-content']//button"));
+        selectOptionDynamic(By.cssSelector("[id^='inspector--select--']"), content);
+    }
+
+    @Step("Change popup content url to {url}")
+    public void changeVideoUrl(String url) {
+        openGeneralTab();
+        scrollToElementAtTop(By.id("youtube-video-url"));
+        By videoUrlInput = new ByChained(By.id("youtube-video-url"), By.tagName("input"));
+        clearAndFillText(videoUrlInput, url);
+    }
+
+    @Step("Change enable full width to {enable}")
+    public void changeEnableFullWidth(String enable, @Nullable String width) {
+        openGeneralTab();
+        By enableFullWidthButton = new ByChained(By.id("enable-full-width"), By.xpath("//button[@role='" + enable.toUpperCase() + "']"));
+        clickElement(enableFullWidthButton);
+        if (enable.toUpperCase().equals("YES") && width != null) {
+            clearAndFillText(new ByChained(By.id("enable-full-width"), By.cssSelector("input[type='number']")), width);
+        }
+    }
+
+    @Step("Change image ratio to {ratio}")
+    public void changeImageRatio(String ratio) {
+        openGeneralTab();
+        By imageRatioButton = new ByChained(By.id("image-ratio"), By.xpath("//button[@role='" + ratio.toUpperCase() + "']"));
+        clickElement(imageRatioButton);
+    }
+
+    @Step("Change image height to {height}")
+    public void changeImageHeight(String height) {
+        openGeneralTab();
+        By imageHeightInput = new ByChained(By.id("image-height"), By.cssSelector("input[type='number']"));
+        clearAndFillText(imageHeightInput, height);
+    }
+
+    @Step("Change image object fit to {objectFit}")
+    public void changeImageObjectFit(String objectFit) {
+        openGeneralTab();
+        By objectFitButton = new ByChained(By.id("image-object-fit"), By.xpath("//button[@role='" + objectFit.toUpperCase() + "']"));
+        clickElement(objectFitButton);
+    }
+
 //    ================== STYLING TAB ==================
     @Step("Change content color to {color}")
     public void changeContentColorSendKeys(String color) {
@@ -286,6 +342,12 @@ public class EditorPageInspector {
         return getAttributeElement(backgroundColorInput, "value");
     }
 
+    @Step("Change horizontal alignment to {alignment}")
+    public void changeHorizontalAlignment(String alignment) {
+        openStylingTab();
+        By alignmentButton = By.id("inspector--button-toggle--horizontal-align-" + alignment);
+        clickElement(alignmentButton);
+    }
 
     @Step("Change padding to {padding}")
     public void changePadding(Integer padding) {
@@ -315,6 +377,108 @@ public class EditorPageInspector {
         By marginTypeInput = By.id("inspector--spacing--margin-" + type);
         verifyElementVisible(marginTypeInput);
         clearAndFillText(marginTypeInput, String.valueOf(margin));
+    }
+
+    @Step("Open select image modal")
+    public void openSelectImageModal() {
+        clickElement(By.id("media-manager--select-image--activator"));
+        waitForElementTextContains(modal, "Select image");
+    }
+
+    @Step("Upload image from {path} to media files")
+    public void uploadImageToMediaFiles(String path) {
+        waitForElementVisible(By.className("Polaris-DropZone-FileUpload__Action"));
+        // Get media number before upload
+        By media = new ByChained(modal, By.xpath("//div[@media]"));
+        int previousMediaNumber = getWebElements(media).size();
+        // Add image from local
+        uploadFileWithLocalForm(By.className("Polaris-DropZone-FileUpload__Action"),path);
+        waitForToast("Media uploaded", 30);
+        // Get media number after upload success
+        int currentMediaNumber = getWebElements(media).size();
+        verifyTrue(currentMediaNumber == (previousMediaNumber + 1), "Media file is not uploaded");
+    }
+
+    @Step("Upload image from url {url} to media files")
+    public void uploadImageFromUrlToMediaFiles(String url) {
+        By addUrlButton = new ByChained(modal, By.xpath("//button/*[text()='Add from URL']"));
+        waitForElementVisible(addUrlButton);
+        // Get media number before upload
+        By media = new ByChained(modal, By.xpath("//div[@media]"));
+        int previousMediaNumber = getWebElements(media).size();
+        // Add image from url
+        clickElement(addUrlButton);
+        clearAndFillText(By.id("upload-url"), url);
+        waitForElementClickable(By.id("media-manager--media-selector-modal--select"));
+        clickElement(By.id("media-manager--media-selector-modal--select"));
+        waitForToast("Media uploaded", 30);
+        // Get media number after upload success
+        int currentMediaNumber = getWebElements(media).size();
+        verifyTrue(currentMediaNumber == (previousMediaNumber + 1), "Media file is not uploaded");
+    }
+
+    @Step("Select image from media files")
+    public String selectImageFromMediaFiles() {
+        By image = new ByChained(modal, By.xpath("//div[@media]"));
+        waitForElementVisible(image);
+        waitForElementClickable(image);
+        clickElement(image);
+        String url = getAttributeElement(new ByChained(image, By.tagName("img")), "src");
+        sleep(0.5);
+        verifyElementClickable(By.id("media-manager--media-selector-modal--select"));
+        clickElement(By.id("media-manager--media-selector-modal--select"));
+        sleep(0.5);
+        verifyElementNotVisible(modal);
+        return url;
+    }
+
+    public String openModalAndSelectImageFromMediaFiles() {
+        openSelectImageModal();
+        return selectImageFromMediaFiles();
+    }
+
+    /**
+     * Open select image modal, upload image from computer and select it from media files
+     *
+     * @param path local path of the image
+     * @return shopify url of the selected image
+     */
+    public String selectNewUploadedImageFromComputer(String path) {
+        openSelectImageModal();
+        uploadImageToMediaFiles(path);
+        return selectImageFromMediaFiles();
+    }
+
+    /**
+     * Open select image modal, upload image from url and select it from media files
+     *
+     * @param url url of the image
+     * @return shopify url of the selected image
+     */
+    public String selectNewUploadedImageFromUrl(String url) {
+        openSelectImageModal();
+        uploadImageFromUrlToMediaFiles(url);
+        return selectImageFromMediaFiles();
+    }
+
+    @Step("Change background size to {size}")
+    public void changeBackgroundSize(String size) {
+        openStylingTab();
+        scrollToElementAtTop(By.id("BACKGROUND"));
+        clickElement(By.id("inspector--background--more-setting--activator"));
+        moveToElement(By.id("background-size"));
+        clickElement(By.id("inspector--button-toggle--background-size-" + size.toLowerCase()));
+        clickElement(By.id("inspector--background--more-setting--activator"));
+    }
+
+    @Step("Change background position to {position}")
+    public void changeBackgroundPosition(String position) {
+        openStylingTab();
+        scrollToElementAtTop(By.id("BACKGROUND"));
+        clickElement(By.id("inspector--background--more-setting--activator"));
+        moveToElement(By.id("background-position"));
+        clickElement(By.id("inspector--position--" + position.toLowerCase()));
+        clickElement(By.id("inspector--background--more-setting--activator"));
     }
 
     @Step("Add font to inspector")

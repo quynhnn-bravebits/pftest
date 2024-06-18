@@ -2,7 +2,6 @@ package org.pftest.projects.pages.pages;
 
 import io.qameta.allure.Step;
 import org.openqa.selenium.By;
-import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebElement;
 
 import javax.annotation.Nullable;
@@ -10,7 +9,6 @@ import java.util.List;
 import java.util.Objects;
 
 import static org.pftest.keywords.WebUI.*;
-import static org.pftest.keywords.WebUI.verifyElementAttributeValue;
 
 // page_url = about:blank
 public class EditorPageSandbox {
@@ -70,6 +68,20 @@ public class EditorPageSandbox {
         verifyTrue(Objects.equals(getSelectedElementType(), type), "Selected element is not a " + type + " element");
     }
 
+    @Step("Select {0} element")
+    public void selectSelectedChildElement(String type, int order) {
+        String id = getSelectedElementId();
+        By caret = By.xpath("//*[@data-pf-id='" + id + "']//*[contains(@class, 'caret') and contains(@class, 'outline-icon')]");
+        // Expect:    transform: rotate(-90deg) -> Page outline element not expanded
+        if (verifyElementStyleAttributeValue(caret, "transform", "matrix(0, -1, 1, 0, 0, 0)")) {
+            clickElement(caret);
+        }
+        By element = By.xpath("(//*[@data-pf-id='"+ id + "']//*[@data-pf-type='" + type + "'])[" + order + "]");
+        clickElement(element);
+        sleep(0.5);
+        verifyTrue(Objects.equals(getSelectedElementType(), type), "Selected element is not a " + type + " element");
+    }
+
     private static class NewItemType {
         String elementType;
         String parentType;
@@ -85,6 +97,7 @@ public class EditorPageSandbox {
         return switch (type) {
             case "Column", "Row" -> new NewItemType("Column", "Row");
             case "Section" -> new NewItemType("Row", "Section");
+            case "Slideshow" -> new NewItemType("SlideshowSlide", "Slideshow");
             default -> null;
         };
     }
@@ -106,6 +119,7 @@ public class EditorPageSandbox {
             } else {
                 xpath = "//*[@data-pf-type='" + parentType + "' and @data-pf-id='" + id + "']//*[@data-pf-type='" + elementType + "']";
             }
+            System.out.println(xpath);
             return getWebElements(By.xpath(xpath)).size();
         } finally {
             switchToPageFlyFrame();

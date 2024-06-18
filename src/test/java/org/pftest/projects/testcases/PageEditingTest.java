@@ -1282,7 +1282,7 @@ public class PageEditingTest extends BaseTest {
     @Severity(SeverityLevel.CRITICAL)
     @Link("https://docs.google.com/spreadsheets/d/1HgNIFwDdQ5k2HB1x2pfV_KnBaWvQLi6aGy7W44yXUFs/edit?pli=1#gid=855623679&range=B96")
     @AllureId("TC-093")
-    @Test(description = "TC-090: User use Paragraph element and enable auto save")
+    @Test(description = "TC-093: User use Paragraph element and enable auto save")
     public void useParagraphElementWhenEnableAutoSave() {
         addStep(
                 "Step 0: Init plank page and enable auto save",
@@ -1330,6 +1330,182 @@ public class PageEditingTest extends BaseTest {
         );
     }
 
+    @Feature("Element")
+    @Story("Button element")
+    @Severity(SeverityLevel.CRITICAL)
+    @Link("https://docs.google.com/spreadsheets/d/1HgNIFwDdQ5k2HB1x2pfV_KnBaWvQLi6aGy7W44yXUFs/edit?pli=1#gid=855623679&range=B98")
+    @AllureId("TC-095")
+    @Test(description = "TC-095: User use Button element and set style")
+    public void useButtonElementAndSetStyle() {
+        addStep(
+                "Step 0: Init plank page",
+                () -> {
+                    getPageListingScreen().openPageListingPage();
+                    getPageListingScreen().verifyPageListingLoaded();
+                    getPageListingScreen().createNewPageFromBlank(PageType.PAGE);
+                    getEditorPage().verifyEditorPageLoaded();
+                }
+        );
+
+        addStep(
+                "Step 1: Drag and drop Button element",
+                () -> getEditorPage().dragAndDropCatalogElement(By.id("catalog--catalog-list--button"))
+        );
+
+        addStep(
+                "Step 2:Set Click action to Open popup",
+                () -> {
+                    getEditorPageInspector().changeClickAction("Open pop-up");
+                }
+        );
+
+        addStep(
+                "Step 3: Set popup content to YouTube video and set video URL to 'https://www.youtube.com/watch?v=6JYIGclVQdw'",
+                () -> {
+                    getEditorPageInspector().changePopupContent("YouTube video");
+                    getEditorPageInspector().changeVideoUrl("https://www.youtube.com/watch?v=i3JTS0YrRYg");
+                }
+
+        );
+
+        addStep(
+                "Step 4: Set horizontal alignment to center",
+                () -> {
+                    getEditorPage().changeHorizontalAlignment("center");
+                }
+        );
+
+        addStep(
+                "Step 5: Change content color to random color",
+                () -> getEditorPage().changeContentColor()
+        );
+
+        addStep(
+                "Step 6: Select new uploaded image from computer",
+                () -> {
+                    getEditorPageInspector().openStylingTab();
+                    getEditorPage().changeBackgroundImageFromUploadedLocalImage("/Users/bbadmin/Downloads/custom-nike-air-force-1-low-by-you.png");
+                }
+        );
+
+        addStep(
+                "Step 7: Set background size to contain",
+                () -> {
+                    getEditorPage().changeBackgroundSize("contain");
+                }
+        );
+
+        addStep(
+                "Step 8: Change background position to center",
+                () -> {
+                    getEditorPage().changeBackgroundPosition("cm");
+                }
+        );
+
+        addStep(
+                "Step 9: Save and publish page",
+                () -> {
+                    getEditorPage().changePageTitle("Test " + PageType.PAGE.name() + " " + new Date());
+                    saveAndPublishPageSuccessfully();
+                }
+        );
+    }
+
+    @Feature("Element")
+    @Story("Image element")
+    @Severity(SeverityLevel.CRITICAL)
+    @Link("https://docs.google.com/spreadsheets/d/1HgNIFwDdQ5k2HB1x2pfV_KnBaWvQLi6aGy7W44yXUFs/edit?pli=1#gid=855623679&range=B100")
+    @AllureId("TC-097")
+    @Test(description = "TC-097: User use Image element and set style")
+    public void useImageElementAndSetStyle() {
+        addStep(
+                "Step 0: Init plank page",
+                () -> {
+                    getPageListingScreen().openPageListingPage();
+                    getPageListingScreen().verifyPageListingLoaded();
+                    getPageListingScreen().createNewPageFromBlank(PageType.PAGE);
+                    getEditorPage().verifyEditorPageLoaded();
+                }
+        );
+
+        addStep(
+                "Step 1: Drag and drop Image element",
+                () -> getEditorPage().dragAndDropCatalogElement(By.id("catalog--catalog-list--image"))
+        );
+
+        addStep(
+                "Step 2: Select image source",
+                () -> {
+                    getEditorPageInspector().openGeneralTab();
+                    getEditorPage().changeImageSourceFromUploadedUrlImage("https://www.hollywoodreporter.com/wp-content/uploads/2023/05/Jennie-Kim-2023-Met-Gala-getty-1486924742-H-2023.jpg");
+                }
+        );
+
+        addStep(
+                "Step 3: Set Enable full width to NO and set Image width to 600px",
+                () -> {
+                    getEditorPage().changeEnableFullWidth("NO", "600");
+                }
+        );
+
+        addStep(
+                "Step 4: Set Image ratio to CUSTOM, set Image height to 600px, Image object fit to CONTAIN, Image position to center top",
+                () -> {
+                    getEditorPage().changeImageRatio("CUSTOM", "600");
+                    getEditorPage().changeImageObjectFit("contain");
+//                    getEditorPage().changeImagePosition("ct");
+                }
+        );
+
+        addStep(
+                "Step 5: Save and publish page",
+                () -> {
+                    getEditorPage().changePageTitle("Test " + PageType.PAGE.name() + " " + new Date());
+                    saveAndPublishPageSuccessfully();
+                }
+        );
+
+    }
+
+    @Feature("Element")
+    @Story("Slideshow element")
+    @Severity(SeverityLevel.CRITICAL)
+    @Link("https://docs.google.com/spreadsheets/d/1HgNIFwDdQ5k2HB1x2pfV_KnBaWvQLi6aGy7W44yXUFs/edit?pli=1#gid=855623679&range=B102")
+    @AllureId("TC-099")
+    @Test(description = "TC-099: User use Slideshow element and set style")
+    public void useSlideshowElementAndSetStyle() {
+        addStep(
+                "Step 0: Init plank page",
+                () -> {
+                    getPageListingScreen().openPageListingPage();
+                    getPageListingScreen().verifyPageListingLoaded();
+                    getPageListingScreen().createNewPageFromBlank(PageType.PAGE);
+                    getEditorPage().verifyEditorPageLoaded();
+                }
+        );
+
+        addStep(
+                "Step 1: Drag and drop Slideshow element",
+                () -> getEditorPage().dragAndDropCatalogElement(By.id("catalog--catalog-list--slideshow"))
+        );
+
+        addStep(
+                "Step 2: Add the 4th slideshow item",
+                () -> getEditorPage().addNewItemToList()
+        );
+
+        addStep(
+                "Step 3: Change background image from the uploaded files",
+                () -> {
+                    getEditorPageSandbox().selectSelectedChildElement("SlideshowSlide", 1);
+                    getEditorPageInspector().openStylingTab();
+                    getEditorPage().selectBackgroundImage();
+                }
+        );
+
+        sleep(3);
+
+    }
 
     @AfterMethod
     public void resetDontRemindAfterTest(ITestResult result) {
