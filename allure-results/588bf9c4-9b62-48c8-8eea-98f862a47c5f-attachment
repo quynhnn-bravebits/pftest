@@ -1,0 +1,1 @@
+Clicked on the element By.xpath: //*[@id='CONTENT']//*[starts-with(@id, 'sortable-item-')]//*[contains(@class, 'delete-item-btn')]

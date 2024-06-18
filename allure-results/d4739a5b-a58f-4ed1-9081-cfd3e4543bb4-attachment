@@ -1,0 +1,1 @@
+Clicked on the element By.chained({By.id: show-icon,By.xpath: //button[@role='YES']})

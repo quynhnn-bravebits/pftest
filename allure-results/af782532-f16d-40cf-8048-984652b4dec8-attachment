@@ -1,0 +1,1 @@
+Clicked on the element By.chained({By.id: image-object-fit,By.xpath: //button[@role='CONTAIN']})

@@ -1,0 +1,1 @@
+Verify text of an element [Equals] : true. The actual text is 'This new paragraph content is updated by automation test' not equals 'This new paragraph content is updated by automation test'

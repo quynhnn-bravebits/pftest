@@ -1,0 +1,1 @@
+Clicked on the element By.chained({By.xpath: //*[@id="PolarisPortalsContainer"]//*//div[@role="dialog"]/div[1],By.xpath: //div[@media]})
