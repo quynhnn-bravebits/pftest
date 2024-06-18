@@ -1,0 +1,1 @@
+Clicked on the element By.xpath: //*[@id='icon-vertical-alignment']//button[@role='TOP']

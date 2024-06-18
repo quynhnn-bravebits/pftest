@@ -1,0 +1,1 @@
+Get text of element By.xpath: //*[@id="PolarisPortalsContainer"]//*//div[@role="dialog"]/div[1]

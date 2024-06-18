@@ -1,0 +1,2 @@
+==> The Text is: The browser window is too small for the editor
+Please resize the browser to be at least 1024px wide for the editor to work again.
