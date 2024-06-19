@@ -1230,6 +1230,16 @@ public class EditorPage extends Toast {
         verifyElementNotVisible(publishProductModal);
     }
 
+    @Step("Confirm 'Publish collection page' modal")
+    public void confirmPublishCollectionModal() {
+        WebElement publishCollectionModal = waitForElementVisible(modal);
+        verifyElementTextContains(modal, ModalConstants.PUBLISHING_COLLECTION_PAGE_MODAL.TITLE);
+        By publishButton = By.xpath(".//*[@role='dialog']//button//*[text()='" + ModalConstants.PUBLISHING_COLLECTION_PAGE_MODAL.PRIMARY_BUTTON + "']");
+        clickElement(publishButton);
+        verifyElementNotVisible(publishCollectionModal);
+
+    }
+
     @Step("Select Don't remind option and confirm 'Publish collection page' modal")
     public void selectDontRemindAndConfirmPublishCollectionModal() {
         WebElement publishProductModal = waitForElementVisible(modal);

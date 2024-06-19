@@ -20,6 +20,26 @@ public class Toast {
     private By enableAutoSaveToast = By.xpath("//*[@id=\"PolarisPortalsContainer\"]//*[@class=\"Polaris-Frame-Toast\"]//*[text()=\"Auto-save enabled\"]");
     private By disableAutoSaveToast = By.xpath("//*[@id=\"PolarisPortalsContainer\"]//*[@class=\"Polaris-Frame-Toast\"]//*[text()=\"Auto-save disabled\"]");
 
+    @Step("Verify show 'Duplicating page...' toast")
+    public void verifyShowDuplicatingPageToast() {
+        verifyShowToast("Duplicating page...");
+    }
+
+    @Step("Verify show 'Page duplicated' toast")
+    public void verifyShowDuplicatedPageToast() {
+        waitForToast("Page duplicated", 30);
+    }
+
+    @Step("Verify show 'Deleting page...' toast")
+    public void verifyShowDeletingPageToast() {
+        verifyShowToast("Deleting page...");
+    }
+
+    @Step("Verify show 'Page deleted' toast")
+    public void verifyShowDeletedPageToast() {
+        waitForToast("Page deleted", 30);
+    }
+
     @Step("Verify show 'Publishing page...' toast")
     public void verifyShowPublishingPageToast() {
         verifyElementVisible(publishingPageToast);

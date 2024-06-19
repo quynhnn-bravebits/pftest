@@ -9,6 +9,7 @@ import org.pftest.constants.UrlConstants;
 import org.pftest.enums.PageType;
 import org.pftest.projects.pages.CommonPage;
 
+import javax.annotation.Nullable;
 import java.util.Random;
 
 import static org.pftest.keywords.WebUI.*;
@@ -24,6 +25,11 @@ public class PageListingScreen extends CommonPage {
     private final By searchAndFilterButton = new ByChained(dataTable, By.xpath("//button[@aria-label='Search and filter results']"));
     private final By addFilterButton = new ByChained(dataTable, By.xpath("//button[@aria-label='Add filter']"));
     private final By bulkActionsUnpublishButton = new ByChained(dataTable, By.xpath("//button[.//*[text()='Unpublish'] and not(@disabled)]"));
+    private final By bulkActionsPublishButton = new ByChained(dataTable, By.xpath("//button[.//*[text()='Publish'] and not(@disabled)]"));
+    private final By bulkActionsMoreActionsButton = new ByChained(dataTable, By.xpath("//button[@aria-label='More actions']"));
+    private final By bulkActionsDuplicateButton = By.id("duplicate-bulk-action");
+    private final By bulkActionsExportButton = By.id("export-bulk-action");
+    private final By bulkActionsDeleteButton = By.id("delete-bulk-action");
 
     public By getPageRowByIndex(int index) {
         return By.xpath(String.format("//tbody//tr[%d]", index));
@@ -104,6 +110,13 @@ public class PageListingScreen extends CommonPage {
         verifyElementNotVisible(modal);
     }
 
+    @Step("Confirm 'Delete {0} page?' modal")
+    public void confirmDeletePage(String number) {
+        waitForElementTextContains(modal, "Delete " + number + " " + (number.equals("01") ? "page" : "pages") + "?");
+        By deleteButton = By.xpath("//*[@role='dialog']//button[.//*[text()='Delete']]");
+        clickElement(deleteButton);
+    }
+
 //    ================== Filter Page ==================
 
     @Step("Filter page by status {0}")
@@ -114,6 +127,7 @@ public class PageListingScreen extends CommonPage {
         clickElement(statusOption);
         By publishedOption = By.xpath(String.format("//div[@class='Polaris-Popover']//label[@for='%s-status-filter'][.//*[text()='%s']]", status.toLowerCase(), status));
         clickElement(publishedOption);
+        clickElement(addFilterButton);
     }
 
 //    ================== Bulk Actions ==================
@@ -123,11 +137,50 @@ public class PageListingScreen extends CommonPage {
         clickElement(By.xpath("//thead//*[@class='Polaris-Checkbox']"));
     }
 
+    @Step("Select page by index {0}")
+    public String selectPageByIndex(int index) {
+        By row = getPageRowByIndex(index);
+        waitForElementVisible(row);
+        String id = getAttributeElement(row, "id");
+        clickElement(new ByChained(row, By.xpath(".//*[@class='Polaris-Checkbox']")));
+        return id;
+    }
+
     @Step("Unpublish all selected pages")
     public void unpublishAllSelectedPages() {
+        waitForElementClickable(bulkActionsUnpublishButton);
         clickElement(bulkActionsUnpublishButton);
         getToast().verifyShowUnpublishingPageToast();
         getToast().verifyShowUnpublishedPageToast();
+    }
+
+    @Step("Publish all selected pages")
+    public void publishAllSelectedPages() {
+        waitForElementClickable(bulkActionsPublishButton);
+        clickElement(bulkActionsPublishButton);
+        getToast().verifyShowPublishingPageToast();
+        getToast().verifyShowPublishedPageToast();
+    }
+
+    @Step("Duplicate all selected pages")
+    public void duplicateAllSelectedPages() {
+        waitForElementClickable(bulkActionsMoreActionsButton);
+        clickElement(bulkActionsMoreActionsButton);
+        waitForElementClickable(bulkActionsDuplicateButton);
+        clickElement(bulkActionsDuplicateButton);
+        getToast().verifyShowDuplicatingPageToast();
+        getToast().verifyShowDuplicatedPageToast();
+    }
+
+    @Step("Delete all selected pages")
+    public void deleteAllSelectedPages(@Nullable String pageNumber) {
+        waitForElementClickable(bulkActionsMoreActionsButton);
+        clickElement(bulkActionsMoreActionsButton);
+        waitForElementClickable(bulkActionsDeleteButton);
+        clickElement(bulkActionsDeleteButton);
+        confirmDeletePage(pageNumber == null ? "25" : pageNumber);
+        getToast().verifyShowDeletingPageToast();
+        getToast().verifyShowDeletedPageToast();
     }
 
 //    ================== Open Page ==================

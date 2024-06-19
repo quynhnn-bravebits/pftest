@@ -107,7 +107,7 @@ public class PageEditingTest extends BaseTest {
         getEditorPage().verifyPageSavedAndPublished();
     }
 
-    @Step("Create a new home page from blank and save and publish successfully")
+    @Step("Create a new HOME page from blank and save and publish successfully")
     public void saveAndPublishNewHomePageFromBlank() {
         getPageListingScreen().createNewPageFromBlank(PageType.HOME);
         getEditorPage().verifyEditorPageLoaded();
@@ -118,6 +118,30 @@ public class PageEditingTest extends BaseTest {
         getToast().verifyShowPublishedPageToast();
         getEditorPage().closeEnableAutoSaveModal();
         getEditorPage().verifyPageSavedAndPublished();
+    }
+
+    @Step("Create a new {0} page from blank and save and publish successfully")
+    public void saveAndPublishNewProductCollectionPage(PageType pageType) {
+        getPageListingScreen().openPageListingPage();
+        getPageListingScreen().verifyPageListingLoaded();
+        getPageListingScreen().createNewPageFromBlank(pageType);
+        getEditorPage().verifyEditorPageLoaded();
+        getEditorPage().changePageTitle("Test " + pageType.name() + " " + new Date());
+        getEditorPage().clickSaveAndPublishPageButton();
+        getEditorPage().verifyPageIsSaving();
+        getEditorPage().confirmBeforePublishProductCollectionPageModal_TitledTitle();
+
+        if (pageType == PageType.PRODUCT) {
+            getEditorPage().confirmPublishProductModal();
+        } else {
+            getEditorPage().confirmPublishCollectionModal();
+        }
+
+        getEditorPage().verifyShowPublishingPageToast();
+        getEditorPage().verifyShowPublishedPageToast();
+        getEditorPage().verifyPageIsSaved();
+        getEditorPage().verifyPageIsPublished();
+        getEditorPage().closeEnableAutoSaveModal();
     }
 
     @Test(description = "TC-001: Open page editor in the Page Listing screen")
