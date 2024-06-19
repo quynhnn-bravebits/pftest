@@ -21,7 +21,7 @@ public class PageListingTest extends BaseTest {
     @Tags({@Tag("Page Listing"), @Tag("Page Editing"), @Tag("Product"), @Tag("Template")})
     @Test(description = "TC-011: User create new template PRODUCT page from the Page listing screen", suiteName = "Basic UAT - Page Listing")
     public void createNewTemplateProductPage() {
-        pageEditingTest.saveAndPublishNewProductCollectionPage(PageType.PRODUCT);
+        pageEditingTest.saveAndPublishNewProductCollectionPageFromTemplate(PageType.PRODUCT);
     }
 
     @Feature("Bulk Actions")

@@ -121,10 +121,34 @@ public class PageEditingTest extends BaseTest {
     }
 
     @Step("Create a new {0} page from blank and save and publish successfully")
-    public void saveAndPublishNewProductCollectionPage(PageType pageType) {
+    public void saveAndPublishNewProductCollectionPageFromBlank(PageType pageType) {
         getPageListingScreen().openPageListingPage();
         getPageListingScreen().verifyPageListingLoaded();
         getPageListingScreen().createNewPageFromBlank(pageType);
+        getEditorPage().verifyEditorPageLoaded();
+        getEditorPage().changePageTitle("Test " + pageType.name() + " " + new Date());
+        getEditorPage().clickSaveAndPublishPageButton();
+        getEditorPage().verifyPageIsSaving();
+        getEditorPage().confirmBeforePublishProductCollectionPageModal_TitledTitle();
+
+        if (pageType == PageType.PRODUCT) {
+            getEditorPage().confirmPublishProductModal();
+        } else {
+            getEditorPage().confirmPublishCollectionModal();
+        }
+
+        getEditorPage().verifyShowPublishingPageToast();
+        getEditorPage().verifyShowPublishedPageToast();
+        getEditorPage().verifyPageIsSaved();
+        getEditorPage().verifyPageIsPublished();
+        getEditorPage().closeEnableAutoSaveModal();
+    }
+
+    @Step("Create a new {0} page from template and save and publish successfully")
+    public void saveAndPublishNewProductCollectionPageFromTemplate(PageType pageType) {
+        getPageListingScreen().openPageListingPage();
+        getPageListingScreen().verifyPageListingLoaded();
+        getPageListingScreen().createNewPageFromTemplate(pageType);
         getEditorPage().verifyEditorPageLoaded();
         getEditorPage().changePageTitle("Test " + pageType.name() + " " + new Date());
         getEditorPage().clickSaveAndPublishPageButton();
