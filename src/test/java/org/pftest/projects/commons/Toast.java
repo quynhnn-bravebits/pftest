@@ -35,6 +35,41 @@ public class Toast {
         verifyShowToast("Deleting page...");
     }
 
+    @Step("Verify show 'Page exported' toast")
+    public void verifyShowExportedPageToast() {
+        waitForToast("Page exported", 30);
+    }
+
+    @Step("Verify show 'Exporting pages...' toast")
+    public void verifyShowExportingPagesToast() {
+        verifyShowToast("Exporting pages");
+    }
+
+    @Step("Verify show 'Pages exported' toast")
+    public void verifyShowExportedPagesToast() {
+        waitForToast("Pages exported", 30);
+    }
+
+    @Step("Verify show 'Importing page...' toast")
+    public void verifyShowImportingPageToast() {
+        verifyShowToast("Importing page...");
+    }
+
+    @Step("Verify show 'Page imported' toast")
+    public void verifyShowImportedPageToast() {
+        waitForToast("Page imported", 30);
+    }
+
+    @Step("Verify show 'Importing pages...' toast")
+    public void verifyShowImportingPagesToast() {
+        verifyShowToast("Importing pages...");
+    }
+
+    @Step("Verify show 'Pages imported' toast")
+    public void verifyShowImportedPagesToast() {
+        waitForToast("Pages imported", 30);
+    }
+
     @Step("Verify show 'Page deleted' toast")
     public void verifyShowDeletedPageToast() {
         waitForToast("Page deleted", 30);

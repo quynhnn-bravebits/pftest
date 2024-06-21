@@ -20,6 +20,7 @@ import org.openqa.selenium.devtools.v123.network.Network;
 import org.openqa.selenium.devtools.v123.network.model.Headers;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.print.PrintOptions;
+import org.openqa.selenium.support.pagefactory.ByChained;
 import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
@@ -3274,14 +3275,15 @@ public class WebUI {
      * Get the value of a column from the table
      *
      * @param column column position
+     * @param context context of the table
      * @return array of values of a column
      */
-    public static ArrayList getValueTableByColumn(int column) {
+    public static ArrayList getValueTableByColumn( By context, int column) {
         smartWait();
-
-        List<WebElement> totalRows = DriverManager.getDriver().findElements(By.xpath("//tbody/tr"));
+        By by = new ByChained(context, By.xpath(".//tbody/tr"));
+        List<WebElement> totalRows = DriverManager.getDriver().findElements(by);
         sleep(1);
-        LogUtils.info("Number of results for column (" + column + "): " + totalRows.size()); //Không thích ghi log thì xóa nhen
+        LogUtils.info("Number of results for column (" + column + "): " + totalRows.size());
 
         ArrayList arrayList = new ArrayList<String>();
 
@@ -3289,10 +3291,10 @@ public class WebUI {
             LogUtils.info("Not found value !!");
         } else {
             for (int i = 1; i <= totalRows.size(); i++) {
-                boolean res = false;
-                WebElement title = DriverManager.getDriver().findElement(By.xpath("//tbody/tr[" + i + "]/td[" + column + "]"));
+                WebElement title = DriverManager.getDriver().findElement(new ByChained(context, By.xpath(".//tbody/tr[" + i + "]/td[" + column + "]")));
                 arrayList.add(title.getText());
-                LogUtils.info("Row " + i + ":" + title.getText()); //Không thích ghi log thì xóa nhen
+                System.out.println("Row " + i + ":" + title.getText());
+                LogUtils.info("Row " + i + ":" + title.getText());
             }
         }
 

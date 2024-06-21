@@ -5,6 +5,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.Dimension;
 import org.pftest.projects.commons.Toast;
 import org.pftest.projects.pages.dashboard.DashboardScreen;
+import org.pftest.projects.pages.extraFunctions.TrashScreen;
 import org.pftest.projects.pages.pages.*;
 import org.pftest.projects.pages.sections.SectionListingScreen;
 import org.pftest.report.AllureManager;
@@ -25,6 +26,7 @@ public class CommonPage {
     private PageSettingScreen pageSettingScreen;
     private DashboardScreen dashboardScreen;
     private SectionListingScreen sectionListingScreen;
+    private TrashScreen trashScreen;
 
     public Toast getToast() {
         if (toast == null) {
@@ -80,6 +82,13 @@ public class CommonPage {
             sectionListingScreen = new SectionListingScreen();
         }
         return sectionListingScreen;
+    }
+
+    public TrashScreen getTrashScreen() {
+        if (trashScreen == null) {
+            trashScreen = new TrashScreen();
+        }
+        return trashScreen;
     }
 
     public void verifyCrispChatBoxOpened() {

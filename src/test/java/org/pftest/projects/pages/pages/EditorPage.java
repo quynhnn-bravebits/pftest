@@ -3,6 +3,7 @@ package org.pftest.projects.pages.pages;
 import io.qameta.allure.Step;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Dimension;
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.pagefactory.ByChained;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -53,6 +54,8 @@ public class EditorPage extends Toast {
     private final By openLiveChatButton = By.id("open-live-chat-activator-btn");
     private final By undoButton = By.id("pf-undo-btn");
     private final By redoButton = By.id("pf-redo-btn");
+    private final By previewPageButton = By.id("editor-header-bar--preview-page-btn");
+    private final By viewLivePageButton = By.id("editor-header-bar--view-live-page-btn");
 
     private final By catalogAddElementButton = By.xpath("//button[@id='catalog--add-element-btn']");
     private final By catalogAddShopifyElementButton = By.xpath("//button[@id='catalog--add-shopify-element-btn']");
@@ -105,6 +108,27 @@ public class EditorPage extends Toast {
         switchToHistoryPreviewFrame();
         String html = DriverManager.getDriver().getPageSource();
         switchToPageFlyFrame();
+        return htmlSourceProcessing(html);
+    }
+
+    @Step("Get live page source")
+    public String getLivePageSource() {
+        clickViewLivePageButton();
+        switchToLastWindow();
+        waitForPageLoaded();
+        if (getCurrentUrl().contains("/password")) {
+            waitForElementVisible(By.id("password"));
+            clearAndFillText(By.id("password"), "test123");
+            clickElement(By.xpath("//button[@type='submit']"));
+            waitForPageLoaded();
+            switchToMainWindow();
+            switchToPageFlyFrame();
+            clickViewLivePageButton();
+            switchToWindowOrTabByPosition(2);
+            waitForPageLoaded();
+        }
+        String html = DriverManager.getDriver().getPageSource();
+        switchToMainWindow();
         return htmlSourceProcessing(html);
     }
 
@@ -296,6 +320,7 @@ public class EditorPage extends Toast {
         verifyButtonIsDisabled(goToThemeEditorButton);
     }
 
+    @Step("Go to Theme Editor")
     public void goToThemeEditor() {
         if (!verifyElementVisible(goToThemeEditorButton)) {
             clickElement(moreSettingsButton);
@@ -306,6 +331,12 @@ public class EditorPage extends Toast {
         switchToWindowOrTabByPosition(1);
         wait.until(ExpectedConditions.urlContains(SHOPIFY_BASE_URL + "/themes"));
         closeCurrentWindow();
+    }
+
+    @Step("Open Live Page in new tab")
+    public void clickViewLivePageButton() {
+        waitForElementClickable(viewLivePageButton);
+        clickElement(viewLivePageButton);
     }
 
 //    ================== Page Title ==================

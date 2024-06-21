@@ -3,11 +3,15 @@ package org.pftest.projects.testcases;
 import io.qameta.allure.*;
 import io.qameta.allure.testng.Tag;
 import io.qameta.allure.testng.Tags;
+import org.openqa.selenium.By;
 import org.pftest.base.BaseTest;
+import org.pftest.enums.ElementType;
 import org.pftest.enums.PageType;
+import org.pftest.helpers.Helpers;
 import org.pftest.keywords.WebUI;
 import org.testng.annotations.Test;
 
+import java.util.ArrayList;
 import java.util.concurrent.atomic.AtomicReference;
 
 
@@ -56,6 +60,7 @@ public class PageListingTest extends BaseTest {
         getPageListingScreen().unpublishAllSelectedPages();
     }
 
+    @Flaky
     @Feature("Bulk Actions")
     @Severity(SeverityLevel.BLOCKER)
     @Link("https://docs.google.com/spreadsheets/d/1zlhx6KpGVsGgH05ArwLRv1nqI4oSdxj8Gll203FDP1I/edit#gid=154559871&range=B18")
@@ -130,5 +135,163 @@ public class PageListingTest extends BaseTest {
                     WebUI.verifyElementNotPresent(getPageListingScreen().getPageRowById(pageId.get()), "Verify page is deleted");
                 }
         );
+
+        addStep(
+                "Step 3: Go to Trash screen and re-check deleted page",
+                () -> {
+                    getTrashScreen().openTrashPage();
+                    getTrashScreen().verifyTrashPageLoaded();
+                    WebUI.verifyElementVisible(getPageListingScreen().getPageRowById(pageId.get()), "Verify page is in Trash");
+                }
+        );
+    }
+
+    @Feature("Bulk Actions")
+    @Severity(SeverityLevel.BLOCKER)
+    @Link("https://docs.google.com/spreadsheets/d/1zlhx6KpGVsGgH05ArwLRv1nqI4oSdxj8Gll203FDP1I/edit#gid=154559871&range=B21")
+    @Tags({@Tag("Page Listing"), @Tag("Export")})
+    @Test(description = "TC-016: User export the selected page in the Page listing screen", suiteName = "Basic UAT - Page Listing")
+    public void exportSelectedPageInThePageListingScreen() {
+        addStep(
+                "Step 0: Open Page Listing page",
+                () -> {
+                    getPageListingScreen().openPageListingPage();
+                    getPageListingScreen().verifyPageListingLoaded();
+                }
+        );
+
+        addStep(
+                "Step 1: Select 1st page in the table and Export page",
+                () -> {
+                    getPageListingScreen().selectPageByIndex(1);
+                    getPageListingScreen().exportAllSelectedPages(1);
+                }
+        );
+
+        addStep(
+                "Step 1: Select 2 pages in the table and Export page",
+                () -> {
+                    getPageListingScreen().selectPageByIndex(2);
+                    getPageListingScreen().exportAllSelectedPages(2);
+                }
+        );
+
+    }
+
+    @Feature("Page Actions")
+    @Severity(SeverityLevel.BLOCKER)
+    @Link("https://docs.google.com/spreadsheets/d/1zlhx6KpGVsGgH05ArwLRv1nqI4oSdxj8Gll203FDP1I/edit#gid=154559871&range=B20")
+    @Tags({@Tag("Page Listing"), @Tag("Export")})
+    @Test(description = "TC-017: User export all pages in the Page listing screen", suiteName = "Basic UAT - Page Listing")
+    public void exportAllPagesInThePageListingScreen() {
+        addStep(
+                "Step 0: Open Page Listing page",
+                () -> {
+                    getPageListingScreen().openPageListingPage();
+                    getPageListingScreen().verifyPageListingLoaded();
+                }
+        );
+
+        addStep(
+                "Step 1: Click on Export button to export all pages",
+                () -> {
+                    getPageListingScreen().exportAllPages();
+                }
+        );
+    }
+
+    @Feature("Page Actions")
+    @Severity(SeverityLevel.BLOCKER)
+    @Link("https://docs.google.com/spreadsheets/d/1zlhx6KpGVsGgH05ArwLRv1nqI4oSdxj8Gll203FDP1I/edit#gid=154559871&range=B22")
+    @Tags({@Tag("Page Listing"), @Tag("Import")})
+    @Test(description = "TC-018: User import page in the Page listing screen", suiteName = "Basic UAT - Page Listing")
+    public void importPageInThePageListingScreen() {
+        AtomicReference<ArrayList<String>> titles = new AtomicReference<>(new ArrayList<>());
+        addStep(
+                "Step 0: Open Page Listing page",
+                () -> {
+                    getPageListingScreen().openPageListingPage();
+                    getPageListingScreen().verifyPageListingLoaded();
+                }
+        );
+
+        addStep(
+                "Step 1: Import .pagefly file from local",
+                () -> {
+                    titles.set(getPageListingScreen().importPage(Helpers.getCurrentDir() + "src/test/resources/data/pageflyExport/export-pages-my-store--1-regular--2-password.pagefly"));
+                }
+        );
+
+        addStep(
+                "Step 2: Verify imported pages successfully",
+                () -> {
+                    for (String title : titles.get()) {
+                        WebUI.verifyElementVisible(getPageListingScreen().getPageRowByTitle(title), "Verify imported page: " + title);
+                    }
+                }
+        );
+    }
+
+
+    @Feature("Page Actions")
+    @Severity(SeverityLevel.BLOCKER)
+    @Link("https://docs.google.com/spreadsheets/d/1zlhx6KpGVsGgH05ArwLRv1nqI4oSdxj8Gll203FDP1I/edit#gid=154559871&range=B23")
+    @Tags({@Tag("Page Listing"), @Tag("Import")})
+    @Test(description = "TC-019: User import page exported from the other's store", suiteName = "Basic UAT - Page Listing")
+    public void importPageExportedFromOtherStore() {
+        AtomicReference<ArrayList<String>> titles = new AtomicReference<>(new ArrayList<>());
+        AtomicReference<String> editorContent = new AtomicReference<>();
+        AtomicReference<String> livePageContent = new AtomicReference<>();
+
+        addStep(
+                "Step 0: Open Page Listing page",
+                () -> {
+                    getPageListingScreen().openPageListingPage();
+                    getPageListingScreen().verifyPageListingLoaded();
+                }
+        );
+
+        addStep(
+                "Step 1: Import .pagefly file from local",
+                () -> {
+                    titles.set(getPageListingScreen().importPage(Helpers.getCurrentDir() + "src/test/resources/data/pageflyExport/export-pages-nana-store--1-regular.pagefly"));
+                }
+        );
+
+        addStep(
+                "Step 2: Verify imported pages successfully",
+                () -> {
+                    for (String title : titles.get()) {
+                        WebUI.verifyElementVisible(getPageListingScreen().getPageRowByTitle(title), "Verify imported page: " + title);
+                    }
+                }
+        );
+
+        addStep(
+                "Step 3: Open imported page",
+                () -> {
+                    WebUI.clickElement(getPageListingScreen().getPageRowByTitle(titles.get().get(0)));
+                    getEditorPage().verifyEditorPageLoaded();
+                    getEditorPage().verifyPageIsUnpublished();
+                }
+        );
+
+        addStep(
+                "Step 4: Save & Publish the imported page",
+                () -> {
+                    getEditorPage().changePageTitle("Updated Imported Page");
+                    pageEditingTest.saveAndPublishPageSuccessfully();
+                    editorContent.set(getEditorPage().getCanvasHtmlProcessed());
+                }
+        );
+
+//        addStep(
+//                "Step 5: Open live page & verify changes",
+//                () -> {
+//                    livePageContent.set(getEditorPage().getLivePageSource());
+//                }
+//        );
+
+//        WebUI.verifyEquals(editorContent.get(), livePageContent.get(), "Live page content is not the same as editor content");
     }
 }

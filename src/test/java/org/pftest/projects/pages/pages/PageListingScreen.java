@@ -10,6 +10,10 @@ import org.pftest.enums.PageType;
 import org.pftest.projects.pages.CommonPage;
 
 import javax.annotation.Nullable;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.Random;
 
 import static org.pftest.keywords.WebUI.*;
@@ -21,9 +25,10 @@ public class PageListingScreen extends CommonPage {
     private final By createFromTemplateButton = By.xpath("//*/button/span[text()='" + PagesConstants.CREATE_FROM_TEMPLATE_BUTTON + "']");
     private final By createFromBlankButton = By.xpath("//*/button/span[text()='" + PagesConstants.CREATE_FROM_BLANK_BUTTON + "']");
 
-    private final By dataTable = By.xpath("//*[@id=\"AppFrameMain\"]//*[@class=\"Polaris-IndexTable\"]");
-    private final By searchAndFilterButton = new ByChained(dataTable, By.xpath("//button[@aria-label='Search and filter results']"));
-    private final By addFilterButton = new ByChained(dataTable, By.xpath("//button[@aria-label='Add filter']"));
+    protected final By dataTable = By.xpath("//*[@id=\"AppFrameMain\"]//*[@class=\"Polaris-IndexTable\"]");
+    protected final By searchAndFilterButton = new ByChained(dataTable, By.xpath("//button[@aria-label='Search and filter results']"));
+    protected final By addFilterButton = new ByChained(dataTable, By.xpath("//button[@aria-label='Add filter']"));
+    protected final By selectAllPagesCheckbox = new ByChained(dataTable, By.xpath("//thead//*[@class='Polaris-Checkbox']"));
     private final By bulkActionsUnpublishButton = new ByChained(dataTable, By.xpath("//button[.//*[text()='Unpublish'] and not(@disabled)]"));
     private final By bulkActionsPublishButton = new ByChained(dataTable, By.xpath("//button[.//*[text()='Publish'] and not(@disabled)]"));
     private final By bulkActionsMoreActionsButton = new ByChained(dataTable, By.xpath("//button[@aria-label='More actions']"));
@@ -43,6 +48,10 @@ public class PageListingScreen extends CommonPage {
         return By.xpath(String.format("//tbody//tr[@id='%s']", id));
     }
 
+    public By getPageRowByTitle(String title) {
+        return By.xpath(String.format("//tbody//tr[.//h6[contains(text(), '%s')]]", title));
+    }
+
     public By getPublishedPageRowByIndex(int index) {
         String xpath = String.format("(//tbody/tr[//td[@id='pages--table--status']/span[@class='Polaris-Badge Polaris-Badge--toneSuccess']//*[text()='Published']])[%s]", index);
         return By.xpath(xpath);
@@ -53,8 +62,7 @@ public class PageListingScreen extends CommonPage {
         return By.xpath(xpath);
     }
 
-
-
+    @Step("Open the page listing screen")
     public void openPageListingPage() {
         openWebsite(UrlConstants.PF_PAGES_URL);
         switchToPageFlyFrame();
@@ -117,6 +125,57 @@ public class PageListingScreen extends CommonPage {
         clickElement(deleteButton);
     }
 
+    @Step("Confirm 'Export page' modal")
+    public void confirmExportPage() {
+        waitForElementTextContains(modal, "Export page");
+        By exportButton = By.xpath("//*[@role='dialog']//button[.//*[text()='Export']]");
+        clickElement(exportButton);
+    }
+
+    @Step("Confirm 'Export pages' modal with 'All pages' option selected")
+    public void confirmExportAllPages() {
+        waitForElementTextContains(modal, "Export pages");
+        assert verifyElementChecked(By.id("modal_all"), "Option 'All pages' is not selected");
+        By exportButton = By.xpath("//*[@role='dialog']//button[.//*[text()='Export']]");
+        clickElement(exportButton);
+    }
+
+    @Step("Confirm 'Export pages' modal with 'Selected pages' option selected")
+    public void confirmExportSelectedPages() {
+        waitForElementTextContains(modal, "Export pages");
+        assert verifyElementChecked(By.id("modal_selected"), "Option 'Selected pages' is not selected");
+        By exportButton = By.xpath("//*[@role='dialog']//button[.//*[text()='Export']]");
+        clickElement(exportButton);
+    }
+
+    @Step("Select option {0} in 'Export pages' modal and click 'Export' button")
+    public void confirmExportPages(String value) {
+        waitForElementTextContains(modal, "Export pages");
+        if (!verifyElementChecked(By.id(value))) {
+            By option = By.xpath("//label[contains(@class, 'Polaris-Choice') and @for='" + value + "']");
+            waitForElementClickable(option);
+            clickElement(option);
+        }
+        By exportButton = By.xpath("//*[@role='dialog']//button[.//*[text()='Export']]");
+        clickElement(exportButton);
+    }
+
+    @Step("Confirm 'Import pages/sections' modal")
+    public ArrayList<String> confirmImportPagesSections() {
+        waitForElementTextContains(modal, "Import pages/sections");
+        ArrayList<String> titles = getValueTableByColumn(modal, 1);
+
+        sleep(1.5);
+        By checkbox = new ByChained(modal, By.xpath(".//*[@class='Polaris-Checkbox']"));
+        waitForElementClickable(checkbox);
+        clickElement(checkbox);
+
+        By importButton = By.xpath("//*[@role='dialog']//button[.//*[text()='Import']]");
+        waitForElementClickable(importButton);
+        clickElement(importButton);
+
+        return titles;
+    }
 //    ================== Filter Page ==================
 
     @Step("Filter page by status {0}")
@@ -130,11 +189,11 @@ public class PageListingScreen extends CommonPage {
         clickElement(addFilterButton);
     }
 
-//    ================== Bulk Actions ==================
+//    ================== Page Actions ==================
 
     @Step("Select all pages in the data table")
     public void selectAllPages() {
-        clickElement(By.xpath("//thead//*[@class='Polaris-Checkbox']"));
+        clickElement(selectAllPagesCheckbox);
     }
 
     @Step("Select page by index {0}")
@@ -181,6 +240,57 @@ public class PageListingScreen extends CommonPage {
         confirmDeletePage(pageNumber == null ? "25" : pageNumber);
         getToast().verifyShowDeletingPageToast();
         getToast().verifyShowDeletedPageToast();
+    }
+
+    @Step("Export all selected pages")
+    public void exportAllSelectedPages(int pageNumber) {
+        waitForElementClickable(bulkActionsMoreActionsButton);
+        clickElement(bulkActionsMoreActionsButton);
+        waitForElementClickable(bulkActionsExportButton);
+        clickElement(bulkActionsExportButton);
+        if (pageNumber == 1) {
+            confirmExportPage();
+            getToast().verifyShowExportedPageToast();
+        } else {
+            confirmExportSelectedPages();
+            getToast().verifyShowExportingPagesToast();
+            getToast().verifyShowExportedPagesToast();
+        }
+        verifyExportedPages();
+    }
+
+    @Step("Click on the 'Export' button to export all pages")
+    public void exportAllPages() {
+        clickElement(exportButton);
+        confirmExportAllPages();
+        getToast().verifyShowExportingPagesToast();
+        getToast().verifyShowExportedPagesToast();
+        verifyExportedPages();
+    }
+
+    @Step("Verify the exported pages in the download file")
+    public void verifyExportedPages() {
+        ZonedDateTime now = ZonedDateTime.now(ZoneId.of("UTC"));
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("'export-pages-'yyyy-M-d-H-m");
+        String formattedDateTime = now.format(formatter);
+        System.out.println("Expected file name: " + formattedDateTime);
+        assert verifyDownloadFileContainsName(formattedDateTime, 5);
+    }
+
+    @Step("Import a page")
+    public ArrayList<String> importPage(String path) {
+        clickElement(importButton);
+        uploadFileWithLocalForm(By.className("Polaris-DropZone-FileUpload__Action"), path);
+        ArrayList<String> titles = confirmImportPagesSections();
+        if (titles.size() == 1) {
+            getToast().verifyShowImportingPageToast();
+            getToast().verifyShowImportedPageToast();
+        } else {
+            getToast().verifyShowImportingPagesToast();
+            getToast().verifyShowImportedPagesToast();
+        }
+
+        return titles;
     }
 
 //    ================== Open Page ==================

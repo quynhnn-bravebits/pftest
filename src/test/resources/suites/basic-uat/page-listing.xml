@@ -6,11 +6,15 @@
         <classes>
             <class name="org.pftest.projects.testcases.PageListingTest">
                 <methods>
-<!--                    <include name="createNewTemplateProductPage"/>-->
-<!--                    <include name="unpublishPageInThePageListingScreen"/>-->
-<!--                    <include name="publishPageInThePageListingScreen"/>-->
+                    <include name="createNewTemplateProductPage"/>
+                    <include name="unpublishPageInThePageListingScreen"/>
+                    <include name="publishPageInThePageListingScreen"/>
                     <include name="duplicatePageInThePageListingScreen"/>
-<!--                    <include name="deletePageInThePageListingScreen"/>-->
+                    <include name="deletePageInThePageListingScreen"/>
+                    <include name="exportSelectedPageInThePageListingScreen"/>
+                    <include name="exportAllPagesInThePageListingScreen"/>
+                    <include name="importPageInThePageListingScreen"/>
+                    <include name="importPageExportedFromOtherStore"/>
                 </methods>
             </class>
         </classes>

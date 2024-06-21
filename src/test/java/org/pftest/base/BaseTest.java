@@ -36,12 +36,17 @@ public class BaseTest extends CommonPage {
     }
 
     public void resetDontRemind() {
-        getJsExecutor().executeScript("window.localStorage.removeItem('no-auto-save');");
-        getJsExecutor().executeScript("window.localStorage.removeItem('warning_saved');");
-        getJsExecutor().executeScript("window.localStorage.removeItem('warning_publish_home');");
-        getJsExecutor().executeScript("window.localStorage.removeItem('warning_publish_product');");
-        getJsExecutor().executeScript("window.localStorage.removeItem('warning_publish_collection');");
-        System.out.println("Clear local storage");
+        try {
+            getJsExecutor().executeScript("window.localStorage.removeItem('no-auto-save');");
+            getJsExecutor().executeScript("window.localStorage.removeItem('warning_saved');");
+            getJsExecutor().executeScript("window.localStorage.removeItem('warning_publish_home');");
+            getJsExecutor().executeScript("window.localStorage.removeItem('warning_publish_product');");
+            getJsExecutor().executeScript("window.localStorage.removeItem('warning_publish_collection');");
+            System.out.println("Clear local storage");
+        } catch (Exception e) {
+            System.out.println("Clear local storage failed");
+            e.printStackTrace();
+        }
     }
 
     public WebDriver createBrowser(@Optional("chrome") String browser) {
