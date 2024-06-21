@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="Acceptance Testing">
+    <test verbose="2" preserve-order="true"
+          name="Inspector">
+        <classes>
+            <class name="org.pftest.projects.testcases.PageEditingTest">
+                <methods>
+                    <include name="changeContentColorToRandomColor"/>
+                    <include name="changePaddingValueOfHeadingElement"/>
+                    <include name="changeMarginValueOfHeadingElement"/>
+                    <include name="changeFontFamilyOfHeadingElement"/>
+                    <include name="changeFontSizeOfHeadingElementBySlider"/>
+                    <include name="changeFontSizeOfHeadingElementByInput"/>
+                    <include name="changeTextAlignmentOfHeadingElement"/>
+                    <include name="changeTextDecorationOfHeadingElement"/>
+                    <include name="changeTextStyleOfHeadingElement"/>
+                    <include name="changeFontWeightOfHeadingElement"/>
+                    <include name="changeFontWeightOfHeadingElement2"/>
+                    <include name="changeLineHeightOfHeadingElement"/>
+                    <include name="changeLetterSpacingOfHeadingElement"/>
+                    <include name="changeTextTransformOfHeadingElement"/>
+                    <include name="changeBackgroundColorOfHeadingElement"/>
+                    <include name="changeBorderStyleOfHeadingElement"/>
+                    <include name="changeDisplayStyleOfHeadingElement"/>
+                    <include name="changeOpacityOfParagraphElement"/>
+                </methods>
+            </class>
+
+        </classes>
+    </test>
+</suite>

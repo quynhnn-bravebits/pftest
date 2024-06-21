@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="Acceptance Testing">
+    <test verbose="2" preserve-order="true"
+          name="Undo Redo">
+        <classes>
+            <class name="org.pftest.projects.testcases.UndoRedoTest">
+                <methods>
+                    <include name="undoChangeTextContentOfHeadingElement"/>
+                    <include name="undoRedoInTemplatePage"/>
+                    <include name="undoRedoChangePageTemplate"/>
+                    <include name="undoRedoChangeLayoutElementStyles"/>
+                    <include name="restorePreviousVersion"/>
+                </methods>
+            </class>
+
+        </classes>
+    </test>
+</suite>

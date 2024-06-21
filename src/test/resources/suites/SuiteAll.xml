@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="Acceptance Testing">
+    <suite-files>
+        <suite-file path="V4.11.0.AcceptanceTesting/PageEditingSuite.xml"/>
+        <suite-file path="V4.11.5.BasicUA/PageListingSuite.xml"/>
+        <suite-file path="FunctionsTesting/InspectorSuite.xml"/>
+        <suite-file path="FunctionsTesting/UndoRedoSuite.xml"/>
+    </suite-files>
+</suite>

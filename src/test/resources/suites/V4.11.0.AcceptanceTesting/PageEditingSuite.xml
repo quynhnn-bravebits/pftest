@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="V4.11.0 Acceptance Testing">
+    <test verbose="2" preserve-order="true"
+          name="Acceptance Testing - Page Editing">
+        <classes>
+            <class name="org.pftest.projects.testcases.PageEditingTest">
+                <methods>
+                    <include name="openPageEditorInPageListingScreen"/>
+                    <include name="openPageEditorInDashboardScreen"/>
+                    <include name="openPageEditorByClickingEditButtonInPageListingScreen"/>
+                    <include name="openPageEditorBySearchBarInDashboardScreen"/>
+                    <include name="createNewBlogPostPageFromBlank"/>
+                    <include name="createNewBlogPostPageFromTemplate"/>
+                    <include name="createNewRegularPasswordPageFromBlank"/>
+                    <include name="createNewRegularPasswordPageFromTemplate"/>
+                    <include name="createNewHomePageFromBlankWhenNoHomePagePublished"/>
+                    <include name="createNewHomePageFromBlankWhenHomepageIsPublished"/>
+                    <include name="saveNewPageFromBlank_selectDontRemindEnableAutoSave"/>
+                    <include name="dontRemindSavePage"/>
+                    <include name="dontRemindPublishHomePage"/>
+                    <include name="dontRemindPublishProductPage"/>
+                    <include name="dontRemindPublishCollectionPage"/>
+                    <include name="dontRemindEnableAutoSave"/>
+                    <include name="backFromEditorToPageListingScreen_clickBackButton"/>
+                    <include name="backFromEditorToPageListingScreen_navigateBack"/>
+                    <include name="backFromEditorToPageListingScreen_clickBackButton2"/>
+                    <include name="backFromEditorToPageListingScreen_clickBackButton3"/>
+                    <include name="showCanvasSizeAndFitViewport"/>
+                    <include name="enableAutoSaveWhenHaventSavedPage"/>
+                    <include name="enableAutoSaveWhenHaveSavedPage"/>
+                    <include name="unpublishedPage"/>
+                    <include name="goToThemeEditorWhenPageIsUnpublished"/>
+                    <include name="goToThemeEditorWhenPageIsPublished"/>
+                    <include name="openBrowserHelpCenter"/>
+                    <include name="openLiveChatBox"/>
+                    <include name="joinPageFlyCommunity"/>
+                    <include name="watchVideoTutorials"/>
+                    <include name="changeWindowWidthToLessThan1024px"/>
+                    <include name="useDeviceHasWidthLessThan1024px"/>
+                    <include name="openLiveChat"/>
+                    <include name="useLayoutElementAndSetColumnStyle"/>
+                    <include name="useLayoutElementAndSetRowStyle"/>
+                    <include name="useHeadingElementAndSetStyle"/>
+                    <include name="useHeadingElementWhenEnableAutoSave"/>
+                    <include name="useParagraphElementAndSetStyle"/>
+                    <include name="useParagraphElementWhenEnableAutoSave"/>
+                    <include name="useButtonElementAndSetStyle"/>
+                    <include name="useImageElementAndSetStyle"/>
+                </methods>
+            </class>
+            <class name="org.pftest.projects.testcases.SectionListingTest">
+                <methods>
+                    <include name="createSectionFromBlank"/>
+                    <include name="createSectionFromTemplate"/>
+                </methods>
+            </class>
+        </classes>
+    </test>
+</suite>
