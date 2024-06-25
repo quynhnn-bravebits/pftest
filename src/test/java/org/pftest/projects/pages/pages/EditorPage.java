@@ -3,7 +3,6 @@ package org.pftest.projects.pages.pages;
 import io.qameta.allure.Step;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Dimension;
-import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.pagefactory.ByChained;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -11,7 +10,6 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import org.pftest.constants.FrameworkConstants;
 import org.pftest.constants.ModalConstants;
 import org.pftest.driver.DriverManager;
-import org.pftest.enums.PageType;
 import org.pftest.enums.RichTextOptionTagName;
 import org.pftest.projects.commons.Badge;
 import org.pftest.projects.commons.Toast;
@@ -23,7 +21,6 @@ import java.text.DecimalFormat;
 import java.time.Duration;
 import java.util.Date;
 import java.util.Objects;
-import java.util.UUID;
 
 import static org.pftest.constants.ModalConstants.BEFORE_SAVE_MODAL;
 import static org.pftest.constants.UrlConstants.*;
@@ -281,7 +278,10 @@ public class EditorPage extends Toast {
         WebDriverWait wait = new WebDriverWait(DriverManager.getDriver(), Duration.ofSeconds(FrameworkConstants.WAIT_EXPLICIT), Duration.ofMillis(500));
         wait.until(ExpectedConditions.numberOfWindowsToBe(2));
         switchToWindowOrTabByPosition(1);
-        wait.until(ExpectedConditions.urlToBe(PF_COMMUNITY_URL));
+        wait.until(ExpectedConditions.or(
+                ExpectedConditions.urlToBe(PF_COMMUNITY_URL),
+                ExpectedConditions.urlToBe(LOGIN_TO_PF_COMMUNITY_URL)
+        ));
         closeCurrentWindow();
     }
 

@@ -9,6 +9,7 @@ public class UrlConstants {
 
     public static final String SHOPIFY_BASE_URL = String.format("https://admin.shopify.com/store/%s", store);
     public static final String PF_COMMUNITY_URL = "https://www.facebook.com/groups/pagefly";
+    public static final String LOGIN_TO_PF_COMMUNITY_URL = "https://www.facebook.com/login/?next=https%3A%2F%2Fwww.facebook.com%2Fgroups%2Fpagefly";
     public static final String VIDEO_TUTORIALS_URL = "https://www.youtube.com/c/PageFlyShopifyPageBuilderApp";
     public static final String PF_BASE_URL = String.format("https://admin.shopify.com/store/%s/apps/%s", store, app);
     public static final String PF_DASHBOARD_URL = String.format("%s/dashboard", PF_BASE_URL);

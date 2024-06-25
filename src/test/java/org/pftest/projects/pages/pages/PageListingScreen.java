@@ -85,6 +85,7 @@ public class PageListingScreen extends CommonPage {
     public void verifyHaventPublishedHomepage() {
         clickElement(By.id("home"));
         filterPageByStatus("Published");
+        sleep(3);
         if (isElementVisible(getPublishedPageRowByIndex(1), 5)) {
             selectAllPages();
             unpublishAllSelectedPages();
@@ -211,8 +212,16 @@ public class PageListingScreen extends CommonPage {
     public void unpublishAllSelectedPages() {
         waitForElementClickable(bulkActionsUnpublishButton);
         clickElement(bulkActionsUnpublishButton);
-        getToast().verifyShowUnpublishingPageToast();
-        getToast().verifyShowUnpublishedPageToast();
+        int count = getWebElements(By.xpath("//tbody//*[@class='Polaris-Checkbox']//input[@type='checkbox' and @aria-checked='true']"))
+                .size();
+        if (count > 1) {
+            getToast().verifyShowUnpublishingPagesToast();
+            getToast().verifyShowUnpublishedPagesToast();
+        }
+        else {
+            getToast().verifyShowUnpublishingPageToast();
+            getToast().verifyShowUnpublishedPageToast();
+        }
     }
 
     @Step("Publish all selected pages")
@@ -375,6 +384,7 @@ public class PageListingScreen extends CommonPage {
         int randomIndex = new Random().nextInt(1, templatesCount);
         By template = By.xpath("(//div[@class='template-list-modal--template-list--template-card']//button/*[text()='Select'])[" + randomIndex + "]");
         moveToElement(template);
+        waitForElementVisible(template);
         hoverOnElement(template);
         clickElement(template);
     }

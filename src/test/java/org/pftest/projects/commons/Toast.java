@@ -87,12 +87,22 @@ public class Toast {
 
     @Step("Verify show 'Unpublishing page...' toast")
     public void verifyShowUnpublishingPageToast() {
-        verifyElementVisible(unpublishingPageToast);
+        verifyShowToast("Unpublishing page...");
     }
 
     @Step("Verify show 'Page unpublished' toast")
     public void verifyShowUnpublishedPageToast() {
-        verifyElementVisible(unpublishedPageToast, 30);
+        waitForToast("Page unpublished", 30);
+    }
+
+    @Step("Verify show 'Unpublishing pages...' toast")
+    public void verifyShowUnpublishingPagesToast() {
+        verifyShowToast("Unpublishing pages...");
+    }
+
+    @Step("Verify show 'Pages unpublished' toast")
+    public void verifyShowUnpublishedPagesToast() {
+        waitForToast("Pages unpublished", 30);
     }
 
     @Step("Verify show 'Saving page...' toast")

@@ -58,11 +58,15 @@ public class SectionListingScreen extends CommonPage {
 
         verifyPageTitle(PagesConstants.SELECT_SECTION_TEMPLATE);
         sleep(1);
-        // Generate a random index between 0 and 5
-        int randomIndex = new Random().nextInt(1, 5);
+        int templatesCount = getWebElements(By.xpath("//div[@class='template-card__action']//button/*[text()='Select']"))
+                .size();
+        // Generate a random index
+        int randomIndex = new Random().nextInt(1, templatesCount);
         By template = By.xpath("(//div[@class='template-card__action']//button/*[text()='Select'])[" + randomIndex + "]");
         moveToElement(template);
+        waitForElementVisible(template);
         hoverOnElement(template);
+        waitForElementClickable(template);
         clickElement(template);
 
     }
