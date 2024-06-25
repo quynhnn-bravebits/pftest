@@ -16,8 +16,8 @@ import org.openqa.selenium.*;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.devtools.DevTools;
 import org.openqa.selenium.devtools.HasDevTools;
-import org.openqa.selenium.devtools.v123.network.Network;
-import org.openqa.selenium.devtools.v123.network.model.Headers;
+import org.openqa.selenium.devtools.v125.network.Network;
+import org.openqa.selenium.devtools.v125.network.model.Headers;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.print.PrintOptions;
 import org.openqa.selenium.support.pagefactory.ByChained;
@@ -1165,7 +1165,8 @@ public class WebUI {
                 "  fakeMouse.style.top = e.clientY + 'px';" +
                 "  fakeMouse.style.width = '10px';" +
                 "  fakeMouse.style.height = '10px';" +
-                "  fakeMouse.style.display = 'none';" +
+                "  fakeMouse.style.display = 'block';" +
+                "  fakeMouse.style.border = '0';" +
                 "});" +
                 "document.addEventListener('click', function(e) {" +
                 "  fakeMouse.style.display = 'block';" +
@@ -2959,11 +2960,12 @@ public class WebUI {
      */
     public static Point getDragAndDropElementLocation(By by) {
         double scale = getDragAndDropFrameScaleValue();
+        Point appIframeLocation = getAppIframeLocation();
         Point dragAndDropFrameLocation = getDragAndDropFrameLocation();
         Point dragAndDropElementLocation = getDragAndDropFrameElementLocation(by);
 
-        int x = (int) (dragAndDropElementLocation.getX() * scale + dragAndDropFrameLocation.getX()) + 2;
-        int y = (int) (dragAndDropElementLocation.getY() * scale + dragAndDropFrameLocation.getY()) + 2;
+        int x = (int) (dragAndDropElementLocation.getX() * scale + appIframeLocation.getX() + dragAndDropFrameLocation.getX()) + 2;
+        int y = (int) (dragAndDropElementLocation.getY() * scale + appIframeLocation.getY() + dragAndDropFrameLocation.getY()) + 2;
         System.out.println("Dnd x: " + x + " y: " + y);
         return new Point(x, y);
     }

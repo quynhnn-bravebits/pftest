@@ -80,13 +80,6 @@ public class EditorPage extends Toast {
     private final By editorOverlay = By.xpath("//div[contains(@class, 'Editor-Overlay')]");
 
 
-    @Step("Open new {0} page editor")
-    public void openNewPageEditor(PageType pageType) {
-        String URL = "https://admin.shopify.com/store/quynhquynhiee/apps/wip-pagefly/editor?type=" + pageType.name().toLowerCase() + "&id=" + UUID.randomUUID();
-        openWebsite(URL);
-        switchToPageFlyFrame();
-    }
-
     @Step("Get canvas html source")
     public String getCanvasHtml() {
         switchToDragAndDropFrame();
@@ -997,9 +990,12 @@ public class EditorPage extends Toast {
             clickElement(list);
         }
         verifyElementVisible(catalogList);
+
         By fromElement = By.className("Catalog-Image");
         By toElement = By.cssSelector("iframe");
-        dragAndDrop(fromElement, toElement);
+        waitForElementClickable(fromElement);
+        assert dragAndDrop(fromElement, toElement);
+
         badge.verifyUnsavedBadge();
     }
 

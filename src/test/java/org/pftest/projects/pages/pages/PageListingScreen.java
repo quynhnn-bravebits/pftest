@@ -65,6 +65,8 @@ public class PageListingScreen extends CommonPage {
     @Step("Open the page listing screen")
     public void openPageListingPage() {
         openWebsite(UrlConstants.PF_PAGES_URL);
+        waitForElementVisible(By.id("AppFrameMain"));
+        getJsExecutor().executeScript("arguments[0].style.paddingLeft='0px';", getWebElement(By.id("AppFrameMain")));
         switchToPageFlyFrame();
     }
 
