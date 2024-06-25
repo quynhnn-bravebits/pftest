@@ -1,1 +1,0 @@
-Set text Test on By.chained({By.id: pf-search-modal,By.id: pf-search-modal--search})
