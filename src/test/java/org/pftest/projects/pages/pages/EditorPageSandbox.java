@@ -3,6 +3,7 @@ package org.pftest.projects.pages.pages;
 import io.qameta.allure.Step;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
+import org.pftest.driver.DriverManager;
 
 import javax.annotation.Nullable;
 import java.util.List;
@@ -60,6 +61,10 @@ public class EditorPageSandbox {
         switchToPageFlyFrame();
     }
 
+    /**
+     * Click on bottom-left corner of the element with type {type}
+     * @param type data-pf-type attribute of the element
+     */
     @Step("Select {0} element")
     public void selectElement(String type) {
         By element = By.xpath("//*[@data-pf-type='" + type + "']");
@@ -68,6 +73,23 @@ public class EditorPageSandbox {
         verifyTrue(Objects.equals(getSelectedElementType(), type), "Selected element is not a " + type + " element");
     }
 
+    /**
+     * Select the main element of type {type} in the Page outline
+     * @param type data-pf-type attribute of the element
+     */
+    @Step("Select {0} element")
+    public void selectMainElement(String type) {
+        By element = By.xpath("//*[@data-pf-type='" + type + "']/div[contains(@class, 'main-element')]");
+        clickElement(element);
+        sleep(0.5);
+        verifyTrue(Objects.equals(getSelectedElementType(), type), "Selected element is not a " + type + " element");
+    }
+
+    /**
+     * Select the {order} child element of type {type} in the Page outline
+     * @param type data-pf-type attribute of the element
+     * @param order order of the element in the list of children
+     */
     @Step("Select {0} element")
     public void selectSelectedChildElement(String type, int order) {
         String id = getSelectedElementId();
@@ -97,7 +119,7 @@ public class EditorPageSandbox {
         return switch (type) {
             case "Column", "Row" -> new NewItemType("Column", "Row");
             case "Section" -> new NewItemType("Row", "Section");
-            case "Slideshow" -> new NewItemType("SlideshowSlide", "Slideshow");
+            case "Slideshow", "SlideshowSlide" -> new NewItemType("SlideshowSlide", "Slideshow");
             default -> null;
         };
     }
@@ -167,4 +189,46 @@ public class EditorPageSandbox {
         }
     }
 
+    public int getCanvasWidth() {
+        switchToDragAndDropFrame();
+        int size = getSizeElement(By.tagName("html")).width;
+        System.out.println("Canvas width: " + size);
+        switchToPageFlyFrame();
+        return size;
+    }
+
+    // ================== Slideshow methods ==================
+
+    /**
+     * Get the index of the current visible slide in the Slideshow element
+     */
+    public int getIndexOfCurrentVisibleSlide() {
+        int result = -1;
+        switchToDragAndDropFrame();
+        List<WebElement> slides = DriverManager.getDriver().findElements(By.xpath("//*[@data-pf-type='Slideshow']//*[contains(@class, 'pf-slide')]"));
+        for (int i = 0; i < slides.size(); i++) {
+            if (slides.get(i).getAttribute("class").contains("is-current")) {
+                result = i;  // return the index of the current slide
+                break;
+            }
+        }
+        switchToPageFlyFrame();
+        return result;  // return -1 if no current slide is found
+    }
+
+    public void clickOnNextSlideButton() {
+        switchToDragAndDropFrame();
+        By nextButton = By.xpath("//button[@aria-label='Next']");
+        waitForElementVisible(nextButton);
+        clickElementWithJs(nextButton);
+        switchToPageFlyFrame();
+    }
+
+    public void clickOnPreviousSlideButton() {
+        switchToDragAndDropFrame();
+        By previousButton = By.xpath("//button[@aria-label='Previous']");
+        waitForElementVisible(previousButton);
+        clickElementWithJs(previousButton);
+        switchToPageFlyFrame();
+    }
 }

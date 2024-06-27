@@ -381,7 +381,11 @@ public class EditorPageInspector {
 
     @Step("Open select image modal")
     public void openSelectImageModal() {
-        clickElement(By.id("media-manager--select-image--activator"));
+        if (isElementVisible(By.id("media-manager--select-image--activator"), 3)) {
+            clickElement(By.id("media-manager--select-image--activator"));
+        } else {
+            clickElement(By.xpath("//div[@id='background-image']//button/*[text()='Select']"));
+        }
         waitForElementTextContains(modal, "Select image");
     }
 
@@ -418,23 +422,23 @@ public class EditorPageInspector {
     }
 
     @Step("Select image from media files")
-    public String selectImageFromMediaFiles() {
-        By image = new ByChained(modal, By.xpath("//div[@media]"));
+    public String selectImageFromMediaFiles(int index) {
+        By image = new ByChained(modal, By.xpath("(.//div[@media])[" + index + "]"));
         waitForElementVisible(image);
         waitForElementClickable(image);
         clickElement(image);
         String url = getAttributeElement(new ByChained(image, By.tagName("img")), "src");
         sleep(0.5);
-        verifyElementClickable(By.id("media-manager--media-selector-modal--select"));
+        waitForElementClickable(By.id("media-manager--media-selector-modal--select"));
         clickElement(By.id("media-manager--media-selector-modal--select"));
         sleep(0.5);
         verifyElementNotVisible(modal);
         return url;
     }
 
-    public String openModalAndSelectImageFromMediaFiles() {
+    public String openModalAndSelectImageFromMediaFiles(int index) {
         openSelectImageModal();
-        return selectImageFromMediaFiles();
+        return selectImageFromMediaFiles(index);
     }
 
     /**
@@ -446,7 +450,7 @@ public class EditorPageInspector {
     public String selectNewUploadedImageFromComputer(String path) {
         openSelectImageModal();
         uploadImageToMediaFiles(path);
-        return selectImageFromMediaFiles();
+        return selectImageFromMediaFiles(1);
     }
 
     /**
@@ -458,7 +462,16 @@ public class EditorPageInspector {
     public String selectNewUploadedImageFromUrl(String url) {
         openSelectImageModal();
         uploadImageFromUrlToMediaFiles(url);
-        return selectImageFromMediaFiles();
+        return selectImageFromMediaFiles(1);
+    }
+
+    public void changeBackgroundAttachment(String attachment) {
+        openStylingTab();
+        scrollToElementAtTop(By.id("BACKGROUND"));
+        clickElement(By.id("inspector--background--more-setting--activator"));
+        moveToElement(By.id("background-attachment"));
+        clickElement(By.id("inspector--button-toggle--background-attachment-" + attachment.toLowerCase()));
+        clickElement(By.id("inspector--background--more-setting--activator"));
     }
 
     @Step("Change background size to {size}")

@@ -3,6 +3,7 @@ package org.pftest.projects.testcases;
 import io.qameta.allure.*;
 import org.openqa.selenium.By;
 import org.pftest.base.BaseTest;
+import org.pftest.enums.DeviceMode;
 import org.pftest.enums.ElementType;
 import org.pftest.enums.PageType;
 import org.pftest.enums.RichTextOptionTagName;
@@ -18,6 +19,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.Objects;
+import java.util.concurrent.atomic.AtomicReference;
 
 import static org.pftest.helpers.ClipboardHelper.putTextIntoClipboard;
 import static org.pftest.keywords.WebUI.*;
@@ -1522,6 +1524,12 @@ public class PageEditingTest extends BaseTest {
     @AllureId("TC-099")
     @Test(description = "TC-099: User use Slideshow element and set style")
     public void useSlideshowElementAndSetStyle() {
+        AtomicReference<String> slide1 = new AtomicReference<>();
+        AtomicReference<String> slide2 = new AtomicReference<>();
+        AtomicReference<String> allDevicesImg = new AtomicReference<>();
+        AtomicReference<String> tabletImg = new AtomicReference<>();
+
+
         addStep(
                 "Step 0: Init plank page",
                 () -> {
@@ -1543,17 +1551,98 @@ public class PageEditingTest extends BaseTest {
         );
 
         addStep(
-                "Step 3: Change background image from the uploaded files",
+                "Step 3: Change background image for Slide 1 from the uploaded files",
                 () -> {
                     getEditorPageSandbox().selectSelectedChildElement("SlideshowSlide", 1);
                     getEditorPageInspector().openStylingTab();
-                    getEditorPage().selectBackgroundImage();
+                    String url = getEditorPage().selectBackgroundImage(1);
+                    allDevicesImg.set(url);
+                    slide1.set(url);
+
+                    // Verify slide navigation works correctly
+                    getEditorPageSandbox().clickOnNextSlideButton();
+                    sleep(0.5);
+                    verifyEquals(getEditorPageSandbox().getIndexOfCurrentVisibleSlide(), 2);
+
+                    getEditorPageSandbox().clickOnNextSlideButton();
+                    sleep(0.5);
+                    verifyEquals(getEditorPageSandbox().getIndexOfCurrentVisibleSlide(), 3);
+
+                    getEditorPageSandbox().clickOnPreviousSlideButton();
+                    sleep(0.5);
+                    verifyEquals(getEditorPageSandbox().getIndexOfCurrentVisibleSlide(), 2);
                 }
         );
 
-        sleep(3);
+        addStep(
+                "Step 4: Change background image for Slide 2",
+                () -> {
+                    getEditorPageSandbox().selectMainElement("Slideshow");
+                    getEditorPageSandbox().selectSelectedChildElement("SlideshowSlide", 2);
+                    sleep(0.5);
+                    verifyEquals(getEditorPageSandbox().getIndexOfCurrentVisibleSlide(), 2);
+                    getEditorPageInspector().openStylingTab();
+                    String url = getEditorPage().selectBackgroundImage(2);
+                    slide2.set(url);
+
+                    // Verify image url of slide 1 and slide 2
+                    getEditorPageSandbox().clickOnPreviousSlideButton();
+                    sleep(0.5);
+                    getEditorPageSandbox().selectMainElement("Slideshow");
+                    getEditorPageSandbox().selectSelectedChildElement("SlideshowSlide", 1);
+                    verifyEquals(getEditorPageSandbox().getIndexOfCurrentVisibleSlide(), 1);
+                    getEditorPageSandbox().verifySelectedElementHasStyleAttributeValue(getSelectedElementId(), "background-image", slide1.get());
+
+                    getEditorPageSandbox().clickOnNextSlideButton();
+                    sleep(0.5);
+                    getEditorPageSandbox().selectMainElement("Slideshow");
+                    getEditorPageSandbox().selectSelectedChildElement("SlideshowSlide", 2);
+                    verifyEquals(getEditorPageSandbox().getIndexOfCurrentVisibleSlide(), 2);
+                    getEditorPageSandbox().verifySelectedElementHasStyleAttributeValue(getSelectedElementId(), "background-image", slide2.get());
+
+                }
+        );
+
+        addStep(
+                "Step 5: Set background attachment to FIXED",
+                () -> getEditorPage().changeBackgroundAttachment("fixed")
+        );
+
+        addStep(
+                "Step 6: Set background size to COVER",
+                () -> getEditorPage().changeBackgroundSize("cover")
+
+        );
+
+        addStep(
+                "Step 7: Change background image of TABLET device mode",
+                () -> {
+                    getEditorPage().changeDeviceMode(DeviceMode.TABLET);
+                    tabletImg.set(getEditorPage().selectBackgroundImage(3));
+                }
+        );
+
+        assert !allDevicesImg.get().equals(tabletImg.get());
+
+        addStep(
+                "Step 8: Change background image of ALL DEVICES mode",
+                () -> {
+                    getEditorPage().changeDeviceMode(DeviceMode.ALL_DEVICES);
+                    getEditorPageSandbox().verifySelectedElementHasStyleAttributeValue(getSelectedElementId(), "background-image", allDevicesImg.get());
+                }
+        );
+
+        addStep(
+                "Step 9: Save and publish page",
+                () -> {
+                    getEditorPage().changePageTitle("Test " + PageType.PAGE.name() + " " + new Date());
+                    saveAndPublishPageSuccessfully();
+                }
+        );
 
     }
+
+
 
     @AfterMethod
     public void resetDontRemindAfterTest(ITestResult result) {

@@ -47,6 +47,7 @@
                     <include name="useParagraphElementWhenEnableAutoSave"/>
                     <include name="useButtonElementAndSetStyle"/>
                     <include name="useImageElementAndSetStyle"/>
+                    <include name="useSlideshowElementAndSetStyle"/>
                 </methods>
             </class>
             <class name="org.pftest.projects.testcases.SectionListingTest">

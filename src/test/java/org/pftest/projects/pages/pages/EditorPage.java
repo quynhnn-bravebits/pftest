@@ -10,6 +10,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import org.pftest.constants.FrameworkConstants;
 import org.pftest.constants.ModalConstants;
 import org.pftest.driver.DriverManager;
+import org.pftest.enums.DeviceMode;
 import org.pftest.enums.RichTextOptionTagName;
 import org.pftest.projects.commons.Badge;
 import org.pftest.projects.commons.Toast;
@@ -412,6 +413,15 @@ public class EditorPage extends Toast {
         switchToPageFlyFrame();
     }
 
+    @Step("Change device mode to {0} and verify screen size")
+    public void changeDeviceMode(DeviceMode deviceMode) {
+        clickElement(By.id("editor-header-bar--device-selector--activator"));
+        By deviceModeButton = By.id("editor-header-bar--device-selector--editor-header-bar--device-selector--" + deviceMode.getId());
+        waitForElementVisible(deviceModeButton);
+        clickElement(deviceModeButton);
+        verifyEquals(editorPageSandbox.getCanvasWidth(), deviceMode.getSize());
+    }
+
     @Step("Select text content {0} in the rich text editor and make it {1}")
     public void selectAndAdjustTextContent(String text, RichTextOptionTagName... options) {
         editorPageInspector.selectAndAdjustTextContent(text, options);
@@ -786,10 +796,11 @@ public class EditorPage extends Toast {
     }
 
     @Step("Change background image and verify selected element has the correct background image")
-    public void selectBackgroundImage() {
-        String url = editorPageInspector.openModalAndSelectImageFromMediaFiles();
+    public String selectBackgroundImage(int index) {
+        String url = editorPageInspector.openModalAndSelectImageFromMediaFiles(index);
         String id = getSelectedElementId();
         editorPageSandbox.verifySelectedElementHasCssAttributeValue(id, "background-image", "url(\"" + url + "\")");
+        return url;
     }
 
     @Step("Upload image from url and set as background image")
@@ -843,6 +854,13 @@ public class EditorPage extends Toast {
         editorPageInspector.changeImageObjectFit(objectFit);
         String id = getSelectedElementId();
         editorPageSandbox.verifySelectedElementHasStyleAttributeValue(id, "object-fit", objectFit.toLowerCase());
+    }
+
+    @Step("Change background attachment to {0} and verify selected element has the correct background attachment")
+    public void changeBackgroundAttachment(String backgroundAttachment) {
+        editorPageInspector.changeBackgroundAttachment(backgroundAttachment);
+        String id = getSelectedElementId();
+        editorPageSandbox.verifySelectedElementHasStyleAttributeValue(id, "background-attachment", backgroundAttachment);
     }
 
     @Step("Change background image size to {0} and verify selected element has the correct background image size")

@@ -13,7 +13,6 @@
                     <include name="restorePreviousVersion"/>
                 </methods>
             </class>
-
         </classes>
     </test>
 </suite>
