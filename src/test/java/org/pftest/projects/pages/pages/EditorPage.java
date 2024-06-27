@@ -3,6 +3,7 @@ package org.pftest.projects.pages.pages;
 import io.qameta.allure.Step;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Dimension;
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.pagefactory.ByChained;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -228,6 +229,30 @@ public class EditorPage extends Toast {
         verifyElementChecked(new ByChained(showCanvasSizeCheckbox, By.tagName("input")));
     }
 
+    @Step("Change Canvas Width to {0}")
+    public void changeCanvasWidth(int width, DeviceMode deviceMode) {
+        clickElement(canvasSettingButton);
+        By input = By.xpath("//*[@id='canvas-size-setting']//input[@type='number']");
+        clickElement(input);
+        clearAndFillText(input, String.valueOf(width));
+        int min = deviceMode.getMinSize(), max = deviceMode.getMaxSize();
+        int expected = (width >= min && width <= max) ? width : deviceMode.getDefaultSize();
+
+        String expectedError = width < min ? ("The minimum possible value is: " + min) : width > max ? ("The maximum possible value is: " + max) : null;
+        By errorField = By.xpath("//div[@id='canvas-size-setting']//*[contains(@id, 'Error') and contains(text(), '" + expectedError + "')]");
+        if (expectedError != null) {
+            verifyElementVisible(errorField);
+        } else {
+            verifyElementNotVisible(errorField);
+        }
+
+        sendKeys(input, Keys.TAB);
+        sleep(0.5);
+        verifyEquals(Integer.valueOf(getAttributeElement(input, "value")), expected);
+        verifyTrue((editorPageSandbox.getCanvasWidth() == expected) || (editorPageSandbox.getCanvasWidth() - 1 == expected));
+        clickElement(canvasSettingButton);
+    }
+
     @Step("Toggle Fit Viewport")
     public void toggleFitViewport() {
         clickElement(canvasSettingButton);
@@ -419,7 +444,7 @@ public class EditorPage extends Toast {
         By deviceModeButton = By.id("editor-header-bar--device-selector--editor-header-bar--device-selector--" + deviceMode.getId());
         waitForElementVisible(deviceModeButton);
         clickElement(deviceModeButton);
-        verifyEquals(editorPageSandbox.getCanvasWidth(), deviceMode.getSize());
+        verifyEquals(editorPageSandbox.getCanvasWidth(), deviceMode.getDefaultSize());
     }
 
     @Step("Select text content {0} in the rich text editor and make it {1}")

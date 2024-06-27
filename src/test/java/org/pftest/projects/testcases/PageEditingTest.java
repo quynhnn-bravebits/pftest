@@ -1642,6 +1642,69 @@ public class PageEditingTest extends BaseTest {
 
     }
 
+    @Feature("Editor settings")
+    @Story("Canvas size")
+    @Severity(SeverityLevel.CRITICAL)
+    @Link("https://docs.google.com/spreadsheets/d/1zlhx6KpGVsGgH05ArwLRv1nqI4oSdxj8Gll203FDP1I/edit?gid=154559871#gid=154559871&range=B25")
+    @Test(description = "TC-020: User changes canvas width in the editor")
+    public void changeCanvasWidthInEditor() {
+        addStep(
+                "Step 0: Init plank page",
+                () -> {
+                    getPageListingScreen().openPageListingPage();
+                    getPageListingScreen().verifyPageListingLoaded();
+                    getPageListingScreen().createNewPageFromBlank(PageType.PAGE);
+                    getEditorPage().verifyEditorPageLoaded();
+                }
+        );
+
+        addStep(
+                "Step 1: Change canvas width to 1200px",
+                () -> {
+                    getEditorPage().changeCanvasWidth(1200, DeviceMode.ALL_DEVICES);
+                    getEditorPage().changeCanvasWidth(1199, DeviceMode.ALL_DEVICES);
+                    getEditorPage().changeCanvasWidth(10000, DeviceMode.ALL_DEVICES);
+                    getEditorPage().changeCanvasWidth(2000, DeviceMode.ALL_DEVICES);
+                }
+        );
+
+        addStep(
+                "Step 2: Change device mode to LAPTOP and change canvas width to 1024px",
+                () -> {
+                    getEditorPage().changeDeviceMode(DeviceMode.LAPTOP);
+                    getEditorPage().changeCanvasWidth(1024, DeviceMode.LAPTOP);
+                    getEditorPage().changeCanvasWidth(1025, DeviceMode.LAPTOP);
+                    getEditorPage().changeCanvasWidth(1199, DeviceMode.LAPTOP);
+                    getEditorPage().changeCanvasWidth(1201, DeviceMode.LAPTOP);
+                    getEditorPage().changeCanvasWidth(1100, DeviceMode.LAPTOP);
+                }
+        );
+
+        addStep(
+                "Step 3: Change device mode to TABLET and change canvas width to 800px",
+                () -> {
+                    getEditorPage().changeDeviceMode(DeviceMode.TABLET);
+                    getEditorPage().changeCanvasWidth(767, DeviceMode.TABLET);
+                    getEditorPage().changeCanvasWidth(768, DeviceMode.TABLET);
+                    getEditorPage().changeCanvasWidth(1024, DeviceMode.TABLET);
+                    getEditorPage().changeCanvasWidth(1025, DeviceMode.TABLET);
+                    getEditorPage().changeCanvasWidth(990, DeviceMode.TABLET);
+                }
+        );
+
+        addStep(
+                "Step 4: Change device mode to MOBILE and change canvas width to 400px",
+                () -> {
+                    getEditorPage().changeDeviceMode(DeviceMode.MOBILE);
+                    getEditorPage().changeCanvasWidth(0, DeviceMode.MOBILE);
+                    getEditorPage().changeCanvasWidth(1, DeviceMode.MOBILE);
+                    getEditorPage().changeCanvasWidth(767, DeviceMode.MOBILE);
+                    getEditorPage().changeCanvasWidth(768, DeviceMode.MOBILE);
+                    getEditorPage().changeCanvasWidth(383, DeviceMode.MOBILE);
+                }
+        );
+
+    }
 
 
     @AfterMethod

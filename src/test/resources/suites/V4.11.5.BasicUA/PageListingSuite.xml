@@ -17,6 +17,14 @@
                     <include name="importPageExportedFromOtherStore"/>
                 </methods>
             </class>
+
+            <class name="org.pftest.projects.testcases.PageEditingTest">
+                <methods>
+                    <include name="changeCanvasWidthInEditor"/>
+                    <include name="enableAutoSaveWhenHaventSavedPage"/>
+                    <include name="enableAutoSaveWhenHaveSavedPage"/>
+                </methods>
+            </class>
         </classes>
     </test>
 
