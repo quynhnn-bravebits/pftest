@@ -2,6 +2,7 @@ package org.pftest.projects.testcases;
 
 import io.qameta.allure.*;
 import org.pftest.base.BaseTest;
+import org.pftest.enums.DeviceMode;
 import org.pftest.enums.PageType;
 import org.pftest.report.AllureManager;
 import org.testng.annotations.BeforeMethod;
@@ -10,6 +11,7 @@ import org.testng.annotations.Test;
 import java.util.ArrayList;
 import java.util.List;
 
+import static io.qameta.allure.SeverityLevel.BLOCKER;
 import static io.qameta.allure.SeverityLevel.CRITICAL;
 import static org.pftest.keywords.WebUI.*;
 
@@ -416,6 +418,60 @@ public class UndoRedoTest extends BaseTest {
         getEditorPageSandbox().selectElement("Column");
         System.out.println("=====================================");
         sleep(3);
+    }
+
+    @Severity(BLOCKER)
+    @Story("Basic")
+    @Test(description = "TC-039: User undo and redo basic steps")
+    public void undoRedoBasicSteps() {
+        addStep(
+                "Step 0: Init plank page",
+                () -> {
+                    getPageListingScreen().openPageListingPage();
+                    getPageListingScreen().verifyPageListingLoaded();
+                    getPageListingScreen().createNewPageFromBlank(PageType.PAGE);
+                    getEditorPage().verifyEditorPageLoaded();
+                }
+        );
+
+        addStep(
+                "Step 1: Drag and drop LAYOUT element",
+                () -> getEditorPage().dragAndDropLayoutElement()
+        );
+
+        addStep(
+                "Step 2: Drag and drop HEADING element",
+                () -> getEditorPage().dragAndDropHeadingElement()
+        );
+
+        getEditorPageSandbox().selectElement("Row");
+        getEditorPage().changeDeviceMode(DeviceMode.LAPTOP);
+
+        addStep(
+                "Step 5: Change columns per line to 6",
+                () -> getEditorPage().changeColumnsPerLine_Input("6")
+        );
+
+        addStep(
+                "Step 6: Change content position to BOTTOM RIGHT",
+                () -> getEditorPage().changeContentPosition("rb")
+        );
+
+        addStep(
+                "Step 7: Select Enable equal height",
+                () -> getEditorPage().changeEnableEqualHeight("YES")
+        );
+
+        addStep(
+                "Step 8: Change columns spacing to 18",
+                () -> getEditorPage().changeColumnsSpacingInput("18")
+        );
+
+        undo("Step 9: Undo to step 1", 6);
+        getEditorPage().verifyUndoButtonDisabled();
+
+        redo("Step 10: Redo to step 8", 6);
+        getEditorPage().verifyRedoButtonDisabled();
     }
 
 

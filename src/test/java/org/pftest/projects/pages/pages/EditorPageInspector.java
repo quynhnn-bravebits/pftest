@@ -227,7 +227,7 @@ public class EditorPageInspector {
     @Step("Change enable equal height to {enable}")
     public void changeEnableEqualHeight(String enable) {
         openGeneralTab();
-        By enableEqualHeightButton = new ByChained(By.id("enable-equal-height"), By.xpath("//button[@role='" + enable + "']"));
+        By enableEqualHeightButton = new ByChained(By.id("enable-equal-height"), By.xpath("//button[@role='" + enable.toUpperCase() + "']"));
         clickElement(enableEqualHeightButton);
     }
 

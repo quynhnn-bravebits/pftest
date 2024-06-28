@@ -32,7 +32,7 @@ public class BaseTest extends CommonPage {
 
     @AfterMethod(alwaysRun = true)
     public void closeDriver() {
-        DriverManager.quit();
+//        DriverManager.quit();
     }
 
     public void resetDontRemind() {
