@@ -42,6 +42,7 @@ public class FrameworkConstants {
     public static final String EXPORT_VIDEO_PATH = PropertiesHelpers.getValue("EXPORT_VIDEO_PATH");
     public static final String EXPORT_CAPTURE_PATH = PropertiesHelpers.getValue("EXPORT_CAPTURE_PATH");
     public static final String VIDEO_RECORD = PropertiesHelpers.getValue("VIDEO_RECORD");
+    public static final String RETRY_TEST_FAIL = PropertiesHelpers.getValue("RETRY_TEST_FAIL");
 
     public static final String USER_DATA_DIR = PropertiesHelpers.getValue("USER_DATA_DIR");
     public static final String PROFILE_DIRECTORY = PropertiesHelpers.getValue("PROFILE_DIRECTORY");

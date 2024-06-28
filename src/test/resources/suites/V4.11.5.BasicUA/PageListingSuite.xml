@@ -2,6 +2,11 @@
 <!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd" >
 
 <suite name="V4.11.5 Basic UAT">
+
+    <listeners>
+        <listener class-name="org.pftest.listeners.AnnotationTransformer"/>
+    </listeners>
+
     <test name="Page Listing" verbose="2" preserve-order="true">
         <classes>
             <class name="org.pftest.projects.testcases.PageListingTest">

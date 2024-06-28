@@ -1653,7 +1653,6 @@ public class PageEditingTest extends BaseTest {
         AtomicReference<String> allDevicesImg = new AtomicReference<>();
         AtomicReference<String> tabletImg = new AtomicReference<>();
 
-
         addStep(
                 "Step 0: Init plank page",
                 () -> {
