@@ -649,7 +649,6 @@ public class PageEditingTest extends BaseTest {
         getPageListingScreen().openPageInPageListing();
         getEditorPage().verifyEditorPageLoaded();
         getEditorPage().startLiveChat();
-        attachScreenshotPNG();
     }
 
     @Feature("Editor helpers")

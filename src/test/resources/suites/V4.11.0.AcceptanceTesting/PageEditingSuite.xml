@@ -4,6 +4,7 @@
 
     <listeners>
         <listener class-name="org.pftest.listeners.AnnotationTransformer"/>
+        <listener class-name="org.pftest.listeners.TestListener"/>
     </listeners>
 
     <test verbose="2" preserve-order="true"
