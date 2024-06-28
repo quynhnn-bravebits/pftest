@@ -831,10 +831,10 @@ public class PageEditingTest extends BaseTest {
         getPageListingScreen().createNewPageFromBlank(PageType.PAGE);
         getEditorPage().verifyEditorPageLoaded();
         getEditorPage().dragAndDropHeadingElement();
-        getEditorPage().changeTextStyleItalic("italic");
-        getEditorPage().toggleOffTextStyleItalic("italic");
-        getEditorPage().changeTextStyleItalic("italic");
-        getEditorPage().toggleOffTextStyleItalic("italic");
+        getEditorPage().changeTextStyleItalic();
+        getEditorPage().toggleOffTextStyleItalic();
+        getEditorPage().changeTextStyleItalic();
+        getEditorPage().toggleOffTextStyleItalic();
 
     }
 
@@ -846,8 +846,8 @@ public class PageEditingTest extends BaseTest {
         getPageListingScreen().createNewPageFromBlank(PageType.PAGE);
         getEditorPage().verifyEditorPageLoaded();
         getEditorPage().dragAndDropParagraphElement();
-        getEditorPage().changeTextStyleBold("bold");
-        getEditorPage().toggleOffTextStyleBold("bold");
+        getEditorPage().changeTextStyleBold();
+        getEditorPage().toggleOffTextStyleBold();
     }
 
     @Feature("Inspector")
@@ -1640,6 +1640,127 @@ public class PageEditingTest extends BaseTest {
                 }
         );
 
+    }
+
+    @Feature("Element")
+    @Story("Slideshow element")
+    @Severity(SeverityLevel.CRITICAL)
+    @Link("https://docs.google.com/spreadsheets/d/1zlhx6KpGVsGgH05ArwLRv1nqI4oSdxj8Gll203FDP1I/edit?gid=154559871#gid=154559871&range=B34")
+    @Test(description = "TC-029: User add and edit Slide show")
+    public void addAndEditSlideShow() {
+        AtomicReference<String> slide1 = new AtomicReference<>();
+        AtomicReference<String> slide2 = new AtomicReference<>();
+        AtomicReference<String> allDevicesImg = new AtomicReference<>();
+        AtomicReference<String> tabletImg = new AtomicReference<>();
+
+
+        addStep(
+                "Step 0: Init plank page",
+                () -> {
+                    getPageListingScreen().openPageListingPage();
+                    getPageListingScreen().verifyPageListingLoaded();
+                    getPageListingScreen().createNewPageFromBlank(PageType.PAGE);
+                    getEditorPage().verifyEditorPageLoaded();
+                }
+        );
+
+        addStep(
+                "Step 1: Drag and drop Slideshow element",
+                () -> getEditorPage().dragAndDropCatalogElement(By.id("catalog--catalog-list--slideshow"))
+        );
+
+        addStep(
+                "Step 2: Add the 4th slideshow item",
+                () -> getEditorPage().addNewItemToList()
+        );
+
+        addStep(
+                "Step 3: Change background image for Slide 1 from the uploaded files",
+                () -> {
+                    getEditorPageSandbox().selectSelectedChildElement("SlideshowSlide", 1);
+                    getEditorPageInspector().openStylingTab();
+                    String url = getEditorPage().selectBackgroundImage(1);
+                    allDevicesImg.set(url);
+                    slide1.set(url);
+
+                    // Verify slide navigation works correctly
+                    getEditorPageSandbox().clickOnNextSlideButton();
+                    sleep(0.5);
+                    verifyEquals(getEditorPageSandbox().getIndexOfCurrentVisibleSlide(), 2);
+
+                    getEditorPageSandbox().clickOnNextSlideButton();
+                    sleep(0.5);
+                    verifyEquals(getEditorPageSandbox().getIndexOfCurrentVisibleSlide(), 3);
+
+                    getEditorPageSandbox().clickOnPreviousSlideButton();
+                    sleep(0.5);
+                    verifyEquals(getEditorPageSandbox().getIndexOfCurrentVisibleSlide(), 2);
+                }
+        );
+
+        addStep(
+                "Step 4: Change background image for Slide 2",
+                () -> {
+                    getEditorPageSandbox().selectMainElement("Slideshow");
+                    getEditorPageSandbox().selectSelectedChildElement("SlideshowSlide", 2);
+                    sleep(0.5);
+                    verifyEquals(getEditorPageSandbox().getIndexOfCurrentVisibleSlide(), 2);
+                    getEditorPageInspector().openStylingTab();
+                    String url = getEditorPage().selectBackgroundImage(2);
+                    slide2.set(url);
+
+                    // Verify image url of slide 1 and slide 2
+                    getEditorPageSandbox().clickOnPreviousSlideButton();
+                    sleep(0.5);
+                    getEditorPageSandbox().selectMainElement("Slideshow");
+                    getEditorPageSandbox().selectSelectedChildElement("SlideshowSlide", 1);
+                    verifyEquals(getEditorPageSandbox().getIndexOfCurrentVisibleSlide(), 1);
+                    getEditorPageSandbox().verifySelectedElementHasStyleAttributeValue(getSelectedElementId(), "background-image", slide1.get());
+
+                    getEditorPageSandbox().clickOnNextSlideButton();
+                    sleep(0.5);
+                    getEditorPageSandbox().selectMainElement("Slideshow");
+                    getEditorPageSandbox().selectSelectedChildElement("SlideshowSlide", 2);
+                    verifyEquals(getEditorPageSandbox().getIndexOfCurrentVisibleSlide(), 2);
+                    getEditorPageSandbox().verifySelectedElementHasStyleAttributeValue(getSelectedElementId(), "background-image", slide2.get());
+
+                }
+        );
+
+        addStep(
+                "Step 5: Set background attachment to FIXED",
+                () -> getEditorPage().changeBackgroundAttachment("fixed")
+        );
+
+
+        addStep(
+                "Step 6: Change background image of TABLET device mode",
+                () -> {
+                    getEditorPage().changeDeviceMode(DeviceMode.TABLET);
+                    tabletImg.set(getEditorPage().selectBackgroundImage(3));
+                }
+        );
+
+        assert !allDevicesImg.get().equals(tabletImg.get());
+
+        addStep(
+                "Step 7: Change background image of ALL DEVICES mode",
+                () -> {
+                    getEditorPage().changeDeviceMode(DeviceMode.ALL_DEVICES);
+                    getEditorPageSandbox().verifySelectedElementHasStyleAttributeValue(getSelectedElementId(), "background-image", allDevicesImg.get());
+                }
+        );
+
+        addStep(
+                "Step 8: Set BOLD and ITALIC for SubHeading in Slide 1",
+                () -> {
+                    getEditorPageSandbox().selectMainElement("Slideshow");
+                    getEditorPageSandbox().selectSelectedChildElement("SlideshowSlide", 1);
+                    getEditorPageInspector().openStylingTab();
+                    getEditorPage().changeTextStyleBold();
+                    getEditorPage().changeTextStyleItalic();
+                }
+        );
     }
 
     @Feature("Editor settings")

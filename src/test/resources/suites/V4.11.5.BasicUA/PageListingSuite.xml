@@ -23,6 +23,7 @@
                     <include name="changeCanvasWidthInEditor"/>
                     <include name="enableAutoSaveWhenHaventSavedPage"/>
                     <include name="enableAutoSaveWhenHaveSavedPage"/>
+                    <include name="addAndEditSlideShow"/>
                 </methods>
             </class>
         </classes>

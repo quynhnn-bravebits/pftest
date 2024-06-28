@@ -697,32 +697,32 @@ public class EditorPage extends Toast {
     }
 
     @Step("Change text style and verify selected element has the correct text style")
-    public void changeTextStyleItalic(String textStyle) {
-        editorPageInspector.changeTextStyleItalic(textStyle);
+    public void changeTextStyleItalic() {
+        editorPageInspector.changeTextStyleItalic();
         String id = getSelectedElementId();
-        editorPageSandbox.verifySelectedElementHasCssAttributeValue(id, "font-style", textStyle);
+        editorPageSandbox.verifySelectedElementHasCssAttributeValue(id, "font-style", "italic");
     }
 
     @Step("Toggle off text style and verify selected element has removed text style attribute")
-    public void toggleOffTextStyleItalic(String textStyle) {
-        editorPageInspector.changeTextStyleItalic(textStyle);
+    public void toggleOffTextStyleItalic() {
+        editorPageInspector.changeTextStyleItalic();
         String id = getSelectedElementId();
-        editorPageSandbox.verifySelectedElementHasRemovedCssAttributeValue(id, "font-style", textStyle);
+        editorPageSandbox.verifySelectedElementHasRemovedCssAttributeValue(id, "font-style", "italic");
     }
 
     @Step("Change font weight and verify selected element has the correct font weight")
-    public void changeTextStyleBold(String fontWeight) {
-        editorPageInspector.changeTextStyleBold(fontWeight);
+    public void changeTextStyleBold() {
+        editorPageInspector.changeTextStyleBold();
         String id = getSelectedElementId();
         // In CSS, the "bold" keyword is equivalent to the numerical value 700.
         editorPageSandbox.verifySelectedElementHasCssAttributeValue(id, "font-weight", "700");
     }
 
     @Step("Toggle off font weight and verify selected element has removed font weight attribute")
-    public void toggleOffTextStyleBold(String fontWeight) {
-        editorPageInspector.changeTextStyleBold(fontWeight);
+    public void toggleOffTextStyleBold() {
+        editorPageInspector.changeTextStyleBold();
         String id = getSelectedElementId();
-        editorPageSandbox.verifySelectedElementHasRemovedCssAttributeValue(id, "font-weight", fontWeight);
+        editorPageSandbox.verifySelectedElementHasRemovedCssAttributeValue(id, "font-weight", "700");
     }
 
     @Step("Change text decoration line to {0} and verify selected element has the correct text decoration line")

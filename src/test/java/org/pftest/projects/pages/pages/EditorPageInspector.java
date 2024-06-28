@@ -572,17 +572,17 @@ public class EditorPageInspector {
         clickElement(decorationButton);
     }
 
-    @Step("Change text style to {style}")
-    public void changeTextStyleItalic(String style) {
+    @Step("Change text style to ITALIC")
+    public void changeTextStyleItalic() {
         openStylingTab();
-        By styleButton = By.id("inspector--button-toggle--font-style-" + style);
+        By styleButton = By.id("inspector--button-toggle--font-style-italic");
         clickElement(styleButton);
     }
 
-    @Step("Change font weight to {weight}")
-    public void changeTextStyleBold(String weight) {
+    @Step("Change font weight to BOLD")
+    public void changeTextStyleBold() {
         openStylingTab();
-        By weightButton = By.id("inspector--button-toggle--font-weight-" + weight);
+        By weightButton = By.id("inspector--button-toggle--font-weight-bold");
         clickElement(weightButton);
     }
 
