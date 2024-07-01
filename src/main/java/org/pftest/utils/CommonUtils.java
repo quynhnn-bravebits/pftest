@@ -74,7 +74,7 @@ public class CommonUtils {
             Iterator<Attribute> attrIterator = element.attributes().iterator();
             while (attrIterator.hasNext()) {
                 Attribute attribute = attrIterator.next();
-                if ((attribute.getKey().startsWith("data-") && attribute.getKey().endsWith("-id")) || attribute.getKey().equals("tabindex") || attribute.getKey().startsWith("pf-countdown__") || attribute.getKey().equals("data-snap-slider")) {
+                if ((attribute.getKey().startsWith("data-") && attribute.getKey().endsWith("-id")) || attribute.getKey().equals("tabindex") || attribute.getKey().startsWith("pf-countdown__") || attribute.getKey().contains("data-snap-slider")) {
                     attrIterator.remove();
                 }
             }

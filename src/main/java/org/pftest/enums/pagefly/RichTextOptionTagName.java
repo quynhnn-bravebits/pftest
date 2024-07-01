@@ -1,4 +1,4 @@
-package org.pftest.enums;
+package org.pftest.enums.pagefly;
 
 public enum RichTextOptionTagName {
     BOLD("bold", "strong"),

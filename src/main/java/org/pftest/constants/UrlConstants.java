@@ -1,6 +1,6 @@
 package org.pftest.constants;
 
-import org.pftest.enums.PageType;
+import org.pftest.enums.pagefly.PageType;
 
 public class UrlConstants {
     private static final String store = "quynhquynhiee";

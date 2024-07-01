@@ -1,4 +1,4 @@
-package org.pftest.enums;
+package org.pftest.enums.pagefly;
 
 public enum DeviceMode {
     ALL_DEVICES("All devices", "all", 1440, 1200, 10000),

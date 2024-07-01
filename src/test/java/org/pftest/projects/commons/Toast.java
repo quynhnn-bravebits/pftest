@@ -132,6 +132,11 @@ public class Toast {
         switchToPageFlyFrame();
     }
 
+    @Step("Verify show 'Restored version' toast")
+    public void verifyShowRestoredVersionToast() {
+        waitForToast("Restored version", 30);
+    }
+
     @Step("Verify show 'Auto-save disabled' toast")
     public void verifyShowDisableAutoSaveToast() {
         switchToDefaultContent();

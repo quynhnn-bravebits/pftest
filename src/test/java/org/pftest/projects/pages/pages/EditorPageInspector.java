@@ -5,7 +5,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.pagefactory.ByChained;
-import org.pftest.enums.RichTextOptionTagName;
+import org.pftest.enums.pagefly.RichTextOptionTagName;
 
 import javax.annotation.Nullable;
 import java.util.Objects;
@@ -323,6 +323,13 @@ public class EditorPageInspector {
         randomClickColorPicker();
         clickElement(By.id("inspector--content-color--input-Prefix"));
         return getAttributeElement(contentColorInput, "value");
+    }
+
+    @Step("Change background style to {style}")
+    public void changeBackgroundStyle(String style) {
+        openStylingTab();
+        By backgroundStyleButton = new ByChained(By.id("background-style"), By.xpath("//button[@role='" + style + "']"));
+        clickElement(backgroundStyleButton);
     }
 
     @Step("Change background color to {color}")

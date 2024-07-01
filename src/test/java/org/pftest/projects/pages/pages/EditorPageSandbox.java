@@ -61,6 +61,14 @@ public class EditorPageSandbox {
         switchToPageFlyFrame();
     }
 
+    @Step("Verify selected element has parallax image with url {url}")
+    public void verifySelectedElementHasParallaxImage(String id, String url) {
+        switchToDragAndDropFrame();
+        By image = By.xpath("//*[@data-pf-id='" + id + "']/img[@src='" + url + "']");
+        verifyElementVisible(image);
+        switchToPageFlyFrame();
+    }
+
     /**
      * Click on bottom-left corner of the element with type {type}
      * @param type data-pf-type attribute of the element

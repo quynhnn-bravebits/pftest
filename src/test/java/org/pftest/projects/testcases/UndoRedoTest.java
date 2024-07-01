@@ -2,8 +2,8 @@ package org.pftest.projects.testcases;
 
 import io.qameta.allure.*;
 import org.pftest.base.BaseTest;
-import org.pftest.enums.DeviceMode;
-import org.pftest.enums.PageType;
+import org.pftest.enums.pagefly.DeviceMode;
+import org.pftest.enums.pagefly.PageType;
 import org.pftest.report.AllureManager;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
@@ -491,6 +491,7 @@ public class UndoRedoTest extends BaseTest {
         String expectedSource = getEditorPage().restoreToVersionHistory(index+1);
         sleep(1);
         AllureManager.takeScreenshotStep();
+        getToast().verifyShowRestoredVersionToast();
         verifyEquals(expectedSource, canvasHtml.get(currentStep - index));
         String actualSource = getEditorPage().getCanvasHtmlProcessed();
         verifyEquals(actualSource, expectedSource);
@@ -534,5 +535,35 @@ public class UndoRedoTest extends BaseTest {
         } finally {
             resetDontRemind();
         }
+    }
+
+    @Flaky
+    @Severity(CRITICAL)
+    @Feature("Version history")
+    @Link("https://docs.google.com/spreadsheets/d/1zlhx6KpGVsGgH05ArwLRv1nqI4oSdxj8Gll203FDP1I/edit?gid=154559871#gid=154559871&range=B49")
+    @Test(description = "TC-044")
+    public void restorePreviousVersion_TC044() {
+            pageEditingTest.saveAndPublishNewPageFromBlank(PageType.PAGE);
+
+            addHistory(
+                    "Step 1: Drag and drop paragraph element",
+                    () -> getEditorPage().dragAndDropParagraphElement()
+            );
+
+            addHistory(
+                    "Step 2: Change section background image",
+                    () -> {
+                        getEditorPageSandbox().selectElement("Section");
+                        getEditorPageInspector().changeBackgroundStyle("Parallax");
+                        getEditorPage().selectBackgroundImageWithParallax(1);
+                    }
+            );
+
+            System.out.println("Current step: " + currentStep);
+
+            for (int i = currentStep; i >= 0; i--) {
+                restoreToHistoryVersion(i);
+            }
+
     }
 }

@@ -1165,7 +1165,7 @@ public class WebUI {
                 "  fakeMouse.style.top = e.clientY + 'px';" +
                 "  fakeMouse.style.width = '10px';" +
                 "  fakeMouse.style.height = '10px';" +
-                "  fakeMouse.style.display = 'block';" +
+                "  fakeMouse.style.display = 'none';" +
                 "  fakeMouse.style.border = '0';" +
                 "});" +
                 "document.addEventListener('click', function(e) {" +
@@ -1197,7 +1197,8 @@ public class WebUI {
 
         // Get the iframe inside the modal
         By modal = By.xpath("//*[@id=\"PolarisPortalsContainer\"]//*//div[@role=\"dialog\"]/div[1]");
-        WebElement iframe = waitForElementVisible(modal).findElement(By.tagName("iframe"));
+//        WebElement iframe = waitForElementVisible(modal).findElement(By.tagName("iframe"));
+        WebElement iframe = waitForElementVisible(new ByChained(modal, By.tagName("iframe")));
 
         wait.until(ExpectedConditions.frameToBeAvailableAndSwitchToIt(iframe));
 

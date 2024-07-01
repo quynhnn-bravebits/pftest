@@ -11,8 +11,8 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import org.pftest.constants.FrameworkConstants;
 import org.pftest.constants.ModalConstants;
 import org.pftest.driver.DriverManager;
-import org.pftest.enums.DeviceMode;
-import org.pftest.enums.RichTextOptionTagName;
+import org.pftest.enums.pagefly.DeviceMode;
+import org.pftest.enums.pagefly.RichTextOptionTagName;
 import org.pftest.projects.commons.Badge;
 import org.pftest.projects.commons.Toast;
 
@@ -820,11 +820,19 @@ public class EditorPage extends Toast {
         editorPageSandbox.verifySelectedElementHasCssAttributeValue(id, "background-image", "url(\"" + url + "\")");
     }
 
-    @Step("Change background image and verify selected element has the correct background image")
+    @Step("Change background image with STANDARD style and verify selected element has the correct background image")
     public String selectBackgroundImage(int index) {
         String url = editorPageInspector.openModalAndSelectImageFromMediaFiles(index);
         String id = getSelectedElementId();
         editorPageSandbox.verifySelectedElementHasCssAttributeValue(id, "background-image", "url(\"" + url + "\")");
+        return url;
+    }
+
+    @Step("Change background image with PARALLAX style and verify selected element has the correct background image")
+    public String selectBackgroundImageWithParallax(int index) {
+        String url = editorPageInspector.openModalAndSelectImageFromMediaFiles(index);
+        String id = getSelectedElementId();
+        editorPageSandbox.verifySelectedElementHasParallaxImage(id, url);
         return url;
     }
 
