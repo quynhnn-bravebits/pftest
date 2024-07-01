@@ -61,6 +61,12 @@
                     <include name="useSlideshowElementAndSetStyle"/>
                     <include name="userChangeDeviceModeInHeaderBar"/>
                     <include name="userChangeDeviceModeInInspector"/>
+                    <include name="userChangeCanvasWidthForDesktopViewMode"/>
+                    <include name="userChangeCanvasWidthForLaptopViewMode"/>
+                    <include name="userChangeCanvasWidthForTabletViewMode"/>
+                    <include name="userChangeCanvasWidthForMobileViewMode"/>
+                    <include name="userChangeCanvasWidthForMobileViewMode"/>
+                    <include name="userEnableAutoSaveAndChangeDeviceMode"/>
 
                 </methods>
             </class>

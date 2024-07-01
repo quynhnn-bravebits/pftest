@@ -598,6 +598,174 @@ public class PageEditingTest extends BaseTest {
         );
     }
 
+    @Feature("Editor settings")
+    @Tags({@Tag("Device mode"), @Tag("Canvas width"), @Tag("All devices")})
+    @Link("https://docs.google.com/spreadsheets/d/1HgNIFwDdQ5k2HB1x2pfV_KnBaWvQLi6aGy7W44yXUFs/edit?pli=1&gid=855623679#gid=855623679&range=B30")
+    @Test(description = "User change canvas width for DESKTOP view mode")
+    public void userChangeCanvasWidthForDesktopViewMode() {
+        DeviceMode mode = DeviceMode.ALL_DEVICES;
+        addStep(
+                "Step 1: Open new page",
+                () -> {
+                    getPageListingScreen().openPageListingPage();
+                    getPageListingScreen().verifyPageListingLoaded();
+                    getPageListingScreen().createNewPageFromBlank(PageType.PAGE);
+                    getEditorPage().verifyEditorPageLoaded();
+                }
+        );
+        addStep(
+                "Step 2: Select ALL DEVICES view mode",
+                () -> getEditorPage().changeDeviceMode(mode)
+        );
+        addStep(
+                "Step 3: Change canvas width to 10001px and verify maximum error message",
+                () -> getEditorPage().changeCanvasWidth(10001, mode)
+        );
+        addStep(
+                "Step 4: Change canvas width to 1119px and verify minimum error message",
+                () -> getEditorPage().changeCanvasWidth(1119, mode)
+        );
+        addStep(
+                "Step 5: Change canvas width to 2000px",
+                () -> getEditorPage().changeCanvasWidth(2000, mode)
+        );
+    }
+
+    @Feature("Editor settings")
+    @Tags({@Tag("Device mode"), @Tag("Canvas width"), @Tag("Laptop")})
+    @Link("https://docs.google.com/spreadsheets/d/1HgNIFwDdQ5k2HB1x2pfV_KnBaWvQLi6aGy7W44yXUFs/edit?pli=1&gid=855623679#gid=855623679&range=B31")
+    @Test(description = "User change canvas width for LAPTOP view mode")
+    public void userChangeCanvasWidthForLaptopViewMode() {
+        DeviceMode mode = DeviceMode.LAPTOP;
+        addStep(
+                "Step 1: Open new page",
+                () -> {
+                    getPageListingScreen().openPageListingPage();
+                    getPageListingScreen().verifyPageListingLoaded();
+                    getPageListingScreen().createNewPageFromBlank(PageType.PAGE);
+                    getEditorPage().verifyEditorPageLoaded();
+                }
+        );
+        addStep(
+                "Step 2: Select LAPTOP view mode",
+                () -> getEditorPage().changeDeviceMode(mode)
+        );
+        addStep(
+                "Step 3: Change canvas width to 1024 and verify minimum error message",
+                () -> getEditorPage().changeCanvasWidth(1024, mode)
+        );
+        addStep(
+                "Step 4: Change canvas width to 1201px and verify maximum error message",
+                () -> getEditorPage().changeCanvasWidth(1201, mode)
+        );
+        addStep(
+                "Step 5: Change canvas width to 1110px",
+                () -> getEditorPage().changeCanvasWidth(1110, mode)
+        );
+    }
+
+    @Feature("Editor settings")
+    @Tags({@Tag("Device mode"), @Tag("Canvas width"), @Tag("Tablet")})
+    @Link("https://docs.google.com/spreadsheets/d/1HgNIFwDdQ5k2HB1x2pfV_KnBaWvQLi6aGy7W44yXUFs/edit?pli=1&gid=855623679#gid=855623679&range=B32")
+    @Test(description = "User change canvas width for TABLET view mode")
+    public void userChangeCanvasWidthForTabletViewMode() {
+        DeviceMode mode = DeviceMode.TABLET;
+        addStep(
+                "Step 1: Open new page",
+                () -> {
+                    getPageListingScreen().openPageListingPage();
+                    getPageListingScreen().verifyPageListingLoaded();
+                    getPageListingScreen().createNewPageFromBlank(PageType.PAGE);
+                    getEditorPage().verifyEditorPageLoaded();
+                }
+        );
+        addStep(
+                "Step 2: Select TABLET view mode",
+                () -> getEditorPage().changeDeviceMode(mode)
+        );
+        addStep(
+                "Step 3: Change canvas width to 767px and verify minimum error message",
+                () -> getEditorPage().changeCanvasWidth(767, mode)
+        );
+        addStep(
+                "Step 4: Change canvas width to 1025px and verify maximum error message",
+                () -> getEditorPage().changeCanvasWidth(1025, mode)
+        );
+        addStep(
+                "Step 5: Change canvas width to 990px",
+                () -> getEditorPage().changeCanvasWidth(990, mode)
+        );
+    }
+
+    @Feature("Editor settings")
+    @Tags({@Tag("Device mode"), @Tag("Canvas width"), @Tag("Mobile")})
+    @Link("https://docs.google.com/spreadsheets/d/1HgNIFwDdQ5k2HB1x2pfV_KnBaWvQLi6aGy7W44yXUFs/edit?pli=1&gid=855623679#gid=855623679&range=B33")
+    @Test(description = "User change canvas width for MOBILE view mode")
+    public void userChangeCanvasWidthForMobileViewMode() {
+        DeviceMode mode = DeviceMode.MOBILE;
+        addStep(
+                "Step 1: Open new page",
+                () -> {
+                    getPageListingScreen().openPageListingPage();
+                    getPageListingScreen().verifyPageListingLoaded();
+                    getPageListingScreen().createNewPageFromBlank(PageType.PAGE);
+                    getEditorPage().verifyEditorPageLoaded();
+                }
+        );
+        addStep(
+                "Step 2: Select MOBILE view mode",
+                () -> getEditorPage().changeDeviceMode(mode)
+        );
+        addStep(
+                "Step 3: Change canvas width to -1px and verify minimum error message",
+                () -> getEditorPage().changeCanvasWidth(-1, mode)
+        );
+        addStep(
+                "Step 4: Change canvas width to 768px and verify maximum error message",
+                () -> getEditorPage().changeCanvasWidth(768, mode)
+        );
+        addStep(
+                "Step 5: Change canvas width to 383px",
+                () -> getEditorPage().changeCanvasWidth(383, mode)
+        );
+    }
+
+    @Feature("Editor settings")
+    @Tags({@Tag("Device mode"), @Tag("Auto save")})
+    @Link("https://docs.google.com/spreadsheets/d/1HgNIFwDdQ5k2HB1x2pfV_KnBaWvQLi6aGy7W44yXUFs/edit?pli=1&gid=855623679#gid=855623679&range=B34")
+    @Test(description = "User enable autosave and change device view mode")
+    public void userEnableAutoSaveAndChangeDeviceMode() {
+
+        addStep(
+                "Step 1: Open new page editor",
+                () -> openPageEditorInPageListingScreen()
+        );
+        addStep(
+                "Step 2: Enable autosave",
+                () -> {
+                    getEditorPage().toggleEnableAutoSave();
+                    getToast().verifyShowEnableAutoSaveToast();
+                }
+        );
+        addStep(
+                "Step 3: Change device view mode to LAPTOP",
+                () -> getEditorPage().changeDeviceMode(DeviceMode.LAPTOP)
+        );
+        addStep(
+                "Step 4: Change device view mode to TABLET",
+                () -> getEditorPage().changeDeviceMode(DeviceMode.TABLET)
+        );
+        addStep(
+                "Step 5: Change device view mode to MOBILE",
+                () -> getEditorPage().changeDeviceMode(DeviceMode.MOBILE)
+        );
+        addStep(
+                "Step 6: Change device view mode to ALL DEVICES",
+                () -> getEditorPage().changeDeviceMode(DeviceMode.ALL_DEVICES)
+        );
+        getEditorPage().verifyUndoButtonDisabled();
+        getEditorPage().verifyRedoButtonDisabled();
+    }
 
 //    @Test(description = "TC-032: User show page outline")
 //    public void showPageOutline() {
