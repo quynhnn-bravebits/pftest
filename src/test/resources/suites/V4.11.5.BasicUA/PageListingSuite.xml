@@ -32,6 +32,12 @@
                     <include name="addAndEditSlideShow"/>
                 </methods>
             </class>
+
+            <class name="org.pftest.projects.testcases.UndoRedoTest">
+                <methods>
+                    <include name="restorePreviousVersion_TC044"/>
+                </methods>
+            </class>
         </classes>
     </test>
 

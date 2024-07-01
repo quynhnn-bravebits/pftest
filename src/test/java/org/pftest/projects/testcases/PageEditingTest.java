@@ -1,6 +1,8 @@
 package org.pftest.projects.testcases;
 
 import io.qameta.allure.*;
+import io.qameta.allure.testng.Tag;
+import io.qameta.allure.testng.Tags;
 import org.openqa.selenium.By;
 import org.pftest.base.BaseTest;
 import org.pftest.enums.pagefly.DeviceMode;
@@ -237,6 +239,7 @@ public class PageEditingTest extends BaseTest {
 
     @Feature("Save and Publish")
     @Test(description = "TC-013: Create a new home page from blank when there is no home page is published")
+    @Link("https://docs.google.com/spreadsheets/d/1HgNIFwDdQ5k2HB1x2pfV_KnBaWvQLi6aGy7W44yXUFs/edit?pli=1&gid=855623679#gid=855623679&range=B14:B15")
     public void createNewHomePageFromBlankWhenNoHomePagePublished() {
         getPageListingScreen().openPageListingPage();
         getPageListingScreen().verifyPageListingLoaded();
@@ -246,6 +249,7 @@ public class PageEditingTest extends BaseTest {
 
     @Feature("Save and Publish")
     @Test(description = "TC-014: Create a new home page from blank when there is a home page is published", dependsOnMethods = {"createNewHomePageFromBlankWhenNoHomePagePublished"})
+    @Link("https://docs.google.com/spreadsheets/d/1HgNIFwDdQ5k2HB1x2pfV_KnBaWvQLi6aGy7W44yXUFs/edit?pli=1&gid=855623679#gid=855623679&range=B14:B15")
     public void createNewHomePageFromBlankWhenHomepageIsPublished() {
         getPageListingScreen().openPageListingPage();
         getPageListingScreen().verifyPageListingLoaded();
@@ -525,6 +529,75 @@ public class PageEditingTest extends BaseTest {
         imageCompare.setImgB(getEditorPage().takeDndCanvasScreenshot("editor-after-reopen"));
         verifyTrue(imageCompare.isImagesEqual());
     }
+
+    @Feature("Editor settings")
+    @Tags(@Tag("Device mode"))
+    @Link("https://docs.google.com/spreadsheets/d/1HgNIFwDdQ5k2HB1x2pfV_KnBaWvQLi6aGy7W44yXUFs/edit?pli=1&gid=855623679#gid=855623679&range=B28:B29")
+    @Test(description = "User change device view mode on the editor bar")
+    public void userChangeDeviceModeInHeaderBar() {
+        addStep(
+                "Step 1: Open new page",
+                () -> {
+                    getPageListingScreen().openPageListingPage();
+                    getPageListingScreen().verifyPageListingLoaded();
+                    getPageListingScreen().createNewPageFromBlank(PageType.PAGE);
+                    getEditorPage().verifyEditorPageLoaded();
+                }
+        );
+        addStep(
+                "Step 2: Select LAPTOP view mode",
+                () -> getEditorPage().changeDeviceMode(DeviceMode.LAPTOP)
+        );
+        addStep(
+                "Step 3: Select TABLET view mode",
+                () -> getEditorPage().changeDeviceMode(DeviceMode.TABLET)
+        );
+        addStep(
+                "Step 4: Select MOBILE view mode",
+                () -> getEditorPage().changeDeviceMode(DeviceMode.MOBILE)
+        );
+        addStep(
+                "Step 5: Select ALL DEVICES view mode",
+                () -> getEditorPage().changeDeviceMode(DeviceMode.ALL_DEVICES)
+        );
+    }
+
+    @Feature("Editor settings")
+    @Tags(@Tag("Device mode"))
+    @Link("https://docs.google.com/spreadsheets/d/1HgNIFwDdQ5k2HB1x2pfV_KnBaWvQLi6aGy7W44yXUFs/edit?pli=1&gid=855623679#gid=855623679&range=B28:B29")
+    @Test(description = "User change device view mode in the inspector")
+    public void userChangeDeviceModeInInspector() {
+        addStep(
+                "Step 1: Open new page",
+                () -> {
+                    getPageListingScreen().openPageListingPage();
+                    getPageListingScreen().verifyPageListingLoaded();
+                    getPageListingScreen().createNewPageFromBlank(PageType.PAGE);
+                    getEditorPage().verifyEditorPageLoaded();
+                }
+        );
+        addStep(
+                "Step 2: Drag and drop a Heading element",
+                () -> getEditorPage().dragAndDropHeadingElement()
+        );
+        addStep(
+                "Step 3: Select LAPTOP view mode",
+                () -> getEditorPage().changeDeviceModeInspector(DeviceMode.LAPTOP)
+        );
+        addStep(
+                "Step 4: Select TABLET view mode",
+                () -> getEditorPage().changeDeviceModeInspector(DeviceMode.TABLET)
+        );
+        addStep(
+                "Step 5: Select MOBILE view mode",
+                () -> getEditorPage().changeDeviceModeInspector(DeviceMode.MOBILE)
+        );
+        addStep(
+                "Step 6: Select ALL DEVICES view mode",
+                () -> getEditorPage().changeDeviceModeInspector(DeviceMode.ALL_DEVICES)
+        );
+    }
+
 
 //    @Test(description = "TC-032: User show page outline")
 //    public void showPageOutline() {

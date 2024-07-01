@@ -10,6 +10,11 @@
     <test verbose="2" preserve-order="true"
           name="Acceptance Testing - Page Editing">
         <classes>
+            <class name="org.pftest.projects.testcases.PageListingTest">
+                <methods>
+                    <include name="importPageInThePageListingScreen"/>
+                </methods>
+            </class>
             <class name="org.pftest.projects.testcases.PageEditingTest">
                 <methods>
                     <include name="openPageEditorInPageListingScreen"/>
@@ -54,6 +59,9 @@
                     <include name="useButtonElementAndSetStyle"/>
                     <include name="useImageElementAndSetStyle"/>
                     <include name="useSlideshowElementAndSetStyle"/>
+                    <include name="userChangeDeviceModeInHeaderBar"/>
+                    <include name="userChangeDeviceModeInInspector"/>
+
                 </methods>
             </class>
             <class name="org.pftest.projects.testcases.SectionListingTest">

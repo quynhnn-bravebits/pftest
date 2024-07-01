@@ -447,6 +447,16 @@ public class EditorPage extends Toast {
         verifyEquals(editorPageSandbox.getCanvasWidth(), deviceMode.getDefaultSize());
     }
 
+    @Step("Change device mode to {0} and verify screen size")
+    public void changeDeviceModeInspector(DeviceMode deviceMode) {
+        clickElement(By.xpath("//div[@id='editor--inspector']//button[@role='device-sensitive']"));
+        By deviceModeButton = By.xpath("//div[@id='PolarisPortalsContainer']//div[starts-with(@data-portal-id, 'popover-')]//ul[@role='menu']//li[@role='presentation']//button");
+        waitForElementVisible(deviceModeButton);
+        selectOptionDynamic(deviceModeButton, deviceMode.getName());
+        verifyEquals(editorPageSandbox.getCanvasWidth(), deviceMode.getDefaultSize());
+    }
+
+
     @Step("Select text content {0} in the rich text editor and make it {1}")
     public void selectAndAdjustTextContent(String text, RichTextOptionTagName... options) {
         editorPageInspector.selectAndAdjustTextContent(text, options);
