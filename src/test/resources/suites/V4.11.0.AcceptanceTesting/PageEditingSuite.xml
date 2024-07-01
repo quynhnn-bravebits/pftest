@@ -67,6 +67,8 @@
                     <include name="userChangeCanvasWidthForMobileViewMode"/>
                     <include name="userChangeCanvasWidthForMobileViewMode"/>
                     <include name="userEnableAutoSaveAndChangeDeviceMode"/>
+                    <include name="showPageOutlineInEditor"/>
+                    <include name="selectFitViewPort"/>
 
                 </methods>
             </class>

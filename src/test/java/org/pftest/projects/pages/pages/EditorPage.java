@@ -256,18 +256,25 @@ public class EditorPage extends Toast {
         clickElement(canvasSettingButton);
     }
 
-    @Step("Toggle Fit Viewport")
-    public void toggleFitViewport() {
+    @Step("Toggle Fit Viewport to {toggle}")
+    public void toggleFitViewport(boolean toggle) {
         clickElement(canvasSettingButton);
-        clickElement(fitViewportCheckbox);
-        verifyElementChecked(new ByChained(fitViewportCheckbox, By.tagName("input")));
+        if (verifyElementChecked(new ByChained(fitViewportCheckbox, By.tagName("input"))) != toggle) {
+            clickElement(fitViewportCheckbox);
+            assert verifyElementChecked(new ByChained(fitViewportCheckbox, By.tagName("input"))) == toggle;
+        }
         clickElement(canvasSettingButton);
     }
 
     @Step("Verify Fit Viewport")
-    public void verifyFitViewport() {
-        clickElement(canvasSettingButton);
-        verifyElementChecked(new ByChained(fitViewportCheckbox, By.tagName("input")));
+    public void verifyFitViewport(DeviceMode deviceMode) {
+//        clickElement(canvasSettingButton);
+//        verifyElementChecked(new ByChained(fitViewportCheckbox, By.tagName("input")));
+        int width = editorPageSandbox.getCanvasWidth();
+        int height = editorPageSandbox.getCanvasHeight();
+        int expectedHeight = deviceMode.getRatioHeight(width);
+        System.out.println("expectedHeight = " + expectedHeight);
+        verifyTrue(height == expectedHeight || height == expectedHeight + 1);
     }
 
     public void verifyCrispChatBoxOpened() {
@@ -414,21 +421,10 @@ public class EditorPage extends Toast {
         }
     }
 
-    // @Todo get size return value is not actual size
-    @Step("Toggle Page Outline and check canvas size")
-    public void togglePageOutlineAndCheckCanvasSize() {
-        hidePageOutline();
-        Dimension canvasSize = getSizeElement(editorDnd);
-        int canvasWidth = canvasSize.width;
-        showPageOutline();
-        Dimension canvasSizeAfter = getSizeElement(editorDnd);
-        Dimension pageOutlineSize = getSizeElement(pageOutline);
-        int canvasWidthAfter = canvasSizeAfter.width;
-        int pageOutlineWidth = pageOutlineSize.width;
-        System.out.println("Canvas width before: " + canvasWidth + " Canvas width after: " + canvasWidthAfter + " Page Outline width: " + pageOutlineWidth);
-        System.out.println(canvasWidth - pageOutlineWidth + " " + canvasWidthAfter);
-        assert canvasWidthAfter == canvasWidth - pageOutlineWidth;
+    public Dimension getPageOutlineSize() {
+        return getSizeElement(pageOutline);
     }
+
 
 //    ================== Page Inspector ==================
 
@@ -1430,5 +1426,16 @@ public class EditorPage extends Toast {
     @Step("Take Dnd canvas screenshot")
     public File takeDndCanvasScreenshot(String name) {
         return takeElementScreenshot(editorDnd, name);
+    }
+
+    /**
+     * Get width of the section contain the canvas in the editor page
+     *
+     * @return
+     */
+    public int getCanvasSectionWidth() {
+        int containerWidth = getSizeElement(By.xpath("//main[@id='AppFrameMain']//main")).getWidth();
+        // the container has padding 6px 8px
+        return containerWidth - 16;
     }
 }

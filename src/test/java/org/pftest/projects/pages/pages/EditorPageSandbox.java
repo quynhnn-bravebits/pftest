@@ -205,6 +205,14 @@ public class EditorPageSandbox {
         return size;
     }
 
+    public int getCanvasHeight() {
+        switchToDragAndDropFrame();
+        int size = getSizeElement(By.tagName("html")).height;
+        System.out.println("Canvas height: " + size);
+        switchToPageFlyFrame();
+        return size;
+    }
+
     // ================== Slideshow methods ==================
 
     /**

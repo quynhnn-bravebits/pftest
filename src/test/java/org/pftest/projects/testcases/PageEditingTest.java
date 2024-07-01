@@ -4,6 +4,7 @@ import io.qameta.allure.*;
 import io.qameta.allure.testng.Tag;
 import io.qameta.allure.testng.Tags;
 import org.openqa.selenium.By;
+import org.openqa.selenium.Dimension;
 import org.pftest.base.BaseTest;
 import org.pftest.enums.pagefly.DeviceMode;
 import org.pftest.enums.pagefly.ElementType;
@@ -21,6 +22,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.Objects;
+import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.atomic.AtomicReference;
 
 import static org.pftest.helpers.ClipboardHelper.putTextIntoClipboard;
@@ -738,7 +740,7 @@ public class PageEditingTest extends BaseTest {
 
         addStep(
                 "Step 1: Open new page editor",
-                () -> openPageEditorInPageListingScreen()
+                this::openPageEditorInPageListingScreen
         );
         addStep(
                 "Step 2: Enable autosave",
@@ -767,12 +769,92 @@ public class PageEditingTest extends BaseTest {
         getEditorPage().verifyRedoButtonDisabled();
     }
 
-//    @Test(description = "TC-032: User show page outline")
-//    public void showPageOutline() {
-//        getEditorPage().openNewPageEditor(PageType.PAGE);
-//        getEditorPage().verifyEditorPageLoaded();
-//        getEditorPage().togglePageOutlineAndCheckCanvasSize();
-//    }
+    @Story("Canvas size")
+    @Tags({@Tag("Canvas width")})
+    @Test(description = "TC-032: User show page outline")
+    public void showPageOutlineInEditor() {
+        AtomicInteger hideOutline = new AtomicInteger();
+        AtomicInteger showOutline = new AtomicInteger();
+        AtomicInteger pageOutlineWidth = new AtomicInteger();
+
+        addStep(
+                "Step 1: Open new page editor",
+                this::openPageEditorInPageListingScreen
+        );
+        addStep(
+                "Step 2: Get canvas size when hide page outline",
+                () -> {
+                    getEditorPage().hidePageOutline();
+                    Dimension canvasSize = getDragAndDropElementSize(By.tagName("html"));
+                    hideOutline.set(canvasSize.getWidth());
+                }
+        );
+        addStep(
+                "Step 3: Get canvas size when show page outline",
+                () -> {
+                    getEditorPage().showPageOutline();
+                    Dimension canvasSizeAfter = getDragAndDropElementSize(By.tagName("html"));
+                    Dimension pageOutlineSize = getEditorPage().getPageOutlineSize();
+                    showOutline.set(canvasSizeAfter.getWidth());
+                    pageOutlineWidth.set(pageOutlineSize.getWidth());
+                }
+        );
+
+        // Prevent failures due to ceiling size number
+        verifyTrue((hideOutline.get() <= showOutline.get() + pageOutlineWidth.get()) && (showOutline.get() + pageOutlineWidth.get() <= hideOutline.get() + 2));
+    }
+
+    @Story("Canvas size")
+    @Tags({@Tag("Canvas width")})
+    @Link("https://docs.google.com/spreadsheets/d/1HgNIFwDdQ5k2HB1x2pfV_KnBaWvQLi6aGy7W44yXUFs/edit?pli=1&gid=855623679#gid=855623679&range=B37")
+    @Test(description = "TC-034: User select option 'Fit viewport'")
+    public void selectFitViewPort() {
+        addStep(
+                "Step 1: Open new page editor",
+                this::openPageEditorInPageListingScreen
+        );
+        addStep(
+                "Step 2: Select Fit viewport",
+                () -> {
+                    getEditorPage().toggleFitViewport(true);
+                    getEditorPage().verifyFitViewport(DeviceMode.ALL_DEVICES);
+                }
+        );
+
+        addStep(
+                "Step 3: Select LAPTOP view mode",
+                () -> {
+                    getEditorPage().changeDeviceMode(DeviceMode.LAPTOP);
+                    getEditorPage().verifyFitViewport(DeviceMode.LAPTOP);
+                }
+        );
+
+        addStep(
+                "Step 4: Select TABLET view mode",
+                () -> {
+                    getEditorPage().changeDeviceMode(DeviceMode.TABLET);
+                    getEditorPage().verifyFitViewport(DeviceMode.TABLET);
+                }
+        );
+
+        addStep(
+                "Step 5: Select MOBILE view mode",
+                () -> {
+                    getEditorPage().changeDeviceMode(DeviceMode.MOBILE);
+                    getEditorPage().verifyFitViewport(DeviceMode.MOBILE);
+                }
+        );
+
+        addStep(
+                "Step 5: Unselect Fit viewport",
+                () -> {
+                    getEditorPage().toggleFitViewport(false);
+                    int expected = Math.min(getEditorPage().getCanvasSectionWidth(), DeviceMode.MOBILE.getDefaultSize());
+                    int actual = getDragAndDropElementSize(By.tagName("html")).getWidth();
+                    verifyTrue(expected == actual);
+                }
+        );
+    }
 
     @Feature("Editor settings")
     @Test(description = "TC-038: User select option \"Show Canvas size\" and \"Fit viewport\" then close editor then open editor again")
@@ -782,7 +864,7 @@ public class PageEditingTest extends BaseTest {
         getPageListingScreen().createNewPageFromBlank(PageType.PAGE);
         getEditorPage().verifyEditorPageLoaded();
         getEditorPage().toggleShowCanvasSize();
-        getEditorPage().toggleFitViewport();
+        getEditorPage().toggleFitViewport(true);
         // Save page
         getEditorPage().clickSavePageButton();
         getEditorPage().confirmBeforeSaveModal_UntitledTitle(PageType.PAGE + " " + new Date().toString());
@@ -801,7 +883,7 @@ public class PageEditingTest extends BaseTest {
         verifyIdInUrl(pageId);
 
         getEditorPage().verifyShowCanvasSize();
-        getEditorPage().verifyFitViewport();
+        getEditorPage().verifyFitViewport(DeviceMode.ALL_DEVICES);
     }
 
     @Feature("Editor settings")
