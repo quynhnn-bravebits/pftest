@@ -805,7 +805,7 @@ public class PageEditingTest extends BaseTest {
     }
 
     @Story("Canvas size")
-    @Tags({@Tag("Canvas width")})
+    @Tags({@Tag("Canvas width"), @Tag("Fit viewport")})
     @Link("https://docs.google.com/spreadsheets/d/1HgNIFwDdQ5k2HB1x2pfV_KnBaWvQLi6aGy7W44yXUFs/edit?pli=1&gid=855623679#gid=855623679&range=B37")
     @Test(description = "TC-034: User select option 'Fit viewport'")
     public void selectFitViewPort() {
@@ -856,14 +856,57 @@ public class PageEditingTest extends BaseTest {
         );
     }
 
+    @Story("Canvas size")
+    @Tags({@Tag("Canvas width"), @Tag("Fit viewport")})
+    @Link("https://docs.google.com/spreadsheets/d/1HgNIFwDdQ5k2HB1x2pfV_KnBaWvQLi6aGy7W44yXUFs/edit?pli=1&gid=855623679#gid=855623679&range=B38:B40")
+    @Test(description = "TC-035: User select option 'Show canvas size' when enabled 'Fit viewport'")
+    public void showCanvasSizeWhenFitViewport() {
+        AtomicInteger originWidth = new AtomicInteger();
+        AtomicInteger originHeight = new AtomicInteger();
+
+        addStep(
+                "Step 1: Open new page editor",
+                this::openPageEditorInPageListingScreen
+        );
+        addStep(
+                "Step 2: Select Fit viewport",
+                () -> {
+                    getEditorPage().toggleFitViewport(true);
+                    getEditorPage().verifyFitViewport(DeviceMode.ALL_DEVICES);
+                    originWidth.set(getEditorPage().getCanvasSectionWidth());
+                    originHeight.set(getEditorPage().getCanvasSectionHeight());
+                }
+        );
+
+        addStep(
+                "Step 3: Select Show canvas size",
+                () -> {
+                    getEditorPage().toggleShowCanvasSize(true);
+                    verifyEquals(getEditorPage().getCanvasSectionWidth(), originWidth.get() - getEditorPage().getCanvasSizeRulerY());
+                    verifyEquals(getEditorPage().getCanvasSectionHeight(), originHeight.get() - getEditorPage().getCanvasSizeRulerX());
+                }
+        );
+
+        addStep(
+                "Step 4: Unselect Show canvas size",
+                () -> {
+                    getEditorPage().toggleShowCanvasSize(false);
+                    verifyEquals(getEditorPage().getCanvasSectionWidth(), originWidth.get());
+                    verifyEquals(getEditorPage().getCanvasSectionHeight(), originHeight.get());
+                }
+        );
+
+    }
+
     @Feature("Editor settings")
+    @Tags({@Tag("Canvas width"), @Tag("Fit viewport")})
     @Test(description = "TC-038: User select option \"Show Canvas size\" and \"Fit viewport\" then close editor then open editor again")
     public void showCanvasSizeAndFitViewport() {
         getPageListingScreen().openPageListingPage();
         getPageListingScreen().verifyPageListingLoaded();
         getPageListingScreen().createNewPageFromBlank(PageType.PAGE);
         getEditorPage().verifyEditorPageLoaded();
-        getEditorPage().toggleShowCanvasSize();
+        getEditorPage().toggleShowCanvasSize(true);
         getEditorPage().toggleFitViewport(true);
         // Save page
         getEditorPage().clickSavePageButton();

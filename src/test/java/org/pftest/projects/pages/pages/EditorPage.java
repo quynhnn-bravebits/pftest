@@ -216,10 +216,12 @@ public class EditorPage extends Toast {
     }
 
     @Step("Toggle Show Canvas Size")
-    public void toggleShowCanvasSize() {
+    public void toggleShowCanvasSize(boolean toggle) {
         clickElement(editorSettingButton);
-        clickElement(showCanvasSizeCheckbox);
-        verifyElementChecked(new ByChained(showCanvasSizeCheckbox, By.tagName("input")));
+        if (verifyElementChecked(new ByChained(showCanvasSizeCheckbox, By.tagName("input"))) != toggle) {
+            clickElement(showCanvasSizeCheckbox);
+            assert verifyElementChecked(new ByChained(showCanvasSizeCheckbox, By.tagName("input"))) == toggle;
+        }
         clickElement(editorSettingButton);
     }
 
@@ -1427,15 +1429,38 @@ public class EditorPage extends Toast {
     public File takeDndCanvasScreenshot(String name) {
         return takeElementScreenshot(editorDnd, name);
     }
+    /**
+     * Get size of the section contain the canvas in the editor page
+     *
+     */
+    public Dimension getCanvasSectionSize() {
+        return getSizeElement(By.xpath("//main[@id='AppFrameMain']//main//div[contains(@class, 'h-100') and contains(@class, 'w-100')]"));
+    }
+
+    public int getCanvasSectionWidth() {
+        return getCanvasSectionSize().getWidth();
+    }
+
+    public int getCanvasSectionHeight() {
+        return getCanvasSectionSize().getHeight();
+    }
 
     /**
-     * Get width of the section contain the canvas in the editor page
-     *
-     * @return
+     * Get height of x-axis ruler in the editor
      */
-    public int getCanvasSectionWidth() {
-        int containerWidth = getSizeElement(By.xpath("//main[@id='AppFrameMain']//main")).getWidth();
-        // the container has padding 6px 8px
-        return containerWidth - 16;
+    public int getCanvasSizeRulerX() {
+        // 12 : ruler X height
+        // 8: padding top of the canvas container
+        return 12 - 8;
     }
+
+    /**
+     * Get width of y-axis ruler in the editor
+     */
+    public int getCanvasSizeRulerY() {
+        // 12 : ruler Y width
+        // 6: padding left of the canvas container
+        return 12 - 6;
+    }
+
 }
