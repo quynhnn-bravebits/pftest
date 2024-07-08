@@ -1,0 +1,118 @@
+package org.pftest.projects.V1.pages;
+
+import io.qameta.allure.Step;
+import org.openqa.selenium.By;
+import org.openqa.selenium.Dimension;
+import org.pftest.projects.V1.pages.pages.*;
+import org.pftest.projects.V1.commons.Toast;
+import org.pftest.projects.V1.pages.dashboard.DashboardScreen;
+import org.pftest.projects.V1.pages.extraFunctions.TrashScreen;
+import org.pftest.projects.V1.pages.pages.*;
+import org.pftest.projects.V1.pages.sections.SectionListingScreen;
+import org.pftest.report.AllureManager;
+
+import static org.pftest.keywords.WebUI.*;
+
+public class CommonPage {
+    protected By portalContainer = By.id("PolarisPortalsContainer");
+    protected By pageTitle = By.xpath("//h1[@class='Polaris-Header-Title']");
+    private By crispChatBox = By.xpath("//*[@id='crisp-chatbox']//*[@data-chat-status='ongoing']");
+    protected By modal = By.xpath("//*[@id=\"PolarisPortalsContainer\"]//*//div[@role=\"dialog\"]/div[1]");
+
+    private Toast toast;
+    private EditorPage editorPage;
+    private EditorPageSandbox editorPageSandbox;
+    private EditorPageInspector editorPageInspector;
+    private PageListingScreen pageListingScreen;
+    private PageSettingScreen pageSettingScreen;
+    private DashboardScreen dashboardScreen;
+    private SectionListingScreen sectionListingScreen;
+    private TrashScreen trashScreen;
+
+    public Toast getToast() {
+        if (toast == null) {
+            toast = new Toast();
+        }
+        return toast;
+    }
+
+    public EditorPage getEditorPage() {
+        if (editorPage == null) {
+            editorPage = new EditorPage();
+        }
+        return editorPage;
+    }
+
+    public EditorPageSandbox getEditorPageSandbox() {
+        if (editorPageSandbox == null) {
+            editorPageSandbox = new EditorPageSandbox();
+        }
+        return editorPageSandbox;
+    }
+
+    public EditorPageInspector getEditorPageInspector() {
+        if (editorPageInspector == null) {
+            editorPageInspector = new EditorPageInspector();
+        }
+        return editorPageInspector;
+    }
+
+    public PageListingScreen getPageListingScreen() {
+        if (pageListingScreen == null) {
+            pageListingScreen = new PageListingScreen();
+        }
+        return pageListingScreen;
+    }
+
+    public PageSettingScreen getPageSettingScreen() {
+        if (pageSettingScreen == null) {
+            pageSettingScreen = new PageSettingScreen();
+        }
+        return pageSettingScreen;
+    }
+
+    public DashboardScreen getDashboardScreen() {
+        if (dashboardScreen == null) {
+            dashboardScreen = new DashboardScreen();
+        }
+        return dashboardScreen;
+    }
+
+    public SectionListingScreen getSectionListingScreen() {
+        if (sectionListingScreen == null) {
+            sectionListingScreen = new SectionListingScreen();
+        }
+        return sectionListingScreen;
+    }
+
+    public TrashScreen getTrashScreen() {
+        if (trashScreen == null) {
+            trashScreen = new TrashScreen();
+        }
+        return trashScreen;
+    }
+
+    public void verifyCrispChatBoxOpened() {
+        verifyElementVisible(crispChatBox);
+        Dimension size = getSizeElement(crispChatBox);
+        verifyTrue(size.height > 0 && size.width > 0);
+    }
+
+    public void verifyCrispChatBoxClosed() {
+        verifyElementNotVisible(crispChatBox);
+        Dimension size = getSizeElement(crispChatBox);
+        verifyTrue(size.height * size.width == 0);
+    }
+
+    @Step("Verify page title is {0}")
+    public void verifyPageTitle(String title) {
+        verifyElementVisible(pageTitle);
+        verifyElementText(pageTitle, title);
+    }
+
+    @Step("{description}")
+    public void addStep(String description, Runnable step) {
+        step.run();
+        AllureManager.takeScreenshotStep();
+    }
+}

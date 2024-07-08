@@ -10,12 +10,12 @@
     <test verbose="2" preserve-order="true"
           name="Acceptance Testing - Page Editing">
         <classes>
-            <class name="org.pftest.projects.testcases.PageListingTest">
+            <class name="org.pftest.projects.V1.testcases.PageListingTest">
                 <methods>
                     <include name="importPageInThePageListingScreen"/>
                 </methods>
             </class>
-            <class name="org.pftest.projects.testcases.PageEditingTest">
+            <class name="org.pftest.projects.V1.testcases.PageEditingTest">
                 <methods>
                     <include name="openPageEditorInPageListingScreen"/>
                     <include name="openPageEditorInDashboardScreen"/>
@@ -72,7 +72,7 @@
 
                 </methods>
             </class>
-            <class name="org.pftest.projects.testcases.SectionListingTest">
+            <class name="org.pftest.projects.V1.testcases.SectionListingTest">
                 <methods>
                     <include name="createSectionFromBlank"/>
                     <include name="createSectionFromTemplate"/>

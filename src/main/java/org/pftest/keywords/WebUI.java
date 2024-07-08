@@ -52,8 +52,7 @@ import java.time.Duration;
 import java.util.List;
 import java.util.*;
 
-import static org.pftest.constants.FrameworkConstants.APP_IFRAME;
-import static org.pftest.constants.FrameworkConstants.DRAG_DROP_IFRAME;
+import static org.pftest.constants.FrameworkConstants.*;
 
 /**
  * Keyword WebUI is a generic class that is a preprocessed library with many custom functions from Selenium and Java.
@@ -1126,6 +1125,17 @@ public class WebUI {
         wait.until(ExpectedConditions.frameToBeAvailableAndSwitchToIt(APP_IFRAME));
         getJsExecutor().executeScript("window.localStorage.setItem('rc-checker-key', 'welcome2PF');");
         LogUtils.info("Switch to Frame by Name. " + APP_IFRAME);
+        createFakeMouse();
+    }
+
+    @Step("Switch to Modal Frame contains Editor")
+    public static void switchToEditorFrame() {
+        smartWait();
+
+        switchToDefaultContent();
+        WebDriverWait wait = new WebDriverWait(DriverManager.getDriver(), Duration.ofSeconds(FrameworkConstants.WAIT_EXPLICIT), Duration.ofMillis(500));
+        wait.until(ExpectedConditions.frameToBeAvailableAndSwitchToIt(EDITOR_IFRAME));
+        LogUtils.info("Switch to Frame by Name. " + EDITOR_IFRAME);
         createFakeMouse();
     }
 

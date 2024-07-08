@@ -9,7 +9,7 @@
     <test verbose="2" preserve-order="true"
           name="Inspector">
         <classes>
-            <class name="org.pftest.projects.testcases.PageEditingTest">
+            <class name="org.pftest.projects.V1.testcases.PageEditingTest">
                 <methods>
                     <include name="changeContentColorToRandomColor"/>
                     <include name="changePaddingValueOfHeadingElement"/>

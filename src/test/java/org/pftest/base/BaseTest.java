@@ -4,7 +4,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ThreadGuard;
 import org.pftest.driver.DriverManager;
 import org.pftest.driver.TargetFactory;
-import org.pftest.projects.pages.CommonPage;
+import org.pftest.projects.V1.pages.CommonPage;
 import org.testng.annotations.*;
 
 import static org.pftest.keywords.WebUI.getJsExecutor;

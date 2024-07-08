@@ -10,7 +10,7 @@
 
     <test name="Page Listing" verbose="2" preserve-order="true">
         <classes>
-            <class name="org.pftest.projects.testcases.PageListingTest">
+            <class name="org.pftest.projects.V1.testcases.PageListingTest">
                 <methods>
                     <include name="createNewTemplateProductPage"/>
                     <include name="unpublishPageInThePageListingScreen"/>
@@ -24,7 +24,7 @@
                 </methods>
             </class>
 
-            <class name="org.pftest.projects.testcases.PageEditingTest">
+            <class name="org.pftest.projects.V1.testcases.PageEditingTest">
                 <methods>
                     <include name="changeCanvasWidthInEditor"/>
                     <include name="enableAutoSaveWhenHaventSavedPage"/>
@@ -33,7 +33,7 @@
                 </methods>
             </class>
 
-            <class name="org.pftest.projects.testcases.UndoRedoTest">
+            <class name="org.pftest.projects.V1.testcases.UndoRedoTest">
                 <methods>
                     <include name="restorePreviousVersion_TC044"/>
                 </methods>

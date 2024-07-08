@@ -9,7 +9,7 @@
     <test verbose="2" preserve-order="true"
           name="Undo Redo">
         <classes>
-            <class name="org.pftest.projects.testcases.UndoRedoTest">
+            <class name="org.pftest.projects.V1.testcases.UndoRedoTest">
                 <methods>
                     <include name="undoChangeTextContentOfHeadingElement"/>
                     <include name="undoRedoInTemplatePage"/>
