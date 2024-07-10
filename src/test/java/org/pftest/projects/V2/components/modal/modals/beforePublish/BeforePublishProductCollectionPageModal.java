@@ -6,7 +6,7 @@ import org.pftest.enums.pagefly.PageType;
 import org.pftest.keywords.WebUI;
 import org.pftest.projects.V2.components.assignment.PageAssignmentModal;
 
-public class BeforePublishProductCollectionPageModal extends BeforePublishPageModal implements IBeforePublishPageModal {
+public class BeforePublishProductCollectionPageModal extends BeforePublishPageModal{
     private PageAssignmentModal pageAssignment;
 
     public BeforePublishProductCollectionPageModal(ModalType modalType) {

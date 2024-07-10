@@ -1,4 +1,4 @@
-package org.pftest.projects.V2.components.toast;
+package org.pftest.projects.V2.components.common.toast;
 
 import io.qameta.allure.Step;
 import org.openqa.selenium.By;

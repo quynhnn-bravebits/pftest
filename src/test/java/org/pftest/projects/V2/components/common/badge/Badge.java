@@ -1,4 +1,4 @@
-package org.pftest.projects.V2.components.badge;
+package org.pftest.projects.V2.components.common.badge;
 
 import org.openqa.selenium.By;
 import org.pftest.keywords.WebUI;
