@@ -1,10 +1,15 @@
 package org.pftest.projects.V2.components.drawer;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.support.pagefactory.ByChained;
 
 public class BaseDrawer implements IDrawer {
     protected By activator;
     protected By container;
+    protected By title;
+
+    public BaseDrawer() {
+    }
 
     public BaseDrawer setActivator(By activator) {
         this.activator = activator;
@@ -13,9 +18,9 @@ public class BaseDrawer implements IDrawer {
 
     public BaseDrawer setContainer(By container) {
         this.container = container;
+        this.title = new ByChained(container, By.xpath(".//h3"));
         return this;
     }
-
 
 
 }

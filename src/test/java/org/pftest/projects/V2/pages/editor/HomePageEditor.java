@@ -1,9 +1,9 @@
 package org.pftest.projects.V2.pages.editor;
 
+import org.pftest.projects.V2.components.modal.factory.HomePageModalFactory;
 import org.pftest.projects.V2.components.modal.factory.PageModalFactory;
-import org.pftest.projects.V2.components.modal.factory.ProductPageModalFactory;
 
-public class ProductPageEditor extends BaseEditor {
+public class HomePageEditor extends BaseEditor{
     @Override
     public void save() {
 
@@ -16,6 +16,6 @@ public class ProductPageEditor extends BaseEditor {
 
     @Override
     public PageModalFactory getModalFactory() {
-        return new ProductPageModalFactory();
+        return new HomePageModalFactory();
     }
 }

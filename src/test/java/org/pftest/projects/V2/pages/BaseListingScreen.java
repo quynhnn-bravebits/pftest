@@ -1,13 +1,20 @@
 package org.pftest.projects.V2.pages;
 
+import io.qameta.allure.Step;
 import org.openqa.selenium.By;
 import org.openqa.selenium.support.pagefactory.ByChained;
+import org.pftest.base.BaseTest;
+import org.pftest.enums.pagefly.PageStatus;
 
-public class BaseListingScreen {
+import static org.pftest.keywords.WebUI.*;
+import static org.pftest.keywords.WebUI.clickElement;
+
+public abstract class BaseListingScreen extends BaseTest {
     protected By pageTitle = By.xpath("//h1[@class='Polaris-Header-Title']");
     protected final By actionMenu = By.xpath("//div[@class='Polaris-ActionMenu-Actions__ActionsLayout']");
-    private final By importButton = new ByChained(actionMenu, By.id("import-btn"));
-    private final By exportButton = new ByChained(actionMenu, By.id("export-btn"));
+    protected final By primaryMenu = By.xpath("//div[@class='Polaris-Page-Header__PrimaryActionWrapper']");
+    protected final By importButton = new ByChained(actionMenu, By.id("import-btn"));
+    protected final By exportButton = new ByChained(actionMenu, By.id("export-btn"));
 
     protected final By indexFilter = By.xpath("//div[@class='Polaris-IndexFilters']");
     protected final By searchAndFilterButton = new ByChained(indexFilter, By.xpath("//button[@aria-label='Search and filter results']"));
@@ -15,7 +22,7 @@ public class BaseListingScreen {
 
     protected final By indexTable = By.xpath("//div[@class='Polaris-IndexTable']//table");
     protected final By selectAllPagesCheckbox = new ByChained(indexTable, By.xpath(".//thead//*[@class='Polaris-Checkbox']"));
-    private final By bulkActionRoot = new ByChained(indexTable, By.xpath(".//div[@class='Polaris-BulkActions__BulkActionsLayout']"));
+    protected final By bulkActionRoot = new ByChained(indexTable, By.xpath(".//div[@class='Polaris-BulkActions__BulkActionsLayout']"));
     protected final By publishButtonBulkAction = new ByChained(bulkActionRoot, By.xpath(".//button[@aria-label='publish-bulk-action']"));
     protected final By unpublishButtonBulkAction = new ByChained(bulkActionRoot, By.xpath(".//button[@aria-label='unpublish-bulk-action']"));
     protected final By moreActionsButtonBulkAction = new ByChained(bulkActionRoot, By.xpath(".//button[@aria-label='More actions']"));
@@ -23,6 +30,88 @@ public class BaseListingScreen {
     protected final By exportButtonBulkAction = By.id("export-bulk-action");
     protected final By deleteButtonBulkAction = By.id("delete-bulk-action");
 
-    private By crispChatBox = By.xpath("//*[@id='crisp-chatbox']//*[@data-chat-status='ongoing']");
+    protected final By crispChatBox = By.xpath("//*[@id='crisp-chatbox']//*[@data-chat-status='ongoing']");
+
+    public static By getRowByIndex(int index) {
+        return By.xpath(String.format("//tbody//tr[%d]", index));
+    }
+
+    public static By getRowById(String id) {
+        return By.xpath(String.format("//tbody//tr[@id='%s']", id));
+    }
+
+    public static By getRowByTitle(String title) {
+        return By.xpath(String.format("//tbody//tr[.//h6[contains(text(), '%s')]]", title));
+    }
+
+    public static By getPublishedRowByIndex(int index) {
+        String xpath = String.format("(//tbody/tr[.//td[3]/span[@class='Polaris-Badge Polaris-Badge--toneSuccess']//*[text()='Published']])[%s]", index);
+        return By.xpath(xpath);
+    }
+
+    public static By getUnpublishedRowByIndex(int index) {
+        String xpath = String.format("(//tbody/tr[.//td[3]/span[@class='Polaris-Badge Polaris-Badge--toneSuccess']//*[text()='Unpublished']])[%s]", index);
+        return By.xpath(xpath);
+    }
+
+    public abstract void verifyPageLoaded();
+
+    public void filterBy(String type, String option) {
+        clickElement(searchAndFilterButton);
+        clickElement(addFilterButton);
+        By statusOption = By.xpath("//div[@class='Polaris-Popover']//button[@role='menuitem'][.//*[text()='" + type + "']]");
+        clickElement(statusOption);
+        By publishedOption = By.xpath(String.format("//div[@class='Polaris-Popover']//label[@for='%s-%s-filter'][.//*[text()='%s']]", option.toLowerCase(), type.toLowerCase(), option));
+        clickElement(publishedOption);
+        clickElement(addFilterButton);
+    }
+
+    public void filterByStatus(PageStatus status) {
+        filterBy("Status", status.toString());
+    }
+
+    @Step("Select all rows in the active table page")
+    public void selectAll() {
+        clickElement(selectAllPagesCheckbox);
+    }
+
+    @Step("Select row checkbox by index {0}")
+    public String selectRowByIndex(int index) {
+        By row = getRowByIndex(index);
+        waitForElementVisible(row);
+        String id = getAttributeElement(row, "id");
+        clickElement(new ByChained(row, By.xpath(".//*[@class='Polaris-Checkbox']")));
+        return id;
+    }
+
+    @Step("Click on the row {0} in the data table")
+    public String openPageInPageListing(Integer index) {
+        By row = getRowByIndex(index);
+        String id = getAttributeElement(row, "id");
+        clickElement(row);
+        return id;
+    }
+
+    @Step("Click on the row has id {0} in the data table")
+    public void openPageInPageListing(String id) {
+        By row = getRowById(id);
+        clickElement(row);
+    }
+
+    @Step("Open the first published page in the data table")
+    public void openPublishedPage() {
+        filterByStatus(PageStatus.PUBLISHED);
+        sleep(1);
+        By row = getPublishedRowByIndex(1);
+        clickElement(row);
+    }
+
+    @Step("Open the first unpublished page in the data table")
+    public void openUnpublishedPage() {
+        filterByStatus(PageStatus.UNPUBLISHED);
+        sleep(1);
+        By row = getUnpublishedRowByIndex(1);
+        clickElement(row);
+    }
 
 }

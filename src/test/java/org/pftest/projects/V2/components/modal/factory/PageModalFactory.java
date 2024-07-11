@@ -5,7 +5,7 @@ import org.pftest.projects.V2.components.modal.modals.BaseModal;
 import org.pftest.projects.V2.components.modal.modals.beforePublish.BeforePublishPageModal;
 import org.pftest.projects.V2.components.modal.modals.beforeSave.BeforeSavePageModal;
 
-abstract class PageModalFactory {
+public abstract class PageModalFactory {
 
     public BaseModal createPublishPageModal() {
         return new BaseModal(ModalType.PUBLISH_PAGE);

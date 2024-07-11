@@ -121,10 +121,4 @@ public class Toast {
         waitForToast("Section published");
     }
 
-    @Step("Verify show 'Auto-save enabled' toast")
-    public void verifyShowEnableAutoSaveToast() {
-        switchToDefaultContent();
-        verifyShowToast("Auto-save enabled");
-        WebUI.switchToEditorFrame();
-    }
 }

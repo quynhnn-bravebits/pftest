@@ -5,6 +5,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.support.pagefactory.ByChained;
 import org.pftest.enums.pagefly.RichTextOptionTagName;
 import org.pftest.projects.V2.components.common.button.SwitchButton;
+import org.pftest.projects.V2.components.common.input.ContentEditableInput;
 import org.pftest.projects.V2.components.common.input.SliderInput;
 import org.pftest.projects.V2.components.common.input.TextInput;
 
@@ -86,9 +87,7 @@ public class PageInspector extends BaseDrawer {
     public static void changeTextContent(String content) {
         openGeneralTab();
         By textContentInput = By.id("pf_text_editor_");
-        verifyElementVisible(textContentInput);
-        clearTextCtrlA(textContentInput);
-        clearAndFillText(textContentInput, content);
+        new ContentEditableInput().setSelector(textContentInput).setValue(content);
         sleep(0.3);
     }
 
