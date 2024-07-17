@@ -1133,8 +1133,8 @@ public class WebUI {
         smartWait();
 
         switchToDefaultContent();
-        WebDriverWait wait = new WebDriverWait(DriverManager.getDriver(), Duration.ofSeconds(FrameworkConstants.WAIT_EXPLICIT), Duration.ofMillis(500));
-        wait.until(ExpectedConditions.frameToBeAvailableAndSwitchToIt(EDITOR_IFRAME));
+        WebDriverWait wait = new WebDriverWait(DriverManager.getDriver(), Duration.ofSeconds(FrameworkConstants.WAIT_EXPLICIT * 2L), Duration.ofMillis(500));
+        wait.until(ExpectedConditions.frameToBeAvailableAndSwitchToIt(By.xpath(EDITOR_IFRAME)));
         LogUtils.info("Switch to Frame by Name. " + EDITOR_IFRAME);
         createFakeMouse();
     }

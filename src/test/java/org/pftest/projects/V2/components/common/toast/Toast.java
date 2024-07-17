@@ -27,97 +27,111 @@ public class Toast {
     }
 
     @Step("Verify show 'Duplicating page...' toast")
-    public void verifyShowDuplicatingPageToast() {
+    static public void verifyShowDuplicatingPageToast() {
         verifyShowToast("Duplicating page...");
     }
 
     @Step("Verify show 'Page duplicated' toast")
-    public void verifyShowDuplicatedPageToast() {
+    static public void verifyShowDuplicatedPageToast() {
         waitForToast("Page duplicated");
     }
 
     @Step("Verify show 'Deleting page...' toast")
-    public void verifyShowDeletingPageToast() {
+    static public void verifyShowDeletingPageToast() {
         verifyShowToast("Deleting page...");
     }
 
     @Step("Verify show 'Page exported' toast")
-    public void verifyShowExportedPageToast() {
+    static public void verifyShowExportedPageToast() {
         waitForToast("Page exported");
     }
 
     @Step("Verify show 'Exporting pages...' toast")
-    public void verifyShowExportingPagesToast() {
+    static public void verifyShowExportingPagesToast() {
         verifyShowToast("Exporting pages");
     }
 
     @Step("Verify show 'Pages exported' toast")
-    public void verifyShowExportedPagesToast() {
+    static public void verifyShowExportedPagesToast() {
         waitForToast("Pages exported");
     }
 
     @Step("Verify show 'Importing page...' toast")
-    public void verifyShowImportingPageToast() {
+    static public void verifyShowImportingPageToast() {
         verifyShowToast("Importing page...");
     }
 
     @Step("Verify show 'Page imported' toast")
-    public void verifyShowImportedPageToast() {
+    static public void verifyShowImportedPageToast() {
         waitForToast("Page imported");
     }
 
     @Step("Verify show 'Importing pages...' toast")
-    public void verifyShowImportingPagesToast() {
+    static public void verifyShowImportingPagesToast() {
         verifyShowToast("Importing pages...");
     }
 
     @Step("Verify show 'Pages imported' toast")
-    public void verifyShowImportedPagesToast() {
+    static public void verifyShowImportedPagesToast() {
         waitForToast("Pages imported");
     }
 
     @Step("Verify show 'Page deleted' toast")
-    public void verifyShowDeletedPageToast() {
+    static public void verifyShowDeletedPageToast() {
         waitForToast("Page deleted");
     }
 
+    @Step("Verify show 'Saving page...' toast")
+    static public void verifyShowSavingPageToast() {
+        switchToDefaultContent();
+        verifyShowToast("Saving page...");
+        switchToEditorFrame();
+    }
+
+    @Step("Verify show 'Page saved' toast")
+    static public void verifyShowSavedPageToast() {
+        switchToDefaultContent();
+        waitForToast("Page saved");
+        switchToEditorFrame();
+    }
+
     @Step("Verify show 'Publishing page...' toast")
-    public void verifyShowPublishingPageToast() {
+    static public void verifyShowPublishingPageToast() {
         verifyShowToast("Publishing page...");
     }
 
     @Step("Verify show 'Page published' toast")
-    public void verifyShowPublishedPageToast() {
+    static public void verifyShowPublishedPageToast() {
         waitForToast("Page published");
     }
 
     @Step("Verify show 'Unpublishing page...' toast")
-    public void verifyShowUnpublishingPageToast() {
+    static public void verifyShowUnpublishingPageToast() {
         verifyShowToast("Unpublishing page...");
     }
 
     @Step("Verify show 'Page unpublished' toast")
-    public void verifyShowUnpublishedPageToast() {
+    static public void verifyShowUnpublishedPageToast() {
         waitForToast("Page unpublished");
     }
 
     @Step("Verify show 'Unpublishing pages...' toast")
-    public void verifyShowUnpublishingPagesToast() {
+    static public void verifyShowUnpublishingPagesToast() {
         verifyShowToast("Unpublishing pages...");
     }
 
     @Step("Verify show 'Pages unpublished' toast")
-    public void verifyShowUnpublishedPagesToast() {
+    static public void verifyShowUnpublishedPagesToast() {
         waitForToast("Pages unpublished");
     }
 
     @Step("Verify show 'Publishing section...' toast")
-    public void verifyShowPublishingSectionToast() {
+    static public void verifyShowPublishingSectionToast() {
         verifyShowToast("Publishing section...");
     }
 
     @Step("Verify show 'Section published' toast")
-    public void verifyShowPublishedSectionToast() {
+    static public void verifyShowPublishedSectionToast() {
         waitForToast("Section published");
     }
 

@@ -4,9 +4,12 @@ import io.qameta.allure.Step;
 import org.openqa.selenium.By;
 import org.openqa.selenium.support.pagefactory.ByChained;
 import org.pftest.constants.PagesConstants;
+import org.pftest.enums.pagefly.ListingType;
+import org.pftest.enums.pagefly.PageType;
+import org.pftest.projects.V2.components.drawer.DrawerManager;
 import org.pftest.projects.V2.pages.BaseListingScreen;
 
-import static org.pftest.keywords.WebUI.verifyElementVisible;
+import static org.pftest.keywords.WebUI.*;
 
 public class PageListing extends BaseListingScreen {
 
@@ -22,5 +25,16 @@ public class PageListing extends BaseListingScreen {
         verifyElementVisible(createFromTemplateButton);
         verifyElementVisible(createFromBlankButton);
         verifyElementVisible(indexTable);
+    }
+
+    public void createFromTemplate(PageType pageType) {
+        clickElement(createFromTemplateButton);
+        By pageTypeButton = By.id(pageType.toString().toLowerCase() + "-template");
+        waitForElementVisible(pageTypeButton);
+        clickElement(pageTypeButton);
+        sleep(1);
+        waitForPageLoaded();
+        switchToEditorFrame();
+        DrawerManager.getTemplatesDrawer(ListingType.PAGE).selectTemplate();
     }
 }

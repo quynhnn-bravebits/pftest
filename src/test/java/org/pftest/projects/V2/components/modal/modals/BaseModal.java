@@ -1,6 +1,7 @@
 package org.pftest.projects.V2.components.modal.modals;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.pagefactory.ByChained;
 import org.pftest.enums.pagefly.ModalType;
 import org.pftest.keywords.WebUI;
@@ -13,6 +14,7 @@ public class BaseModal {
 
 
     public BaseModal(ModalType modalType) {
+        verifyVisible();
         this.title = modalType.getTitle();
         this.secondaryButton = modalType.getSecondaryButton();
         this.primaryButton = modalType.getPrimaryButton();
@@ -38,11 +40,11 @@ public class BaseModal {
     }
 
     private By getPrimaryButtonLocator() {
-        return new ByChained(locator, By.xpath(".//button[contains(text(), '" + primaryButton + "')]"));
+        return new ByChained(locator, By.xpath(".//button/span[contains(text(), '" + primaryButton + "')]"));
     }
 
     private By getSecondaryButtonLocator() {
-        return new ByChained(locator, By.xpath(".//button[contains(text(), '" + secondaryButton + "')]"));
+        return new ByChained(locator, By.xpath(".//button/span[contains(text(), '" + secondaryButton + "')]"));
     }
 
     private By getModalLocator() {
@@ -53,7 +55,8 @@ public class BaseModal {
     }
 
     public boolean verifyVisible() {
-        return WebUI.verifyElementVisible(getModalLocator());
+        WebElement modal =  WebUI.waitForElementVisible(getModalLocator());
+        return modal != null && modal.isDisplayed();
     }
 
     public boolean verifyNotVisible() {

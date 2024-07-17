@@ -6,7 +6,7 @@ import org.pftest.enums.pagefly.PageType;
 import org.pftest.keywords.WebUI;
 import org.pftest.projects.V2.components.assignment.PageAssignmentModal;
 
-public class BeforePublishProductCollectionPageModal extends BeforePublishPageModal{
+public class BeforePublishProductCollectionPageModal extends BeforePublishPageModal {
     private PageAssignmentModal pageAssignment;
 
     public BeforePublishProductCollectionPageModal(ModalType modalType) {
@@ -22,12 +22,10 @@ public class BeforePublishProductCollectionPageModal extends BeforePublishPageMo
         clickButton(By.id("menubar--save-modal--primary"));
         WebUI.sleep(0.5);
 
-        if (pageType == PageType.PRODUCT) {
-            pageAssignment.verifyPageAssignmentModalVisible();
-            pageAssignment.assignProductCollection();
-            clickButton(By.id("menubar--save-modal--primary"));
-            WebUI.sleep(0.5);
-        }
+        pageAssignment.verifyPageAssignmentModalVisible();
+        pageAssignment.assignProductCollection();
+        clickButton(By.id("menubar--save-modal--primary"));
+        WebUI.sleep(0.5);
 
         verifyNotVisible();
     }

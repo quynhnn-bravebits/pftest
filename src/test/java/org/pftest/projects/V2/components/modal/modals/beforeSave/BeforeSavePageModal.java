@@ -5,6 +5,8 @@ import org.pftest.enums.pagefly.ModalType;
 import org.pftest.keywords.WebUI;
 import org.pftest.projects.V2.components.modal.modals.BaseModal;
 
+import static org.pftest.keywords.WebUI.clickElement;
+
 
 public class BeforeSavePageModal extends BaseModal {
     public BeforeSavePageModal() {
@@ -18,6 +20,11 @@ public class BeforeSavePageModal extends BaseModal {
     public void fillPageTitleAndSave(String title) {
         fillPageTitle(title);
         clickPrimaryButton();
+    }
+
+    @Override
+    public void clickPrimaryButton() {
+        clickButton(By.id("menubar--save-modal--save"));
     }
 
 }

@@ -12,6 +12,11 @@ public class BeforePublishPageModal extends BaseModal implements IBeforePublishP
         super(modalType);
     }
 
+    @Override
+    public void clickPrimaryButton() {
+        WebUI.clickElement(By.id("menubar--save-modal--primary"));
+    }
+
     public void fillPageTitle(String title) {
         WebUI.clearAndFillText(By.id("menubar--save-modal--page-title"), title);
     }

@@ -7,67 +7,77 @@ import org.pftest.enums.pagefly.DeviceMode;
 import org.pftest.keywords.WebUI;
 
 public class PageHeader {
-    private final By pageTitle = By. id("editor-header-bar--page-title");
-    private final By unpublishButton = By.id("editor-header-bar--unpublish");
+    private static final By pageTitle = By. id("editor-header-bar--page-title");
+    private static final By unpublishStatus = new ByChained(By.id("editor-header-bar--status"), By.xpath(".//span[@class='Polaris-Badge']/span[text()='Unpublished']"));
+    private static final By publishStatus = new ByChained(By.id("editor-header-bar--status"), By.xpath(".//span[@class='Polaris-Badge Polaris-Badge--toneInfo']/span[text()='Published']"));
+    private static final By unpublishButton = By.id("editor-header-bar--unpublish");
 
-    private final By canvasSettingButton = By.id("canvas-size-setting-activator-btn");
-    private final By canvasWidthInput = By.xpath("//div[@id='canvas-size-setting']//input[@type='number']");
-    private final By fitViewportCheckbox = By.xpath("//div[@id='canvas-size-setting']//input[@type='checkbox']");
+    private static final By canvasSettingButton = By.id("canvas-size-setting-activator-btn");
+    private static final By canvasWidthInput = By.xpath("//div[@id='canvas-size-setting']//input[@type='number']");
+    private static final By fitViewportCheckbox = By.xpath("//div[@id='canvas-size-setting']//input[@type='checkbox']");
 
-    private final By editorSettingButton = By.id("editor-header-bar--editor-setting--activator");
-    private final By enableThemeStylingCheckbox = By.id("enable-theme-styling-setting-item");
-    private final By viewPageStructureCheckbox = By.id("view-page-structure-setting-item");
-    private final By showCanvasSizeCheckbox = By.id("show-canvas-size-setting-item");
+    private static final By editorSettingButton = By.id("editor-header-bar--editor-setting--activator");
+    private static final By enableThemeStylingCheckbox = By.id("enable-theme-styling-setting-item");
+    private static final By viewPageStructureCheckbox = By.id("view-page-structure-setting-item");
+    private static final By showCanvasSizeCheckbox = By.id("show-canvas-size-setting-item");
 
-    private final By undoButton = By.id("pf-undo-btn");
-    private final By redoButton = By.id("pf-redo-btn");
-    private final By previewButton = By.id("editor-header-bar--preview-page-btn");
-    private final By viewLivePageButton = By.id("editor-header-bar--view-live-page-btn");
+    private static final By undoButton = By.id("pf-undo-btn");
+    private static final By redoButton = By.id("pf-redo-btn");
+    private static final By previewButton = By.id("editor-header-bar--preview-page-btn");
+    private static final By viewLivePageButton = By.id("editor-header-bar--view-live-page-btn");
 
 
-    public void changePageTitle(String title) {
+    static public void changePageTitle(String title) {
         WebUI.clickElement(pageTitle);
         WebUI.clearAndFillTextNotReachableByKeyboard(pageTitle, title);
     }
 
-    public void verifyPageEditorTitle(String title) {
+    static public void verifyPageEditorTitle(String title) {
         WebUI.verifyElementTextEquals(pageTitle, title);
     }
 
-    public void clickUnpublish() {
+    static public boolean verifyUnpublishStatus() {
+        return WebUI.verifyElementVisible(unpublishStatus);
+    }
+
+    static public boolean verifyPublishStatus() {
+        return WebUI.verifyElementVisible(publishStatus);
+    }
+
+    static public void clickUnpublish() {
         WebUI.clickElement(unpublishButton);
     }
 
-    public void changeDeviceMode(DeviceMode deviceMode) {
+    static public void changeDeviceMode(DeviceMode deviceMode) {
         By deviceModeButton = By.id("editor-header-bar--device-selector--" + deviceMode.getId());
         WebUI.clickElement(deviceModeButton);
     }
 
-    public void undo() {
+    static public void undo() {
         WebUI.waitForElementClickable(undoButton);
         WebUI.sleep(0.1);
         WebUI.clickElement(undoButton);
     }
 
-    public void verifyUndoButtonDisabled() {
+    static public void verifyUndoButtonDisabled() {
         WebUI.verifyButtonIsDisabled(undoButton);
     }
 
-    public void redo() {
+    static public void redo() {
         WebUI.waitForElementClickable(redoButton);
         WebUI.sleep(0.1);
         WebUI.clickElement(redoButton);
     }
 
-    public void verifyRedoButtonDisabled() {
+    static public void verifyRedoButtonDisabled() {
         WebUI.verifyButtonIsDisabled(redoButton);
     }
 
-    public void openCanvasSetting() {
+    static public void openCanvasSetting() {
         WebUI.clickElement(canvasSettingButton);
     }
 
-    public int changeCanvasWidth(int width, DeviceMode deviceMode) {
+    static public int changeCanvasWidth(int width, DeviceMode deviceMode) {
         // fill value to the input
         WebUI.clickElement(canvasSettingButton);
         WebUI.clickElement(canvasWidthInput);
@@ -96,7 +106,7 @@ public class PageHeader {
         return expected;
     }
 
-    public void toggleFitViewport(boolean toggle) {
+    static public void toggleFitViewport(boolean toggle) {
         WebUI.clickElement(canvasSettingButton);
         if (WebUI.verifyElementChecked(fitViewportCheckbox) != toggle) {
             WebUI.clickElement(fitViewportCheckbox);
@@ -105,11 +115,11 @@ public class PageHeader {
         WebUI.clickElement(canvasSettingButton);
     }
 
-    public void openEditorSetting() {
+    static public void openEditorSetting() {
         WebUI.clickElement(editorSettingButton);
     }
 
-    public void toggleShowCanvasSize(boolean toggle) {
+    static public void toggleShowCanvasSize(boolean toggle) {
         WebUI.clickElement(editorSettingButton);
         if (WebUI.verifyElementChecked(showCanvasSizeCheckbox) != toggle) {
             WebUI.clickElement(showCanvasSizeCheckbox);
@@ -118,11 +128,11 @@ public class PageHeader {
         WebUI.clickElement(editorSettingButton);
     }
 
-    public void clickPreview() {
+    static public void clickPreview() {
         WebUI.clickElement(previewButton);
     }
 
-    public void clickViewLivePage() {
+    static public void clickViewLivePage() {
         WebUI.clickElement(viewLivePageButton);
     }
 
