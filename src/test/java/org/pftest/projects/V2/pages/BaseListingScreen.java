@@ -75,6 +75,12 @@ public abstract class BaseListingScreen extends BaseTest {
         clickElement(selectAllPagesCheckbox);
     }
 
+    public String getPageIdInPageListing(Integer index) {
+        By row = getRowByIndex(index);
+        String id = getAttributeElement(row, "id");
+        return id;
+    }
+
     @Step("Select row checkbox by index {0}")
     public String selectRowByIndex(int index) {
         By row = getRowByIndex(index);
