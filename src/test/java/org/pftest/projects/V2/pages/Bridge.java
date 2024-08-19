@@ -60,5 +60,11 @@ public class Bridge {
         switchToPageFlyFrame();
     }
 
+    public static void openTrashPage() {
+        openWebsite(UrlConstants.PF_TRASH_URL);
+        waitForElementVisible(By.id("AppFrameMain"));
+        removeAppNavigatorPadding();
+        switchToPageFlyFrame();
+    }
 
 }

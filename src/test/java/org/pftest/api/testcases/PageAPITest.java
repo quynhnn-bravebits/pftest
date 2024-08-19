@@ -2,7 +2,6 @@ package org.pftest.api.testcases;
 
 import io.qameta.allure.internal.shadowed.jackson.core.JsonProcessingException;
 import org.pftest.api.manager.PageAPIManager;
-import org.pftest.projects.V2.pages.Bridge;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 
@@ -25,13 +24,44 @@ public class PageAPITest extends BaseAPITest {
         PageAPIManager.getPageInfo(baseUrl);
     }
 
-    @Test(description = "Fetch page data by id")
-    @Parameters({"/pages/:id"})
-    // @todo: failed
+    @Test(description = "Fetch page data by id", groups = {"PAGES"})
+    @Parameters({"/page/:id"})
     public void fetchPageDataTest() throws JsonProcessingException {
         switchToDefaultContent();
         openPageListingPage();
         String id = getPageListing().getPageIdInPageListing(1);
         PageAPIManager.fetchPageData(baseUrl, id);
     }
+
+    @Test(description = "Fetch slot usage")
+    @Parameters({"/pages/usage"})
+    public void fetchSlotUsageTest() throws JsonProcessingException {
+        PageAPIManager.fetchSlotUsage(baseUrl);
+    }
+
+    @Test(description = "Delete page permanently by id", groups = {"TRASH"})
+    @Parameters({"/pages/delete-permanently"})
+    public void deletePagePermanentlyByIdTest() throws JsonProcessingException {
+        openTrashPage();
+        String id = getPageListing().getPageIdInPageListing(1);
+        PageAPIManager.deletePagePermanentlyById(baseUrl, id);
+    }
+
+    @Test(description = "Recover page by id", groups = {"TRASH"})
+    @Parameters({"/pages/recover"})
+    public void recoverPageByIdTest() throws JsonProcessingException {
+        openTrashPage();
+        String id = getPageListing().getPageIdInPageListing(1);
+        PageAPIManager.recoverPageById(baseUrl, id);
+    }
+
+
+    // TODO Bad Unicode escape in JSON
+    @Test(description = "Export pages", groups = {"PAGES"})
+    @Parameters({"/export-pages"})
+    public void exportPagesTest() throws JsonProcessingException {
+        PageAPIManager.exportPages(baseUrl, "all");
+    }
+
+    
 }

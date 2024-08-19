@@ -2,16 +2,19 @@ package org.pftest.api.testcases;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ThreadGuard;
+import org.pftest.constants.UrlConstants;
 import org.pftest.driver.DriverManager;
 import org.pftest.driver.TargetFactory;
+import org.pftest.listeners.GroupOrderInterceptor;
 import org.pftest.projects.V2.pages.Bridge;
 import org.testng.annotations.*;
 
-import static org.pftest.keywords.WebUI.openWebsite;
-import static org.pftest.keywords.WebUI.switchToPageFlyFrame;
+import static org.pftest.keywords.WebUI.*;
 
+@Listeners(GroupOrderInterceptor.class)
 public class BaseAPITest extends Bridge {
-    protected final String baseUrl = "https://apps.pagefly.io/api";
+    protected final String baseUrl = "https://rc.pagefly.io/api";
+    protected final String shopName = "quynhquynhiee";
     protected final String shop = "quynhquynhiee.myshopify.com";
 
     @Parameters("BROWSER")
@@ -23,9 +26,30 @@ public class BaseAPITest extends Bridge {
     }
     @BeforeSuite
     public void openPageFly() {
-        openWebsite("https://admin.shopify.com/store/quynhquynhiee/apps/pagefly");
+        openWebsite(UrlConstants.PF_BASE_URL);
+        waitForPageLoaded();
         switchToPageFlyFrame();
     }
+
+    @BeforeGroups(groups = "TRASH")
+    public static void openTrashPage() {
+        openWebsite(UrlConstants.PF_TRASH_URL);
+        waitForPageLoaded();
+        switchToPageFlyFrame();
+    }
+
+    @BeforeGroups(groups = "SECTIONS")
+    public static void openSectionListingPage() {
+        openWebsite(UrlConstants.PF_SECTIONS_URL);
+        waitForPageLoaded();
+        switchToPageFlyFrame();
+    }
+
+//    @BeforeGroups(groups = "PAGES")
+//    public static void openPageListingPage() {
+//        openWebsite(UrlConstants.PF_PAGES_URL);
+//        switchToPageFlyFrame();
+//    }
 
     @AfterSuite(alwaysRun = true)
     public void closePageFly() {

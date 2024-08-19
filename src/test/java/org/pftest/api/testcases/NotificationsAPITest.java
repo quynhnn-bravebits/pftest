@@ -39,4 +39,5 @@ public class NotificationsAPITest extends BaseAPITest {
 //        MarkAllNotiAsCheckedResponse response = sendRequest(MarkAllNotiAsCheckedResponse.class, url + "shop=" + shop + "&type=WELCOME_NEW_USER", HttpMethod.POST);
 //        System.out.println(response);
 //    }
+
 }

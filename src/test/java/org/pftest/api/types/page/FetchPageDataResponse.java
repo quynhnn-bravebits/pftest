@@ -36,8 +36,17 @@ class PageDataConfigs extends BaseResponseType {
 class PageDataItem extends BaseResponseType {
     public List<String> children;
     public String createdAt;
-    public List<JSONObject> styles;
+    public List<String> styles;
     public String type;
+    public String updatedAt;
+    public Integer __v;
+    public String _id;
+}
+
+class PageDataStyleProps extends BaseResponseType {
+    public String type;
+    public String styles;
+    public String createdAt;
     public String updatedAt;
     public Integer __v;
     public String _id;
@@ -62,7 +71,7 @@ public class FetchPageDataResponse extends BaseResponseType {
     public String shopDomain;
     public ShopifyPageProps shopifyPage;
     public String status;
-    public List<JSONObject> styles;
+    public List<PageDataStyleProps> styles;
     public String title;
     public String type;
     public String updatedAt;

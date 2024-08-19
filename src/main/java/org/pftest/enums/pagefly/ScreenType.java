@@ -1,0 +1,7 @@
+package org.pftest.enums.pagefly;
+
+public enum ScreenType {
+    DASHBOARD, PAGE_LISTING, SECTION_LISTING, ANALYTICS, EXTRA_FUNCTIONS, TRASH, INTEGRATIONS, GLOBAL_STYLES
+
+
+}
