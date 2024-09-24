@@ -6,7 +6,7 @@ public enum ModalType {
     BEFORE_PUBLISH_PAGE("Please name your page before publishing", "Publish", "Cancel"),
     PUBLISH_PAGE("Your page is ready to publish!", "Publish", "Cancel"),
     PUBLISHING_HOMEPAGE("Publishing homepage", "Publish", "Cancel"),
-
+    SELECT_PRODUCTS("Select products", "Select", "Cancel"),
     ;
 
     private String title;

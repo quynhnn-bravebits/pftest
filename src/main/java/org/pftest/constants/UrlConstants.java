@@ -18,7 +18,7 @@ public class UrlConstants {
     public static final String PF_EXTRA_FUNCTIONS_URL = String.format("%s/extra-functions", PF_BASE_URL);
     public static final String PF_TRASH_URL = String.format("%s/trash", PF_EXTRA_FUNCTIONS_URL);
     public static String PF_EDITOR_URL(PageType pageType, String id) {
-        return String.format("%s/editor?type=%s&id=", PF_BASE_URL, pageType.name().toLowerCase(), id);
+        return String.format("%s/editor?type=%s&id=%s", PF_BASE_URL, pageType.name().toLowerCase(), id);
     }
 
     public static final String HELP_CENTER_URL = "https://help.pagefly.io/";
