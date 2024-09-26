@@ -12,7 +12,6 @@ public class BaseModal {
     private String primaryButton;
     private String secondaryButton;
 
-
     public BaseModal(ModalType modalType) {
         verifyVisible();
         this.title = modalType.getTitle();
@@ -39,11 +38,11 @@ public class BaseModal {
         return this;
     }
 
-    private By getPrimaryButtonLocator() {
+    protected By getPrimaryButtonLocator() {
         return new ByChained(locator, By.xpath(".//button/span[contains(text(), '" + primaryButton + "')]"));
     }
 
-    private By getSecondaryButtonLocator() {
+    protected By getSecondaryButtonLocator() {
         return new ByChained(locator, By.xpath(".//button/span[contains(text(), '" + secondaryButton + "')]"));
     }
 
@@ -56,6 +55,7 @@ public class BaseModal {
 
     public boolean verifyVisible() {
         WebElement modal =  WebUI.waitForElementVisible(getModalLocator());
+        WebUI.verifyTrue(modal != null && modal.isDisplayed(), "Modal is not visible");
         return modal != null && modal.isDisplayed();
     }
 
