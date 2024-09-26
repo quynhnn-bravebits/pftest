@@ -1,11 +1,12 @@
 package org.pftest.projects.V2.pages.editor;
 
 import org.openqa.selenium.By;
-import org.pftest.keywords.WebUI;
+import org.openqa.selenium.support.pagefactory.ByChained;
 import org.pftest.projects.V2.components.common.toast.Toast;
 import org.pftest.projects.V2.components.editor.PageHeader;
-import org.pftest.projects.V2.components.modal.factory.CommonPageModalFactory;
 import org.pftest.projects.V2.components.modal.factory.PageModalFactory;
+import org.pftest.projects.V2.components.popover.publish.PublishPagePopover;
+import org.pftest.projects.V2.components.popover.save.SavePagePopover;
 
 import static org.pftest.keywords.WebUI.*;
 
@@ -13,6 +14,7 @@ abstract class BaseEditor implements IEditor {
     protected PageHeader pageHeader;
     protected By saveButton = By.xpath("//div[starts-with(@data-portal-id, 'overlay-')]//div[contains(@class, 'Header')]//button/span[text()='Save']");
     protected By publishButton = By.xpath("//div[starts-with(@data-portal-id, 'overlay-')]//div[contains(@class, 'Header')]//button/span[text()='Publish']");
+    protected By saveButtonInsidePopup = new ByChained(By.id("POPOVER_DEFAULT_ID"), By.xpath(".//button[span[text()='Save']]"));
     protected By inspector = By.id("drawer-has-sub-inspector");
 
     public PageHeader getPageHeader() {
@@ -22,20 +24,34 @@ abstract class BaseEditor implements IEditor {
         return pageHeader;
     }
 
+    public void clickSavePagePopup() {
+        waitForElementVisible(saveButtonInsidePopup);
+        clickElement(saveButtonInsidePopup);
+    }
+
     public void save() {
         switchToDefaultContent();
         waitForElementVisible(saveButton);
         clickElement(saveButton);
         switchToEditorFrame();
-        new CommonPageModalFactory().createBeforeSavePageModal().clickPrimaryButton();
-        switchToEditorFrame();
-        new CommonPageModalFactory().createSavePageModal().clickPrimaryButton();
+        new SavePagePopover().clickSave();
         switchToDefaultContent();
         Toast.verifyShowSavingPageToast();
         Toast.verifyShowSavedPageToast();
     };
 
-    public abstract void publish();
+    public void publish() {
+        switchToDefaultContent();
+        waitForElementVisible(publishButton);
+        clickElement(publishButton);
+        switchToEditorFrame();
+        new PublishPagePopover().clickPublish();
+        switchToDefaultContent();
+        Toast.verifyShowPublishingPageToast();
+        Toast.verifyShowPublishedPageToast();
+        switchToEditorFrame();
+        PageHeader.verifyPublishStatus();
+    }
 
     public void close() {
 
@@ -49,5 +65,4 @@ abstract class BaseEditor implements IEditor {
 
     }
 
-    public abstract PageModalFactory getModalFactory();
 }

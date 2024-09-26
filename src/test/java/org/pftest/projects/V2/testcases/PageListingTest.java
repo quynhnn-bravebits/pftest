@@ -30,10 +30,12 @@ public class PageListingTest extends BaseTestV2 {
         getProductPageEditor().publish();
     }
 
-    @Test(description = "TC-011: Create product page from template in the PageListing page")
-    @Link("https://docs.google.com/spreadsheets/d/1zlhx6KpGVsGgH05ArwLRv1nqI4oSdxj8Gll203FDP1I/edit?gid=154559871#gid=154559871&range=B15")
-    @Tags({@Tag("Template")})
+    @Test(description = "TC-011")
     public void test() {
-
+//      openEditor();
+        createProductPageFromTemplate("Product Page");
+//      sleep(20);
     }
+
+
 }

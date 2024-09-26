@@ -1,4 +1,4 @@
-package org.pftest.projects.V2.pages.pageListing;
+package org.pftest.projects.V2.pages.listing;
 
 import io.qameta.allure.Step;
 import org.openqa.selenium.By;
@@ -37,4 +37,6 @@ public class PageListing extends BaseListingScreen {
         switchToEditorFrame();
         DrawerManager.getTemplatesDrawer(ListingType.PAGE).selectTemplate();
     }
+
+
 }

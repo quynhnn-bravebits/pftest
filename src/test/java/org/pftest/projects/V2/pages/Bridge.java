@@ -2,17 +2,16 @@ package org.pftest.projects.V2.pages;
 
 import org.openqa.selenium.By;
 import org.pftest.constants.UrlConstants;
+import org.pftest.enums.pagefly.PageType;
 import org.pftest.projects.V2.pages.editor.CommonPageEditor;
-import org.pftest.projects.V2.pages.editor.HomePageEditor;
 import org.pftest.projects.V2.pages.editor.ProductPageEditor;
-import org.pftest.projects.V2.pages.pageListing.PageListing;
+import org.pftest.projects.V2.pages.listing.PageListing;
 
 import static org.pftest.keywords.WebUI.*;
 
 public class Bridge {
     protected PageListing pageListing;
     protected CommonPageEditor commonPageEditor;
-    protected HomePageEditor homePageEditor;
     protected ProductPageEditor productPageEditor;
 
     public CommonPageEditor getCommonPageEditor() {
@@ -20,13 +19,6 @@ public class Bridge {
             commonPageEditor = new CommonPageEditor();
         }
         return commonPageEditor;
-    }
-
-    public HomePageEditor getHomePageEditor() {
-        if (homePageEditor == null) {
-            homePageEditor = new HomePageEditor();
-        }
-        return homePageEditor;
     }
 
     public ProductPageEditor getProductPageEditor() {
@@ -58,6 +50,11 @@ public class Bridge {
         waitForElementVisible(By.id("AppFrameMain"));
         removeAppNavigatorPadding();
         switchToPageFlyFrame();
+    }
+
+    public static void openEditor() {
+        openWebsite(UrlConstants.PF_EDITOR_URL(PageType.PAGE, "fd7d8306-f286-4d11-9e4d-0e357b319e72"));
+
     }
 
     public static void openTrashPage() {
