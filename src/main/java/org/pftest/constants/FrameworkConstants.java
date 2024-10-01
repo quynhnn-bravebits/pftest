@@ -18,7 +18,10 @@ public class FrameworkConstants {
     public static final String PROJECT_PATH = Helpers.getCurrentDir();
     public static final String APP_IFRAME = PropertiesHelpers.getValue("APP_IFRAME");
     public static final String EDITOR_IFRAME = PropertiesHelpers.getValue("EDITOR_IFRAME");
+    public static final String EDITOR_SELECT_MODAL_IFRAME = PropertiesHelpers.getValue("EDITOR_SELECT_MODAL_IFRAME");
+    public static final String APP = PropertiesHelpers.getValue("APP");
     public static final String DRAG_DROP_IFRAME = PropertiesHelpers.getValue("DRAG_DROP_IFRAME");
+    public static final String STORE = PropertiesHelpers.getValue("STORE");
 
     public static final int WAIT_DEFAULT = Integer.parseInt(PropertiesHelpers.getValue("WAIT_DEFAULT"));
     public static final int WAIT_IMPLICIT = Integer.parseInt(PropertiesHelpers.getValue("WAIT_IMPLICIT"));

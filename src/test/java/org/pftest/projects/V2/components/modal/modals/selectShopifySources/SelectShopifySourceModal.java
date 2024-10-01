@@ -26,6 +26,23 @@ public class SelectShopifySourceModal extends BaseModal {
         return new ByChained(itemsSection, By.xpath("./li/div[@data-virtualized-index=" + index + "]"));
     }
 
+    By availableResourceItem = By.xpath("//div[@id='pages--page-assignment--available-resources']//li[.//input[@type='checkbox']]");
+    By selectedResourceItem = By.xpath("//div[@id='pages--page-assignment--selected-resources']//li[.//input[@type='checkbox']]");
+
+    By getSelectedAvailableResourceByIndex(int index) {
+        return By.xpath("//div[@id='pages--page-assignment--available-resources']//li[.//input[@type='checkbox' and @aria-checked='true']][" + index + "]");
+    }
+    By getUnselectedAvailableResourceByIndex(int index) {
+        return By.xpath("//div[@id='pages--page-assignment--available-resources']//li[.//input[@type='checkbox' and @aria-checked='false']][" + index + "]");
+    }
+
+    By getSelectedSelectedResourceByIndex(int index) {
+        return By.xpath("//div[@id='pages--page-assignment--selected-resources']//li[.//input[@type='checkbox' and @aria-checked='true']][" + index + "]");
+    }
+    By getUnselectedSelectedResourceByIndex(int index) {
+        return By.xpath("//div[@id='pages--page-assignment--selected-resources']//li[.//input[@type='checkbox' and @aria-checked='false']][" + index + "]");
+    }
+
     public SelectShopifySourceModal(ModalType modalType) {
        super(modalType);
     }
@@ -53,5 +70,13 @@ public class SelectShopifySourceModal extends BaseModal {
         clickPrimaryButton();
         sleep(0.5);
         verifyNotVisible();
+    }
+
+    public Integer getAvailableResourcesCount() {
+        return getWebElements(availableResourceItem).size();
+    }
+
+    public Integer getSelectedResourcesCount() {
+        return getWebElements(selectedResourceItem).size();
     }
 }

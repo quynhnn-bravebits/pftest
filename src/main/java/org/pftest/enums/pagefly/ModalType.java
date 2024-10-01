@@ -8,6 +8,7 @@ public enum ModalType {
     PUBLISHING_HOMEPAGE("Publishing homepage", "Publish", "Cancel"),
     SELECT_PRODUCTS("Select products", "Select", "Cancel"),
     SELECT_COLLECTIONS("Select collections", "Select", "Cancel"),
+    SELECT_EDITOR_TYPE("Create new page", null, null),
     ;
 
     private String title;

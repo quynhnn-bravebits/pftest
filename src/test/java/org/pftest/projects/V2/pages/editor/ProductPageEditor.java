@@ -2,13 +2,11 @@ package org.pftest.projects.V2.pages.editor;
 
 import org.pftest.projects.V2.components.common.toast.Toast;
 import org.pftest.projects.V2.components.editor.PageHeader;
-import org.pftest.projects.V2.components.modal.factory.PageModalFactory;
 import org.pftest.projects.V2.components.modal.factory.ProductPageModalFactory;
 import org.pftest.projects.V2.components.popover.publish.BeforePublishProductPagePopover;
 import org.pftest.projects.V2.components.popover.publish.PublishPagePopover;
 
 import static org.pftest.keywords.WebUI.*;
-import static org.pftest.keywords.WebUI.switchToEditorFrame;
 
 public class ProductPageEditor extends BaseEditor {
     private boolean isAssignedProduct = false;
@@ -44,7 +42,8 @@ public class ProductPageEditor extends BaseEditor {
         ProductPageModalFactory().createSelectProductsModal().verifyVisible();
         ProductPageModalFactory().createSelectProductsModal().selectItem(1);
         ProductPageModalFactory().createSelectProductsModal().clickSelectButton();
-        ProductPageModalFactory().createSelectProductsModal().verifyNotVisible();
+        Toast.verifyShowPageAssignmentToast();
+
         // Publish the page
         switchToEditorFrame();
         new PublishPagePopover().clickPublish();

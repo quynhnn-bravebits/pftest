@@ -13,7 +13,7 @@ public class BaseModal {
     private String secondaryButton;
 
     public BaseModal(ModalType modalType) {
-        verifyVisible();
+        super();
         this.title = modalType.getTitle();
         this.secondaryButton = modalType.getSecondaryButton();
         this.primaryButton = modalType.getPrimaryButton();
@@ -46,7 +46,7 @@ public class BaseModal {
         return new ByChained(locator, By.xpath(".//button/span[contains(text(), '" + secondaryButton + "')]"));
     }
 
-    private By getModalLocator() {
+    protected By getModalLocator() {
         if (title != null) {
             return new ByChained(locator, By.xpath(".//*[contains(text(), '" + this.title + "')]"));
         }

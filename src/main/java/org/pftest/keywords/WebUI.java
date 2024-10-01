@@ -1128,15 +1128,29 @@ public class WebUI {
         createFakeMouse();
     }
 
-    @Step("Switch to Modal Frame contains Editor")
-    public static void switchToEditorFrame() {
+    /**
+     * Switch to iframe by Xpath of iframe tag
+     *
+     * @param xpath Xpath of iframe tag
+     */
+    private static void switchToIframeByXpath(String xpath) {
         smartWait();
 
         switchToDefaultContent();
-        WebDriverWait wait = new WebDriverWait(DriverManager.getDriver(), Duration.ofSeconds(FrameworkConstants.WAIT_EXPLICIT * 2L), Duration.ofMillis(500));
-        wait.until(ExpectedConditions.frameToBeAvailableAndSwitchToIt(By.xpath(EDITOR_IFRAME)));
-        LogUtils.info("Switch to Frame by Name. " + EDITOR_IFRAME);
+        WebDriverWait wait = new WebDriverWait(DriverManager.getDriver(), Duration.ofSeconds(FrameworkConstants.WAIT_EXPLICIT), Duration.ofMillis(500));
+        wait.until(ExpectedConditions.frameToBeAvailableAndSwitchToIt(By.xpath(xpath)));
+        LogUtils.info("Switch to Frame by Xpath. " + xpath);
         createFakeMouse();
+    }
+
+    @Step("Switch to Modal Frame contains Editor")
+    public static void switchToEditorFrame() {
+        switchToIframeByXpath(EDITOR_IFRAME);
+    }
+
+    @Step("Switch to Frame inside Create new page modal")
+    public static void switchToCreateNewPageFrame() {
+        switchToIframeByXpath(EDITOR_SELECT_MODAL_IFRAME);
     }
 
     @Step("Switch to Frame by Name: pf-sandbox")

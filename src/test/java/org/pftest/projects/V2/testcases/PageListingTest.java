@@ -1,14 +1,9 @@
 package org.pftest.projects.V2.testcases;
 
 
-import io.qameta.allure.Link;
-import io.qameta.allure.testng.Tag;
-import io.qameta.allure.testng.Tags;
 import org.pftest.base.BaseTestV2;
 import org.pftest.enums.pagefly.PageType;
 import org.testng.annotations.Test;
-
-import static org.pftest.keywords.WebUI.sleep;
 
 public class PageListingTest extends BaseTestV2 {
 
@@ -30,10 +25,20 @@ public class PageListingTest extends BaseTestV2 {
         getProductPageEditor().publish();
     }
 
+    public void createRegularPageFromBlank(String pageTitle) {
+        openPageListingPage();
+        getPageListing().verifyPageLoaded();
+        getPageListing().createFromBlank(PageType.PAGE);
+        getCommonPageEditor().changePageTitle(pageTitle);
+        getCommonPageEditor().save();
+        getCommonPageEditor().publish();
+    }
+
     @Test(description = "TC-011")
     public void test() {
 //      openEditor();
-        createProductPageFromTemplate("Product Page");
+//        createProductPageFromTemplate("Product Page");
+        createRegularPageFromBlank("Regular Page");
 //      sleep(20);
     }
 

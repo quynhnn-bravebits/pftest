@@ -3,9 +3,8 @@ package org.pftest.constants;
 import org.pftest.enums.pagefly.PageType;
 
 public class UrlConstants {
-    private static final String store = "quynhquynhiee";
-//    private static final String app = "wip-pagefly";
-    private static final String app = "rc-pagefly-1";
+    private static final String store = FrameworkConstants.STORE;
+    private static final String app = FrameworkConstants.APP;
 
     public static final String SHOPIFY_BASE_URL = String.format("https://admin.shopify.com/store/%s", store);
     public static final String PF_COMMUNITY_URL = "https://www.facebook.com/groups/pagefly";

@@ -4,9 +4,12 @@ import io.qameta.allure.Step;
 import org.openqa.selenium.By;
 import org.openqa.selenium.support.pagefactory.ByChained;
 import org.pftest.constants.PagesConstants;
+import org.pftest.enums.pagefly.EditorType;
 import org.pftest.enums.pagefly.ListingType;
 import org.pftest.enums.pagefly.PageType;
 import org.pftest.projects.V2.components.drawer.DrawerManager;
+import org.pftest.projects.V2.components.modal.factory.ListingModalFactory;
+import org.pftest.projects.V2.components.modal.modals.selectEditorType.SelectEditorTypeModal;
 import org.pftest.projects.V2.pages.BaseListingScreen;
 
 import static org.pftest.keywords.WebUI.*;
@@ -32,10 +35,29 @@ public class PageListing extends BaseListingScreen {
         By pageTypeButton = By.id(pageType.toString().toLowerCase() + "-template");
         waitForElementVisible(pageTypeButton);
         clickElement(pageTypeButton);
+
+        //
+
         sleep(1);
         waitForPageLoaded();
         switchToEditorFrame();
         DrawerManager.getTemplatesDrawer(ListingType.PAGE).selectTemplate();
+    }
+
+    public void createFromBlank(PageType pageType) {
+        clickElement(createFromBlankButton);
+        By pageTypeButton = By.id(pageType.name().toLowerCase() + "-blank");
+        waitForElementVisible(pageTypeButton);
+        clickElement(pageTypeButton);
+
+        switchToDefaultContent();
+        SelectEditorTypeModal selectEditorTypeModal = ListingModalFactory.createSelectEditorTypeModal();
+        selectEditorTypeModal.verifyVisible();
+        selectEditorTypeModal.selectEditorOption(EditorType.BASIC);
+
+        sleep(1);
+        waitForPageLoaded();
+        switchToEditorFrame();
     }
 
 
