@@ -10,7 +10,7 @@ public class PageListingTest extends BaseTestV2 {
     public void createCommonPageFromTemplate(PageType pageType, String pageTitle) {
         openPageListingPage();
         getPageListing().verifyPageLoaded();
-        getPageListing().createFromTemplate(pageType);
+        getPageListing().createFlexLayoutFromTemplate(pageType);
         getCommonPageEditor().changePageTitle(pageTitle);
         getCommonPageEditor().save();
         getCommonPageEditor().publish();
@@ -19,7 +19,7 @@ public class PageListingTest extends BaseTestV2 {
     public void createProductPageFromTemplate(String pageTitle) {
         openPageListingPage();
         getPageListing().verifyPageLoaded();
-        getPageListing().createFromTemplate(PageType.PRODUCT);
+        getPageListing().createFlexLayoutFromTemplate(PageType.PRODUCT);
         getProductPageEditor().changePageTitle(pageTitle);
         getProductPageEditor().save();
         getProductPageEditor().publish();
@@ -28,7 +28,7 @@ public class PageListingTest extends BaseTestV2 {
     public void createRegularPageFromBlank(String pageTitle) {
         openPageListingPage();
         getPageListing().verifyPageLoaded();
-        getPageListing().createFromBlank(PageType.PAGE);
+        getPageListing().createFlexLayoutFromBlank(PageType.PAGE);
         getCommonPageEditor().changePageTitle(pageTitle);
         getCommonPageEditor().save();
         getCommonPageEditor().publish();
@@ -42,5 +42,9 @@ public class PageListingTest extends BaseTestV2 {
 //      sleep(20);
     }
 
+    @Test(description = "TC-010: User create Blank page (Flex layout) from Page Listing")
+    public void testCreateBlankPageFlexLayoutFromPageListing() {
+        createRegularPageFromBlank("Blank Page");
+    }
 
 }

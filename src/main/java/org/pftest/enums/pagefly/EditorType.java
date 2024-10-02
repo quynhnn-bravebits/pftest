@@ -8,7 +8,7 @@ public enum EditorType {
             return "Gen 2 Editor";
         }
     },
-    BASIC() {
+    LEGACY() {
         public String getEditorType() {
             return "Legacy Editor";
         }

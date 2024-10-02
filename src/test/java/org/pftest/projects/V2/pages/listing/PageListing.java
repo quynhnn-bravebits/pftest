@@ -30,13 +30,22 @@ public class PageListing extends BaseListingScreen {
         verifyElementVisible(indexTable);
     }
 
-    public void createFromTemplate(PageType pageType) {
+    @Step("Select editor type from Create new page modal: {editorType}")
+    public void selectEditorType(EditorType editorType) {
+        switchToDefaultContent();
+        SelectEditorTypeModal selectEditorTypeModal = ListingModalFactory.createSelectEditorTypeModal();
+        selectEditorTypeModal.verifyVisible();
+        selectEditorTypeModal.selectEditorOption(editorType);
+    }
+
+    @Step("Create new page from template: {pageType} with editor type: {editorType}")
+    private void createFromTemplate(PageType pageType, EditorType editorType) {
         clickElement(createFromTemplateButton);
         By pageTypeButton = By.id(pageType.toString().toLowerCase() + "-template");
         waitForElementVisible(pageTypeButton);
         clickElement(pageTypeButton);
 
-        //
+        selectEditorType(editorType);
 
         sleep(1);
         waitForPageLoaded();
@@ -44,20 +53,34 @@ public class PageListing extends BaseListingScreen {
         DrawerManager.getTemplatesDrawer(ListingType.PAGE).selectTemplate();
     }
 
-    public void createFromBlank(PageType pageType) {
+    public void createLegacyLayoutFromTemplate(PageType pageType) {
+        this.createFromTemplate(pageType, EditorType.LEGACY);
+    }
+
+    public void createFlexLayoutFromTemplate(PageType pageType) {
+        this.createFromTemplate(pageType, EditorType.FLEX);
+    }
+
+    @Step("Create new page from blank: {pageType} with editor type: {editorType}")
+    private void createFromBlank(PageType pageType, EditorType editorType) {
         clickElement(createFromBlankButton);
         By pageTypeButton = By.id(pageType.name().toLowerCase() + "-blank");
         waitForElementVisible(pageTypeButton);
         clickElement(pageTypeButton);
 
-        switchToDefaultContent();
-        SelectEditorTypeModal selectEditorTypeModal = ListingModalFactory.createSelectEditorTypeModal();
-        selectEditorTypeModal.verifyVisible();
-        selectEditorTypeModal.selectEditorOption(EditorType.BASIC);
+        selectEditorType(editorType);
 
         sleep(1);
         waitForPageLoaded();
         switchToEditorFrame();
+    }
+
+    public void createLegacyLayoutFromBlank(PageType pageType) {
+        this.createFromBlank(pageType, EditorType.LEGACY);
+    }
+
+    public void createFlexLayoutFromBlank(PageType pageType) {
+        this.createFromBlank(pageType, EditorType.FLEX);
     }
 
 
