@@ -30,6 +30,7 @@ public class PageHeader {
     static public void changePageTitle(String title) {
         WebUI.clickElement(pageTitle);
         WebUI.clearAndFillTextNotReachableByKeyboard(pageTitle, title);
+        WebUI.sendKeys(pageTitle, Keys.ENTER);
     }
 
     static public void verifyPageEditorTitle(String title) {

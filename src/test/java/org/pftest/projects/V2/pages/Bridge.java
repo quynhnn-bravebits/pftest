@@ -3,22 +3,25 @@ package org.pftest.projects.V2.pages;
 import org.openqa.selenium.By;
 import org.pftest.constants.UrlConstants;
 import org.pftest.enums.pagefly.PageType;
-import org.pftest.projects.V2.pages.editor.CommonPageEditor;
+import org.pftest.projects.V2.pages.editor.BaseEditor;
+import org.pftest.projects.V2.pages.editor.CollectionPageEditor;
 import org.pftest.projects.V2.pages.editor.ProductPageEditor;
 import org.pftest.projects.V2.pages.listing.PageListing;
 
 import static org.pftest.keywords.WebUI.*;
 
 public class Bridge {
-    protected PageListing pageListing;
-    protected CommonPageEditor commonPageEditor;
-    protected ProductPageEditor productPageEditor;
+    private PageListing pageListing;
+    private BaseEditor basePageEditor;
+    private ProductPageEditor productPageEditor;
+    private CollectionPageEditor collectionPageEditor;
+    private BaseEditor pageEditor;
 
-    public CommonPageEditor getCommonPageEditor() {
-        if (commonPageEditor == null) {
-            commonPageEditor = new CommonPageEditor();
+    public BaseEditor getBasePageEditor() {
+        if (basePageEditor == null) {
+            basePageEditor = new BaseEditor();
         }
-        return commonPageEditor;
+        return basePageEditor;
     }
 
     public ProductPageEditor getProductPageEditor() {
@@ -26,6 +29,30 @@ public class Bridge {
             productPageEditor = new ProductPageEditor();
         }
         return productPageEditor;
+    }
+
+    public CollectionPageEditor getCollectionPageEditor() {
+        if (collectionPageEditor == null) {
+            collectionPageEditor = new CollectionPageEditor();
+        }
+        return collectionPageEditor;
+    }
+
+    public BaseEditor getPageEditor(PageType pageType) {
+        if (pageType == PageType.PRODUCT) {
+            pageEditor = new ProductPageEditor();
+        }
+        else if (pageType == PageType.COLLECTION) {
+            pageEditor = new CollectionPageEditor();
+        }
+        else if (pageType == PageType.BLOG) {
+
+        }
+        else {
+            pageEditor = new BaseEditor();
+        }
+
+        return pageEditor;
     }
 
     public PageListing getPageListing() {
@@ -50,11 +77,6 @@ public class Bridge {
         waitForElementVisible(By.id("AppFrameMain"));
         removeAppNavigatorPadding();
         switchToPageFlyFrame();
-    }
-
-    public static void openEditor() {
-        openWebsite(UrlConstants.PF_EDITOR_URL(PageType.PAGE, "fd7d8306-f286-4d11-9e4d-0e357b319e72"));
-
     }
 
     public static void openTrashPage() {

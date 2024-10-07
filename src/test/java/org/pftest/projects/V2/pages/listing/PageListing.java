@@ -8,8 +8,7 @@ import org.pftest.enums.pagefly.EditorType;
 import org.pftest.enums.pagefly.ListingType;
 import org.pftest.enums.pagefly.PageType;
 import org.pftest.projects.V2.components.drawer.DrawerManager;
-import org.pftest.projects.V2.components.modal.factory.ListingModalFactory;
-import org.pftest.projects.V2.components.modal.modals.selectEditorType.SelectEditorTypeModal;
+import org.pftest.projects.V2.components.modal.selectEditorType.SelectEditorTypeModal;
 import org.pftest.projects.V2.pages.BaseListingScreen;
 
 import static org.pftest.keywords.WebUI.*;
@@ -18,6 +17,14 @@ public class PageListing extends BaseListingScreen {
 
     private final By createFromTemplateButton = new ByChained(actionMenu, By.xpath(".//*/button/span[text()='" + PagesConstants.CREATE_FROM_TEMPLATE_BUTTON + "']"));
     private final By createFromBlankButton = new ByChained(primaryMenu, By.xpath(".//*/button/span[text()='" + PagesConstants.CREATE_FROM_BLANK_BUTTON + "']"));
+    private SelectEditorTypeModal selectEditorTypeModal;
+
+    public SelectEditorTypeModal getSelectEditorTypeModal() {
+        if (selectEditorTypeModal == null) {
+            selectEditorTypeModal = new SelectEditorTypeModal();
+        }
+        return selectEditorTypeModal;
+    }
 
     @Override
     @Step("Verify page listing page is loaded")
@@ -33,9 +40,8 @@ public class PageListing extends BaseListingScreen {
     @Step("Select editor type from Create new page modal: {editorType}")
     public void selectEditorType(EditorType editorType) {
         switchToDefaultContent();
-        SelectEditorTypeModal selectEditorTypeModal = ListingModalFactory.createSelectEditorTypeModal();
-        selectEditorTypeModal.verifyVisible();
-        selectEditorTypeModal.selectEditorOption(editorType);
+        getSelectEditorTypeModal().verifyVisible();
+        getSelectEditorTypeModal().selectEditorOption(editorType);
     }
 
     @Step("Create new page from template: {pageType} with editor type: {editorType}")

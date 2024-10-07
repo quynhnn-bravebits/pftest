@@ -1,4 +1,4 @@
-package org.pftest.projects.V2.components.modal.modals;
+package org.pftest.projects.V2.components.modal;
 
 import org.openqa.selenium.By;
 

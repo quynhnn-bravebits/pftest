@@ -1,10 +1,10 @@
-package org.pftest.projects.V2.components.modal.modals.selectEditorType;
+package org.pftest.projects.V2.components.modal.selectEditorType;
 
 import org.openqa.selenium.By;
 import org.pftest.enums.pagefly.EditorType;
 import org.pftest.enums.pagefly.ModalType;
 import org.pftest.keywords.WebUI;
-import org.pftest.projects.V2.components.modal.modals.BaseModal;
+import org.pftest.projects.V2.components.modal.BaseModal;
 
 /*
  * This modal is shown before open the editor page

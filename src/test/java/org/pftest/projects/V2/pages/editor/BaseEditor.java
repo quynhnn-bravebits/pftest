@@ -4,13 +4,12 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.support.pagefactory.ByChained;
 import org.pftest.projects.V2.components.common.toast.Toast;
 import org.pftest.projects.V2.components.editor.PageHeader;
-import org.pftest.projects.V2.components.modal.factory.PageModalFactory;
 import org.pftest.projects.V2.components.popover.publish.PublishPagePopover;
 import org.pftest.projects.V2.components.popover.save.SavePagePopover;
 
 import static org.pftest.keywords.WebUI.*;
 
-abstract class BaseEditor implements IEditor {
+public class BaseEditor implements IEditor {
     protected PageHeader pageHeader;
     protected By saveButton = By.xpath("//div[starts-with(@data-portal-id, 'overlay-')]//div[contains(@class, 'Header')]//button/span[text()='Save']");
     protected By publishButton = By.xpath("//div[starts-with(@data-portal-id, 'overlay-')]//div[contains(@class, 'Header')]//button/span[text()='Publish']");

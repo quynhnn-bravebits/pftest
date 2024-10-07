@@ -1,10 +1,10 @@
-package org.pftest.projects.V2.components.modal.modals.selectShopifySources;
+package org.pftest.projects.V2.components.modal.selectShopifySources;
 
 import io.qameta.allure.Step;
 import org.openqa.selenium.By;
 import org.openqa.selenium.support.pagefactory.ByChained;
 import org.pftest.enums.pagefly.ModalType;
-import org.pftest.projects.V2.components.modal.modals.BaseModal;
+import org.pftest.projects.V2.components.modal.BaseModal;
 
 import static org.pftest.keywords.WebUI.*;
 
@@ -24,23 +24,6 @@ public class SelectShopifySourceModal extends BaseModal {
     private By itemsSection = new ByChained(locator, By.xpath(".//div[starts-with(@class, '_ScrollableContainer_')]/ul"));
     private By item(int index) {
         return new ByChained(itemsSection, By.xpath("./li/div[@data-virtualized-index=" + index + "]"));
-    }
-
-    By availableResourceItem = By.xpath("//div[@id='pages--page-assignment--available-resources']//li[.//input[@type='checkbox']]");
-    By selectedResourceItem = By.xpath("//div[@id='pages--page-assignment--selected-resources']//li[.//input[@type='checkbox']]");
-
-    By getSelectedAvailableResourceByIndex(int index) {
-        return By.xpath("//div[@id='pages--page-assignment--available-resources']//li[.//input[@type='checkbox' and @aria-checked='true']][" + index + "]");
-    }
-    By getUnselectedAvailableResourceByIndex(int index) {
-        return By.xpath("//div[@id='pages--page-assignment--available-resources']//li[.//input[@type='checkbox' and @aria-checked='false']][" + index + "]");
-    }
-
-    By getSelectedSelectedResourceByIndex(int index) {
-        return By.xpath("//div[@id='pages--page-assignment--selected-resources']//li[.//input[@type='checkbox' and @aria-checked='true']][" + index + "]");
-    }
-    By getUnselectedSelectedResourceByIndex(int index) {
-        return By.xpath("//div[@id='pages--page-assignment--selected-resources']//li[.//input[@type='checkbox' and @aria-checked='false']][" + index + "]");
     }
 
     public SelectShopifySourceModal(ModalType modalType) {
@@ -72,11 +55,4 @@ public class SelectShopifySourceModal extends BaseModal {
         verifyNotVisible();
     }
 
-    public Integer getAvailableResourcesCount() {
-        return getWebElements(availableResourceItem).size();
-    }
-
-    public Integer getSelectedResourcesCount() {
-        return getWebElements(selectedResourceItem).size();
-    }
 }

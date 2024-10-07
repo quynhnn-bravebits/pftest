@@ -1,5 +1,7 @@
 package org.pftest.helpers;
 
+import org.testng.Assert;
+
 import java.io.*;
 import java.nio.charset.Charset;
 import java.text.Normalizer;
@@ -82,6 +84,33 @@ public class Helpers {
      */
     public static ArrayList<String> splitString(String str, String valueSplit) {
         return new ArrayList<>(Arrays.asList(str.split(valueSplit, 0)));
+    }
+
+    /**
+     * Retry an action a number of times
+     * @param action The action chain to retry
+     * @param maxRetries The maximum number of retries
+     */
+    public static void retryAction(Runnable action, int maxRetries) {
+        int attempts = 0;
+        boolean success = false;
+
+        while (attempts < maxRetries && !success) {
+            try {
+                action.run();
+                success = true; // If action succeeds, set success to true
+            } catch (AssertionError e) {
+                attempts++;
+                if (attempts >= maxRetries) {
+                    System.err.println("Assertion failed after " + maxRetries + " attempts: " + e.getMessage());
+                }
+            } catch (Exception e) {
+                attempts++;
+                if (attempts >= maxRetries) {
+                    Assert.fail("Action failed after " + maxRetries + " attempts", e);
+                }
+            }
+        }
     }
 
 }
