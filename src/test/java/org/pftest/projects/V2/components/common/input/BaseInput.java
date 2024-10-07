@@ -21,6 +21,14 @@ public abstract class BaseInput {
         return this;
     }
 
+    public By getSelector() {
+        return selector;
+    }
+
+    public void verifyVisible() {
+        WebUI.waitForElementVisible(selector);
+    }
+
     public abstract void setValue(String value);
     public abstract String getValue();
 }

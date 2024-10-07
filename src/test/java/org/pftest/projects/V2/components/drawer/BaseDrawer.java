@@ -3,12 +3,19 @@ package org.pftest.projects.V2.components.drawer;
 import org.openqa.selenium.By;
 import org.openqa.selenium.support.pagefactory.ByChained;
 
+import static org.pftest.keywords.WebUI.*;
+
 public class BaseDrawer implements IDrawer {
     protected By activator;
     protected By container;
     protected By title;
 
     public BaseDrawer() {
+    }
+
+    public BaseDrawer(By activator, By container) {
+        this.activator = activator;
+        this.container = container;
     }
 
     public BaseDrawer setActivator(By activator) {
@@ -23,4 +30,11 @@ public class BaseDrawer implements IDrawer {
     }
 
 
+    @Override
+    public void open() {
+        waitForElementVisible(activator);
+        sleep(0.5);
+        clickElement(activator);
+        waitForElementVisible(container);
+    }
 }

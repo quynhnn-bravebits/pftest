@@ -2,10 +2,8 @@ package org.pftest.projects.V2.components.common.toast;
 
 import io.qameta.allure.Step;
 import org.openqa.selenium.By;
-import org.pftest.keywords.WebUI;
 
 import static org.pftest.keywords.WebUI.*;
-import static org.pftest.keywords.WebUI.switchToPageFlyFrame;
 
 public class Toast {
 
@@ -24,6 +22,13 @@ public class Toast {
         By toastElement = selector(toast);
         int timeout = 30;
         waitForElementVisible(toastElement, timeout);
+    }
+
+    @Step("Verify show 'Page assignment updated' toast")
+    static public void verifyShowPageAssignmentToast() {
+        switchToDefaultContent();
+        verifyShowToast("Page assignment updated");
+        switchToEditorFrame();
     }
 
     @Step("Verify show 'Duplicating page...' toast")
