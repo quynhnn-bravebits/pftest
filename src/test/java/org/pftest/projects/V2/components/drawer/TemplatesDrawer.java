@@ -12,8 +12,8 @@ import static org.pftest.helpers.Helpers.retryAction;
 import static org.pftest.keywords.WebUI.*;
 
 public class TemplatesDrawer extends BaseDrawer {
-    private static final By templateCard = By.xpath("//div[@class='template-list-modal--template-list--template-card']");
-    private static final By selectButton = By.xpath("//button/*[text()='Select']");
+    private static final By templateCard = By.xpath(".//div[@class='template-list-modal--template-list--template-card']");
+    private static final By selectButton = By.xpath(".//button/*[text()='Select']");
     private final By templateCardSelectButton = new ByChained(templateCard, selectButton);
     private SelectTemplatePopover selectTemplatePopover;
 
@@ -49,11 +49,12 @@ public class TemplatesDrawer extends BaseDrawer {
             int index = new Random().nextInt(1, templatesCount);
             By template = By.xpath("(" + templateCard.toString().replace("By.xpath: ", "") + "//div[@class='template-title'])[" + index + "]");
 
-            waitForElementVisible(template, 3);
+            waitForElementVisible(template, 1);
             moveToElement(template);
             // Select button inside the template card
             By button = new ByChained(template, selectButton);
             waitForElementVisible(button);
+            moveToElement(template);
             hoverOnElement(button);
 
             waitForElementClickable(button);

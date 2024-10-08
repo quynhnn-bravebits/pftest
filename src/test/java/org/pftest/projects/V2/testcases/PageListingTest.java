@@ -6,6 +6,7 @@ import org.pftest.enums.pagefly.ListingType;
 import org.pftest.enums.pagefly.PageType;
 import org.pftest.projects.V2.components.drawer.DrawerManager;
 import org.pftest.projects.V2.pages.editor.BaseEditor;
+import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
 import java.util.Date;
@@ -13,7 +14,6 @@ import java.util.Date;
 import static org.pftest.keywords.WebUI.switchToEditorFrame;
 
 public class PageListingTest extends BaseTestV2 {
-
 
     private void createBlankPageFlexLayoutFromPageListing(PageType pageType) {
         openPageListingPage();
@@ -29,6 +29,11 @@ public class PageListingTest extends BaseTestV2 {
         editor.changePageTitle(pageType + " - " + new Date().toString());
         editor.save();
         editor.publish();
+    }
+
+    @Test(description = "TC-010: User create Blank page (Flex layout) from Page Listing", dataProvider = "pageTypes", dataProviderClass = DataProviderFactory.class)
+    public void testCreateBlankPageFlexLayoutFromPageListing2(PageType pageType) {
+        createBlankPageFlexLayoutFromPageListing(pageType);
     }
 
     @Test(description = "TC-010: User create Blank page (Flex layout) from Page Listing")

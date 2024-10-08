@@ -2712,7 +2712,9 @@ public class WebUI {
     public static void openWebsite(String URL) {
         sleep(FrameworkConstants.WAIT_SLEEP_STEP);
 
-        DriverManager.getDriver().get(URL);
+        WebDriver webDriver = DriverManager.getDriver();
+
+        webDriver.get(URL);
         waitForPageLoaded();
 
         LogUtils.info("Open website with URL: " + URL);
