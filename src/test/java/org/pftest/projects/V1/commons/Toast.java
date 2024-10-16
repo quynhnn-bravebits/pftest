@@ -30,11 +30,6 @@ public class Toast {
         waitForToast("Page duplicated", 30);
     }
 
-    @Step("Verify show 'Deleting page...' toast")
-    public void verifyShowDeletingPageToast() {
-        verifyShowToast("Deleting page...");
-    }
-
     @Step("Verify show 'Page exported' toast")
     public void verifyShowExportedPageToast() {
         waitForToast("Page exported", 30);
@@ -70,9 +65,24 @@ public class Toast {
         waitForToast("Pages imported", 30);
     }
 
+    @Step("Verify show 'Deleting page...' toast")
+    public void verifyShowDeletingPageToast() {
+        verifyShowToast("Deleting page...");
+    }
+
     @Step("Verify show 'Page deleted' toast")
     public void verifyShowDeletedPageToast() {
         waitForToast("Page deleted", 30);
+    }
+
+    @Step("Verify show 'Deleting pages...' toast")
+    public void verifyShowDeletingPagesToast() {
+        verifyShowToast("Deleting pages...");
+    }
+
+    @Step("Verify show 'Pages deleted' toast")
+    public void verifyShowDeletedPagesToast() {
+        waitForToast("Pages deleted", 30);
     }
 
     @Step("Verify show 'Publishing page...' toast")
@@ -93,6 +103,16 @@ public class Toast {
     @Step("Verify show 'Page unpublished' toast")
     public void verifyShowUnpublishedPageToast() {
         waitForToast("Page unpublished", 30);
+    }
+
+    @Step("Verify show 'Publishing pages...' toast")
+    public void verifyShowPublishingPagesToast() {
+        verifyShowToast("Publishing pages...");
+    }
+
+    @Step("Verify show 'Pages published' toast")
+    public void verifyShowPublishedPagesToast() {
+        waitForToast("Pages published", 30);
     }
 
     @Step("Verify show 'Unpublishing pages...' toast")
@@ -123,6 +143,26 @@ public class Toast {
     @Step("Verify show 'Section published' toast")
     public void verifyShowPublishedSectionToast() {
         verifyElementVisible(publishedSectionToast, 30);
+    }
+
+    @Step("Verify show 'Publishing sections...' toast")
+    public void verifyShowPublishingSectionsToast() {
+        verifyShowToast("Publishing sections...");
+    }
+
+    @Step("Verify show 'Sections published' toast")
+    public void verifyShowPublishedSectionsToast() {
+        waitForToast("Sections published", 30);
+    }
+
+    @Step("Verify show 'Deleting sections...' toast")
+    public void verifyShowDeletingSectionsToast() {
+        verifyShowToast("Deleting sections...");
+    }
+
+    @Step("Verify show 'Sections deleted' toast")
+    public void verifyShowDeletedSectionsToast() {
+        waitForToast("Sections deleted", 30);
     }
 
     @Step("Verify show 'Auto-save enabled' toast")

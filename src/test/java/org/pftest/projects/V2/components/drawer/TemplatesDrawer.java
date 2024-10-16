@@ -13,8 +13,11 @@ import static org.pftest.keywords.WebUI.*;
 
 public class TemplatesDrawer extends BaseDrawer {
     private static final By templateCard = By.xpath(".//div[@class='template-list-modal--template-list--template-card']");
-    private static final By selectButton = By.xpath(".//button/*[text()='Select']");
-    private final By templateCardSelectButton = new ByChained(templateCard, selectButton);
+
+    private static By selectButton(int index) {
+        return By.xpath(String.format("(.//button/*[text()='Select'])[%d]", index));
+    }
+
     private SelectTemplatePopover selectTemplatePopover;
 
     public TemplatesDrawer(ListingType type) {
@@ -52,9 +55,8 @@ public class TemplatesDrawer extends BaseDrawer {
             waitForElementVisible(template, 1);
             moveToElement(template);
             // Select button inside the template card
-            By button = new ByChained(template, selectButton);
+            By button = selectButton(index);
             waitForElementVisible(button);
-            moveToElement(template);
             hoverOnElement(button);
 
             waitForElementClickable(button);

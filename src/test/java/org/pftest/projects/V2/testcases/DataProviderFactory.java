@@ -7,7 +7,7 @@ import org.testng.annotations.DataProvider;
  * Global data provider for whole project
  */
 public class DataProviderFactory {
-    @DataProvider(name = "pageTypes", parallel = true)
+    @DataProvider(name = "pageTypes")
     public Object[][] pageTypes() {
         return new Object[][]{
                 {PageType.PAGE},

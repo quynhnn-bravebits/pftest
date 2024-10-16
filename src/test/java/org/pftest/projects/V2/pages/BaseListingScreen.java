@@ -4,7 +4,11 @@ import io.qameta.allure.Step;
 import org.openqa.selenium.By;
 import org.openqa.selenium.support.pagefactory.ByChained;
 import org.pftest.base.BaseTest;
+import org.pftest.enums.pagefly.ListingType;
 import org.pftest.enums.pagefly.PageStatus;
+import org.pftest.projects.V2.components.modal.delete.DeletePageSectionModal;
+
+import javax.annotation.Nullable;
 
 import static org.pftest.keywords.WebUI.*;
 import static org.pftest.keywords.WebUI.clickElement;
@@ -20,19 +24,20 @@ public abstract class BaseListingScreen extends BaseTest {
     protected final By searchAndFilterButton = new ByChained(indexFilter, By.xpath("//button[@aria-label='Search and filter results']"));
     protected final By addFilterButton = new ByChained(indexFilter, By.xpath("//button[@aria-label='Add filter']"));
 
-    protected final By indexTable = By.xpath("//div[@class='Polaris-IndexTable']//table");
+    protected final By indexTable = By.xpath("//div[@class='Polaris-IndexTable']");
     protected final By selectAllPagesCheckbox = new ByChained(indexTable, By.xpath(".//thead//*[@class='Polaris-Checkbox']"));
     protected final By bulkActionRoot = new ByChained(indexTable, By.xpath(".//div[@class='Polaris-BulkActions__BulkActionsLayout']"));
     protected final By publishButtonBulkAction = new ByChained(bulkActionRoot, By.xpath(".//button[@aria-label='publish-bulk-action']"));
     protected final By unpublishButtonBulkAction = new ByChained(bulkActionRoot, By.xpath(".//button[@aria-label='unpublish-bulk-action']"));
-    protected final By moreActionsButtonBulkAction = new ByChained(bulkActionRoot, By.xpath(".//button[@aria-label='More actions']"));
+    protected final By moreActionsButtonBulkAction = new ByChained(indexTable, By.xpath(".//button[@aria-label='More actions' and not(ancestor::div[contains(@class, 'Polaris-BulkActions__BulkActionsMeasurerLayout')])]"));
+
     protected final By duplicateButtonBulkAction = By.id("duplicate-bulk-action");
     protected final By exportButtonBulkAction = By.id("export-bulk-action");
     protected final By deleteButtonBulkAction = By.id("delete-bulk-action");
 
     protected final By crispChatBox = By.xpath("//*[@id='crisp-chatbox']//*[@data-chat-status='ongoing']");
 
-    public static By getRowByIndex(int index) {
+    public By getRowByIndex(int index) {
         return By.xpath(String.format("//tbody//tr[%d]", index));
     }
 
@@ -66,6 +71,7 @@ public abstract class BaseListingScreen extends BaseTest {
         clickElement(addFilterButton);
     }
 
+    @Step("Filter page by status {0}")
     public void filterByStatus(PageStatus status) {
         filterBy("Status", status.toString());
     }
@@ -84,9 +90,9 @@ public abstract class BaseListingScreen extends BaseTest {
     @Step("Select row checkbox by index {0}")
     public String selectRowByIndex(int index) {
         By row = getRowByIndex(index);
-        waitForElementVisible(row);
         String id = getAttributeElement(row, "id");
         clickElement(new ByChained(row, By.xpath(".//*[@class='Polaris-Checkbox']")));
+        verifyElementChecked(By.id("Select-" + id));
         return id;
     }
 
@@ -120,4 +126,39 @@ public abstract class BaseListingScreen extends BaseTest {
         clickElement(row);
     }
 
+    public void publishAllSelectedPages(ListingType listingType) {
+        waitForElementClickable(publishButtonBulkAction);
+        clickElement(publishButtonBulkAction);
+        switchToDefaultContent();
+        if (listingType == ListingType.PAGE) {
+            getToast().verifyShowPublishingPagesToast();
+            getToast().verifyShowPublishedPagesToast();
+        } else {
+            getToast().verifyShowPublishingSectionsToast();
+            getToast().verifyShowPublishedSectionsToast();
+        }
+    }
+
+    public void confirmDeletePage(ListingType listingType, int number) {
+        DeletePageSectionModal deletePageSectionModal = new DeletePageSectionModal(listingType, number);
+        deletePageSectionModal.verifyVisible();
+        deletePageSectionModal.clickPrimaryButton();
+    }
+
+    public void deleteAllSelectedPages(ListingType listingType, int pageNumber) {
+        waitForElementVisible(moreActionsButtonBulkAction);
+        waitForElementClickable(moreActionsButtonBulkAction);
+        clickElement(moreActionsButtonBulkAction);
+        waitForElementClickable(deleteButtonBulkAction);
+        clickElement(deleteButtonBulkAction);
+        confirmDeletePage(listingType, pageNumber);
+        switchToDefaultContent();
+        if (listingType == ListingType.PAGE) {
+            getToast().verifyShowDeletingPagesToast();
+            getToast().verifyShowDeletedPagesToast();
+        } else {
+            getToast().verifyShowDeletingSectionsToast();
+            getToast().verifyShowDeletedSectionsToast();
+        }
+    }
 }

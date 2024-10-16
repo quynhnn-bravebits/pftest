@@ -8,6 +8,7 @@ import org.pftest.enums.pagefly.EditorType;
 import org.pftest.enums.pagefly.ListingType;
 import org.pftest.enums.pagefly.PageType;
 import org.pftest.projects.V2.components.drawer.DrawerManager;
+import org.pftest.projects.V2.components.modal.delete.DeletePageSectionModal;
 import org.pftest.projects.V2.components.modal.selectEditorType.SelectEditorTypeModal;
 import org.pftest.projects.V2.pages.BaseListingScreen;
 
@@ -89,5 +90,27 @@ public class PageListing extends BaseListingScreen {
         this.createFromBlank(pageType, EditorType.FLEX);
     }
 
+    @Step("Publish all selected pages")
+    public void publishAllSelectedPages() {
+        super.publishAllSelectedPages(ListingType.PAGE);
+    }
 
+    @Step("Unpublish all selected pages")
+    public void unpublishAllSelectedPages() {
+        waitForElementClickable(unpublishButtonBulkAction);
+        clickElement(unpublishButtonBulkAction);
+        switchToDefaultContent();
+        getToast().verifyShowUnpublishingPagesToast();
+        getToast().verifyShowUnpublishedPagesToast();
+    }
+
+    @Step("Confirm 'Delete {0} page?' modal")
+    public void confirmDeletePage(int number) {
+        super.confirmDeletePage(ListingType.PAGE, number);
+    }
+
+    @Step("Delete all selected pages")
+    public void deleteAllSelectedPages(int pageNumber) {
+        super.deleteAllSelectedPages(ListingType.PAGE, pageNumber);
+    }
 }

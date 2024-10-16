@@ -8,7 +8,7 @@ import org.pftest.keywords.WebUI;
 
 public class BaseModal {
     protected By locator = By.xpath("//*[@id=\"PolarisPortalsContainer\"]//div[starts-with(@data-portal-id, 'modal')]//div[@role=\"dialog\"]/div[1]");
-    private String title;
+    protected String title;
     private String primaryButton;
     private String secondaryButton;
 

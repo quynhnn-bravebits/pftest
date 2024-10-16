@@ -3,9 +3,7 @@ package org.pftest.projects.V2.pages;
 import org.openqa.selenium.By;
 import org.pftest.constants.UrlConstants;
 import org.pftest.enums.pagefly.PageType;
-import org.pftest.projects.V2.pages.editor.BaseEditor;
-import org.pftest.projects.V2.pages.editor.CollectionPageEditor;
-import org.pftest.projects.V2.pages.editor.ProductPageEditor;
+import org.pftest.projects.V2.pages.editor.*;
 import org.pftest.projects.V2.pages.listing.PageListing;
 
 import static org.pftest.keywords.WebUI.*;
@@ -46,7 +44,10 @@ public class Bridge {
             pageEditor = new CollectionPageEditor();
         }
         else if (pageType == PageType.BLOG) {
-
+            pageEditor = new BlogPageEditor();
+        }
+        else if (pageType == PageType.HOME) {
+            pageEditor = new HomePageEditor();
         }
         else {
             pageEditor = new BaseEditor();
