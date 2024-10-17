@@ -31,19 +31,45 @@ public class Toast {
         switchToEditorFrame();
     }
 
-    @Step("Verify show 'Duplicating page...' toast")
-    static public void verifyShowDuplicatingPageToast() {
-        verifyShowToast("Duplicating page...");
+    @Step("Verify show 'Duplicating pages...' toast")
+    static public void verifyShowDuplicatingPagesToast() {
+        verifyShowToast("Duplicating pages...");
     }
 
-    @Step("Verify show 'Page duplicated' toast")
-    static public void verifyShowDuplicatedPageToast() {
-        waitForToast("Page duplicated");
+    @Step("Verify show 'Pages duplicated' toast")
+    static public void verifyShowDuplicatedPagesToast() {
+        waitForToast("Pages duplicated");
+    }
+
+
+    @Step("Verify show 'Duplicating sections...' toast")
+    static public void verifyShowDuplicatingSectionsToast() {
+        verifyShowToast("Duplicating sections...");
+    }
+
+    @Step("Verify show 'Sections duplicated' toast")
+    static public void verifyShowDuplicatedSectionsToast() {
+        waitForToast("Sections duplicated");
     }
 
     @Step("Verify show 'Deleting page...' toast")
     static public void verifyShowDeletingPageToast() {
         verifyShowToast("Deleting page...");
+    }
+
+    @Step("Verify show 'Page deleted' toast")
+    static public void verifyShowDeletedPageToast() {
+        waitForToast("Page deleted");
+    }
+
+    @Step("Verify show 'Deleting pages...' toast")
+    static public void verifyShowDeletingPagesToast() {
+        verifyShowToast("Deleting pages...");
+    }
+
+    @Step("Verify show 'Pages deleted' toast")
+    static public void verifyShowDeletedPagesToast() {
+        waitForToast("Pages deleted");
     }
 
     @Step("Verify show 'Page exported' toast")
@@ -79,11 +105,6 @@ public class Toast {
     @Step("Verify show 'Pages imported' toast")
     static public void verifyShowImportedPagesToast() {
         waitForToast("Pages imported");
-    }
-
-    @Step("Verify show 'Page deleted' toast")
-    static public void verifyShowDeletedPageToast() {
-        waitForToast("Page deleted");
     }
 
     @Step("Verify show 'Saving page...' toast")
@@ -130,6 +151,16 @@ public class Toast {
         waitForToast("Pages unpublished");
     }
 
+    @Step("Verify show 'Publishing pages...' toast")
+    static public void verifyShowPublishingPagesToast() {
+        verifyShowToast("Publishing pages...");
+    }
+
+    @Step("Verify show 'Pages published' toast")
+    static public void verifyShowPublishedPagesToast() {
+        waitForToast("Pages published");
+    }
+
     @Step("Verify show 'Publishing section...' toast")
     static public void verifyShowPublishingSectionToast() {
         verifyShowToast("Publishing section...");
@@ -138,6 +169,26 @@ public class Toast {
     @Step("Verify show 'Section published' toast")
     static public void verifyShowPublishedSectionToast() {
         waitForToast("Section published");
+    }
+
+    @Step("Verify show 'Publishing sections...' toast")
+    static public void verifyShowPublishingSectionsToast() {
+        verifyShowToast("Publishing sections...");
+    }
+
+    @Step("Verify show 'Sections published' toast")
+    static public void verifyShowPublishedSectionsToast() {
+        waitForToast("Sections published");
+    }
+
+    @Step("Verify show 'Deleting sections...' toast")
+    static public void verifyShowDeletingSectionsToast() {
+        verifyShowToast("Deleting sections...");
+    }
+
+    @Step("Verify show 'Sections deleted' toast")
+    static public void verifyShowDeletedSectionsToast() {
+        waitForToast("Sections deleted");
     }
 
 }

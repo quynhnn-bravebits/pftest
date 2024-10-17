@@ -37,4 +37,10 @@ public class BaseDrawer implements IDrawer {
         clickElement(activator);
         waitForElementVisible(container);
     }
+
+    @Override
+     public void waitForLoaded() {
+        waitForElementVisible(activator);
+        waitForElementClickable(activator);
+    }
 }

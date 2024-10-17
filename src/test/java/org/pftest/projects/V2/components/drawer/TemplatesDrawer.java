@@ -20,9 +20,13 @@ public class TemplatesDrawer extends BaseDrawer {
 
     private SelectTemplatePopover selectTemplatePopover;
 
+    public TemplatesDrawer() {
+        super(By.id("page-template-drawer-button"), By.id("page-template-drawer"));
+    }
+
     public TemplatesDrawer(ListingType type) {
-        this.container = By.id("page-template-drawer");
-        this.activator = By.id("page-template-drawer-button");
+        super(By.id("page-template-drawer-button"), By.id("page-template-drawer"));
+
         if (type == ListingType.PAGE) {
             this.title = new ByChained(this.container, By.xpath(".//h3[text()='Page templates']"));
         } else if (type == ListingType.SECTION) {

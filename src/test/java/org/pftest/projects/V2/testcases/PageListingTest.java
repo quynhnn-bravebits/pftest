@@ -1,6 +1,7 @@
 package org.pftest.projects.V2.testcases;
 
 
+import io.qameta.allure.Flaky;
 import org.pftest.base.BaseTestV2;
 import org.pftest.enums.pagefly.EditorType;
 import org.pftest.enums.pagefly.ListingType;
@@ -13,7 +14,9 @@ import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
 import java.util.Date;
+import java.util.concurrent.atomic.AtomicReference;
 
+import static org.pftest.keywords.WebUI.sleep;
 import static org.pftest.keywords.WebUI.switchToEditorFrame;
 
 public class PageListingTest extends BaseTestV2 {
@@ -34,7 +37,7 @@ public class PageListingTest extends BaseTestV2 {
         DrawerManager.getTemplatesDrawer(ListingType.PAGE).confirmSelectTemplatePopover();
 
         BaseEditor editor = getPageEditor(pageType);
-        editor.changePageTitle(pageTitle+ " - " + pageType +  " - " + new Date().toString());
+        editor.changePageTitle(pageTitle + " - " + pageType + " - " + new Date().toString());
         editor.save();
         editor.publish();
     }
@@ -44,7 +47,7 @@ public class PageListingTest extends BaseTestV2 {
     }
 
     private void createBlankPageLegacyLayoutFromPageListing(PageType pageType) {
-       createBlankPageFromPageListing(EditorType.LEGACY, pageType, "TC-010: Blank Page Legacy Layout");
+        createBlankPageFromPageListing(EditorType.LEGACY, pageType, "TC-010: Blank Page Legacy Layout");
     }
 
     @Test(description = "TC-010: User create Blank page (Flex layout) from Page Listing", dataProvider = "pageTypes", dataProviderClass = DataProviderFactory.class)
@@ -67,7 +70,7 @@ public class PageListingTest extends BaseTestV2 {
         }
 
         BaseEditor editor = getPageEditor(pageType);
-        editor.changePageTitle(pageTitle+ " - " + pageType +  " - " + new Date().toString());
+        editor.changePageTitle(pageTitle + " - " + pageType + " - " + new Date().toString());
         editor.save();
         editor.publish();
     }
@@ -115,16 +118,83 @@ public class PageListingTest extends BaseTestV2 {
         getPageListing().unpublishAllSelectedPages();
     }
 
+    @Flaky
+    @Test(description = "TC-014: User duplicate page in the Page listing screen")
+    public void duplicatePageInThePageListingScreen() {
+        AtomicReference<String> originHTML = new AtomicReference<>();
+        AtomicReference<String> duplicatedHTML = new AtomicReference<>();
+
+        addStep(
+                "Step 0: Verify content of selected page",
+                () -> {
+                    openPageListingPage();
+                    getPageListing().verifyPageLoaded();
+                    getPageListing().openPageInPageListing(1);
+                    getBasePageEditor().verifyPageLoaded();
+                    originHTML.set(getBasePageEditor().getCanvasHtmlProcessed());
+                    getBasePageEditor().backToPageListingScreen();
+                    getPageListing().verifyPageLoaded();
+                }
+        );
+
+        addStep(
+                "Step 1: Duplicate selected page",
+                () -> {
+                    int originPageCount = getPageListing().getNumberOfRows();
+                    getPageListing().selectRowByIndex(1);
+                    getPageListing().duplicateAllSelectedPages();
+                    WebUI.sleep(2);
+                    WebUI.verifyEquals(getPageListing().getNumberOfRows(), originPageCount + 1, "Verify page is duplicated");
+                }
+        );
+
+        addStep(
+                "Step 2: Verify duplicated page",
+                () -> {
+                    getPageListing().openPageInPageListing(1);
+                    getBasePageEditor().verifyPageLoaded();
+                    duplicatedHTML.set(getBasePageEditor().getCanvasHtmlProcessed());
+                    getBasePageEditor().verifyPageIsUnpublished();
+                }
+        );
+
+        WebUI.verifyEquals(originHTML.get(), duplicatedHTML.get(), "Verify duplicated page is not the same as the original page");
+    }
+
     @Test(description = "TC-015: User delete pages that are created in PageFly")
     public void deletePageInThePageListingScreen() {
+        AtomicReference<String> pageId = new AtomicReference<>();
 
-        openPageListingPage();
-        getPageListing().verifyPageLoaded();
-        WebUI.waitForPageLoaded();
-        WebUI.sleep(3);
-        WebUI.waitForElementVisible(getPageListing().getRowByIndex(1));
-        getPageListing().selectRowByIndex(1);
-        getPageListing().deleteAllSelectedPages(1);
+        addStep("Step 0: Open Page Listing page", () -> {
+            openPageListingPage();
+            WebUI.waitForPageLoaded();
+            WebUI.sleep(3);
+            getPageListing().verifyPageLoaded();
+        });
+
+        addStep("Step 1: Select the first row and delete", () -> {
+            WebUI.waitForElementVisible(getPageListing().getRowByIndex(1));
+            pageId.set(getPageListing().selectRowByIndex(1));
+            getPageListing().deleteAllSelectedPages(1);
+        });
+
+        addStep(
+                "Step 2: Verify page is deleted",
+                () -> {
+                    WebUI.sleep(2);
+                    WebUI.verifyElementNotPresent(getPageListing().getRowById(pageId.get()), 3, "Verify page is deleted");
+                }
+        );
+
+        addStep(
+                "Step 3: Go to Trash screen and re-check deleted page",
+                () -> {
+                    openTrashPage();
+                    getTrashScreen().verifyPageLoaded();
+                    WebUI.verifyElementVisible(getTrashScreen().getRowById(pageId.get()), "Verify page is in Trash");
+                }
+        );
     }
+
 
 }

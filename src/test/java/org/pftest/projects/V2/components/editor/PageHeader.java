@@ -8,8 +8,9 @@ import org.pftest.keywords.WebUI;
 
 public class PageHeader {
     private static final By pageTitle = By. id("editor-header-bar--page-title");
-    private static final By unpublishStatus = new ByChained(By.id("editor-header-bar--status"), By.xpath(".//span[@class='Polaris-Badge']/span[text()='Unpublished']"));
-    private static final By publishStatus = new ByChained(By.id("editor-header-bar--status"), By.xpath(".//span[@class='Polaris-Badge Polaris-Badge--toneInfo']/span[text()='Published']"));
+    private static final By editorHeaderBarStatus = By.id("editor-header-bar--status");
+    private static final By unpublishStatus = new ByChained(editorHeaderBarStatus, By.xpath(".//span[@class='Polaris-Badge']/span[text()='Unpublished']"));
+    private static final By publishStatus = new ByChained(editorHeaderBarStatus, By.xpath(".//span[@class='Polaris-Badge Polaris-Badge--toneInfo']/span[text()='Published']"));
     private static final By unpublishButton = By.id("editor-header-bar--unpublish");
 
     private static final By canvasSettingButton = By.id("canvas-size-setting-activator-btn");
@@ -26,6 +27,17 @@ public class PageHeader {
     private static final By previewButton = By.id("editor-header-bar--preview-page-btn");
     private static final By viewLivePageButton = By.id("editor-header-bar--view-live-page-btn");
 
+    static public void waitForLoaded() {
+        WebUI.waitForElementVisible(pageTitle);
+        WebUI.waitForElementVisible(editorHeaderBarStatus);
+        WebUI.waitForElementVisible(By.id("canvas-device-selector-group"));
+        WebUI.waitForElementVisible(canvasSettingButton);
+        WebUI.waitForElementVisible(editorSettingButton);
+        WebUI.waitForElementVisible(undoButton);
+        WebUI.waitForElementVisible(redoButton);
+        WebUI.waitForElementVisible(previewButton);
+        WebUI.waitForElementVisible(viewLivePageButton);
+    }
 
     static public void changePageTitle(String title) {
         WebUI.clickElement(pageTitle);

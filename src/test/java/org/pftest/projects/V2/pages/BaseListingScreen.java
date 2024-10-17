@@ -4,16 +4,15 @@ import io.qameta.allure.Step;
 import org.openqa.selenium.By;
 import org.openqa.selenium.support.pagefactory.ByChained;
 import org.pftest.base.BaseTest;
+import org.pftest.base.BaseTestV2;
 import org.pftest.enums.pagefly.ListingType;
 import org.pftest.enums.pagefly.PageStatus;
+import org.pftest.projects.V2.components.common.toast.Toast;
 import org.pftest.projects.V2.components.modal.delete.DeletePageSectionModal;
 
-import javax.annotation.Nullable;
-
 import static org.pftest.keywords.WebUI.*;
-import static org.pftest.keywords.WebUI.clickElement;
 
-public abstract class BaseListingScreen extends BaseTest {
+public abstract class BaseListingScreen extends BaseTestV2 {
     protected By pageTitle = By.xpath("//h1[@class='Polaris-Header-Title']");
     protected final By actionMenu = By.xpath("//div[@class='Polaris-ActionMenu-Actions__ActionsLayout']");
     protected final By primaryMenu = By.xpath("//div[@class='Polaris-Page-Header__PrimaryActionWrapper']");
@@ -41,20 +40,20 @@ public abstract class BaseListingScreen extends BaseTest {
         return By.xpath(String.format("//tbody//tr[%d]", index));
     }
 
-    public static By getRowById(String id) {
+    public By getRowById(String id) {
         return By.xpath(String.format("//tbody//tr[@id='%s']", id));
     }
 
-    public static By getRowByTitle(String title) {
+    public By getRowByTitle(String title) {
         return By.xpath(String.format("//tbody//tr[.//h6[contains(text(), '%s')]]", title));
     }
 
-    public static By getPublishedRowByIndex(int index) {
+    public By getPublishedRowByIndex(int index) {
         String xpath = String.format("(//tbody/tr[.//td[3]/span[@class='Polaris-Badge Polaris-Badge--toneSuccess']//*[text()='Published']])[%s]", index);
         return By.xpath(xpath);
     }
 
-    public static By getUnpublishedRowByIndex(int index) {
+    public By getUnpublishedRowByIndex(int index) {
         String xpath = String.format("(//tbody/tr[.//td[3]/span[@class='Polaris-Badge Polaris-Badge--toneSuccess']//*[text()='Unpublished']])[%s]", index);
         return By.xpath(xpath);
     }
@@ -85,6 +84,10 @@ public abstract class BaseListingScreen extends BaseTest {
         By row = getRowByIndex(index);
         String id = getAttributeElement(row, "id");
         return id;
+    }
+
+    public int getNumberOfRows() {
+        return getWebElements(By.xpath("//tbody//tr")).size();
     }
 
     @Step("Select row checkbox by index {0}")
@@ -129,14 +132,35 @@ public abstract class BaseListingScreen extends BaseTest {
     public void publishAllSelectedPages(ListingType listingType) {
         waitForElementClickable(publishButtonBulkAction);
         clickElement(publishButtonBulkAction);
+
         switchToDefaultContent();
         if (listingType == ListingType.PAGE) {
-            getToast().verifyShowPublishingPagesToast();
-            getToast().verifyShowPublishedPagesToast();
+            Toast.verifyShowPublishingPagesToast();
+            Toast.verifyShowPublishedPagesToast();
         } else {
-            getToast().verifyShowPublishingSectionsToast();
-            getToast().verifyShowPublishedSectionsToast();
+            Toast.verifyShowPublishingSectionsToast();
+            Toast.verifyShowPublishedSectionsToast();
         }
+        switchToPageFlyFrame();
+    }
+
+    public void duplicateAllSelectedPages(ListingType listingType) {
+        waitForElementVisible(moreActionsButtonBulkAction);
+        waitForElementClickable(moreActionsButtonBulkAction);
+        clickElement(moreActionsButtonBulkAction);
+
+        waitForElementClickable(duplicateButtonBulkAction);
+        clickElement(duplicateButtonBulkAction);
+
+        switchToDefaultContent();
+        if (listingType == ListingType.PAGE) {
+            Toast.verifyShowDuplicatingPagesToast();
+            Toast.verifyShowDuplicatedPagesToast();
+        } else {
+            Toast.verifyShowDuplicatingSectionsToast();
+            Toast.verifyShowDuplicatedSectionsToast();
+        }
+        switchToPageFlyFrame();
     }
 
     public void confirmDeletePage(ListingType listingType, int number) {
@@ -149,16 +173,20 @@ public abstract class BaseListingScreen extends BaseTest {
         waitForElementVisible(moreActionsButtonBulkAction);
         waitForElementClickable(moreActionsButtonBulkAction);
         clickElement(moreActionsButtonBulkAction);
+
         waitForElementClickable(deleteButtonBulkAction);
         clickElement(deleteButtonBulkAction);
         confirmDeletePage(listingType, pageNumber);
+
         switchToDefaultContent();
         if (listingType == ListingType.PAGE) {
-            getToast().verifyShowDeletingPagesToast();
-            getToast().verifyShowDeletedPagesToast();
+            Toast.verifyShowDeletingPagesToast();
+            Toast.verifyShowDeletedPagesToast();
         } else {
-            getToast().verifyShowDeletingSectionsToast();
-            getToast().verifyShowDeletedSectionsToast();
+            Toast.verifyShowDeletingSectionsToast();
+            Toast.verifyShowDeletedSectionsToast();
         }
+        switchToPageFlyFrame();
     }
+
 }

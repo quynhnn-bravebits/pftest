@@ -3,7 +3,9 @@ package org.pftest.projects.V2.pages;
 import org.openqa.selenium.By;
 import org.pftest.constants.UrlConstants;
 import org.pftest.enums.pagefly.PageType;
+import org.pftest.projects.V2.components.common.toast.Toast;
 import org.pftest.projects.V2.pages.editor.*;
+import org.pftest.projects.V2.pages.extraFunctions.TrashScreen;
 import org.pftest.projects.V2.pages.listing.PageListing;
 
 import static org.pftest.keywords.WebUI.*;
@@ -14,6 +16,7 @@ public class Bridge {
     private ProductPageEditor productPageEditor;
     private CollectionPageEditor collectionPageEditor;
     private BaseEditor pageEditor;
+    private TrashScreen trashScreen;
 
     public BaseEditor getBasePageEditor() {
         if (basePageEditor == null) {
@@ -63,6 +66,12 @@ public class Bridge {
         return pageListing;
     }
 
+    public TrashScreen getTrashScreen() {
+        if (trashScreen == null) {
+            trashScreen = new TrashScreen();
+        }
+        return trashScreen;
+    }
 
     /**
      * Remove the padding of the AppNavigator to make the page listing page full width

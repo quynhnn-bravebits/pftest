@@ -7,8 +7,8 @@ import org.pftest.constants.PagesConstants;
 import org.pftest.enums.pagefly.EditorType;
 import org.pftest.enums.pagefly.ListingType;
 import org.pftest.enums.pagefly.PageType;
+import org.pftest.projects.V2.components.common.toast.Toast;
 import org.pftest.projects.V2.components.drawer.DrawerManager;
-import org.pftest.projects.V2.components.modal.delete.DeletePageSectionModal;
 import org.pftest.projects.V2.components.modal.selectEditorType.SelectEditorTypeModal;
 import org.pftest.projects.V2.pages.BaseListingScreen;
 
@@ -30,6 +30,7 @@ public class PageListing extends BaseListingScreen {
     @Override
     @Step("Verify page listing page is loaded")
     public void verifyPageLoaded() {
+        switchToPageFlyFrame();
         verifyPageTitle(PagesConstants.PAGE_LISTING_PAGE_TITLE);
         verifyElementVisible(importButton);
         verifyElementVisible(exportButton);
@@ -100,8 +101,13 @@ public class PageListing extends BaseListingScreen {
         waitForElementClickable(unpublishButtonBulkAction);
         clickElement(unpublishButtonBulkAction);
         switchToDefaultContent();
-        getToast().verifyShowUnpublishingPagesToast();
-        getToast().verifyShowUnpublishedPagesToast();
+        Toast.verifyShowUnpublishingPagesToast();
+        Toast.verifyShowUnpublishedPagesToast();
+    }
+
+    @Step("Duplicate all selected pages")
+    public void duplicateAllSelectedPages() {
+        super.duplicateAllSelectedPages(ListingType.PAGE);
     }
 
     @Step("Confirm 'Delete {0} page?' modal")
