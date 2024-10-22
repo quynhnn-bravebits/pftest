@@ -10,6 +10,7 @@ public enum ModalType {
     SELECT_COLLECTIONS("Select collections", "Select", "Cancel"),
     SELECT_EDITOR_TYPE("Create new page", null, null),
     DELETE("Delete %02d %s?", "Delete", "Cancel"),
+    EXPORT("Export %s", "Export", "Cancel"),
     ;
 
     private String title;

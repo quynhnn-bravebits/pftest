@@ -196,5 +196,48 @@ public class PageListingTest extends BaseTestV2 {
         );
     }
 
+    @Test(description = "TC-016: User export all pages from PageFly")
+    public void exportAllPagesInThePageListingScreen() {
+        addStep(
+                "Step 0: Open Page Listing page",
+                () -> {
+                    openPageListingPage();
+                    getPageListing().verifyPageLoaded();
+                }
+        );
 
+        addStep(
+                "Step 1: Export all pages",
+                () -> {
+                    getPageListing().exportAllPages();
+                }
+        );
+    }
+
+    @Test(description = "TC-017: User export selected pages from PageFly")
+    public void exportPageInThePageListingScreen() {
+        addStep(
+                "Step 0: Open Page Listing page",
+                () -> {
+                    openPageListingPage();
+                    getPageListing().verifyPageLoaded();
+                }
+        );
+
+        addStep(
+                "Step 1: Select 1st page in the table and Export page",
+                () -> {
+                    getPageListing().selectRowByIndex(1);
+                    getPageListing().exportAllSelectedPages(1);
+                }
+        );
+
+        addStep(
+                "Step 1: Select 2 pages in the table and Export page",
+                () -> {
+                    getPageListing().selectRowByIndex(2);
+                    getPageListing().exportAllSelectedPages(2);
+                }
+        );
+    }
 }

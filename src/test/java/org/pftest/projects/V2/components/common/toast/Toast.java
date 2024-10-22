@@ -79,7 +79,7 @@ public class Toast {
 
     @Step("Verify show 'Exporting pages...' toast")
     static public void verifyShowExportingPagesToast() {
-        verifyShowToast("Exporting pages");
+        verifyShowToast("Exporting pages...");
     }
 
     @Step("Verify show 'Pages exported' toast")

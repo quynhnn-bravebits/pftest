@@ -9,6 +9,8 @@ import org.pftest.enums.pagefly.ListingType;
 import org.pftest.enums.pagefly.PageStatus;
 import org.pftest.projects.V2.components.common.toast.Toast;
 import org.pftest.projects.V2.components.modal.delete.DeletePageSectionModal;
+import org.pftest.projects.V2.components.modal.export.ExportManyModal;
+import org.pftest.projects.V2.components.modal.export.ExportModal;
 
 import static org.pftest.keywords.WebUI.*;
 
@@ -186,6 +188,50 @@ public abstract class BaseListingScreen extends BaseTestV2 {
             Toast.verifyShowDeletingSectionsToast();
             Toast.verifyShowDeletedSectionsToast();
         }
+        switchToPageFlyFrame();
+    }
+
+    @Step("Confirm 'Export page' modal")
+    public void confirmExportPage() {
+        ExportModal exportModal = new ExportModal(ListingType.PAGE);
+        exportModal.verifyVisible();
+        exportModal.clickPrimaryButton();
+    }
+
+    public void exportAllSelectedPages(int pageNumber) {
+        waitForElementClickable(moreActionsButtonBulkAction);
+        clickElement(moreActionsButtonBulkAction);
+        waitForElementClickable(exportButtonBulkAction);
+        clickElement(exportButtonBulkAction);
+
+        if (pageNumber == 1) {
+            ExportModal exportModal = new ExportModal(ListingType.PAGE);
+            exportModal.verifyVisible();
+            exportModal.clickPrimaryButton();
+        } else {
+            ExportManyModal exportModal = new ExportManyModal(ListingType.PAGE);
+            exportModal.verifyVisible();
+            exportModal.verifySelectSelectedPages();
+            exportModal.clickPrimaryButton();
+        }
+
+        switchToDefaultContent();
+        Toast.verifyShowExportedPagesToast();
+        ExportModal.verifyDownloadedExportedFile();
+        switchToPageFlyFrame();
+    }
+
+    public void exportAllPages() {
+        clickElement(exportButton);
+        ExportManyModal exportModal = new ExportManyModal(ListingType.PAGE);
+        exportModal.verifyVisible();
+        exportModal.verifySelectAllPages();
+        exportModal.clickPrimaryButton();
+
+        switchToDefaultContent();
+        Toast.verifyShowExportingPagesToast();
+        Toast.verifyShowExportedPagesToast();
+        ExportModal.verifyDownloadedExportedFile();
         switchToPageFlyFrame();
     }
 
