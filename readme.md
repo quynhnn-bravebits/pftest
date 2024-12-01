@@ -7,6 +7,7 @@ This is simple guide to run this project. Hope you enjoy :)
     - Maven installed on your system. If not, you can download it from [here](https://maven.apache.org/download.cgi) and follow the installation instructions.
     - ChromeDriver
     - InteliJ and JDK (ver 21)
+    - Allure
 - Update the configs
     - In config.properties
         - Update USER_DATA_DIR value
