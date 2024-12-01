@@ -3,9 +3,18 @@
 This is simple guide to run this project. Hope you enjoy :)
 
 ## Prerequisites
-- Ensure that you have Maven installed on your system. If not, you can download it from [here](https://maven.apache.org/download.cgi) and follow the installation instructions.
+- Ensure that you have
+    - Maven installed on your system. If not, you can download it from [here](https://maven.apache.org/download.cgi) and follow the installation instructions.
+    - ChromeDriver
+    - InteliJ and JDK (ver 21)
+- Update the configs
+    - In config.properties
+        - Update USER_DATA_DIR value
+        - Name your Profile if you like or keep it default
+        - Update your STORE name
 
 ## Steps to Run the Project
+0. Run a test to open the Chromium by ChromeDriver and setup your Shopify authentication
 
 1. **Install Maven Dependencies**: Open your terminal and navigate to the project directory. Run the following command to install the necessary dependencies:
 
