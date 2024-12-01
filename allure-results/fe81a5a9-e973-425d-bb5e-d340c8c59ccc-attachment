@@ -1,7 +1,0 @@
-Verify Equals: <html>
- <head>
-  <style data-styled="active" data-styled-version="5.3.3" class=""></style>
-  <style ... != <html>
- <head>
-  <style data-styled="active" data-styled-version="5.3.3" class=""></style>
-  <style ...
