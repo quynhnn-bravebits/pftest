@@ -1,1 +1,0 @@
-Clicked on the element By.chained({By.chained({By.xpath: //div[@class='Polaris-IndexTable'],By.xpath: .//div[@class='Polaris-BulkActions__BulkActionsLayout']}),By.xpath: .//button[@aria-label='unpublish-bulk-action']})

@@ -1,0 +1,1 @@
+Verify element clickable By.id: media-manager--media-selector-modal--select

@@ -1,1 +1,0 @@
-Clicked on the element By.chained({By.chained({By.xpath: //*[@id="PolarisPortalsContainer"]//div[starts-with(@data-portal-id, 'modal')]//div[@role="dialog"]/div[1],By.xpath: .//div[starts-with(@class, '_ScrollableContainer_')]/ul}),By.xpath: ./li/div[@data-virtualized-index=1]})

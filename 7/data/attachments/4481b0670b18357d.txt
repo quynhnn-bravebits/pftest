@@ -1,0 +1,1 @@
+Get text of element By.xpath: //*[@data-pf-id='0833d57d-09ef-4f47-b214-acfb75c8ef7b']

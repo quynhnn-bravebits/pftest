@@ -1,0 +1,5 @@
+==> The Text is: Please name your section before publishing
+Section title
+*
+Cancel
+Publish

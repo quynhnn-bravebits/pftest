@@ -1,0 +1,1 @@
+Clicked on the element By.chained({By.id: dashboard--recent-pages,By.xpath: //button[@role='edit-page']})

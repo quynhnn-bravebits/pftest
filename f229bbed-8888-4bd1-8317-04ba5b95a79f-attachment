@@ -1,1 +1,0 @@
-Clicked on the element By.chained({By.id: POPOVER_DEFAULT_ID,By.xpath: .//button[span[text()='Select collections']]})

@@ -1,0 +1,1 @@
+Clear and Fill https://www.youtube.com/watch?v=i3JTS0YrRYg on By.chained({By.id: youtube-video-url,By.tagName: input})

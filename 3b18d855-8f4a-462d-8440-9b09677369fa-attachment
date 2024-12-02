@@ -1,1 +1,0 @@
-Clicked on the element By.chained({By.xpath: //div[@class='Polaris-IndexTable'],By.xpath: .//button[@aria-label='More actions' and not(ancestor::div[contains(@class, 'Polaris-BulkActions__BulkActionsMeasurerLayout')])]})

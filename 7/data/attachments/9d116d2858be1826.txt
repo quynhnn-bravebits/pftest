@@ -1,0 +1,1 @@
+Clicked on the element By.xpath: (//div[@class='template-card__action']//button/*[text()='Select'])[1]
