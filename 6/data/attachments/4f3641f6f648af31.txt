@@ -1,0 +1,1 @@
+Clicked on the element By.xpath: //div[@class='Polaris-Popover']//label[@for='published-status-filter'][.//*[text()='Published']]

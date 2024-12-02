@@ -1,0 +1,1 @@
+Clicked on the element By.chained({By.id: enable-equal-height,By.xpath: //button[@role='YES']})

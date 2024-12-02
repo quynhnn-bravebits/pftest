@@ -1,0 +1,1 @@
+Clear and Fill 12 on By.id: inspector--base--columns-per-line--input

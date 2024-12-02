@@ -1,0 +1,1 @@
+Clicked on the element By.id: go-to-theme-editor-action-btn

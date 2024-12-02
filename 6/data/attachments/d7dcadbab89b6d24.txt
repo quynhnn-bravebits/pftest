@@ -1,0 +1,6 @@
+==> The Text is: Publish collection page
+After publishing, this collection page will be applied to assigned collection. You can view it by going to one of the assigned collection pages on your live store.
+All selected collection pages will be replaced. To revert back to your original collection page, just unpublish this page.
+Don't remind me again
+Cancel
+Publish

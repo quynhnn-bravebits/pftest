@@ -1,0 +1,1 @@
+Clicked on the element By.chained({By.xpath: //tbody//tr[1],By.xpath: .//*[@class='Polaris-Checkbox']})

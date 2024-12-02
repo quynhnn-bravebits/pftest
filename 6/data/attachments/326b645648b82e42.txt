@@ -1,0 +1,6 @@
+==> The Text is: Publishing homepage
+Once published, this page will replace your current home page.
+To restore your original homepage, unpublish or delete this page.
+Don't remind me again
+Cancel
+Publish

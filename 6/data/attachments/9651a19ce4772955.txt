@@ -1,0 +1,1 @@
+Clicked on the element By.chained({By.id: enable-full-width,By.xpath: //button[@role='NO']})

@@ -1,0 +1,1 @@
+Clear and Fill 61 on By.id: inspector--base--columns-spacing--input
