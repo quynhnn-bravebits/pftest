@@ -1,8 +1,0 @@
-==> The Text is: Your page is ready to publish!
-Page title
-*
-Page URL
-*
-/pages/
-Cancel
-Publish

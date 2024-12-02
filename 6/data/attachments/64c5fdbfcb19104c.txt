@@ -1,1 +1,0 @@
-Verify text of an element [Equals] : true. The actual text is 'Hello word!' not equals 'Hello word!'

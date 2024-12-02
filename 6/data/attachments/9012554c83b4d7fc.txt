@@ -1,6 +1,0 @@
-==> The Text is: Select page template
-The selected template will replace all content on your current page.
-This can't be undone. Do you still want to continue?
-I understand what I'm doing
-Cancel
-Select

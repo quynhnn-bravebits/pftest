@@ -1,3 +1,0 @@
-Verify Equals: <div data-pf-id="88090ee4-3c77-4507-9f9f-71a2d74065b8" data-pf-type="Body" class="sc-uojGG gjWryn">
-... = <div data-pf-id="88090ee4-3c77-4507-9f9f-71a2d74065b8" data-pf-type="Body" class="sc-uojGG gjWryn">
-...

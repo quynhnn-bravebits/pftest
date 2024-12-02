@@ -1,4 +1,0 @@
-==> The Text is: Leave page?
-Your unpublished changes will be lost. Do you still want to continue?
-Cancel
-Leave page

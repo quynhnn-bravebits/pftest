@@ -1,8 +1,0 @@
-==> The Text is: Save page
-Once saved, the page will be ready for preview.
-Please note that:
-After saving, you have to publish the page to make it go live.
-Page preview might differ from the live page due to your theme styling.
-Don't remind me again
-Cancel
-Save

@@ -1,1 +1,0 @@
-Clicked on the element By.chained({By.chained({By.id: pf-search-modal,By.id: pf-search-modal--results}),By.xpath: //*[@id="pf-search-modal--results--pf-page"]//div[@role='result-item']})

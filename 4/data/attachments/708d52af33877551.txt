@@ -1,1 +1,0 @@
-Clear and Fill Hello word! on By.chained({By.id: dropcap-text,By.tagName: input})

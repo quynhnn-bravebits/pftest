@@ -1,1 +1,0 @@
-Clicked on the element By.id: catalog--catalog-list--heading

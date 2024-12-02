@@ -1,1 +1,0 @@
-Clear and Fill 600 on By.chained({By.id: image-height,By.cssSelector: input[type='number']})
