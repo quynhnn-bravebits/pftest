@@ -5,14 +5,13 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ThreadGuard;
 import org.pftest.driver.DriverManager;
 import org.pftest.driver.TargetFactory;
+import org.pftest.listeners.AnnotationTransformer;
+import org.pftest.listeners.TestListener;
 import org.pftest.projects.V2.pages.Bridge;
 import org.pftest.report.AllureManager;
-import org.testng.annotations.AfterTest;
-import org.testng.annotations.BeforeTest;
-import org.testng.annotations.Optional;
-import org.testng.annotations.Parameters;
+import org.testng.annotations.*;
 
-
+@Listeners({TestListener.class, AnnotationTransformer.class})
 public class BaseTestV2 extends Bridge {
 
     @Parameters("BROWSER")

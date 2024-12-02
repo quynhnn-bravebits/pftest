@@ -1,0 +1,1 @@
+Clicked on the element By.chained({By.xpath: //div[@class='Polaris-ActionMenu-Actions__ActionsLayout'],By.id: export-btn})

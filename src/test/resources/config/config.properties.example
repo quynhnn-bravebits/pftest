@@ -1,0 +1,60 @@
+# DATE: 2024-04-25
+#
+
+# PageFly app iframe name
+APP_IFRAME = app-iframe
+# wip: wip-pagefly, rc: rc-pagefly-1, live: pagefly
+APP = rc-pagefly-1
+# **Note**: The iframe name is different between the app and the editor
+EDITOR_IFRAME = //iframe[starts-with(@name, 'frame://rc-pagefly-1/modal/') and contains(@name, '/src')]
+# Locate the iframe inside Create new page modal https://prnt.sc/lROPmF_eeUiM
+EDITOR_SELECT_MODAL_IFRAME = //iframe[starts-with(@name, 'frame://rc-pagefly-1/modal/') and not(contains(@name, '/src'))]
+
+DRAG_DROP_IFRAME = pf-sandbox
+# store name
+STORE = shopify_store_name
+
+# Browser execute path
+BROWSER_BINARY = your_browser_path (Open chrome://version/ then copy the path in Executable Path)
+USER_DATA_DIR = your_user_data_dir (Open chrome://version/ then copy the path in Profile Path or create a new profile)
+
+# Project report information
+AUTHOR=your_name
+PROJECT_NAME = "PageFly Automation Test"
+REPORT_TITLE = "PageFly Automation Test Report"
+EXTENT_REPORT_NAME = ExtentReports
+EXTENT_REPORT_FOLDER = reports/ExtentReports
+EXPORT_VIDEO_PATH = ExportData/Videos
+EXPORT_CAPTURE_PATH = ExportData/Images
+
+# Default browser (chrome, edge, firefox, safari)
+BROWSER = chrome
+HEADLESS = false
+
+# Smart wait time (seconds)
+WAIT_DEFAULT = 5
+WAIT_IMPLICIT = 20
+WAIT_EXPLICIT = 15
+WAIT_PAGE_LOADED = 60
+# Shall wait for the page to load for every step
+ACTIVE_PAGE_LOADED = true
+# Shall wait for the page to load for every step
+WAIT_SLEEP_STEP = 0
+
+# Passed Steps Screenshot
+SCREENSHOT_PASSED_STEPS = false
+# Failed Steps Screenshot
+SCREENSHOT_FAILED_STEPS = true
+# Skipped Steps Screenshot
+SCREENSHOT_SKIPPED_STEPS = true
+# All Steps Screenshot
+SCREENSHOT_ALL_STEPS = false
+# Video Record
+VIDEO_RECORD = false
+# Retry test on fail
+RETRY_TEST_FAIL = 2
+
+# If true -> Report name will be ExtentReports.html
+OVERRIDE_REPORTS = true
+# If true -> Open the report after execution
+OPEN_REPORTS_AFTER_EXECUTION = false

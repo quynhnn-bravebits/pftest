@@ -40,9 +40,9 @@ jobs:
     - uses: actions/upload-artifact@master
       with:
         name: allure-results
-        path: allure-results
+        path: reports/allure-results-rc
         retention-days: 20
-        
+
     - name: Get Allure history
       uses: actions/checkout@v2
       if: always()
@@ -56,16 +56,15 @@ jobs:
       if: always()
       id: allure-report
       with:
-        allure_results: allure-results
+        allure_results: reports/allure-results-rc # Path to the folder with Allure results
         gh_pages: gh-pages
-        allure_report: allure-report
         allure_history: allure-history
         keep_reports: 20
 
     - name: Deploy report to Github Pages
       if: always()
-      uses: peaceiris/actions-gh-pages@v2
-      env:
+      uses: peaceiris/actions-gh-pages@v3
+      with:
         PERSONAL_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         PUBLISH_BRANCH: gh-pages
         PUBLISH_DIR: allure-history

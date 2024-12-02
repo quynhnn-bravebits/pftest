@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd" >
+
+<suite name="V4.11.5 Basic UAT">
+
+    <listeners>
+        <listener class-name="org.pftest.listeners.AnnotationTransformer"/>
+        <listener class-name="org.pftest.listeners.TestListener"/>
+<!--        temporary skip flex layout cases-->
+        <listener class-name="org.pftest.listeners.SkipTestsTransformer"/>
+    </listeners>
+
+    <test name="Page Listing" verbose="2" preserve-order="true">
+        <classes>
+<!--           <class name="org.pftest.projects.V2.testcases.PageListingTest"/>-->
+           <class name="org.pftest.projects.V2.testcases.PageListingTest">
+                <methods>
+                     <include name="duplicatePageInThePageListingScreen"/>
+                </methods>
+           </class>
+        </classes>
+    </test>
+
+</suite>

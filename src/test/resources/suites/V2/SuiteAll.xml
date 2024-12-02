@@ -1,18 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
 <suite name="Acceptance Testing" thread-count="2" parallel="methods">
-    <listeners>
-        <listener class-name="org.pftest.listeners.AnnotationTransformer"/>
-        <listener class-name="org.pftest.listeners.TestListener"/>
-    </listeners>
-
-    <test verbose="2" preserve-order="true" name="Page Listing" >
-        <classes>
-            <class name="org.pftest.projects.V2.testcases.PageListingTest">
-                <methods>
-                    <include name="testCreateBlankPageFlexLayoutFromPageListing2"/>
-                </methods>
-            </class>
-        </classes>
-    </test>
+    <suite-files>
+        <suite-file path="PageListingSuite.xml"/>
+    </suite-files>
 </suite>

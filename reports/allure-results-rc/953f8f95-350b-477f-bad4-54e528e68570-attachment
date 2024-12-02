@@ -1,0 +1,1001 @@
+Verify Equals: <html>
+ <head>
+  <style data-styled="active" data-styled-version="6.1.11" class=""></style>
+  <style data-gs-device="all" data-gs-disabled="false" class="">
+        .pf-color-scheme-1 {
+          --pf-scheme-bg-color: ;--pf-scheme-text-color: ;--pf-scheme-btn-bg-color: ;--pf-scheme-btn-text-color: ;--pf-scheme-border-color: ;--pf-scheme-shadow-color: rgb(0, 0, 0, 0.25);
+        }
+    
+        .pf-color-scheme-2 {
+          --pf-scheme-bg-color: rgba(255, 255, 255, 0);--pf-scheme-text-color: rgb(0, 0, 0);--pf-scheme-btn-bg-color: rgb(145, 157, 169);--pf-scheme-btn-text-color: rgb(255, 255, 255);--pf-scheme-border-color: rgba(0, 0, 0);--pf-scheme-shadow-color: rgb(0, 0, 0, 0.25);
+        }
+    
+        .pf-color-scheme-3 {
+          --pf-scheme-bg-color: rgb(255, 255, 255);--pf-scheme-text-color: rgb(18, 18, 18);--pf-scheme-btn-bg-color: rgb(18, 18, 18);--pf-scheme-btn-text-color: rgb(255, 255, 255);--pf-scheme-border-color: rgb(18, 18, 18);--pf-scheme-shadow-color: rgb(18, 18, 18);
+        }
+    
+        .pf-color-scheme-4 {
+          --pf-scheme-bg-color: rgb(243, 243, 243);--pf-scheme-text-color: rgb(18, 18, 18);--pf-scheme-btn-bg-color: rgb(18, 18, 18);--pf-scheme-btn-text-color: rgb(243, 243, 243);--pf-scheme-border-color: rgb(18, 18, 18);--pf-scheme-shadow-color: rgb(18, 18, 18);
+        }
+    
+        .pf-color-scheme-5 {
+          --pf-scheme-bg-color: rgb(36, 40, 51);--pf-scheme-text-color: rgb(255, 255, 255);--pf-scheme-btn-bg-color: rgb(255, 255, 255);--pf-scheme-btn-text-color: rgb(0, 0, 0);--pf-scheme-border-color: rgb(255, 255, 255);--pf-scheme-shadow-color: rgb(18, 18, 18);
+        }
+    
+        .pf-color-scheme-6 {
+          --pf-scheme-bg-color: rgb(18, 18, 18);--pf-scheme-text-color: rgb(255, 255, 255);--pf-scheme-btn-bg-color: rgb(255, 255, 255);--pf-scheme-btn-text-color: rgb(18, 18, 18);--pf-scheme-border-color: rgb(255, 255, 255);--pf-scheme-shadow-color: rgb(18, 18, 18);
+        }
+    
+        .pf-color-scheme-7 {
+          --pf-scheme-bg-color: rgb(51, 79, 180);--pf-scheme-text-color: rgb(255, 255, 255);--pf-scheme-btn-bg-color: rgb(255, 255, 255);--pf-scheme-btn-text-color: rgb(51, 79, 180);--pf-scheme-border-color: rgb(255, 255, 255);--pf-scheme-shadow-color: rgb(18, 18, 18);
+        }
+    .__pf [data-pf-type*="Section"] {
+    background-color: var(--pf-scheme-bg-color);
+    background-image: var(--pf-scheme-bg-gradient-color);
+    border-color: var(--pf-scheme-border-color);
+    color: var(--pf-scheme-text-color);
+  }
+  .__pf [data-pf-type='Button2'] {
+    background-color: var(--pf-scheme-btn-bg-color);
+    background-image: var(--pf-scheme-btn-bg-gradient-color);
+    color: var(--pf-scheme-btn-text-color);
+  }.__pf .pf-button-1 {background-color: rgb(145, 157, 169); color: rgb(255, 255, 255); padding: 12px 20px;}.__pf .pf-button-2 {background-color: rgb(145, 157, 169); color: rgb(255, 255, 255); padding: 12px 20px;}.__pf .pf-button-3 {background-color: rgb(145, 157, 169); color: rgb(255, 255, 255); padding: 12px 20px;}.__pf .pf-button-4 {background-color: rgb(145, 157, 169); color: rgb(255, 255, 255); padding: 12px 20px;}.__pf .pf-button-5 {background-color: rgb(145, 157, 169); color: rgb(255, 255, 255); padding: 12px 20px;}.__pf .pf-button-6 {background-color: rgb(145, 157, 169); color: rgb(255, 255, 255); padding: 12px 20px;}.__pf .pf-button-7 {background-color: rgb(145, 157, 169); color: rgb(255, 255, 255); padding: 12px 20px;}.__pf .pf-icon-1 {background-color: var(--pf-scheme-bg-color); color: var(--pf-scheme-text-color);}.__pf .pf-icon-2 {background-color: var(--pf-scheme-bg-color); color: var(--pf-scheme-text-color);}.__pf .pf-icon-3 {background-color: var(--pf-scheme-bg-color); color: var(--pf-scheme-text-color);}.__pf .pf-icon-4 {background-color: var(--pf-scheme-bg-color); color: var(--pf-scheme-text-color);}.__pf .pf-icon-5 {background-color: var(--pf-scheme-bg-color); color: var(--pf-scheme-text-color);}.__pf .pf-icon-6 {background-color: var(--pf-scheme-bg-color); color: var(--pf-scheme-text-color);}.__pf .pf-icon-7 {background-color: var(--pf-scheme-bg-color); color: var(--pf-scheme-text-color);}.pf-icon2-1 {background-color: var(--pf-scheme-bg-color); color: var(--pf-scheme-text-color);}.pf-icon2-2 {background-color: var(--pf-scheme-bg-color); color: var(--pf-scheme-text-color);}.pf-icon2-3 {background-color: var(--pf-scheme-bg-color); color: var(--pf-scheme-text-color);}.pf-icon2-4 {background-color: var(--pf-scheme-bg-color); color: var(--pf-scheme-text-color);}.pf-icon2-5 {background-color: var(--pf-scheme-bg-color); color: var(--pf-scheme-text-color);}.pf-icon2-6 {background-color: var(--pf-scheme-bg-color); color: var(--pf-scheme-text-color);}.pf-icon2-7 {background-color: var(--pf-scheme-bg-color); color: var(--pf-scheme-text-color);}.__pf .pf-image-1 {}.__pf .pf-image-2 {}.__pf .pf-image-3 {}.__pf .pf-image-4 {}.__pf .pf-image-5 {}.__pf .pf-image-6 {}.__pf .pf-image-7 {}.__pf .pf-text-1 {background-color: var(--pf-scheme-bg-color); color: var(--pf-scheme-text-color);}.__pf .pf-text-2 {background-color: var(--pf-scheme-bg-color); color: var(--pf-scheme-text-color);}.__pf .pf-text-3 {background-color: var(--pf-scheme-bg-color); color: var(--pf-scheme-text-color);}.__pf .pf-text-4 {background-color: var(--pf-scheme-bg-color); color: var(--pf-scheme-text-color);}.__pf .pf-text-5 {background-color: var(--pf-scheme-bg-color); color: var(--pf-scheme-text-color);}.__pf .pf-text-6 {background-color: var(--pf-scheme-bg-color); color: var(--pf-scheme-text-color);}.__pf .pf-text-7 {background-color: var(--pf-scheme-bg-color); color: var(--pf-scheme-text-color);}.__pf .pf-divider-1 {color: var(--pf-scheme-text-color);}.__pf .pf-divider-2 {color: var(--pf-scheme-text-color);}.__pf .pf-divider-3 {color: var(--pf-scheme-text-color);}.__pf .pf-divider-4 {color: var(--pf-scheme-text-color);}.__pf .pf-heading-1-h1 {color: var(--pf-scheme-text-color); background-color: var(--pf-scheme-bg-color);}.__pf .pf-heading-1-h2 {color: var(--pf-scheme-text-color); background-color: var(--pf-scheme-bg-color);}.__pf .pf-heading-1-h3 {color: var(--pf-scheme-text-color); background-color: var(--pf-scheme-bg-color);}.__pf .pf-heading-1-h4 {color: var(--pf-scheme-text-color); background-color: var(--pf-scheme-bg-color);}.__pf .pf-heading-1-h5 {color: var(--pf-scheme-text-color); background-color: var(--pf-scheme-bg-color);}.__pf .pf-heading-1-h6 {color: var(--pf-scheme-text-color); background-color: var(--pf-scheme-bg-color);}.__pf .pf-heading-2-h1 {color: var(--pf-scheme-text-color); background-color: var(--pf-scheme-bg-color);}.__pf .pf-heading-2-h2 {color: var(--pf-scheme-text-color); background-color: var(--pf-scheme-bg-color);}.__pf .pf-heading-2-h3 {color: var(--pf-scheme-text-color); background-color: var(--pf-scheme-bg-color);}.__pf .pf-heading-2-h4 {color: var(--pf-scheme-text-color); background-color: var(--pf-scheme-bg-color);}.__pf .pf-heading-2-h5 {color: var(--pf-scheme-text-color); background-color: var(--pf-scheme-bg-color);}.__pf .pf-heading-2-h6 {color: var(--pf-scheme-text-color); background-color: var(--pf-scheme-bg-color);}.__pf .pf-heading-3-h1 {color: var(--pf-scheme-text-color); background-color: var(--pf-scheme-bg-color);}.__pf .pf-heading-3-h2 {color: var(--pf-scheme-text-color); background-color: var(--pf-scheme-bg-color);}.__pf .pf-heading-3-h3 {color: var(--pf-scheme-text-color); background-color: var(--pf-scheme-bg-color);}.__pf .pf-heading-3-h4 {color: var(--pf-scheme-text-color); background-color: var(--pf-scheme-bg-color);}.__pf .pf-heading-3-h5 {color: var(--pf-scheme-text-color); background-color: var(--pf-scheme-bg-color);}.__pf .pf-heading-3-h6 {color: var(--pf-scheme-text-color); background-color: var(--pf-scheme-bg-color);}.__pf .pf-heading-4-h1 {color: var(--pf-scheme-text-color); background-color: var(--pf-scheme-bg-color);}.__pf .pf-heading-4-h2 {color: var(--pf-scheme-text-color); background-color: var(--pf-scheme-bg-color);}.__pf .pf-heading-4-h3 {color: var(--pf-scheme-text-color); background-color: var(--pf-scheme-bg-color);}.__pf .pf-heading-4-h4 {color: var(--pf-scheme-text-color); background-color: var(--pf-scheme-bg-color);}.__pf .pf-heading-4-h5 {color: var(--pf-scheme-text-color); background-color: var(--pf-scheme-bg-color);}.__pf .pf-heading-4-h6 {color: var(--pf-scheme-text-color); background-color: var(--pf-scheme-bg-color);}.__pf .pf-heading-5-h1 {color: var(--pf-scheme-text-color); background-color: var(--pf-scheme-bg-color);}.__pf .pf-heading-5-h2 {color: var(--pf-scheme-text-color); background-color: var(--pf-scheme-bg-color);}.__pf .pf-heading-5-h3 {color: var(--pf-scheme-text-color); background-color: var(--pf-scheme-bg-color);}.__pf .pf-heading-5-h4 {color: var(--pf-scheme-text-color); background-color: var(--pf-scheme-bg-color);}.__pf .pf-heading-5-h5 {color: var(--pf-scheme-text-color); background-color: var(--pf-scheme-bg-color);}.__pf .pf-heading-5-h6 {color: var(--pf-scheme-text-color); background-color: var(--pf-scheme-bg-color);}.__pf .pf-heading-6-h1 {color: var(--pf-scheme-text-color); background-color: var(--pf-scheme-bg-color);}.__pf .pf-heading-6-h2 {color: var(--pf-scheme-text-color); background-color: var(--pf-scheme-bg-color);}.__pf .pf-heading-6-h3 {color: var(--pf-scheme-text-color); background-color: var(--pf-scheme-bg-color);}.__pf .pf-heading-6-h4 {color: var(--pf-scheme-text-color); background-color: var(--pf-scheme-bg-color);}.__pf .pf-heading-6-h5 {color: var(--pf-scheme-text-color); background-color: var(--pf-scheme-bg-color);}.__pf .pf-heading-6-h6 {color: var(--pf-scheme-text-color); background-color: var(--pf-scheme-bg-color);}.__pf .pf-heading-7-h1 {color: var(--pf-scheme-text-color); background-color: var(--pf-scheme-bg-color);}.__pf .pf-heading-7-h2 {color: var(--pf-scheme-text-color); background-color: var(--pf-scheme-bg-color);}.__pf .pf-heading-7-h3 {color: var(--pf-scheme-text-color); background-color: var(--pf-scheme-bg-color);}.__pf .pf-heading-7-h4 {color: var(--pf-scheme-text-color); background-color: var(--pf-scheme-bg-color);}.__pf .pf-heading-7-h5 {color: var(--pf-scheme-text-color); background-color: var(--pf-scheme-bg-color);}.__pf .pf-heading-7-h6 {color: var(--pf-scheme-text-color); background-color: var(--pf-scheme-bg-color);}.__pf .pf-button-1:hover {}.__pf .pf-button-1:active {}.__pf .pf-button-2:hover {}.__pf .pf-button-2:active {}.__pf .pf-button-3:hover {}.__pf .pf-button-3:active {}.__pf .pf-button-4:hover {}.__pf .pf-button-4:active {}.__pf .pf-button-5:hover {}.__pf .pf-button-5:active {}.__pf .pf-button-6:hover {}.__pf .pf-button-6:active {}.__pf .pf-button-7:hover {}.__pf .pf-button-7:active {}.__pf .pf-icon-1:hover {}.__pf .pf-icon-1:active {}.__pf .pf-icon-2:hover {}.__pf .pf-icon-2:active {}.__pf .pf-icon-3:hover {}.__pf .pf-icon-3:active {}.__pf .pf-icon-4:hover {}.__pf .pf-icon-4:active {}.__pf .pf-icon-5:hover {}.__pf .pf-icon-5:active {}.__pf .pf-icon-6:hover {}.__pf .pf-icon-6:active {}.__pf .pf-icon-7:hover {}.__pf .pf-icon-7:active {}.__pf .pf-image-1:hover {}.__pf .pf-image-1:active {}.__pf .pf-image-2:hover {}.__pf .pf-image-2:active {}.__pf .pf-image-3:hover {}.__pf .pf-image-3:active {}.__pf .pf-image-4:hover {}.__pf .pf-image-4:active {}.__pf .pf-image-5:hover {}.__pf .pf-image-5:active {}.__pf .pf-image-6:hover {}.__pf .pf-image-6:active {}.__pf .pf-image-7:hover {}.__pf .pf-image-7:active {}.__pf .pf-text-1:hover {}.__pf .pf-text-1:active {}.__pf .pf-text-2:hover {}.__pf .pf-text-2:active {}.__pf .pf-text-3:hover {}.__pf .pf-text-3:active {}.__pf .pf-text-4:hover {}.__pf .pf-text-4:active {}.__pf .pf-text-5:hover {}.__pf .pf-text-5:active {}.__pf .pf-text-6:hover {}.__pf .pf-text-6:active {}.__pf .pf-text-7:hover {}.__pf .pf-text-7:active {}.__pf .pf-divider-1:hover {}.__pf .pf-divider-1:active {}.__pf .pf-divider-2:hover {}.__pf .pf-divider-2:active {}.__pf .pf-divider-3:hover {}.__pf .pf-divider-3:active {}.__pf .pf-divider-4:hover {}.__pf .pf-divider-4:active {}.__pf .pf-heading-1-h1:hover {}.__pf .pf-heading-1-h1:active {}.__pf .pf-heading-1-h2:hover {}.__pf .pf-heading-1-h2:active {}.__pf .pf-heading-1-h3:hover {}.__pf .pf-heading-1-h3:active {}.__pf .pf-heading-1-h4:hover {}.__pf .pf-heading-1-h4:active {}.__pf .pf-heading-1-h5:hover {}.__pf .pf-heading-1-h5:active {}.__pf .pf-heading-1-h6:hover {}.__pf .pf-heading-1-h6:active {}.__pf .pf-heading-2-h1:hover {}.__pf .pf-heading-2-h1:active {}.__pf .pf-heading-2-h2:hover {}.__pf .pf-heading-2-h2:active {}.__pf .pf-heading-2-h3:hover {}.__pf .pf-heading-2-h3:active {}.__pf .pf-heading-2-h4:hover {}.__pf .pf-heading-2-h4:active {}.__pf .pf-heading-2-h5:hover {}.__pf .pf-heading-2-h5:active {}.__pf .pf-heading-2-h6:hover {}.__pf .pf-heading-2-h6:active {}.__pf .pf-heading-3-h1:hover {}.__pf .pf-heading-3-h1:active {}.__pf .pf-heading-3-h2:hover {}.__pf .pf-heading-3-h2:active {}.__pf .pf-heading-3-h3:hover {}.__pf .pf-heading-3-h3:active {}.__pf .pf-heading-3-h4:hover {}.__pf .pf-heading-3-h4:active {}.__pf .pf-heading-3-h5:hover {}.__pf .pf-heading-3-h5:active {}.__pf .pf-heading-3-h6:hover {}.__pf .pf-heading-3-h6:active {}.__pf .pf-heading-4-h1:hover {}.__pf .pf-heading-4-h1:active {}.__pf .pf-heading-4-h2:hover {}.__pf .pf-heading-4-h2:active {}.__pf .pf-heading-4-h3:hover {}.__pf .pf-heading-4-h3:active {}.__pf .pf-heading-4-h4:hover {}.__pf .pf-heading-4-h4:active {}.__pf .pf-heading-4-h5:hover {}.__pf .pf-heading-4-h5:active {}.__pf .pf-heading-4-h6:hover {}.__pf .pf-heading-4-h6:active {}.__pf .pf-heading-5-h1:hover {}.__pf .pf-heading-5-h1:active {}.__pf .pf-heading-5-h2:hover {}.__pf .pf-heading-5-h2:active {}.__pf .pf-heading-5-h3:hover {}.__pf .pf-heading-5-h3:active {}.__pf .pf-heading-5-h4:hover {}.__pf .pf-heading-5-h4:active {}.__pf .pf-heading-5-h5:hover {}.__pf .pf-heading-5-h5:active {}.__pf .pf-heading-5-h6:hover {}.__pf .pf-heading-5-h6:active {}.__pf .pf-heading-6-h1:hover {}.__pf .pf-heading-6-h1:active {}.__pf .pf-heading-6-h2:hover {}.__pf .pf-heading-6-h2:active {}.__pf .pf-heading-6-h3:hover {}.__pf .pf-heading-6-h3:active {}.__pf .pf-heading-6-h4:hover {}.__pf .pf-heading-6-h4:active {}.__pf .pf-heading-6-h5:hover {}.__pf .pf-heading-6-h5:active {}.__pf .pf-heading-6-h6:hover {}.__pf .pf-heading-6-h6:active {}.__pf .pf-heading-7-h1:hover {}.__pf .pf-heading-7-h1:active {}.__pf .pf-heading-7-h2:hover {}.__pf .pf-heading-7-h2:active {}.__pf .pf-heading-7-h3:hover {}.__pf .pf-heading-7-h3:active {}.__pf .pf-heading-7-h4:hover {}.__pf .pf-heading-7-h4:active {}.__pf .pf-heading-7-h5:hover {}.__pf .pf-heading-7-h5:active {}.__pf .pf-heading-7-h6:hover {}.__pf .pf-heading-7-h6:active {}.__pf .pf-field-1 { background-color: rgba(253, 253, 253, 1); border: 0.66px solid rgba(138, 138, 138, 1); border-radius: 8px; padding: 6px 12px; }.__pf .pf-field-2 { background-color: rgba(253, 253, 253, 1); border: 0.66px solid rgba(138, 138, 138, 1); border-radius: 8px; padding: 6px 12px; }.__pf .pf-field-3 { background-color: rgba(253, 253, 253, 1); border: 0.66px solid rgba(138, 138, 138, 1); border-radius: 8px; padding: 6px 12px; }.__pf .pf-field-4 { background-color: rgba(253, 253, 253, 1); border: 0.66px solid rgba(138, 138, 138, 1); border-radius: 8px; padding: 6px 12px; }.__pf .pf-field-5 { background-color: rgba(253, 253, 253, 1); border: 0.66px solid rgba(138, 138, 138, 1); border-radius: 8px; padding: 6px 12px; }.__pf .pf-field-6 { background-color: rgba(253, 253, 253, 1); border: 0.66px solid rgba(138, 138, 138, 1); border-radius: 8px; padding: 6px 12px; }</style>
+  <style data-gs-device="laptop" data-gs-disabled="true" class=""></style>
+  <style data-gs-device="tablet" data-gs-disabled="true" class=""></style>
+  <style data-gs-device="mobile" data-gs-disabled="true" class=""></style>
+  <style data-device="all" data-disabled="false" class=""></style>
+  <style data-device="laptop" data-disabled="true" class=""></style>
+  <style data-device="tablet" data-disabled="true" class=""></style>
+  <style data-device="mobile" data-disabled="true" class=""></style>
+  <style data-gs-property="true" class=""></style>
+ </head>
+ <body>
+  <div class="sc-esYjtY fLvWek __pf" id="__pf">
+   <div data-pf-type="Body" class="sc-eulNPF bDfZZV">
+    <div data-pf-type="Layout" class="sc-iXzffn fKDkmQ">
+     <div data-category="Free Shipping" data-name="Bitter" draggable="true" data-pf-type="Section" class="sc-kRRxPL efmMUe" style="position: relative; top: initial; z-index: initial;">
+      <div class="sc-gvZzpm eFakNN" style="--cw: 1170px;">
+       <div class="sc-jXbVAB kNtuek pf-r pf-r-eh" draggable="true" data-pf-type="Row" style="--s-xs: 0px;">
+        <div class="pf-c" style="--c-xs: 12; --c-sm: 12; --c-md: 12; --c-lg: 12;">
+         <div draggable="true" data-pf-type="Column" class="sc-dExXmK fNpoDq">
+          <div draggable="true" data-pf-type="ContentList2" class="sc-jMalIJ sc-iMTngq bcwUIO ljyKeN" style="--s-xs: 0px; --llo-xs: 0; --llo-sm: 0; --llo-md: 0; --llo-lg: 0;">
+           <div class="pf-slider pf-c-ct pf-r-eh" data-slider="{'navStyle':'none','maxHeight':true,'listLayout':{'all':0,'laptop':0,'tablet':0,'mobile':0},'slidesToShow':{'all':3,'laptop':3,'tablet':3,'mobile':1},'slidesToScroll':{'all':3,'laptop':3,'tablet':3,'mobile':1},'paginationStyle':'none','displayPartialItems':{'all':false,'laptop':false,'tablet':false,'mobile':false},'spacing':{'all':'0px','laptop':'0px','tablet':'0px','mobile':'0px'}}" style="--ss-xs: 1; --ss-sm: 3; --ss-md: 3; --ss-lg: 3; height: 100%;">
+            <div class="pf-slide">
+             <div data-pf-type="ContentListItem" class="sc-gkRfko eMjTSq">
+              <div class="sc-jXbVAB kNtuek rid-16 pf-r pf-r-eh" draggable="true" data-pf-type="Row" style="--s-xs: 0px;">
+               <div class="pf-c" style="--c-xs: 12; --c-sm: 12; --c-md: 12; --c-lg: 12;">
+                <div draggable="true" data-pf-type="Column" class="sc-dExXmK fNpoDq rid-17">
+                 <h3 contenteditable="true" spellcheck="false" draggable="true" data-pf-type="Heading2" class="sc-cmaqZA fXrIOS rid-18 pf-caret-color-transparent pf-word-wrap-break-word">Free Shipping</h3>
+                 <p class="sc-kAkozD iOjmJ rid-20 pf-caret-color-transparent pf-word-wrap-break-word" contenteditable="true" spellcheck="false" draggable="true" data-pf-type="Paragraph3">Within the USA for any order of $50 and over</p>
+                </div>
+               </div>
+              </div>
+             </div>
+            </div>
+            <div class="pf-slide">
+             <div data-pf-type="ContentListItem" class="sc-gkRfko eMjTSq rid-15">
+              <div class="sc-jXbVAB kNtuek rid-16 pf-r pf-r-eh" draggable="true" data-pf-type="Row" style="--s-xs: 0px;">
+               <div class="pf-c" style="--c-xs: 12; --c-sm: 12; --c-md: 12; --c-lg: 12;">
+                <div draggable="true" data-pf-type="Column" class="sc-dExXmK fNpoDq rid-17">
+                 <h3 contenteditable="true" spellcheck="false" draggable="true" data-pf-type="Heading2" class="sc-cmaqZA fXrIOS rid-18 pf-caret-color-transparent pf-word-wrap-break-word">15 Days Return</h3>
+                 <p class="sc-kAkozD iOjmJ rid-20 pf-caret-color-transparent pf-word-wrap-break-word" contenteditable="true" spellcheck="false" draggable="true" data-pf-type="Paragraph3">Free exchange or return within 30 days of nonusage</p>
+                </div>
+               </div>
+              </div>
+             </div>
+            </div>
+            <div class="pf-slide">
+             <div data-pf-type="ContentListItem" class="sc-gkRfko eMjTSq">
+              <div class="sc-jXbVAB kNtuek rid-16 pf-r pf-r-eh" draggable="true" data-pf-type="Row" style="--s-xs: 0px;">
+               <div class="pf-c" style="--c-xs: 12; --c-sm: 12; --c-md: 12; --c-lg: 12;">
+                <div draggable="true" data-pf-type="Column" class="sc-dExXmK fNpoDq rid-17">
+                 <h3 contenteditable="true" spellcheck="false" draggable="true" data-pf-type="Heading2" class="sc-cmaqZA fXrIOS rid-18 pf-caret-color-transparent pf-word-wrap-break-word">24/7 Live Support</h3>
+                 <p class="sc-kAkozD iOjmJ rid-20 pf-caret-color-transparent pf-word-wrap-break-word" contenteditable="true" spellcheck="false" draggable="true" data-pf-type="Paragraph3">Call, message, or email usanytime, anywhere</p>
+                </div>
+               </div>
+              </div>
+             </div>
+            </div><button type="button" aria-label="Previous" class="pf-slider-prev none hide" style="visibility: hidden;"></button><button type="button" aria-label="Next" class="pf-slider-next none hide" style="visibility: hidden;"></button>
+           </div>
+          </div>
+         </div>
+        </div>
+       </div>
+      </div>
+     </div>
+     <div draggable="true" data-pf-type="Section" class="sc-kRRxPL efmMUe" style="position: relative; top: initial; z-index: initial;">
+      <div class="sc-gvZzpm eFakNN" style="--cw: 1170px;">
+       <div class="sc-jXbVAB kNtuek pf-r pf-r-eh" draggable="true" data-pf-type="Row" style="--s-xs: 15px; --s-lg: 0px;">
+        <div class="pf-c" style="--c-xs: 12; --c-sm: 12; --c-md: 12; --c-lg: 12;">
+         <div draggable="true" data-pf-type="Column" class="sc-dExXmK fNpoDq">
+          <div draggable="true" data-pf-type="Divider2" class="sc-hknPuZ oPxhE"></div>
+          <p class="sc-kAkozD iOjmJ pf-caret-color-transparent pf-word-wrap-break-word" contenteditable="true" spellcheck="false" draggable="true" data-pf-type="Paragraph3">Frequently Asked Questions</p>
+          <h3 contenteditable="true" spellcheck="false" draggable="true" data-pf-type="Heading2" class="sc-cmaqZA fXrIOS pf-caret-color-transparent pf-word-wrap-break-word">QUALITY OF OUR COFFEE</h3>
+         </div>
+        </div>
+       </div>
+       <div class="sc-jXbVAB kNtuek pf-r pf-r-eh" draggable="true" data-pf-type="Row" style="--s-xs: 15px; --s-lg: 0px;">
+        <div class="pf-c" style="--c-xs: 12; --c-sm: 12; --c-md: 12; --c-lg: 12;">
+         <div draggable="true" data-pf-type="Column" class="sc-dExXmK fNpoDq">
+          <div class="sc-iGgVNO cqnyEr pf-icon-left" data-scrolling="false" data-multiple="false" draggable="true" data-pf-type="Accordion">
+           <div data-pf-type="Accordion.Content.Wrapper" class="sc-gsFSjX jrgsRq">
+            <button type="button" class="sc-fqkwJk fCNPsG pf-anchor" data-active="false" data-pf-type="Accordion.Header"><i class="pfa pfa-plus pfa-arrow"></i><span data-text-editing="true" class="">What’s the best way to store coffee from your store?</span></button>
+            <div data-pf-expandable="true" data-pf-type="Accordion.Content" class="sc-dcJtft hDKXay" style="display: none;">
+             <div class="sc-jXbVAB kNtuek pf-r pf-r-eh" draggable="true" data-pf-type="Row" style="--s-xs: 15px; --s-lg: 0px;">
+              <div class="pf-c" style="--c-xs: 12; --c-sm: 12; --c-md: 12; --c-lg: 12;">
+               <div draggable="true" data-pf-type="Column" class="sc-dExXmK fNpoDq">
+                <p class="sc-kAkozD iOjmJ pf-caret-color-transparent pf-word-wrap-break-word" contenteditable="true" spellcheck="false" draggable="true" data-pf-type="Paragraph3">Once roasted, coffee begins to lose its flavor the longer it’s exposed to air and moisture. We recommend that you store it in an airtight container in a cool, dark place and grind it just before brewing. Coffee in an unopened FlavorLock bag will stay fresh for several months.</p>
+               </div>
+              </div>
+             </div>
+            </div>
+           </div>
+           <div data-pf-type="Accordion.Content.Wrapper" class="sc-gsFSjX jrgsRq">
+            <button type="button" class="sc-fqkwJk fCNPsG pf-anchor" data-active="false" data-pf-type="Accordion.Header"><i class="pfa pfa-plus pfa-arrow"></i><span data-text-editing="true" class="">What kind of grind should I use for making coffee?</span></button>
+            <div data-pf-expandable="true" data-pf-type="Accordion.Content" class="sc-dcJtft hDKXay" style="display: none;">
+             <div class="sc-jXbVAB kNtuek pf-r pf-r-eh" draggable="true" data-pf-type="Row" style="--s-xs: 15px; --s-lg: 0px;">
+              <div class="pf-c" style="--c-xs: 12; --c-sm: 12; --c-md: 12; --c-lg: 12;">
+               <div draggable="true" data-pf-type="Column" class="sc-dExXmK fNpoDq">
+                <p class="sc-kAkozD iOjmJ pf-caret-color-transparent pf-word-wrap-break-word" contenteditable="true" spellcheck="false" draggable="true" data-pf-type="Paragraph3">Drip makers perform best with a grind specifically for a flat bottom or cone type filter. Espresso machines are grind-sensitive and require a very fine grind, 30-35 seconds in a blade grinder. Slow and fast shots are often caused by a grind that is too fine or too coarse, or tamping coffee too hard or not firmly enough.</p>
+               </div>
+              </div>
+             </div>
+            </div>
+           </div>
+           <div data-pf-type="Accordion.Content.Wrapper" class="sc-gsFSjX jrgsRq">
+            <button type="button" class="sc-fqkwJk fCNPsG pf-anchor" data-active="true" data-pf-type="Accordion.Header"><i class="pfa pfa-minus pfa-arrow"></i><span data-text-editing="true" class="">What are your organic coffee standards?</span></button>
+            <div data-pf-expandable="true" data-pf-type="Accordion.Content" class="sc-dcJtft hDKXay" style="display: block;">
+             <div class="sc-jXbVAB kNtuek pf-r pf-r-eh" draggable="true" data-pf-type="Row" style="--s-xs: 15px; --s-lg: 0px;">
+              <div class="pf-c" style="--c-xs: 12; --c-sm: 12; --c-md: 12; --c-lg: 12;">
+               <div draggable="true" data-pf-type="Column" class="sc-dExXmK fNpoDq">
+                <p class="sc-kAkozD iOjmJ pf-caret-color-transparent pf-word-wrap-break-word" contenteditable="true" spellcheck="false" draggable="true" data-pf-type="Paragraph3">All of our 100% Organic coffees are guaranteed organic by the United States Department of Agriculture (USDA) and are grown in natural, eco-friendly conditions in Central and South America. Organic certification verifies that farms, crop harvesters, and handling operations comply with organic regulations to maintain their organic integrity.</p>
+               </div>
+              </div>
+             </div>
+            </div>
+           </div>
+           <div data-pf-type="Accordion.Content.Wrapper" class="sc-gsFSjX jrgsRq">
+            <button type="button" class="sc-fqkwJk fCNPsG pf-anchor" data-active="false" data-pf-type="Accordion.Header"><i class="pfa pfa-plus pfa-arrow"></i><span data-text-editing="true" class="">Which coffee-based drink has the most caffeine?</span></button>
+            <div data-pf-expandable="true" data-pf-type="Accordion.Content" class="sc-dcJtft hDKXay" style="display: none;">
+             <div class="sc-jXbVAB kNtuek pf-r pf-r-eh" draggable="true" data-pf-type="Row" style="--s-xs: 15px; --s-lg: 0px;">
+              <div class="pf-c" style="--c-xs: 12; --c-sm: 12; --c-md: 12; --c-lg: 12;">
+               <div draggable="true" data-pf-type="Column" class="sc-dExXmK fNpoDq">
+                <p class="sc-kAkozD iOjmJ pf-caret-color-transparent pf-word-wrap-break-word" contenteditable="true" spellcheck="false" draggable="true" data-pf-type="Paragraph3">Most people think Espresso Roast has the most caffeine, but brewed coffee is proven to have more. A single 2 oz. Double Espresso shot has about 80 milligrams of caffeine. Whereas an average 12 oz. brewed coffee has about 120 milligrams of caffeine. And our Blast Off Strong Roast formula provides over 1.5x more caffeine than other coffee.</p>
+               </div>
+              </div>
+             </div>
+            </div>
+           </div>
+           <div data-pf-type="Accordion.Content.Wrapper" class="sc-gsFSjX jrgsRq">
+            <button type="button" class="sc-fqkwJk fCNPsG pf-anchor" data-active="false" data-pf-type="Accordion.Header"><i class="pfa pfa-plus pfa-arrow"></i><span data-text-editing="true" class="">What is the difference between Arabica and Robusta beans?</span></button>
+            <div data-pf-expandable="true" data-pf-type="Accordion.Content" class="sc-dcJtft hDKXay" style="display: none;">
+             <div class="sc-jXbVAB kNtuek pf-r pf-r-eh" draggable="true" data-pf-type="Row" style="--s-xs: 15px; --s-lg: 0px;">
+              <div class="pf-c" style="--c-xs: 12; --c-sm: 12; --c-md: 12; --c-lg: 12;">
+               <div draggable="true" data-pf-type="Column" class="sc-dExXmK fNpoDq">
+                <p class="sc-kAkozD iOjmJ pf-caret-color-transparent pf-word-wrap-break-word" contenteditable="true" spellcheck="false" draggable="true" data-pf-type="Paragraph3">Arabica Beans have a wide range in taste and smell. They are a more delicate bean produced in the tropical regions at a high elevation. They are more expensive due to the hands-on production process. Robusta Beans have a neutral to harsh taste and an oatmeal-like texture. They grow in low elevations, are heartier for rough handling, and yield higher pounds per acre.</p>
+               </div>
+              </div>
+             </div>
+            </div>
+           </div>
+          </div>
+         </div>
+        </div>
+       </div>
+      </div>
+     </div>
+     <div draggable="true" data-pf-type="Section" class="sc-kRRxPL efmMUe" style="position: relative; top: initial; z-index: initial;">
+      <div class="sc-gvZzpm eFakNN" style="--cw: 1170px;">
+       <div class="sc-jXbVAB kNtuek pf-r pf-r-eh" draggable="true" data-pf-type="Row" style="--s-xs: 10px; --s-sm: 15px;">
+        <div class="pf-c" style="--c-xs: 12; --c-sm: 12; --c-md: 12; --c-lg: 12;">
+         <div draggable="true" data-pf-type="Column" class="sc-dExXmK fNpoDq">
+          <div data-editor-placeholder="true" draggable="true" data-pf-type="ArticleBox" class="" store="[object Object]">
+           <div class="ph Polaris-ShadowBevel">
+            <span class="">Blog post details</span>
+            <div class="pf-alert Polaris-ShadowBevel pf-alert-warning">
+             Please select a blog post in <b class="">General &gt; Content &gt; Blog post source.</b>
+            </div>
+           </div>
+          </div>
+         </div>
+        </div>
+       </div>
+       <div class="sc-jXbVAB kNtuek pf-r pf-r-eh" draggable="true" data-pf-type="Row" style="--s-xs: 10px; --s-sm: 15px;">
+        <div class="pf-c" style="--c-xs: 12; --c-sm: 12; --c-md: 12; --c-lg: 12;">
+         <div draggable="true" data-pf-type="Column" class="sc-dExXmK fNpoDq">
+          <div data-editor-placeholder="true" draggable="true" data-pf-type="ArticleList2" class="" store="[object Object]">
+           <div class="ph Polaris-ShadowBevel">
+            <span class="">Blog post list</span>
+            <div class="pf-alert Polaris-ShadowBevel pf-alert-warning">
+             The blog is empty, please update the blog or select another one.
+            </div>
+           </div>
+          </div>
+         </div>
+        </div>
+       </div>
+      </div>
+     </div>
+     <div draggable="true" data-pf-type="Section" class="sc-kRRxPL efmMUe" style="position: relative; top: initial; z-index: initial;">
+      <div class="sc-gvZzpm eFakNN" style="--cw: 1170px;">
+       <div class="sc-jXbVAB kNtuek pf-r pf-r-eh" draggable="true" data-pf-type="Row" style="--s-xs: 0px; --s-sm: 15px; --s-lg: 0px;">
+        <div class="pf-c" style="--c-xs: 12; --c-sm: 12; --c-md: 12; --c-lg: 12;">
+         <div draggable="true" data-pf-type="Column" class="sc-dExXmK fNpoDq">
+          <div draggable="true" data-pf-type="Divider2" class="sc-hknPuZ oPxhE"></div>
+          <p class="sc-kAkozD iOjmJ pf-caret-color-transparent pf-word-wrap-break-word" contenteditable="true" spellcheck="false" draggable="true" data-pf-type="Paragraph3">Frequently Asked Questions</p>
+          <h3 contenteditable="true" spellcheck="false" draggable="true" data-pf-type="Heading2" class="sc-cmaqZA fXrIOS pf-caret-color-transparent pf-word-wrap-break-word">FOR SHIPPING &amp; <br class="">
+           RETURN POLICIES</h3>
+         </div>
+        </div>
+       </div>
+       <div class="sc-jXbVAB kNtuek pf-r pf-r-eh" draggable="true" data-pf-type="Row" style="--s-xs: 15px; --s-lg: 10px;">
+        <div class="pf-c" style="--c-xs: 12; --c-sm: 6; --c-md: 6; --c-lg: 6;">
+         <div draggable="true" data-pf-type="Column" class="sc-dExXmK fNpoDq">
+          <img src="https://cdn.shopify.com/s/files/1/2170/1117/t/10/assets/image-1658831623063.png?v=1658831621" width="571" height="703" draggable="true" data-pf-type="Image3" class="sc-bDoQz fHJoao">
+         </div>
+        </div>
+        <div class="pf-c" style="--c-xs: 12; --c-sm: 6; --c-md: 6; --c-lg: 6;">
+         <div draggable="true" data-pf-type="Column" class="sc-dExXmK fNpoDq">
+          <div class="sc-iGgVNO cqnyEr pf-icon-left" data-scrolling="false" data-multiple="false" draggable="true" data-pf-type="Accordion">
+           <div data-pf-type="Accordion.Content.Wrapper" class="sc-gsFSjX jrgsRq">
+            <button type="button" class="sc-fqkwJk fCNPsG pf-anchor" data-active="false" data-pf-type="Accordion.Header"><i class="pfa pfa-plus pfa-arrow"></i><span data-text-editing="true" class="">Can I have my order shipped via UPS to a P.O. Box?</span></button>
+            <div data-pf-expandable="true" data-pf-type="Accordion.Content" class="sc-dcJtft hDKXay" style="display: none;">
+             <div class="sc-jXbVAB kNtuek pf-r pf-r-eh" draggable="true" data-pf-type="Row" style="--s-xs: 15px; --s-lg: 0px;">
+              <div class="pf-c" style="--c-xs: 12; --c-sm: 12; --c-md: 12; --c-lg: 12;">
+               <div draggable="true" data-pf-type="Column" class="sc-dExXmK fNpoDq">
+                <p class="sc-kAkozD iOjmJ pf-caret-color-transparent pf-word-wrap-break-word" contenteditable="true" spellcheck="false" draggable="true" data-pf-type="Paragraph3">We provide shipping via UPS and they will only accept shipments to a valid street address. UPS does not deliver to P.O. Boxes. Your shipping request addressed to a P.O. Box will be delayed and will require an address correction before shipment. Additionally, Army Post Office (APO) and Fleet Post Office (FPO) addresses are not accepted. Contact our Coffee Experts to learn more or call our Coffee Hotline at 1-2345-6789.</p>
+               </div>
+              </div>
+             </div>
+            </div>
+           </div>
+           <div data-pf-type="Accordion.Content.Wrapper" class="sc-gsFSjX jrgsRq">
+            <button type="button" class="sc-fqkwJk fCNPsG pf-anchor" data-active="false" data-pf-type="Accordion.Header"><i class="pfa pfa-plus pfa-arrow"></i><span data-text-editing="true" class="">How long will my coffee order take?</span></button>
+            <div data-pf-expandable="true" data-pf-type="Accordion.Content" class="sc-dcJtft hDKXay" style="display: none;">
+             <div class="sc-jXbVAB kNtuek pf-r pf-r-eh" draggable="true" data-pf-type="Row" style="--s-xs: 15px; --s-lg: 0px;">
+              <div class="pf-c" style="--c-xs: 12; --c-sm: 12; --c-md: 12; --c-lg: 12;">
+               <div draggable="true" data-pf-type="Column" class="sc-dExXmK fNpoDq">
+                <p class="sc-kAkozD iOjmJ pf-caret-color-transparent pf-word-wrap-break-word" contenteditable="true" spellcheck="false" draggable="true" data-pf-type="Paragraph3">Our centrally located Indiana roastery means orders arrive as quickly as possible, whether heading to the East Coast, West Coast, or somewhere in between. We offer UPS shipping options for Ground, 2-Day or Next Day. Your coffee products will be shipped after it is roasted and packaged (not necessarily the same day you order).&nbsp;</p>
+               </div>
+              </div>
+             </div>
+            </div>
+           </div>
+           <div data-pf-type="Accordion.Content.Wrapper" class="sc-gsFSjX jrgsRq">
+            <button type="button" class="sc-fqkwJk fCNPsG pf-anchor" data-active="false" data-pf-type="Accordion.Header"><i class="pfa pfa-plus pfa-arrow"></i><span data-text-editing="true" class="">What is your Refund Policy and do you accept returns?</span></button>
+            <div data-pf-expandable="true" data-pf-type="Accordion.Content" class="sc-dcJtft hDKXay" style="display: none;">
+             <div class="sc-jXbVAB kNtuek pf-r pf-r-eh" draggable="true" data-pf-type="Row" style="--s-xs: 15px; --s-lg: 0px;">
+              <div class="pf-c" style="--c-xs: 12; --c-sm: 12; --c-md: 12; --c-lg: 12;">
+               <div draggable="true" data-pf-type="Column" class="sc-dExXmK fNpoDq">
+                <p class="sc-kAkozD iOjmJ pf-caret-color-transparent pf-word-wrap-break-word" contenteditable="true" spellcheck="false" draggable="true" data-pf-type="Paragraph3">Customers must contact our store within 14 days of the original order date if an order arrives damaged or includes the wrong product(s). We will credit your account with a refund after our warehouse receives your non-perishable drinkware or wearables. If an error was made, if you are not happy with the coffee, or if you received a damaged product, please get in touch with us so we can make it right.</p>
+               </div>
+              </div>
+             </div>
+            </div>
+           </div>
+           <div data-pf-type="Accordion.Content.Wrapper" class="sc-gsFSjX jrgsRq">
+            <button type="button" class="sc-fqkwJk fCNPsG pf-anchor" data-active="false" data-pf-type="Accordion.Header"><i class="pfa pfa-plus pfa-arrow"></i><span data-text-editing="true" class="">Can I exchange my coffee order into another product? </span></button>
+            <div data-pf-expandable="true" data-pf-type="Accordion.Content" class="sc-dcJtft hDKXay" style="display: none;">
+             <div class="sc-jXbVAB kNtuek pf-r pf-r-eh" draggable="true" data-pf-type="Row" style="--s-xs: 15px; --s-lg: 0px;">
+              <div class="pf-c" style="--c-xs: 12; --c-sm: 12; --c-md: 12; --c-lg: 12;">
+               <div draggable="true" data-pf-type="Column" class="sc-dExXmK fNpoDq">
+                <p class="sc-kAkozD iOjmJ pf-caret-color-transparent pf-word-wrap-break-word" contenteditable="true" spellcheck="false" draggable="true" data-pf-type="Paragraph3">Coffee is a perishable product, so we DO NOT accept any coffee returns (unless a Coffee Expert specifically requests a return in writing). However, if an error was made, you are not happy with the coffee, or you received a damaged product, please contact us so we can make it right. All shipping charges are non-refundable, and the Refund Policy does not extend beyond the 14-day window.</p>
+               </div>
+              </div>
+             </div>
+            </div>
+           </div>
+           <div data-pf-type="Accordion.Content.Wrapper" class="sc-gsFSjX jrgsRq">
+            <button type="button" class="sc-fqkwJk fCNPsG pf-anchor" data-active="true" data-pf-type="Accordion.Header"><i class="pfa pfa-minus pfa-arrow"></i><span data-text-editing="true" class="">I ordered the wrong coffee, what should I do? </span></button>
+            <div data-pf-expandable="true" data-pf-type="Accordion.Content" class="sc-dcJtft hDKXay" style="display: block;">
+             <div class="sc-jXbVAB kNtuek pf-r pf-r-eh" draggable="true" data-pf-type="Row" style="--s-xs: 15px; --s-lg: 0px;">
+              <div class="pf-c" style="--c-xs: 12; --c-sm: 12; --c-md: 12; --c-lg: 12;">
+               <div draggable="true" data-pf-type="Column" class="sc-dExXmK fNpoDq">
+                <p class="sc-kAkozD iOjmJ pf-caret-color-transparent pf-word-wrap-break-word" contenteditable="true" spellcheck="false" draggable="true" data-pf-type="Paragraph3">If you just placed your order, have confirmed that the coffee has not shipped, please contact us immediately, and we should be able to refund your order and issue a new one. If your coffee has already shipped or was delivered and either an error was made or you are not happy with the coffee, please call us or submit a request, so we can understand how to make it right.</p>
+               </div>
+              </div>
+             </div>
+            </div>
+           </div>
+          </div>
+         </div>
+        </div>
+       </div>
+      </div>
+     </div>
+     <div draggable="true" data-pf-type="Section" class="sc-kRRxPL efmMUe" style="position: relative; top: initial; z-index: initial;">
+      <div class="sc-gvZzpm eFakNN" style="--cw: 1170px;">
+       <div class="sc-jXbVAB kNtuek pf-r pf-r-eh" draggable="true" data-pf-type="Row" style="--s-xs: 15px;">
+        <div class="pf-c" style="--c-xs: 12; --c-sm: 12; --c-md: 12; --c-lg: 12;">
+         <div draggable="true" data-pf-type="Column" class="sc-dExXmK fNpoDq">
+          <div draggable="true" data-pf-type="Divider2" class="sc-hknPuZ oPxhE"></div>
+          <p class="sc-kAkozD iOjmJ pf-caret-color-transparent pf-word-wrap-break-word" contenteditable="true" spellcheck="false" draggable="true" data-pf-type="Paragraph3">Our Customers’ Feedback</p>
+          <h3 contenteditable="true" spellcheck="false" draggable="true" data-pf-type="Heading2" class="sc-cmaqZA fXrIOS pf-caret-color-transparent pf-word-wrap-break-word">FIND YOUR ANSWER<br class="">
+           FROM REAL CUSTOMERS</h3>
+         </div>
+        </div>
+       </div>
+       <div class="sc-jXbVAB kNtuek pf-r pf-r-eh" draggable="true" data-pf-type="Row" style="--s-xs: 15px;">
+        <div class="pf-c" style="--c-xs: 12; --c-sm: 12; --c-md: 12; --c-lg: 12;">
+         <div draggable="true" data-pf-type="Column" class="sc-dExXmK fNpoDq">
+          <div draggable="true" data-pf-type="Slideshow" class="sc-eeDSqt kbLgQU">
+           <div class="pf-slider scrollfix has-loaded">
+            <div class="pf-slide is-current is-visible">
+             <div class="sc-cnVGvb kJQLLm" draggable="true" data-pf-type="SlideshowSlide">
+              <div class="sc-jXbVAB kNtuek pf-r pf-r-eh" draggable="true" data-pf-type="Row" style="--s-xs: 15px;">
+               <div class="pf-c" style="--c-xs: 12; --c-sm: 12; --c-md: 12; --c-lg: 12;">
+                <div draggable="true" data-pf-type="Column" class="sc-dExXmK fNpoDq">
+                 <img src="https://cdn.shopify.com/s/files/1/2170/1117/t/10/assets/rectangle-15-1658832430847.png?v=1658832439" width="329" height="329" draggable="true" data-pf-type="Image3" class="sc-bDoQz fHJoao">
+                 <p class="sc-kAkozD iOjmJ pf-caret-color-transparent pf-word-wrap-break-word" contenteditable="true" spellcheck="false" draggable="true" data-pf-type="Paragraph3">Valentine Gibbs</p><i class="sc-hwdACo sXHGY pfa pfa-quote-left" draggable="true" data-pf-type="Icon"></i>
+                 <p class="sc-kAkozD iOjmJ pf-caret-color-transparent pf-word-wrap-break-word" contenteditable="true" spellcheck="false" draggable="true" data-pf-type="Paragraph3">I tried your coffee this past summer when my husband and I started going to the Wrightstown Farmers market. I haven't missed a week since for your delicious coffee. I used to buy the very popular coffee and found that yours was better tasting, better kept and made the perfect cup every time!! I even got my other family members hooked on it as well!! Thank you for the best cup of coffee!</p>
+                </div>
+               </div>
+              </div>
+             </div>
+            </div>
+            <div class="pf-slide is-visible">
+             <div class="sc-cnVGvb kJQLLm" draggable="true" data-pf-type="SlideshowSlide">
+              <div class="sc-jXbVAB kNtuek pf-r pf-r-eh" draggable="true" data-pf-type="Row" style="--s-xs: 15px;">
+               <div class="pf-c" style="--c-xs: 12; --c-sm: 12; --c-md: 12; --c-lg: 12;">
+                <div draggable="true" data-pf-type="Column" class="sc-dExXmK fNpoDq">
+                 <img src="https://cdn.shopify.com/s/files/1/2170/1117/t/10/assets/rectangle-17-1658832430835.png?v=1658832428" width="329" height="329" draggable="true" data-pf-type="Image3" class="sc-bDoQz fHJoao">
+                 <p class="sc-kAkozD iOjmJ pf-caret-color-transparent pf-word-wrap-break-word" contenteditable="true" spellcheck="false" draggable="true" data-pf-type="Paragraph3">Valentine Gibbs</p><i class="sc-hwdACo sXHGY pfa pfa-quote-left" draggable="true" data-pf-type="Icon"></i>
+                 <p class="sc-kAkozD iOjmJ pf-caret-color-transparent pf-word-wrap-break-word" contenteditable="true" spellcheck="false" draggable="true" data-pf-type="Paragraph3">I tried your coffee this past summer when my husband and I started going to the Wrightstown Farmers market. I haven't missed a week since for your delicious coffee. I used to buy the very popular coffee and found that yours was better tasting, better kept and made the perfect cup every time!! I even got my other family members hooked on it as well!! Thank you for the best cup of coffee!</p>
+                </div>
+               </div>
+              </div>
+             </div>
+            </div>
+            <div class="pf-slide is-visible">
+             <div class="sc-cnVGvb kJQLLm" draggable="true" data-pf-type="SlideshowSlide">
+              <div class="sc-jXbVAB kNtuek pf-r pf-r-eh" draggable="true" data-pf-type="Row" style="--s-xs: 15px;">
+               <div class="pf-c" style="--c-xs: 12; --c-sm: 12; --c-md: 12; --c-lg: 12;">
+                <div draggable="true" data-pf-type="Column" class="sc-dExXmK fNpoDq">
+                 <img src="https://cdn.shopify.com/s/files/1/2170/1117/t/10/assets/rectangle-16-1658832430841.png?v=1658832433" width="329" height="329" draggable="true" data-pf-type="Image3" class="sc-bDoQz fHJoao">
+                 <p class="sc-kAkozD iOjmJ pf-caret-color-transparent pf-word-wrap-break-word" contenteditable="true" spellcheck="false" draggable="true" data-pf-type="Paragraph3">Valentine Gibbs</p><i class="sc-hwdACo sXHGY pfa pfa-quote-left" draggable="true" data-pf-type="Icon"></i>
+                 <p class="sc-kAkozD iOjmJ pf-caret-color-transparent pf-word-wrap-break-word" contenteditable="true" spellcheck="false" draggable="true" data-pf-type="Paragraph3">I tried your coffee this past summer when my husband and I started going to the Wrightstown Farmers market. I haven't missed a week since for your delicious coffee. I used to buy the very popular coffee and found that yours was better tasting, better kept and made the perfect cup every time!! I even got my other family members hooked on it as well!! Thank you for the best cup of coffee!</p>
+                </div>
+               </div>
+              </div>
+             </div>
+            </div>
+            <div class="pf-slide">
+             <div class="sc-cnVGvb kJQLLm" draggable="true" data-pf-type="SlideshowSlide">
+              <div class="sc-jXbVAB kNtuek pf-r pf-r-eh" draggable="true" data-pf-type="Row" style="--s-xs: 15px;">
+               <div class="pf-c" style="--c-xs: 12; --c-sm: 12; --c-md: 12; --c-lg: 12;">
+                <div draggable="true" data-pf-type="Column" class="sc-dExXmK fNpoDq">
+                 <img src="https://cdn.shopify.com/s/files/1/2170/1117/t/10/assets/rectangle-15-1658832430847.png?v=1658832439" width="329" height="329" draggable="true" data-pf-type="Image3" class="sc-bDoQz fHJoao">
+                 <p class="sc-kAkozD iOjmJ pf-caret-color-transparent pf-word-wrap-break-word" contenteditable="true" spellcheck="false" draggable="true" data-pf-type="Paragraph3">Valentine Gibbs</p><i class="sc-hwdACo sXHGY pfa pfa-quote-left" draggable="true" data-pf-type="Icon"></i>
+                 <p class="sc-kAkozD iOjmJ pf-caret-color-transparent pf-word-wrap-break-word" contenteditable="true" spellcheck="false" draggable="true" data-pf-type="Paragraph3">I tried your coffee this past summer when my husband and I started going to the Wrightstown Farmers market. I haven't missed a week since for your delicious coffee. I used to buy the very popular coffee and found that yours was better tasting, better kept and made the perfect cup every time!! I even got my other family members hooked on it as well!! Thank you for the best cup of coffee!</p>
+                </div>
+               </div>
+              </div>
+             </div>
+            </div>
+            <div class="pf-slide">
+             <div class="sc-cnVGvb kJQLLm" draggable="true" data-pf-type="SlideshowSlide">
+              <div class="sc-jXbVAB kNtuek pf-r pf-r-eh" draggable="true" data-pf-type="Row" style="--s-xs: 15px;">
+               <div class="pf-c" style="--c-xs: 12; --c-sm: 12; --c-md: 12; --c-lg: 12;">
+                <div draggable="true" data-pf-type="Column" class="sc-dExXmK fNpoDq">
+                 <img src="https://cdn.shopify.com/s/files/1/2170/1117/t/10/assets/rectangle-16-1658832430841.png?v=1658832433" width="329" height="329" draggable="true" data-pf-type="Image3" class="sc-bDoQz fHJoao">
+                 <p class="sc-kAkozD iOjmJ pf-caret-color-transparent pf-word-wrap-break-word" contenteditable="true" spellcheck="false" draggable="true" data-pf-type="Paragraph3">Lisa Stone</p><i class="sc-hwdACo sXHGY pfa pfa-quote-left" draggable="true" data-pf-type="Icon"></i>
+                 <p class="sc-kAkozD iOjmJ pf-caret-color-transparent pf-word-wrap-break-word" contenteditable="true" spellcheck="false" draggable="true" data-pf-type="Paragraph3">You have not tried fresh coffee until you've tried this one. We saw this coffee roasted meticulously and shipped as soon as it came out of the roaster. Just try one bag and you will be hooked. We are true coffee "snobs" and this is the only coffee that suits our tastes. Try it in a french press for an unbelievable fresh coffee experience! Thank you so much! A Perfect cup every time!</p>
+                </div>
+               </div>
+              </div>
+             </div>
+            </div>
+            <div class="pf-slide">
+             <div class="sc-cnVGvb kJQLLm" draggable="true" data-pf-type="SlideshowSlide">
+              <div class="sc-jXbVAB kNtuek pf-r pf-r-eh" draggable="true" data-pf-type="Row" style="--s-xs: 15px;">
+               <div class="pf-c" style="--c-xs: 12; --c-sm: 12; --c-md: 12; --c-lg: 12;">
+                <div draggable="true" data-pf-type="Column" class="sc-dExXmK fNpoDq">
+                 <img src="https://cdn.shopify.com/s/files/1/2170/1117/t/10/assets/rectangle-17-1658832430835.png?v=1658832428" width="329" height="329" draggable="true" data-pf-type="Image3" class="sc-bDoQz fHJoao">
+                 <p class="sc-kAkozD iOjmJ pf-caret-color-transparent pf-word-wrap-break-word" contenteditable="true" spellcheck="false" draggable="true" data-pf-type="Paragraph3">Cliff Lindsey</p><i class="sc-hwdACo sXHGY pfa pfa-quote-left" draggable="true" data-pf-type="Icon"></i>
+                 <p class="sc-kAkozD iOjmJ pf-caret-color-transparent pf-word-wrap-break-word" contenteditable="true" spellcheck="false" draggable="true" data-pf-type="Paragraph3">My wife stumbled across The Coffee Scoop at a tasting demo held at Frey's Better Foods in Hellertown, PA. She bought a bag of coffee, and we've been hooked ever since. Not only are these the best coffees we've ever tasted, they're also organic and fair trade. We've since moved to Colorado, so now we order online. The shipments always arrive sooner than we expect. 110% happy customers.</p>
+                </div>
+               </div>
+              </div>
+             </div>
+            </div><button type="button" aria-label="Previous" class="pf-slider-prev none hide" style="visibility: hidden;"></button><button type="button" aria-label="Next" class="pf-slider-next none hide" style="visibility: hidden;"></button>
+            <div class="pf-slider-nav pagination-style-3">
+             <button type="button" class="active"></button><button type="button" class=""></button>
+            </div>
+           </div>
+          </div>
+         </div>
+        </div>
+       </div>
+      </div>
+     </div>
+     <div draggable="true" data-pf-type="Section" class="sc-kRRxPL efmMUe" style="position: relative; top: initial; z-index: initial;">
+      <div class="sc-gvZzpm eFakNN" style="--cw: 1170px;">
+       <div class="sc-jXbVAB kNtuek pf-r pf-r-eh" draggable="true" data-pf-type="Row" style="--s-xs: 15px; --s-sm: 10px; --s-md: 15px;">
+        <div class="pf-c" style="--c-xs: 12; --c-sm: 6; --c-md: 6; --c-lg: 6;">
+         <div draggable="true" data-pf-type="Column" class="sc-dExXmK fNpoDq">
+          <div draggable="true" data-pf-type="Divider2" class="sc-hknPuZ oPxhE"></div>
+          <p class="sc-kAkozD iOjmJ pf-caret-color-transparent pf-word-wrap-break-word" contenteditable="true" spellcheck="false" draggable="true" data-pf-type="Paragraph3">Cannot Find Your Answer?</p>
+          <h3 contenteditable="true" spellcheck="false" draggable="true" data-pf-type="Heading2" class="sc-cmaqZA fXrIOS pf-caret-color-transparent pf-word-wrap-break-word">SEND US A MESSAGE</h3>
+         </div>
+        </div>
+        <div class="pf-c" style="--c-xs: 12; --c-sm: 6; --c-md: 6; --c-lg: 6;">
+         <div draggable="true" data-pf-type="Column" class="sc-dExXmK fNpoDq">
+          <div data-form-editor="contact" draggable="true" data-pf-type="Form2" class="sc-eKtwIF eYsa-dn">
+           <form class="">
+            <div class="sc-jXbVAB kNtuek pf-r pf-r-eh" draggable="true" data-pf-type="Row" style="--s-xs: 15px;">
+             <div class="pf-c" style="--c-xs: 12; --c-sm: 12; --c-md: 12; --c-lg: 12;">
+              <div draggable="true" data-pf-type="Column" class="sc-dExXmK fNpoDq">
+               <div draggable="true" data-pf-type="Form2.Field" class="sc-cPrQrU gcCtem">
+                <label for="field-6f0533bc" data-pf-type="FormLabel" class="sc-biziTF iAIIXH">Name</label><input name="contact[Name]" type="text" placeholder="This is your placeholder text" readonly data-pf-type="FormInput" class="sc-fzQBUN hwTjMJ pf-field-1" value="">
+               </div>
+               <div draggable="true" data-pf-type="Form2.Field" class="sc-cPrQrU gcCtem">
+                <label for="field-69dba6e0" data-pf-type="FormLabel" class="sc-biziTF iAIIXH">Email<sup class="">*</sup></label><input name="contact[email]" type="email" placeholder="This is your placeholder text" required readonly data-pf-type="FormInput" class="sc-fzQBUN hwTjMJ pf-field-1" value="">
+               </div>
+               <div draggable="true" data-pf-type="Form2.Field" class="sc-cPrQrU gcCtem">
+                <label for="field-9a21aaab" data-pf-type="FormLabel" class="sc-biziTF iAIIXH">Message<sup class="">*</sup></label><textarea name="contact[Message]" required readonly placeholder="This is your placeholder text" rows="6" data-pf-type="FormInput" class="sc-eFRbCa itJnHk pf-field-1"></textarea>
+               </div><button type="submit" contenteditable="true" spellcheck="false" draggable="true" data-pf-type="Form2.Button2" class="sc-dgdakI dbwlum pf-caret-color-transparent pf-word-wrap-break-word">Send now</button>
+              </div>
+             </div>
+            </div>
+           </form>
+          </div>
+         </div>
+        </div>
+       </div>
+      </div>
+     </div>
+     <div draggable="true" data-pf-type="Section" class="sc-kRRxPL efmMUe" style="position: relative; top: initial; z-index: initial;">
+      <div class="sc-gvZzpm eFakNN" style="--cw: 1170px;">
+       <div class="sc-jXbVAB kNtuek pf-r pf-r-eh" draggable="true" data-pf-type="Row" style="--s-xs: 0px;">
+        <div class="pf-c" style="--c-xs: 12; --c-sm: 12; --c-md: 12; --c-lg: 12;">
+         <div draggable="true" data-pf-type="Column" class="sc-dExXmK fNpoDq">
+          <div draggable="true" data-pf-type="ContentList2" class="sc-jMalIJ sc-iMTngq bcwUIO ljyKeN" style="--s-xs: 0px; --llo-xs: 0; --llo-sm: 0; --llo-md: 0; --llo-lg: 0;">
+           <div class="pf-slider pf-c-ct pf-r-eh" data-slider="{'navStyle':'none','maxHeight':true,'listLayout':{'all':0,'laptop':0,'tablet':0,'mobile':0},'slidesToShow':{'all':3,'laptop':3,'tablet':3,'mobile':1},'slidesToScroll':{'all':3,'laptop':3,'tablet':3,'mobile':1},'paginationStyle':'none','displayPartialItems':{'all':false,'laptop':false,'tablet':false,'mobile':false},'spacing':{'all':'0px','laptop':'0px','tablet':'0px','mobile':'0px'}}" style="--ss-xs: 1; --ss-sm: 3; --ss-md: 3; --ss-lg: 3; height: 100%;">
+            <div class="pf-slide">
+             <div data-pf-type="ContentListItem" class="sc-gkRfko eMjTSq">
+              <div class="sc-jXbVAB kNtuek rid-29 pf-r pf-r-eh" draggable="true" data-pf-type="Row" style="--s-xs: 0px;">
+               <div class="pf-c" style="--c-xs: 12; --c-sm: 12; --c-md: 12; --c-lg: 12;">
+                <div draggable="true" data-pf-type="Column" class="sc-dExXmK fNpoDq rid-31">
+                 <h3 contenteditable="true" spellcheck="false" draggable="true" data-pf-type="Heading2" class="sc-cmaqZA fXrIOS rid-35 pf-caret-color-transparent pf-word-wrap-break-word"><i class="sc-hwdACo sXHGY rid-36 pfa pfa-phone" draggable="true" data-pf-type="Icon"></i>Mobile phone:</h3>
+                 <p class="sc-kAkozD iOjmJ rid-39 pf-caret-color-transparent pf-word-wrap-break-word" contenteditable="true" spellcheck="false" draggable="true" data-pf-type="Paragraph3">1-2345-6789</p>
+                </div>
+               </div>
+              </div>
+             </div>
+            </div>
+            <div class="pf-slide">
+             <div data-pf-type="ContentListItem" class="sc-gkRfko eMjTSq rid-28">
+              <div class="sc-jXbVAB kNtuek rid-29 pf-r pf-r-eh" draggable="true" data-pf-type="Row" style="--s-xs: 0px;">
+               <div class="pf-c" style="--c-xs: 12; --c-sm: 12; --c-md: 12; --c-lg: 12;">
+                <div draggable="true" data-pf-type="Column" class="sc-dExXmK fNpoDq rid-31">
+                 <h3 contenteditable="true" spellcheck="false" draggable="true" data-pf-type="Heading2" class="sc-cmaqZA fXrIOS rid-35 pf-caret-color-transparent pf-word-wrap-break-word"><i class="sc-hwdACo sXHGY rid-36 pfa pfa-envelope" draggable="true" data-pf-type="Icon"></i>Email address:</h3>
+                 <p class="sc-kAkozD iOjmJ rid-39 pf-caret-color-transparent pf-word-wrap-break-word" contenteditable="true" spellcheck="false" draggable="true" data-pf-type="Paragraph3">happytohelp@pagefly.io</p>
+                </div>
+               </div>
+              </div>
+             </div>
+            </div>
+            <div class="pf-slide">
+             <div data-pf-type="ContentListItem" class="sc-gkRfko eMjTSq">
+              <div class="sc-jXbVAB kNtuek rid-29 pf-r pf-r-eh" draggable="true" data-pf-type="Row" style="--s-xs: 0px;">
+               <div class="pf-c" style="--c-xs: 12; --c-sm: 12; --c-md: 12; --c-lg: 12;">
+                <div draggable="true" data-pf-type="Column" class="sc-dExXmK fNpoDq rid-31">
+                 <h3 contenteditable="true" spellcheck="false" draggable="true" data-pf-type="Heading2" class="sc-cmaqZA fXrIOS rid-35 pf-caret-color-transparent pf-word-wrap-break-word"><i class="sc-hwdACo sXHGY rid-36 pfa pfa-house" draggable="true" data-pf-type="Icon"></i>Store address:</h3>
+                 <p class="sc-kAkozD iOjmJ rid-39 pf-caret-color-transparent pf-word-wrap-break-word" contenteditable="true" spellcheck="false" draggable="true" data-pf-type="Paragraph3">523 Sunset Way, California</p>
+                </div>
+               </div>
+              </div>
+             </div>
+            </div><button type="button" aria-label="Previous" class="pf-slider-prev none hide" style="visibility: hidden;"></button><button type="button" aria-label="Next" class="pf-slider-next none hide" style="visibility: hidden;"></button>
+           </div>
+          </div>
+         </div>
+        </div>
+       </div>
+      </div>
+     </div>
+    </div>
+   </div>
+  </div>
+ </body>
+</html> != <html>
+ <head>
+  <style data-styled="active" data-styled-version="6.1.11" class=""></style>
+  <style data-gs-device="all" data-gs-disabled="false" class="">
+        .pf-color-scheme-1 {
+          --pf-scheme-bg-color: ;--pf-scheme-text-color: ;--pf-scheme-btn-bg-color: ;--pf-scheme-btn-text-color: ;--pf-scheme-border-color: ;--pf-scheme-shadow-color: rgb(0, 0, 0, 0.25);
+        }
+    
+        .pf-color-scheme-2 {
+          --pf-scheme-bg-color: rgba(255, 255, 255, 0);--pf-scheme-text-color: rgb(0, 0, 0);--pf-scheme-btn-bg-color: rgb(145, 157, 169);--pf-scheme-btn-text-color: rgb(255, 255, 255);--pf-scheme-border-color: rgba(0, 0, 0);--pf-scheme-shadow-color: rgb(0, 0, 0, 0.25);
+        }
+    
+        .pf-color-scheme-3 {
+          --pf-scheme-bg-color: rgb(255, 255, 255);--pf-scheme-text-color: rgb(18, 18, 18);--pf-scheme-btn-bg-color: rgb(18, 18, 18);--pf-scheme-btn-text-color: rgb(255, 255, 255);--pf-scheme-border-color: rgb(18, 18, 18);--pf-scheme-shadow-color: rgb(18, 18, 18);
+        }
+    
+        .pf-color-scheme-4 {
+          --pf-scheme-bg-color: rgb(243, 243, 243);--pf-scheme-text-color: rgb(18, 18, 18);--pf-scheme-btn-bg-color: rgb(18, 18, 18);--pf-scheme-btn-text-color: rgb(243, 243, 243);--pf-scheme-border-color: rgb(18, 18, 18);--pf-scheme-shadow-color: rgb(18, 18, 18);
+        }
+    
+        .pf-color-scheme-5 {
+          --pf-scheme-bg-color: rgb(36, 40, 51);--pf-scheme-text-color: rgb(255, 255, 255);--pf-scheme-btn-bg-color: rgb(255, 255, 255);--pf-scheme-btn-text-color: rgb(0, 0, 0);--pf-scheme-border-color: rgb(255, 255, 255);--pf-scheme-shadow-color: rgb(18, 18, 18);
+        }
+    
+        .pf-color-scheme-6 {
+          --pf-scheme-bg-color: rgb(18, 18, 18);--pf-scheme-text-color: rgb(255, 255, 255);--pf-scheme-btn-bg-color: rgb(255, 255, 255);--pf-scheme-btn-text-color: rgb(18, 18, 18);--pf-scheme-border-color: rgb(255, 255, 255);--pf-scheme-shadow-color: rgb(18, 18, 18);
+        }
+    
+        .pf-color-scheme-7 {
+          --pf-scheme-bg-color: rgb(51, 79, 180);--pf-scheme-text-color: rgb(255, 255, 255);--pf-scheme-btn-bg-color: rgb(255, 255, 255);--pf-scheme-btn-text-color: rgb(51, 79, 180);--pf-scheme-border-color: rgb(255, 255, 255);--pf-scheme-shadow-color: rgb(18, 18, 18);
+        }
+    .__pf [data-pf-type*="Section"] {
+    background-color: var(--pf-scheme-bg-color);
+    background-image: var(--pf-scheme-bg-gradient-color);
+    border-color: var(--pf-scheme-border-color);
+    color: var(--pf-scheme-text-color);
+  }
+  .__pf [data-pf-type='Button2'] {
+    background-color: var(--pf-scheme-btn-bg-color);
+    background-image: var(--pf-scheme-btn-bg-gradient-color);
+    color: var(--pf-scheme-btn-text-color);
+  }.__pf .pf-button-1 {background-color: rgb(145, 157, 169); color: rgb(255, 255, 255); padding: 12px 20px;}.__pf .pf-button-2 {background-color: rgb(145, 157, 169); color: rgb(255, 255, 255); padding: 12px 20px;}.__pf .pf-button-3 {background-color: rgb(145, 157, 169); color: rgb(255, 255, 255); padding: 12px 20px;}.__pf .pf-button-4 {background-color: rgb(145, 157, 169); color: rgb(255, 255, 255); padding: 12px 20px;}.__pf .pf-button-5 {background-color: rgb(145, 157, 169); color: rgb(255, 255, 255); padding: 12px 20px;}.__pf .pf-button-6 {background-color: rgb(145, 157, 169); color: rgb(255, 255, 255); padding: 12px 20px;}.__pf .pf-button-7 {background-color: rgb(145, 157, 169); color: rgb(255, 255, 255); padding: 12px 20px;}.__pf .pf-icon-1 {background-color: var(--pf-scheme-bg-color); color: var(--pf-scheme-text-color);}.__pf .pf-icon-2 {background-color: var(--pf-scheme-bg-color); color: var(--pf-scheme-text-color);}.__pf .pf-icon-3 {background-color: var(--pf-scheme-bg-color); color: var(--pf-scheme-text-color);}.__pf .pf-icon-4 {background-color: var(--pf-scheme-bg-color); color: var(--pf-scheme-text-color);}.__pf .pf-icon-5 {background-color: var(--pf-scheme-bg-color); color: var(--pf-scheme-text-color);}.__pf .pf-icon-6 {background-color: var(--pf-scheme-bg-color); color: var(--pf-scheme-text-color);}.__pf .pf-icon-7 {background-color: var(--pf-scheme-bg-color); color: var(--pf-scheme-text-color);}.pf-icon2-1 {background-color: var(--pf-scheme-bg-color); color: var(--pf-scheme-text-color);}.pf-icon2-2 {background-color: var(--pf-scheme-bg-color); color: var(--pf-scheme-text-color);}.pf-icon2-3 {background-color: var(--pf-scheme-bg-color); color: var(--pf-scheme-text-color);}.pf-icon2-4 {background-color: var(--pf-scheme-bg-color); color: var(--pf-scheme-text-color);}.pf-icon2-5 {background-color: var(--pf-scheme-bg-color); color: var(--pf-scheme-text-color);}.pf-icon2-6 {background-color: var(--pf-scheme-bg-color); color: var(--pf-scheme-text-color);}.pf-icon2-7 {background-color: var(--pf-scheme-bg-color); color: var(--pf-scheme-text-color);}.__pf .pf-image-1 {}.__pf .pf-image-2 {}.__pf .pf-image-3 {}.__pf .pf-image-4 {}.__pf .pf-image-5 {}.__pf .pf-image-6 {}.__pf .pf-image-7 {}.__pf .pf-text-1 {background-color: var(--pf-scheme-bg-color); color: var(--pf-scheme-text-color);}.__pf .pf-text-2 {background-color: var(--pf-scheme-bg-color); color: var(--pf-scheme-text-color);}.__pf .pf-text-3 {background-color: var(--pf-scheme-bg-color); color: var(--pf-scheme-text-color);}.__pf .pf-text-4 {background-color: var(--pf-scheme-bg-color); color: var(--pf-scheme-text-color);}.__pf .pf-text-5 {background-color: var(--pf-scheme-bg-color); color: var(--pf-scheme-text-color);}.__pf .pf-text-6 {background-color: var(--pf-scheme-bg-color); color: var(--pf-scheme-text-color);}.__pf .pf-text-7 {background-color: var(--pf-scheme-bg-color); color: var(--pf-scheme-text-color);}.__pf .pf-divider-1 {color: var(--pf-scheme-text-color);}.__pf .pf-divider-2 {color: var(--pf-scheme-text-color);}.__pf .pf-divider-3 {color: var(--pf-scheme-text-color);}.__pf .pf-divider-4 {color: var(--pf-scheme-text-color);}.__pf .pf-heading-1-h1 {color: var(--pf-scheme-text-color); background-color: var(--pf-scheme-bg-color);}.__pf .pf-heading-1-h2 {color: var(--pf-scheme-text-color); background-color: var(--pf-scheme-bg-color);}.__pf .pf-heading-1-h3 {color: var(--pf-scheme-text-color); background-color: var(--pf-scheme-bg-color);}.__pf .pf-heading-1-h4 {color: var(--pf-scheme-text-color); background-color: var(--pf-scheme-bg-color);}.__pf .pf-heading-1-h5 {color: var(--pf-scheme-text-color); background-color: var(--pf-scheme-bg-color);}.__pf .pf-heading-1-h6 {color: var(--pf-scheme-text-color); background-color: var(--pf-scheme-bg-color);}.__pf .pf-heading-2-h1 {color: var(--pf-scheme-text-color); background-color: var(--pf-scheme-bg-color);}.__pf .pf-heading-2-h2 {color: var(--pf-scheme-text-color); background-color: var(--pf-scheme-bg-color);}.__pf .pf-heading-2-h3 {color: var(--pf-scheme-text-color); background-color: var(--pf-scheme-bg-color);}.__pf .pf-heading-2-h4 {color: var(--pf-scheme-text-color); background-color: var(--pf-scheme-bg-color);}.__pf .pf-heading-2-h5 {color: var(--pf-scheme-text-color); background-color: var(--pf-scheme-bg-color);}.__pf .pf-heading-2-h6 {color: var(--pf-scheme-text-color); background-color: var(--pf-scheme-bg-color);}.__pf .pf-heading-3-h1 {color: var(--pf-scheme-text-color); background-color: var(--pf-scheme-bg-color);}.__pf .pf-heading-3-h2 {color: var(--pf-scheme-text-color); background-color: var(--pf-scheme-bg-color);}.__pf .pf-heading-3-h3 {color: var(--pf-scheme-text-color); background-color: var(--pf-scheme-bg-color);}.__pf .pf-heading-3-h4 {color: var(--pf-scheme-text-color); background-color: var(--pf-scheme-bg-color);}.__pf .pf-heading-3-h5 {color: var(--pf-scheme-text-color); background-color: var(--pf-scheme-bg-color);}.__pf .pf-heading-3-h6 {color: var(--pf-scheme-text-color); background-color: var(--pf-scheme-bg-color);}.__pf .pf-heading-4-h1 {color: var(--pf-scheme-text-color); background-color: var(--pf-scheme-bg-color);}.__pf .pf-heading-4-h2 {color: var(--pf-scheme-text-color); background-color: var(--pf-scheme-bg-color);}.__pf .pf-heading-4-h3 {color: var(--pf-scheme-text-color); background-color: var(--pf-scheme-bg-color);}.__pf .pf-heading-4-h4 {color: var(--pf-scheme-text-color); background-color: var(--pf-scheme-bg-color);}.__pf .pf-heading-4-h5 {color: var(--pf-scheme-text-color); background-color: var(--pf-scheme-bg-color);}.__pf .pf-heading-4-h6 {color: var(--pf-scheme-text-color); background-color: var(--pf-scheme-bg-color);}.__pf .pf-heading-5-h1 {color: var(--pf-scheme-text-color); background-color: var(--pf-scheme-bg-color);}.__pf .pf-heading-5-h2 {color: var(--pf-scheme-text-color); background-color: var(--pf-scheme-bg-color);}.__pf .pf-heading-5-h3 {color: var(--pf-scheme-text-color); background-color: var(--pf-scheme-bg-color);}.__pf .pf-heading-5-h4 {color: var(--pf-scheme-text-color); background-color: var(--pf-scheme-bg-color);}.__pf .pf-heading-5-h5 {color: var(--pf-scheme-text-color); background-color: var(--pf-scheme-bg-color);}.__pf .pf-heading-5-h6 {color: var(--pf-scheme-text-color); background-color: var(--pf-scheme-bg-color);}.__pf .pf-heading-6-h1 {color: var(--pf-scheme-text-color); background-color: var(--pf-scheme-bg-color);}.__pf .pf-heading-6-h2 {color: var(--pf-scheme-text-color); background-color: var(--pf-scheme-bg-color);}.__pf .pf-heading-6-h3 {color: var(--pf-scheme-text-color); background-color: var(--pf-scheme-bg-color);}.__pf .pf-heading-6-h4 {color: var(--pf-scheme-text-color); background-color: var(--pf-scheme-bg-color);}.__pf .pf-heading-6-h5 {color: var(--pf-scheme-text-color); background-color: var(--pf-scheme-bg-color);}.__pf .pf-heading-6-h6 {color: var(--pf-scheme-text-color); background-color: var(--pf-scheme-bg-color);}.__pf .pf-heading-7-h1 {color: var(--pf-scheme-text-color); background-color: var(--pf-scheme-bg-color);}.__pf .pf-heading-7-h2 {color: var(--pf-scheme-text-color); background-color: var(--pf-scheme-bg-color);}.__pf .pf-heading-7-h3 {color: var(--pf-scheme-text-color); background-color: var(--pf-scheme-bg-color);}.__pf .pf-heading-7-h4 {color: var(--pf-scheme-text-color); background-color: var(--pf-scheme-bg-color);}.__pf .pf-heading-7-h5 {color: var(--pf-scheme-text-color); background-color: var(--pf-scheme-bg-color);}.__pf .pf-heading-7-h6 {color: var(--pf-scheme-text-color); background-color: var(--pf-scheme-bg-color);}.__pf .pf-button-1:hover {}.__pf .pf-button-1:active {}.__pf .pf-button-2:hover {}.__pf .pf-button-2:active {}.__pf .pf-button-3:hover {}.__pf .pf-button-3:active {}.__pf .pf-button-4:hover {}.__pf .pf-button-4:active {}.__pf .pf-button-5:hover {}.__pf .pf-button-5:active {}.__pf .pf-button-6:hover {}.__pf .pf-button-6:active {}.__pf .pf-button-7:hover {}.__pf .pf-button-7:active {}.__pf .pf-icon-1:hover {}.__pf .pf-icon-1:active {}.__pf .pf-icon-2:hover {}.__pf .pf-icon-2:active {}.__pf .pf-icon-3:hover {}.__pf .pf-icon-3:active {}.__pf .pf-icon-4:hover {}.__pf .pf-icon-4:active {}.__pf .pf-icon-5:hover {}.__pf .pf-icon-5:active {}.__pf .pf-icon-6:hover {}.__pf .pf-icon-6:active {}.__pf .pf-icon-7:hover {}.__pf .pf-icon-7:active {}.__pf .pf-image-1:hover {}.__pf .pf-image-1:active {}.__pf .pf-image-2:hover {}.__pf .pf-image-2:active {}.__pf .pf-image-3:hover {}.__pf .pf-image-3:active {}.__pf .pf-image-4:hover {}.__pf .pf-image-4:active {}.__pf .pf-image-5:hover {}.__pf .pf-image-5:active {}.__pf .pf-image-6:hover {}.__pf .pf-image-6:active {}.__pf .pf-image-7:hover {}.__pf .pf-image-7:active {}.__pf .pf-text-1:hover {}.__pf .pf-text-1:active {}.__pf .pf-text-2:hover {}.__pf .pf-text-2:active {}.__pf .pf-text-3:hover {}.__pf .pf-text-3:active {}.__pf .pf-text-4:hover {}.__pf .pf-text-4:active {}.__pf .pf-text-5:hover {}.__pf .pf-text-5:active {}.__pf .pf-text-6:hover {}.__pf .pf-text-6:active {}.__pf .pf-text-7:hover {}.__pf .pf-text-7:active {}.__pf .pf-divider-1:hover {}.__pf .pf-divider-1:active {}.__pf .pf-divider-2:hover {}.__pf .pf-divider-2:active {}.__pf .pf-divider-3:hover {}.__pf .pf-divider-3:active {}.__pf .pf-divider-4:hover {}.__pf .pf-divider-4:active {}.__pf .pf-heading-1-h1:hover {}.__pf .pf-heading-1-h1:active {}.__pf .pf-heading-1-h2:hover {}.__pf .pf-heading-1-h2:active {}.__pf .pf-heading-1-h3:hover {}.__pf .pf-heading-1-h3:active {}.__pf .pf-heading-1-h4:hover {}.__pf .pf-heading-1-h4:active {}.__pf .pf-heading-1-h5:hover {}.__pf .pf-heading-1-h5:active {}.__pf .pf-heading-1-h6:hover {}.__pf .pf-heading-1-h6:active {}.__pf .pf-heading-2-h1:hover {}.__pf .pf-heading-2-h1:active {}.__pf .pf-heading-2-h2:hover {}.__pf .pf-heading-2-h2:active {}.__pf .pf-heading-2-h3:hover {}.__pf .pf-heading-2-h3:active {}.__pf .pf-heading-2-h4:hover {}.__pf .pf-heading-2-h4:active {}.__pf .pf-heading-2-h5:hover {}.__pf .pf-heading-2-h5:active {}.__pf .pf-heading-2-h6:hover {}.__pf .pf-heading-2-h6:active {}.__pf .pf-heading-3-h1:hover {}.__pf .pf-heading-3-h1:active {}.__pf .pf-heading-3-h2:hover {}.__pf .pf-heading-3-h2:active {}.__pf .pf-heading-3-h3:hover {}.__pf .pf-heading-3-h3:active {}.__pf .pf-heading-3-h4:hover {}.__pf .pf-heading-3-h4:active {}.__pf .pf-heading-3-h5:hover {}.__pf .pf-heading-3-h5:active {}.__pf .pf-heading-3-h6:hover {}.__pf .pf-heading-3-h6:active {}.__pf .pf-heading-4-h1:hover {}.__pf .pf-heading-4-h1:active {}.__pf .pf-heading-4-h2:hover {}.__pf .pf-heading-4-h2:active {}.__pf .pf-heading-4-h3:hover {}.__pf .pf-heading-4-h3:active {}.__pf .pf-heading-4-h4:hover {}.__pf .pf-heading-4-h4:active {}.__pf .pf-heading-4-h5:hover {}.__pf .pf-heading-4-h5:active {}.__pf .pf-heading-4-h6:hover {}.__pf .pf-heading-4-h6:active {}.__pf .pf-heading-5-h1:hover {}.__pf .pf-heading-5-h1:active {}.__pf .pf-heading-5-h2:hover {}.__pf .pf-heading-5-h2:active {}.__pf .pf-heading-5-h3:hover {}.__pf .pf-heading-5-h3:active {}.__pf .pf-heading-5-h4:hover {}.__pf .pf-heading-5-h4:active {}.__pf .pf-heading-5-h5:hover {}.__pf .pf-heading-5-h5:active {}.__pf .pf-heading-5-h6:hover {}.__pf .pf-heading-5-h6:active {}.__pf .pf-heading-6-h1:hover {}.__pf .pf-heading-6-h1:active {}.__pf .pf-heading-6-h2:hover {}.__pf .pf-heading-6-h2:active {}.__pf .pf-heading-6-h3:hover {}.__pf .pf-heading-6-h3:active {}.__pf .pf-heading-6-h4:hover {}.__pf .pf-heading-6-h4:active {}.__pf .pf-heading-6-h5:hover {}.__pf .pf-heading-6-h5:active {}.__pf .pf-heading-6-h6:hover {}.__pf .pf-heading-6-h6:active {}.__pf .pf-heading-7-h1:hover {}.__pf .pf-heading-7-h1:active {}.__pf .pf-heading-7-h2:hover {}.__pf .pf-heading-7-h2:active {}.__pf .pf-heading-7-h3:hover {}.__pf .pf-heading-7-h3:active {}.__pf .pf-heading-7-h4:hover {}.__pf .pf-heading-7-h4:active {}.__pf .pf-heading-7-h5:hover {}.__pf .pf-heading-7-h5:active {}.__pf .pf-heading-7-h6:hover {}.__pf .pf-heading-7-h6:active {}.__pf .pf-field-1 { background-color: rgba(253, 253, 253, 1); border: 0.66px solid rgba(138, 138, 138, 1); border-radius: 8px; padding: 6px 12px; }.__pf .pf-field-2 { background-color: rgba(253, 253, 253, 1); border: 0.66px solid rgba(138, 138, 138, 1); border-radius: 8px; padding: 6px 12px; }.__pf .pf-field-3 { background-color: rgba(253, 253, 253, 1); border: 0.66px solid rgba(138, 138, 138, 1); border-radius: 8px; padding: 6px 12px; }.__pf .pf-field-4 { background-color: rgba(253, 253, 253, 1); border: 0.66px solid rgba(138, 138, 138, 1); border-radius: 8px; padding: 6px 12px; }.__pf .pf-field-5 { background-color: rgba(253, 253, 253, 1); border: 0.66px solid rgba(138, 138, 138, 1); border-radius: 8px; padding: 6px 12px; }.__pf .pf-field-6 { background-color: rgba(253, 253, 253, 1); border: 0.66px solid rgba(138, 138, 138, 1); border-radius: 8px; padding: 6px 12px; }</style>
+  <style data-gs-device="laptop" data-gs-disabled="true" class=""></style>
+  <style data-gs-device="tablet" data-gs-disabled="true" class=""></style>
+  <style data-gs-device="mobile" data-gs-disabled="true" class=""></style>
+  <style data-device="all" data-disabled="false" class=""></style>
+  <style data-device="laptop" data-disabled="true" class=""></style>
+  <style data-device="tablet" data-disabled="true" class=""></style>
+  <style data-device="mobile" data-disabled="true" class=""></style>
+  <style data-gs-property="true" class=""></style>
+ </head>
+ <body>
+  <div class="sc-esYjtY fLvWek __pf" id="__pf">
+   <div data-pf-type="Body" class="sc-eulNPF bDfZZV">
+    <div data-pf-type="Layout" class="sc-iXzffn fKDkmQ">
+     <div data-category="Free Shipping" data-name="Bitter" draggable="true" data-pf-type="Section" class="sc-kRRxPL efmMUe" style="position: relative; top: initial; z-index: initial;">
+      <div class="sc-gvZzpm eFakNN" style="--cw: 1170px;">
+       <div class="sc-jXbVAB kNtuek pf-r pf-r-eh" draggable="true" data-pf-type="Row" style="--s-xs: 0px;">
+        <div class="pf-c" style="--c-xs: 12; --c-sm: 12; --c-md: 12; --c-lg: 12;">
+         <div draggable="true" data-pf-type="Column" class="sc-dExXmK fNpoDq">
+          <div draggable="true" data-pf-type="ContentList2" class="sc-jMalIJ sc-iMTngq bcwUIO ljyKeN" style="--s-xs: 0px; --llo-xs: 0; --llo-sm: 0; --llo-md: 0; --llo-lg: 0;">
+           <div class="pf-slider pf-c-ct pf-r-eh" data-slider="{'navStyle':'none','maxHeight':true,'listLayout':{'all':0,'laptop':0,'tablet':0,'mobile':0},'slidesToShow':{'all':3,'laptop':3,'tablet':3,'mobile':1},'slidesToScroll':{'all':3,'laptop':3,'tablet':3,'mobile':1},'paginationStyle':'none','displayPartialItems':{'all':false,'laptop':false,'tablet':false,'mobile':false},'spacing':{'all':'0px','laptop':'0px','tablet':'0px','mobile':'0px'}}" style="--ss-xs: 1; --ss-sm: 3; --ss-md: 3; --ss-lg: 3; height: 100%;">
+            <div class="pf-slide">
+             <div data-pf-type="ContentListItem" class="sc-gkRfko eMjTSq">
+              <div class="sc-jXbVAB kNtuek rid-16 pf-r pf-r-eh" draggable="true" data-pf-type="Row" style="--s-xs: 0px;">
+               <div class="pf-c" style="--c-xs: 12; --c-sm: 12; --c-md: 12; --c-lg: 12;">
+                <div draggable="true" data-pf-type="Column" class="sc-dExXmK fNpoDq rid-17">
+                 <h3 contenteditable="true" spellcheck="false" draggable="true" data-pf-type="Heading2" class="sc-cmaqZA fXrIOS rid-18 pf-caret-color-transparent pf-word-wrap-break-word">Free Shipping</h3>
+                 <p class="sc-kAkozD iOjmJ rid-20 pf-caret-color-transparent pf-word-wrap-break-word" contenteditable="true" spellcheck="false" draggable="true" data-pf-type="Paragraph3">Within the USA for any order of $50 and over</p>
+                </div>
+               </div>
+              </div>
+             </div>
+            </div>
+            <div class="pf-slide">
+             <div data-pf-type="ContentListItem" class="sc-gkRfko eMjTSq rid-15">
+              <div class="sc-jXbVAB kNtuek rid-16 pf-r pf-r-eh" draggable="true" data-pf-type="Row" style="--s-xs: 0px;">
+               <div class="pf-c" style="--c-xs: 12; --c-sm: 12; --c-md: 12; --c-lg: 12;">
+                <div draggable="true" data-pf-type="Column" class="sc-dExXmK fNpoDq rid-17">
+                 <h3 contenteditable="true" spellcheck="false" draggable="true" data-pf-type="Heading2" class="sc-cmaqZA fXrIOS rid-18 pf-caret-color-transparent pf-word-wrap-break-word">15 Days Return</h3>
+                 <p class="sc-kAkozD iOjmJ rid-20 pf-caret-color-transparent pf-word-wrap-break-word" contenteditable="true" spellcheck="false" draggable="true" data-pf-type="Paragraph3">Free exchange or return within 30 days of nonusage</p>
+                </div>
+               </div>
+              </div>
+             </div>
+            </div>
+            <div class="pf-slide">
+             <div data-pf-type="ContentListItem" class="sc-gkRfko eMjTSq">
+              <div class="sc-jXbVAB kNtuek rid-16 pf-r pf-r-eh" draggable="true" data-pf-type="Row" style="--s-xs: 0px;">
+               <div class="pf-c" style="--c-xs: 12; --c-sm: 12; --c-md: 12; --c-lg: 12;">
+                <div draggable="true" data-pf-type="Column" class="sc-dExXmK fNpoDq rid-17">
+                 <h3 contenteditable="true" spellcheck="false" draggable="true" data-pf-type="Heading2" class="sc-cmaqZA fXrIOS rid-18 pf-caret-color-transparent pf-word-wrap-break-word">24/7 Live Support</h3>
+                 <p class="sc-kAkozD iOjmJ rid-20 pf-caret-color-transparent pf-word-wrap-break-word" contenteditable="true" spellcheck="false" draggable="true" data-pf-type="Paragraph3">Call, message, or email usanytime, anywhere</p>
+                </div>
+               </div>
+              </div>
+             </div>
+            </div><button type="button" aria-label="Previous" class="pf-slider-prev none hide" style="visibility: hidden;"></button><button type="button" aria-label="Next" class="pf-slider-next none hide" style="visibility: hidden;"></button>
+           </div>
+          </div>
+         </div>
+        </div>
+       </div>
+      </div>
+     </div>
+     <div draggable="true" data-pf-type="Section" class="sc-kRRxPL efmMUe" style="position: relative; top: initial; z-index: initial;">
+      <div class="sc-gvZzpm eFakNN" style="--cw: 1170px;">
+       <div class="sc-jXbVAB kNtuek pf-r pf-r-eh" draggable="true" data-pf-type="Row" style="--s-xs: 15px; --s-lg: 0px;">
+        <div class="pf-c" style="--c-xs: 12; --c-sm: 12; --c-md: 12; --c-lg: 12;">
+         <div draggable="true" data-pf-type="Column" class="sc-dExXmK fNpoDq">
+          <div draggable="true" data-pf-type="Divider2" class="sc-hknPuZ oPxhE"></div>
+          <p class="sc-kAkozD iOjmJ pf-caret-color-transparent pf-word-wrap-break-word" contenteditable="true" spellcheck="false" draggable="true" data-pf-type="Paragraph3">Frequently Asked Questions</p>
+          <h3 contenteditable="true" spellcheck="false" draggable="true" data-pf-type="Heading2" class="sc-cmaqZA fXrIOS pf-caret-color-transparent pf-word-wrap-break-word">QUALITY OF OUR COFFEE</h3>
+         </div>
+        </div>
+       </div>
+       <div class="sc-jXbVAB kNtuek pf-r pf-r-eh" draggable="true" data-pf-type="Row" style="--s-xs: 15px; --s-lg: 0px;">
+        <div class="pf-c" style="--c-xs: 12; --c-sm: 12; --c-md: 12; --c-lg: 12;">
+         <div draggable="true" data-pf-type="Column" class="sc-dExXmK fNpoDq">
+          <div class="sc-iGgVNO cqnyEr pf-icon-left" data-scrolling="false" data-multiple="false" draggable="true" data-pf-type="Accordion">
+           <div data-pf-type="Accordion.Content.Wrapper" class="sc-gsFSjX jrgsRq">
+            <button type="button" class="sc-fqkwJk fCNPsG pf-anchor" data-active="false" data-pf-type="Accordion.Header"><i class="pfa pfa-plus pfa-arrow"></i><span data-text-editing="true" class="">What’s the best way to store coffee from your store?</span></button>
+            <div data-pf-expandable="true" data-pf-type="Accordion.Content" class="sc-dcJtft hDKXay" style="display: none;">
+             <div class="sc-jXbVAB kNtuek pf-r pf-r-eh" draggable="true" data-pf-type="Row" style="--s-xs: 15px; --s-lg: 0px;">
+              <div class="pf-c" style="--c-xs: 12; --c-sm: 12; --c-md: 12; --c-lg: 12;">
+               <div draggable="true" data-pf-type="Column" class="sc-dExXmK fNpoDq">
+                <p class="sc-kAkozD iOjmJ pf-caret-color-transparent pf-word-wrap-break-word" contenteditable="true" spellcheck="false" draggable="true" data-pf-type="Paragraph3">Once roasted, coffee begins to lose its flavor the longer it’s exposed to air and moisture. We recommend that you store it in an airtight container in a cool, dark place and grind it just before brewing. Coffee in an unopened FlavorLock bag will stay fresh for several months.</p>
+               </div>
+              </div>
+             </div>
+            </div>
+           </div>
+           <div data-pf-type="Accordion.Content.Wrapper" class="sc-gsFSjX jrgsRq">
+            <button type="button" class="sc-fqkwJk fCNPsG pf-anchor" data-active="false" data-pf-type="Accordion.Header"><i class="pfa pfa-plus pfa-arrow"></i><span data-text-editing="true" class="">What kind of grind should I use for making coffee?</span></button>
+            <div data-pf-expandable="true" data-pf-type="Accordion.Content" class="sc-dcJtft hDKXay" style="display: none;">
+             <div class="sc-jXbVAB kNtuek pf-r pf-r-eh" draggable="true" data-pf-type="Row" style="--s-xs: 15px; --s-lg: 0px;">
+              <div class="pf-c" style="--c-xs: 12; --c-sm: 12; --c-md: 12; --c-lg: 12;">
+               <div draggable="true" data-pf-type="Column" class="sc-dExXmK fNpoDq">
+                <p class="sc-kAkozD iOjmJ pf-caret-color-transparent pf-word-wrap-break-word" contenteditable="true" spellcheck="false" draggable="true" data-pf-type="Paragraph3">Drip makers perform best with a grind specifically for a flat bottom or cone type filter. Espresso machines are grind-sensitive and require a very fine grind, 30-35 seconds in a blade grinder. Slow and fast shots are often caused by a grind that is too fine or too coarse, or tamping coffee too hard or not firmly enough.</p>
+               </div>
+              </div>
+             </div>
+            </div>
+           </div>
+           <div data-pf-type="Accordion.Content.Wrapper" class="sc-gsFSjX jrgsRq">
+            <button type="button" class="sc-fqkwJk fCNPsG pf-anchor" data-active="true" data-pf-type="Accordion.Header"><i class="pfa pfa-minus pfa-arrow"></i><span data-text-editing="true" class="">What are your organic coffee standards?</span></button>
+            <div data-pf-expandable="true" data-pf-type="Accordion.Content" class="sc-dcJtft hDKXay" style="display: block;">
+             <div class="sc-jXbVAB kNtuek pf-r pf-r-eh" draggable="true" data-pf-type="Row" style="--s-xs: 15px; --s-lg: 0px;">
+              <div class="pf-c" style="--c-xs: 12; --c-sm: 12; --c-md: 12; --c-lg: 12;">
+               <div draggable="true" data-pf-type="Column" class="sc-dExXmK fNpoDq">
+                <p class="sc-kAkozD iOjmJ pf-caret-color-transparent pf-word-wrap-break-word" contenteditable="true" spellcheck="false" draggable="true" data-pf-type="Paragraph3">All of our 100% Organic coffees are guaranteed organic by the United States Department of Agriculture (USDA) and are grown in natural, eco-friendly conditions in Central and South America. Organic certification verifies that farms, crop harvesters, and handling operations comply with organic regulations to maintain their organic integrity.</p>
+               </div>
+              </div>
+             </div>
+            </div>
+           </div>
+           <div data-pf-type="Accordion.Content.Wrapper" class="sc-gsFSjX jrgsRq">
+            <button type="button" class="sc-fqkwJk fCNPsG pf-anchor" data-active="false" data-pf-type="Accordion.Header"><i class="pfa pfa-plus pfa-arrow"></i><span data-text-editing="true" class="">Which coffee-based drink has the most caffeine?</span></button>
+            <div data-pf-expandable="true" data-pf-type="Accordion.Content" class="sc-dcJtft hDKXay" style="display: none;">
+             <div class="sc-jXbVAB kNtuek pf-r pf-r-eh" draggable="true" data-pf-type="Row" style="--s-xs: 15px; --s-lg: 0px;">
+              <div class="pf-c" style="--c-xs: 12; --c-sm: 12; --c-md: 12; --c-lg: 12;">
+               <div draggable="true" data-pf-type="Column" class="sc-dExXmK fNpoDq">
+                <p class="sc-kAkozD iOjmJ pf-caret-color-transparent pf-word-wrap-break-word" contenteditable="true" spellcheck="false" draggable="true" data-pf-type="Paragraph3">Most people think Espresso Roast has the most caffeine, but brewed coffee is proven to have more. A single 2 oz. Double Espresso shot has about 80 milligrams of caffeine. Whereas an average 12 oz. brewed coffee has about 120 milligrams of caffeine. And our Blast Off Strong Roast formula provides over 1.5x more caffeine than other coffee.</p>
+               </div>
+              </div>
+             </div>
+            </div>
+           </div>
+           <div data-pf-type="Accordion.Content.Wrapper" class="sc-gsFSjX jrgsRq">
+            <button type="button" class="sc-fqkwJk fCNPsG pf-anchor" data-active="false" data-pf-type="Accordion.Header"><i class="pfa pfa-plus pfa-arrow"></i><span data-text-editing="true" class="">What is the difference between Arabica and Robusta beans?</span></button>
+            <div data-pf-expandable="true" data-pf-type="Accordion.Content" class="sc-dcJtft hDKXay" style="display: none;">
+             <div class="sc-jXbVAB kNtuek pf-r pf-r-eh" draggable="true" data-pf-type="Row" style="--s-xs: 15px; --s-lg: 0px;">
+              <div class="pf-c" style="--c-xs: 12; --c-sm: 12; --c-md: 12; --c-lg: 12;">
+               <div draggable="true" data-pf-type="Column" class="sc-dExXmK fNpoDq">
+                <p class="sc-kAkozD iOjmJ pf-caret-color-transparent pf-word-wrap-break-word" contenteditable="true" spellcheck="false" draggable="true" data-pf-type="Paragraph3">Arabica Beans have a wide range in taste and smell. They are a more delicate bean produced in the tropical regions at a high elevation. They are more expensive due to the hands-on production process. Robusta Beans have a neutral to harsh taste and an oatmeal-like texture. They grow in low elevations, are heartier for rough handling, and yield higher pounds per acre.</p>
+               </div>
+              </div>
+             </div>
+            </div>
+           </div>
+          </div>
+         </div>
+        </div>
+       </div>
+      </div>
+     </div>
+     <div draggable="true" data-pf-type="Section" class="sc-kRRxPL efmMUe" style="position: relative; top: initial; z-index: initial;">
+      <div class="sc-gvZzpm eFakNN" style="--cw: 1170px;">
+       <div class="sc-jXbVAB kNtuek pf-r pf-r-eh" draggable="true" data-pf-type="Row" style="--s-xs: 10px; --s-sm: 15px;">
+        <div class="pf-c" style="--c-xs: 12; --c-sm: 12; --c-md: 12; --c-lg: 12;">
+         <div draggable="true" data-pf-type="Column" class="sc-dExXmK fNpoDq">
+          <div data-editor-placeholder="true" draggable="true" data-pf-type="ArticleBox" class="" store="[object Object]">
+           <div class="ph Polaris-ShadowBevel">
+            <span class="">Blog post details</span>
+            <div class="pf-alert Polaris-ShadowBevel pf-alert-warning">
+             Please select a blog post in <b class="">General &gt; Content &gt; Blog post source.</b>
+            </div>
+           </div>
+          </div>
+         </div>
+        </div>
+       </div>
+       <div class="sc-jXbVAB kNtuek pf-r pf-r-eh" draggable="true" data-pf-type="Row" style="--s-xs: 10px; --s-sm: 15px;">
+        <div class="pf-c" style="--c-xs: 12; --c-sm: 12; --c-md: 12; --c-lg: 12;">
+         <div draggable="true" data-pf-type="Column" class="sc-dExXmK fNpoDq">
+          <div data-editor-placeholder="true" draggable="true" data-pf-type="ArticleList2" class="" store="[object Object]">
+           <div class="ph Polaris-ShadowBevel">
+            <span class="">Blog post list</span>
+            <div class="pf-alert Polaris-ShadowBevel pf-alert-warning">
+             The blog is empty, please update the blog or select another one.
+            </div>
+           </div>
+          </div>
+         </div>
+        </div>
+       </div>
+      </div>
+     </div>
+     <div draggable="true" data-pf-type="Section" class="sc-kRRxPL efmMUe" style="position: relative; top: initial; z-index: initial;">
+      <div class="sc-gvZzpm eFakNN" style="--cw: 1170px;">
+       <div class="sc-jXbVAB kNtuek pf-r pf-r-eh" draggable="true" data-pf-type="Row" style="--s-xs: 0px; --s-sm: 15px; --s-lg: 0px;">
+        <div class="pf-c" style="--c-xs: 12; --c-sm: 12; --c-md: 12; --c-lg: 12;">
+         <div draggable="true" data-pf-type="Column" class="sc-dExXmK fNpoDq">
+          <div draggable="true" data-pf-type="Divider2" class="sc-hknPuZ oPxhE"></div>
+          <p class="sc-kAkozD iOjmJ pf-caret-color-transparent pf-word-wrap-break-word" contenteditable="true" spellcheck="false" draggable="true" data-pf-type="Paragraph3">Frequently Asked Questions</p>
+          <h3 contenteditable="true" spellcheck="false" draggable="true" data-pf-type="Heading2" class="sc-cmaqZA fXrIOS pf-caret-color-transparent pf-word-wrap-break-word">FOR SHIPPING &amp; <br class="">
+           RETURN POLICIES</h3>
+         </div>
+        </div>
+       </div>
+       <div class="sc-jXbVAB kNtuek pf-r pf-r-eh" draggable="true" data-pf-type="Row" style="--s-xs: 15px; --s-lg: 10px;">
+        <div class="pf-c" style="--c-xs: 12; --c-sm: 6; --c-md: 6; --c-lg: 6;">
+         <div draggable="true" data-pf-type="Column" class="sc-dExXmK fNpoDq">
+          <img src="https://cdn.shopify.com/s/files/1/2170/1117/t/10/assets/image-1658831623063.png?v=1658831621" width="571" height="703" draggable="true" data-pf-type="Image3" class="sc-bDoQz fHJoao">
+         </div>
+        </div>
+        <div class="pf-c" style="--c-xs: 12; --c-sm: 6; --c-md: 6; --c-lg: 6;">
+         <div draggable="true" data-pf-type="Column" class="sc-dExXmK fNpoDq">
+          <div class="sc-iGgVNO cqnyEr pf-icon-left" data-scrolling="false" data-multiple="false" draggable="true" data-pf-type="Accordion">
+           <div data-pf-type="Accordion.Content.Wrapper" class="sc-gsFSjX jrgsRq">
+            <button type="button" class="sc-fqkwJk fCNPsG pf-anchor" data-active="false" data-pf-type="Accordion.Header"><i class="pfa pfa-plus pfa-arrow"></i><span data-text-editing="true" class="">Can I have my order shipped via UPS to a P.O. Box?</span></button>
+            <div data-pf-expandable="true" data-pf-type="Accordion.Content" class="sc-dcJtft hDKXay" style="display: none;">
+             <div class="sc-jXbVAB kNtuek pf-r pf-r-eh" draggable="true" data-pf-type="Row" style="--s-xs: 15px; --s-lg: 0px;">
+              <div class="pf-c" style="--c-xs: 12; --c-sm: 12; --c-md: 12; --c-lg: 12;">
+               <div draggable="true" data-pf-type="Column" class="sc-dExXmK fNpoDq">
+                <p class="sc-kAkozD iOjmJ pf-caret-color-transparent pf-word-wrap-break-word" contenteditable="true" spellcheck="false" draggable="true" data-pf-type="Paragraph3">We provide shipping via UPS and they will only accept shipments to a valid street address. UPS does not deliver to P.O. Boxes. Your shipping request addressed to a P.O. Box will be delayed and will require an address correction before shipment. Additionally, Army Post Office (APO) and Fleet Post Office (FPO) addresses are not accepted. Contact our Coffee Experts to learn more or call our Coffee Hotline at 1-2345-6789.</p>
+               </div>
+              </div>
+             </div>
+            </div>
+           </div>
+           <div data-pf-type="Accordion.Content.Wrapper" class="sc-gsFSjX jrgsRq">
+            <button type="button" class="sc-fqkwJk fCNPsG pf-anchor" data-active="false" data-pf-type="Accordion.Header"><i class="pfa pfa-plus pfa-arrow"></i><span data-text-editing="true" class="">How long will my coffee order take?</span></button>
+            <div data-pf-expandable="true" data-pf-type="Accordion.Content" class="sc-dcJtft hDKXay" style="display: none;">
+             <div class="sc-jXbVAB kNtuek pf-r pf-r-eh" draggable="true" data-pf-type="Row" style="--s-xs: 15px; --s-lg: 0px;">
+              <div class="pf-c" style="--c-xs: 12; --c-sm: 12; --c-md: 12; --c-lg: 12;">
+               <div draggable="true" data-pf-type="Column" class="sc-dExXmK fNpoDq">
+                <p class="sc-kAkozD iOjmJ pf-caret-color-transparent pf-word-wrap-break-word" contenteditable="true" spellcheck="false" draggable="true" data-pf-type="Paragraph3">Our centrally located Indiana roastery means orders arrive as quickly as possible, whether heading to the East Coast, West Coast, or somewhere in between. We offer UPS shipping options for Ground, 2-Day or Next Day. Your coffee products will be shipped after it is roasted and packaged (not necessarily the same day you order).&nbsp;</p>
+               </div>
+              </div>
+             </div>
+            </div>
+           </div>
+           <div data-pf-type="Accordion.Content.Wrapper" class="sc-gsFSjX jrgsRq">
+            <button type="button" class="sc-fqkwJk fCNPsG pf-anchor" data-active="false" data-pf-type="Accordion.Header"><i class="pfa pfa-plus pfa-arrow"></i><span data-text-editing="true" class="">What is your Refund Policy and do you accept returns?</span></button>
+            <div data-pf-expandable="true" data-pf-type="Accordion.Content" class="sc-dcJtft hDKXay" style="display: none;">
+             <div class="sc-jXbVAB kNtuek pf-r pf-r-eh" draggable="true" data-pf-type="Row" style="--s-xs: 15px; --s-lg: 0px;">
+              <div class="pf-c" style="--c-xs: 12; --c-sm: 12; --c-md: 12; --c-lg: 12;">
+               <div draggable="true" data-pf-type="Column" class="sc-dExXmK fNpoDq">
+                <p class="sc-kAkozD iOjmJ pf-caret-color-transparent pf-word-wrap-break-word" contenteditable="true" spellcheck="false" draggable="true" data-pf-type="Paragraph3">Customers must contact our store within 14 days of the original order date if an order arrives damaged or includes the wrong product(s). We will credit your account with a refund after our warehouse receives your non-perishable drinkware or wearables. If an error was made, if you are not happy with the coffee, or if you received a damaged product, please get in touch with us so we can make it right.</p>
+               </div>
+              </div>
+             </div>
+            </div>
+           </div>
+           <div data-pf-type="Accordion.Content.Wrapper" class="sc-gsFSjX jrgsRq">
+            <button type="button" class="sc-fqkwJk fCNPsG pf-anchor" data-active="false" data-pf-type="Accordion.Header"><i class="pfa pfa-plus pfa-arrow"></i><span data-text-editing="true" class="">Can I exchange my coffee order into another product? </span></button>
+            <div data-pf-expandable="true" data-pf-type="Accordion.Content" class="sc-dcJtft hDKXay" style="display: none;">
+             <div class="sc-jXbVAB kNtuek pf-r pf-r-eh" draggable="true" data-pf-type="Row" style="--s-xs: 15px; --s-lg: 0px;">
+              <div class="pf-c" style="--c-xs: 12; --c-sm: 12; --c-md: 12; --c-lg: 12;">
+               <div draggable="true" data-pf-type="Column" class="sc-dExXmK fNpoDq">
+                <p class="sc-kAkozD iOjmJ pf-caret-color-transparent pf-word-wrap-break-word" contenteditable="true" spellcheck="false" draggable="true" data-pf-type="Paragraph3">Coffee is a perishable product, so we DO NOT accept any coffee returns (unless a Coffee Expert specifically requests a return in writing). However, if an error was made, you are not happy with the coffee, or you received a damaged product, please contact us so we can make it right. All shipping charges are non-refundable, and the Refund Policy does not extend beyond the 14-day window.</p>
+               </div>
+              </div>
+             </div>
+            </div>
+           </div>
+           <div data-pf-type="Accordion.Content.Wrapper" class="sc-gsFSjX jrgsRq">
+            <button type="button" class="sc-fqkwJk fCNPsG pf-anchor" data-active="true" data-pf-type="Accordion.Header"><i class="pfa pfa-minus pfa-arrow"></i><span data-text-editing="true" class="">I ordered the wrong coffee, what should I do? </span></button>
+            <div data-pf-expandable="true" data-pf-type="Accordion.Content" class="sc-dcJtft hDKXay" style="display: block;">
+             <div class="sc-jXbVAB kNtuek pf-r pf-r-eh" draggable="true" data-pf-type="Row" style="--s-xs: 15px; --s-lg: 0px;">
+              <div class="pf-c" style="--c-xs: 12; --c-sm: 12; --c-md: 12; --c-lg: 12;">
+               <div draggable="true" data-pf-type="Column" class="sc-dExXmK fNpoDq">
+                <p class="sc-kAkozD iOjmJ pf-caret-color-transparent pf-word-wrap-break-word" contenteditable="true" spellcheck="false" draggable="true" data-pf-type="Paragraph3">If you just placed your order, have confirmed that the coffee has not shipped, please contact us immediately, and we should be able to refund your order and issue a new one. If your coffee has already shipped or was delivered and either an error was made or you are not happy with the coffee, please call us or submit a request, so we can understand how to make it right.</p>
+               </div>
+              </div>
+             </div>
+            </div>
+           </div>
+          </div>
+         </div>
+        </div>
+       </div>
+      </div>
+     </div>
+     <div draggable="true" data-pf-type="Section" class="sc-kRRxPL efmMUe" style="position: relative; top: initial; z-index: initial;">
+      <div class="sc-gvZzpm eFakNN" style="--cw: 1170px;">
+       <div class="sc-jXbVAB kNtuek pf-r pf-r-eh" draggable="true" data-pf-type="Row" style="--s-xs: 15px;">
+        <div class="pf-c" style="--c-xs: 12; --c-sm: 12; --c-md: 12; --c-lg: 12;">
+         <div draggable="true" data-pf-type="Column" class="sc-dExXmK fNpoDq">
+          <div draggable="true" data-pf-type="Divider2" class="sc-hknPuZ oPxhE"></div>
+          <p class="sc-kAkozD iOjmJ pf-caret-color-transparent pf-word-wrap-break-word" contenteditable="true" spellcheck="false" draggable="true" data-pf-type="Paragraph3">Our Customers’ Feedback</p>
+          <h3 contenteditable="true" spellcheck="false" draggable="true" data-pf-type="Heading2" class="sc-cmaqZA fXrIOS pf-caret-color-transparent pf-word-wrap-break-word">FIND YOUR ANSWER<br class="">
+           FROM REAL CUSTOMERS</h3>
+         </div>
+        </div>
+       </div>
+       <div class="sc-jXbVAB kNtuek pf-r pf-r-eh" draggable="true" data-pf-type="Row" style="--s-xs: 15px;">
+        <div class="pf-c" style="--c-xs: 12; --c-sm: 12; --c-md: 12; --c-lg: 12;">
+         <div draggable="true" data-pf-type="Column" class="sc-dExXmK fNpoDq">
+          <div draggable="true" data-pf-type="Slideshow" class="sc-eeDSqt kbLgQU">
+           <div class="pf-slider scrollfix has-loaded">
+            <div class="pf-slide is-current is-visible">
+             <div class="sc-cnVGvb kJQLLm" draggable="true" data-pf-type="SlideshowSlide">
+              <div class="sc-jXbVAB kNtuek pf-r pf-r-eh" draggable="true" data-pf-type="Row" style="--s-xs: 15px;">
+               <div class="pf-c" style="--c-xs: 12; --c-sm: 12; --c-md: 12; --c-lg: 12;">
+                <div draggable="true" data-pf-type="Column" class="sc-dExXmK fNpoDq">
+                 <img src="https://cdn.shopify.com/s/files/1/2170/1117/t/10/assets/rectangle-15-1658832430847.png?v=1658832439" width="329" height="329" draggable="true" data-pf-type="Image3" class="sc-bDoQz fHJoao">
+                 <p class="sc-kAkozD iOjmJ pf-caret-color-transparent pf-word-wrap-break-word" contenteditable="true" spellcheck="false" draggable="true" data-pf-type="Paragraph3">Valentine Gibbs</p><i class="sc-hwdACo sXHGY pfa pfa-quote-left" draggable="true" data-pf-type="Icon"></i>
+                 <p class="sc-kAkozD iOjmJ pf-caret-color-transparent pf-word-wrap-break-word" contenteditable="true" spellcheck="false" draggable="true" data-pf-type="Paragraph3">I tried your coffee this past summer when my husband and I started going to the Wrightstown Farmers market. I haven't missed a week since for your delicious coffee. I used to buy the very popular coffee and found that yours was better tasting, better kept and made the perfect cup every time!! I even got my other family members hooked on it as well!! Thank you for the best cup of coffee!</p>
+                </div>
+               </div>
+              </div>
+             </div>
+            </div>
+            <div class="pf-slide is-visible">
+             <div class="sc-cnVGvb kJQLLm" draggable="true" data-pf-type="SlideshowSlide">
+              <div class="sc-jXbVAB kNtuek pf-r pf-r-eh" draggable="true" data-pf-type="Row" style="--s-xs: 15px;">
+               <div class="pf-c" style="--c-xs: 12; --c-sm: 12; --c-md: 12; --c-lg: 12;">
+                <div draggable="true" data-pf-type="Column" class="sc-dExXmK fNpoDq">
+                 <img src="https://cdn.shopify.com/s/files/1/2170/1117/t/10/assets/rectangle-17-1658832430835.png?v=1658832428" width="329" height="329" draggable="true" data-pf-type="Image3" class="sc-bDoQz fHJoao">
+                 <p class="sc-kAkozD iOjmJ pf-caret-color-transparent pf-word-wrap-break-word" contenteditable="true" spellcheck="false" draggable="true" data-pf-type="Paragraph3">Valentine Gibbs</p><i class="sc-hwdACo sXHGY pfa pfa-quote-left" draggable="true" data-pf-type="Icon"></i>
+                 <p class="sc-kAkozD iOjmJ pf-caret-color-transparent pf-word-wrap-break-word" contenteditable="true" spellcheck="false" draggable="true" data-pf-type="Paragraph3">I tried your coffee this past summer when my husband and I started going to the Wrightstown Farmers market. I haven't missed a week since for your delicious coffee. I used to buy the very popular coffee and found that yours was better tasting, better kept and made the perfect cup every time!! I even got my other family members hooked on it as well!! Thank you for the best cup of coffee!</p>
+                </div>
+               </div>
+              </div>
+             </div>
+            </div>
+            <div class="pf-slide is-visible">
+             <div class="sc-cnVGvb kJQLLm" draggable="true" data-pf-type="SlideshowSlide">
+              <div class="sc-jXbVAB kNtuek pf-r pf-r-eh" draggable="true" data-pf-type="Row" style="--s-xs: 15px;">
+               <div class="pf-c" style="--c-xs: 12; --c-sm: 12; --c-md: 12; --c-lg: 12;">
+                <div draggable="true" data-pf-type="Column" class="sc-dExXmK fNpoDq">
+                 <img src="https://cdn.shopify.com/s/files/1/2170/1117/t/10/assets/rectangle-16-1658832430841.png?v=1658832433" width="329" height="329" draggable="true" data-pf-type="Image3" class="sc-bDoQz fHJoao">
+                 <p class="sc-kAkozD iOjmJ pf-caret-color-transparent pf-word-wrap-break-word" contenteditable="true" spellcheck="false" draggable="true" data-pf-type="Paragraph3">Valentine Gibbs</p><i class="sc-hwdACo sXHGY pfa pfa-quote-left" draggable="true" data-pf-type="Icon"></i>
+                 <p class="sc-kAkozD iOjmJ pf-caret-color-transparent pf-word-wrap-break-word" contenteditable="true" spellcheck="false" draggable="true" data-pf-type="Paragraph3">I tried your coffee this past summer when my husband and I started going to the Wrightstown Farmers market. I haven't missed a week since for your delicious coffee. I used to buy the very popular coffee and found that yours was better tasting, better kept and made the perfect cup every time!! I even got my other family members hooked on it as well!! Thank you for the best cup of coffee!</p>
+                </div>
+               </div>
+              </div>
+             </div>
+            </div>
+            <div class="pf-slide">
+             <div class="sc-cnVGvb kJQLLm" draggable="true" data-pf-type="SlideshowSlide">
+              <div class="sc-jXbVAB kNtuek pf-r pf-r-eh" draggable="true" data-pf-type="Row" style="--s-xs: 15px;">
+               <div class="pf-c" style="--c-xs: 12; --c-sm: 12; --c-md: 12; --c-lg: 12;">
+                <div draggable="true" data-pf-type="Column" class="sc-dExXmK fNpoDq">
+                 <img src="https://cdn.shopify.com/s/files/1/2170/1117/t/10/assets/rectangle-15-1658832430847.png?v=1658832439" width="329" height="329" draggable="true" data-pf-type="Image3" class="sc-bDoQz fHJoao">
+                 <p class="sc-kAkozD iOjmJ pf-caret-color-transparent pf-word-wrap-break-word" contenteditable="true" spellcheck="false" draggable="true" data-pf-type="Paragraph3">Valentine Gibbs</p><i class="sc-hwdACo sXHGY pfa pfa-quote-left" draggable="true" data-pf-type="Icon"></i>
+                 <p class="sc-kAkozD iOjmJ pf-caret-color-transparent pf-word-wrap-break-word" contenteditable="true" spellcheck="false" draggable="true" data-pf-type="Paragraph3">I tried your coffee this past summer when my husband and I started going to the Wrightstown Farmers market. I haven't missed a week since for your delicious coffee. I used to buy the very popular coffee and found that yours was better tasting, better kept and made the perfect cup every time!! I even got my other family members hooked on it as well!! Thank you for the best cup of coffee!</p>
+                </div>
+               </div>
+              </div>
+             </div>
+            </div>
+            <div class="pf-slide">
+             <div class="sc-cnVGvb kJQLLm" draggable="true" data-pf-type="SlideshowSlide">
+              <div class="sc-jXbVAB kNtuek pf-r pf-r-eh" draggable="true" data-pf-type="Row" style="--s-xs: 15px;">
+               <div class="pf-c" style="--c-xs: 12; --c-sm: 12; --c-md: 12; --c-lg: 12;">
+                <div draggable="true" data-pf-type="Column" class="sc-dExXmK fNpoDq">
+                 <img src="https://cdn.shopify.com/s/files/1/2170/1117/t/10/assets/rectangle-16-1658832430841.png?v=1658832433" width="329" height="329" draggable="true" data-pf-type="Image3" class="sc-bDoQz fHJoao">
+                 <p class="sc-kAkozD iOjmJ pf-caret-color-transparent pf-word-wrap-break-word" contenteditable="true" spellcheck="false" draggable="true" data-pf-type="Paragraph3">Lisa Stone</p><i class="sc-hwdACo sXHGY pfa pfa-quote-left" draggable="true" data-pf-type="Icon"></i>
+                 <p class="sc-kAkozD iOjmJ pf-caret-color-transparent pf-word-wrap-break-word" contenteditable="true" spellcheck="false" draggable="true" data-pf-type="Paragraph3">You have not tried fresh coffee until you've tried this one. We saw this coffee roasted meticulously and shipped as soon as it came out of the roaster. Just try one bag and you will be hooked. We are true coffee "snobs" and this is the only coffee that suits our tastes. Try it in a french press for an unbelievable fresh coffee experience! Thank you so much! A Perfect cup every time!</p>
+                </div>
+               </div>
+              </div>
+             </div>
+            </div>
+            <div class="pf-slide">
+             <div class="sc-cnVGvb kJQLLm" draggable="true" data-pf-type="SlideshowSlide">
+              <div class="sc-jXbVAB kNtuek pf-r pf-r-eh" draggable="true" data-pf-type="Row" style="--s-xs: 15px;">
+               <div class="pf-c" style="--c-xs: 12; --c-sm: 12; --c-md: 12; --c-lg: 12;">
+                <div draggable="true" data-pf-type="Column" class="sc-dExXmK fNpoDq">
+                 <img src="https://cdn.shopify.com/s/files/1/2170/1117/t/10/assets/rectangle-17-1658832430835.png?v=1658832428" width="329" height="329" draggable="true" data-pf-type="Image3" class="sc-bDoQz fHJoao">
+                 <p class="sc-kAkozD iOjmJ pf-caret-color-transparent pf-word-wrap-break-word" contenteditable="true" spellcheck="false" draggable="true" data-pf-type="Paragraph3">Cliff Lindsey</p><i class="sc-hwdACo sXHGY pfa pfa-quote-left" draggable="true" data-pf-type="Icon"></i>
+                 <p class="sc-kAkozD iOjmJ pf-caret-color-transparent pf-word-wrap-break-word" contenteditable="true" spellcheck="false" draggable="true" data-pf-type="Paragraph3">My wife stumbled across The Coffee Scoop at a tasting demo held at Frey's Better Foods in Hellertown, PA. She bought a bag of coffee, and we've been hooked ever since. Not only are these the best coffees we've ever tasted, they're also organic and fair trade. We've since moved to Colorado, so now we order online. The shipments always arrive sooner than we expect. 110% happy customers.</p>
+                </div>
+               </div>
+              </div>
+             </div>
+            </div><button type="button" aria-label="Previous" class="pf-slider-prev none hide" style="visibility: hidden;"></button><button type="button" aria-label="Next" class="pf-slider-next none hide" style="visibility: hidden;"></button>
+            <div class="pf-slider-nav pagination-style-3">
+             <button type="button" class="active"></button><button type="button" class=""></button>
+            </div>
+           </div>
+          </div>
+         </div>
+        </div>
+       </div>
+      </div>
+     </div>
+     <div draggable="true" data-pf-type="Section" class="sc-kRRxPL efmMUe" style="position: relative; top: initial; z-index: initial;">
+      <div class="sc-gvZzpm eFakNN" style="--cw: 1170px;">
+       <div class="sc-jXbVAB kNtuek pf-r pf-r-eh" draggable="true" data-pf-type="Row" style="--s-xs: 15px; --s-sm: 10px; --s-md: 15px;">
+        <div class="pf-c" style="--c-xs: 12; --c-sm: 6; --c-md: 6; --c-lg: 6;">
+         <div draggable="true" data-pf-type="Column" class="sc-dExXmK fNpoDq">
+          <div draggable="true" data-pf-type="Divider2" class="sc-hknPuZ oPxhE"></div>
+          <p class="sc-kAkozD iOjmJ pf-caret-color-transparent pf-word-wrap-break-word" contenteditable="true" spellcheck="false" draggable="true" data-pf-type="Paragraph3">Cannot Find Your Answer?</p>
+          <h3 contenteditable="true" spellcheck="false" draggable="true" data-pf-type="Heading2" class="sc-cmaqZA fXrIOS pf-caret-color-transparent pf-word-wrap-break-word">SEND US A MESSAGE</h3>
+         </div>
+        </div>
+        <div class="pf-c" style="--c-xs: 12; --c-sm: 6; --c-md: 6; --c-lg: 6;">
+         <div draggable="true" data-pf-type="Column" class="sc-dExXmK fNpoDq">
+          <div data-form-editor="contact" draggable="true" data-pf-type="Form2" class="sc-eKtwIF eYsa-dn">
+           <form class="">
+            <div class="sc-jXbVAB kNtuek pf-r pf-r-eh" draggable="true" data-pf-type="Row" style="--s-xs: 15px;">
+             <div class="pf-c" style="--c-xs: 12; --c-sm: 12; --c-md: 12; --c-lg: 12;">
+              <div draggable="true" data-pf-type="Column" class="sc-dExXmK fNpoDq">
+               <div draggable="true" data-pf-type="Form2.Field" class="sc-cPrQrU gcCtem">
+                <label for="field-a31fe788" data-pf-type="FormLabel" class="sc-biziTF iAIIXH">Name</label><input name="contact[Name]" type="text" placeholder="This is your placeholder text" readonly data-pf-type="FormInput" class="sc-fzQBUN hwTjMJ pf-field-1" value="">
+               </div>
+               <div draggable="true" data-pf-type="Form2.Field" class="sc-cPrQrU gcCtem">
+                <label for="field-da9db775" data-pf-type="FormLabel" class="sc-biziTF iAIIXH">Email<sup class="">*</sup></label><input name="contact[email]" type="email" placeholder="This is your placeholder text" required readonly data-pf-type="FormInput" class="sc-fzQBUN hwTjMJ pf-field-1" value="">
+               </div>
+               <div draggable="true" data-pf-type="Form2.Field" class="sc-cPrQrU gcCtem">
+                <label for="field-818b4a43" data-pf-type="FormLabel" class="sc-biziTF iAIIXH">Message<sup class="">*</sup></label><textarea name="contact[Message]" required readonly placeholder="This is your placeholder text" rows="6" data-pf-type="FormInput" class="sc-eFRbCa itJnHk pf-field-1"></textarea>
+               </div><button type="submit" contenteditable="true" spellcheck="false" draggable="true" data-pf-type="Form2.Button2" class="sc-dgdakI dbwlum pf-caret-color-transparent pf-word-wrap-break-word">Send now</button>
+              </div>
+             </div>
+            </div>
+           </form>
+          </div>
+         </div>
+        </div>
+       </div>
+      </div>
+     </div>
+     <div draggable="true" data-pf-type="Section" class="sc-kRRxPL efmMUe" style="position: relative; top: initial; z-index: initial;">
+      <div class="sc-gvZzpm eFakNN" style="--cw: 1170px;">
+       <div class="sc-jXbVAB kNtuek pf-r pf-r-eh" draggable="true" data-pf-type="Row" style="--s-xs: 0px;">
+        <div class="pf-c" style="--c-xs: 12; --c-sm: 12; --c-md: 12; --c-lg: 12;">
+         <div draggable="true" data-pf-type="Column" class="sc-dExXmK fNpoDq">
+          <div draggable="true" data-pf-type="ContentList2" class="sc-jMalIJ sc-iMTngq bcwUIO ljyKeN" style="--s-xs: 0px; --llo-xs: 0; --llo-sm: 0; --llo-md: 0; --llo-lg: 0;">
+           <div class="pf-slider pf-c-ct pf-r-eh" data-slider="{'navStyle':'none','maxHeight':true,'listLayout':{'all':0,'laptop':0,'tablet':0,'mobile':0},'slidesToShow':{'all':3,'laptop':3,'tablet':3,'mobile':1},'slidesToScroll':{'all':3,'laptop':3,'tablet':3,'mobile':1},'paginationStyle':'none','displayPartialItems':{'all':false,'laptop':false,'tablet':false,'mobile':false},'spacing':{'all':'0px','laptop':'0px','tablet':'0px','mobile':'0px'}}" style="--ss-xs: 1; --ss-sm: 3; --ss-md: 3; --ss-lg: 3; height: 100%;">
+            <div class="pf-slide">
+             <div data-pf-type="ContentListItem" class="sc-gkRfko eMjTSq">
+              <div class="sc-jXbVAB kNtuek rid-29 pf-r pf-r-eh" draggable="true" data-pf-type="Row" style="--s-xs: 0px;">
+               <div class="pf-c" style="--c-xs: 12; --c-sm: 12; --c-md: 12; --c-lg: 12;">
+                <div draggable="true" data-pf-type="Column" class="sc-dExXmK fNpoDq rid-31">
+                 <h3 contenteditable="true" spellcheck="false" draggable="true" data-pf-type="Heading2" class="sc-cmaqZA fXrIOS rid-35 pf-caret-color-transparent pf-word-wrap-break-word"><i class="sc-hwdACo sXHGY rid-36 pfa pfa-phone" draggable="true" data-pf-type="Icon"></i>Mobile phone:</h3>
+                 <p class="sc-kAkozD iOjmJ rid-39 pf-caret-color-transparent pf-word-wrap-break-word" contenteditable="true" spellcheck="false" draggable="true" data-pf-type="Paragraph3">1-2345-6789</p>
+                </div>
+               </div>
+              </div>
+             </div>
+            </div>
+            <div class="pf-slide">
+             <div data-pf-type="ContentListItem" class="sc-gkRfko eMjTSq rid-28">
+              <div class="sc-jXbVAB kNtuek rid-29 pf-r pf-r-eh" draggable="true" data-pf-type="Row" style="--s-xs: 0px;">
+               <div class="pf-c" style="--c-xs: 12; --c-sm: 12; --c-md: 12; --c-lg: 12;">
+                <div draggable="true" data-pf-type="Column" class="sc-dExXmK fNpoDq rid-31">
+                 <h3 contenteditable="true" spellcheck="false" draggable="true" data-pf-type="Heading2" class="sc-cmaqZA fXrIOS rid-35 pf-caret-color-transparent pf-word-wrap-break-word"><i class="sc-hwdACo sXHGY rid-36 pfa pfa-envelope" draggable="true" data-pf-type="Icon"></i>Email address:</h3>
+                 <p class="sc-kAkozD iOjmJ rid-39 pf-caret-color-transparent pf-word-wrap-break-word" contenteditable="true" spellcheck="false" draggable="true" data-pf-type="Paragraph3">happytohelp@pagefly.io</p>
+                </div>
+               </div>
+              </div>
+             </div>
+            </div>
+            <div class="pf-slide">
+             <div data-pf-type="ContentListItem" class="sc-gkRfko eMjTSq">
+              <div class="sc-jXbVAB kNtuek rid-29 pf-r pf-r-eh" draggable="true" data-pf-type="Row" style="--s-xs: 0px;">
+               <div class="pf-c" style="--c-xs: 12; --c-sm: 12; --c-md: 12; --c-lg: 12;">
+                <div draggable="true" data-pf-type="Column" class="sc-dExXmK fNpoDq rid-31">
+                 <h3 contenteditable="true" spellcheck="false" draggable="true" data-pf-type="Heading2" class="sc-cmaqZA fXrIOS rid-35 pf-caret-color-transparent pf-word-wrap-break-word"><i class="sc-hwdACo sXHGY rid-36 pfa pfa-house" draggable="true" data-pf-type="Icon"></i>Store address:</h3>
+                 <p class="sc-kAkozD iOjmJ rid-39 pf-caret-color-transparent pf-word-wrap-break-word" contenteditable="true" spellcheck="false" draggable="true" data-pf-type="Paragraph3">523 Sunset Way, California</p>
+                </div>
+               </div>
+              </div>
+             </div>
+            </div><button type="button" aria-label="Previous" class="pf-slider-prev none hide" style="visibility: hidden;"></button><button type="button" aria-label="Next" class="pf-slider-next none hide" style="visibility: hidden;"></button>
+           </div>
+          </div>
+         </div>
+        </div>
+       </div>
+      </div>
+     </div>
+    </div>
+   </div>
+  </div>
+ </body>
+</html>

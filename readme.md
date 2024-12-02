@@ -9,6 +9,7 @@ This is simple guide to run this project. Hope you enjoy :)
     - InteliJ and JDK (ver 21)
     - Allure
 - Update the configs
+    - Copy the `config.properties.example` file and rename it to `config.properties`.
     - In config.properties
         - Update USER_DATA_DIR value
         - Name your Profile if you like or keep it default

@@ -63,7 +63,9 @@ public abstract class BaseListingScreen extends BaseTestV2 {
     public abstract void verifyPageLoaded();
 
     public void filterBy(String type, String option) {
-        clickElement(searchAndFilterButton);
+        if (isElementVisible(searchAndFilterButton, 3)) {
+            clickElement(searchAndFilterButton);
+        }
         clickElement(addFilterButton);
         By statusOption = By.xpath("//div[@class='Polaris-Popover']//button[@role='menuitem'][.//*[text()='" + type + "']]");
         clickElement(statusOption);
@@ -77,6 +79,11 @@ public abstract class BaseListingScreen extends BaseTestV2 {
         filterBy("Status", status.toString());
     }
 
+    @Step("Filter page by type {0}")
+    public void filterByType(String type) {
+        filterBy("Type", type);
+    }
+
     @Step("Select all rows in the active table page")
     public void selectAll() {
         clickElement(selectAllPagesCheckbox);
@@ -86,6 +93,12 @@ public abstract class BaseListingScreen extends BaseTestV2 {
         By row = getRowByIndex(index);
         String id = getAttributeElement(row, "id");
         return id;
+    }
+
+    public String getPageTitleInPageListing(Integer index) {
+        By row = getRowByIndex(index);
+        String title = getTextElement(new ByChained(row, By.xpath(".//h6")));
+        return title;
     }
 
     public int getNumberOfRows() {

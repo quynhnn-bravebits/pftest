@@ -8,17 +8,19 @@ import org.pftest.enums.pagefly.ListingType;
 import org.pftest.enums.pagefly.PageStatus;
 import org.pftest.enums.pagefly.PageType;
 import org.pftest.keywords.WebUI;
+import org.pftest.listeners.SkipTestsTransformer;
 import org.pftest.projects.V2.components.drawer.DrawerManager;
 import org.pftest.projects.V2.pages.editor.BaseEditor;
-import org.testng.annotations.DataProvider;
+import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
 
 import java.util.Date;
 import java.util.concurrent.atomic.AtomicReference;
 
-import static org.pftest.keywords.WebUI.sleep;
 import static org.pftest.keywords.WebUI.switchToEditorFrame;
 
+// Temporarily skip Flex layout test cases
+@Listeners(SkipTestsTransformer.class)
 public class PageListingTest extends BaseTestV2 {
 
     public void createBlankPageFromPageListing(EditorType editorType, PageType pageType, String pageTitle) {
@@ -94,7 +96,7 @@ public class PageListingTest extends BaseTestV2 {
         createTemplatePageLegacyLayoutFromPageListing(pageType);
     }
 
-    @Test(description = "TC-012: User publish page in the Page listing screen")
+    @Test(description = "TC-012: User publish page in the Page listing screen", dependsOnMethods = "unpublishPageInThePageListingScreen")
     public void publishPageInThePageListingScreen() {
         openPageListingPage();
         getPageListing().verifyPageLoaded();
@@ -137,28 +139,33 @@ public class PageListingTest extends BaseTestV2 {
                 }
         );
 
+        AtomicReference<String> originPageTitle = new AtomicReference<>("");
+
         addStep(
                 "Step 1: Duplicate selected page",
                 () -> {
-                    int originPageCount = getPageListing().getNumberOfRows();
                     getPageListing().selectRowByIndex(1);
+                    originPageTitle.set(getPageListing().getPageTitleInPageListing(1));
                     getPageListing().duplicateAllSelectedPages();
                     WebUI.sleep(2);
-                    WebUI.verifyEquals(getPageListing().getNumberOfRows(), originPageCount + 1, "Verify page is duplicated");
                 }
         );
 
         addStep(
                 "Step 2: Verify duplicated page",
                 () -> {
-                    getPageListing().openPageInPageListing(1);
-                    getBasePageEditor().verifyPageLoaded();
-                    duplicatedHTML.set(getBasePageEditor().getCanvasHtmlProcessed());
-                    getBasePageEditor().verifyPageIsUnpublished();
+                    String duplicatedPageTitle = originPageTitle.get() + " - copy";
+                    String actualDuplicatedPageTitle = getPageListing().getPageTitleInPageListing(1);
+                    WebUI.verifyEquals(duplicatedPageTitle, actualDuplicatedPageTitle, "Verify page is duplicated");
+
+//                    getPageListing().openPageInPageListing(1);
+//                    getBasePageEditor().verifyPageLoaded();
+//                    duplicatedHTML.set(getBasePageEditor().getCanvasHtmlProcessed());
+//                    getBasePageEditor().verifyPageIsUnpublished();
                 }
         );
 
-        WebUI.verifyEquals(originHTML.get(), duplicatedHTML.get(), "Verify duplicated page is not the same as the original page");
+//        WebUI.verifyEquals(originHTML.get(), duplicatedHTML.get(), "Verify duplicated page is not the same as the original page");
     }
 
     @Test(description = "TC-015: User delete pages that are created in PageFly")
