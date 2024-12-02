@@ -1,0 +1,6 @@
+==> The Text is: Enable autosave?
+Enabling autosave allows you to automatically save any changes made to the current page. Learn more
+Autosaving will not create new versions in version history. To create one, you need to manually save your progress in the editor.
+Don't remind me again
+Cancel
+Enable

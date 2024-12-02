@@ -1,0 +1,1 @@
+Clicked on the element By.xpath: //tbody//tr[@id='cfcbab9c-48c4-4072-b432-c6eadbdda06b']

@@ -1,0 +1,1 @@
+Clicked on the element By.id: media-manager--select-image--activator

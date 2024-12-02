@@ -1,0 +1,1 @@
+Clear and Fill 40 on By.id: inspector--font-size--input

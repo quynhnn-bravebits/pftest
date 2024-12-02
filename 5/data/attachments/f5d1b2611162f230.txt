@@ -1,0 +1,1 @@
+Clicked on the element By.chained({By.id: image-ratio,By.xpath: //button[@role='CUSTOM']})
