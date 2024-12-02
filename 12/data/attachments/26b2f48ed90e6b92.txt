@@ -1,0 +1,1 @@
+Get text of element By.chained({By.xpath: //tbody//tr[1],By.xpath: .//h6})
