@@ -1,0 +1,1 @@
+Clicked on the element By.xpath: //div[starts-with(@data-portal-id, 'overlay-')]//div[contains(@class, 'Header')]//button[./span[text()='Publish']]
